@@ -14,7 +14,7 @@ static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);
 pub struct Error(pub(crate) String);
 
 impl Error {
-    pub fn from_sdl() -> Self {
+    pub(crate) fn from_sdl() -> Self {
         unsafe {
             let err = sdl3_sys::error::SDL_GetError();
             Error(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
@@ -27,21 +27,24 @@ pub struct Sdl {
     inner: Rc<RefCell<SdlInner>>,
 }
 
+#[derive(Clone)]
+pub struct VideoSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
+
+#[derive(Clone)]
+pub struct AudioSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
+
 impl Sdl {
     /// Safety: Must be called from the main thread.
     pub unsafe fn init() -> Result<Self, Error> {
         let inner = SdlInner::init()?;
         Ok(Self {
-            inner: Rc::new(RefCell::new(inner))
+            inner: Rc::new(RefCell::new(inner)),
         })
     }
 
     pub fn video(&self) -> Result<VideoSubsystem, Error> {
         match self.inner.borrow().video.0.upgrade() {
-            Some(video) => {
-                // subsystem is already initialized
-                return Ok(VideoSubsystem(Rc::clone(&video)));
-            }
+            Some(video) => return Ok(VideoSubsystem(Rc::clone(&video))),
             _ => {}
         }
         let subsystem = Rc::new(Subsystem::init(&self.inner)?);
@@ -51,10 +54,7 @@ impl Sdl {
 
     pub fn audio(&self) -> Result<AudioSubsystem, Error> {
         match self.inner.borrow().audio.0.upgrade() {
-            Some(audio) => {
-                // subsystem is already initialized
-                return Ok(AudioSubsystem(Rc::clone(&audio)));
-            }
+            Some(audio) => return Ok(AudioSubsystem(Rc::clone(&audio))),
             _ => {}
         }
         let subsystem = Rc::new(Subsystem::init(&self.inner)?);
@@ -63,16 +63,16 @@ impl Sdl {
     }
 }
 
-pub struct VideoSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
-
-pub struct AudioSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
-
 // This struct keeps track of which subsystems are currently alive via Weak refcount.
 // Initializing a subsystem more than once will just return a new referece to the subsystem.
 struct SdlInner {
     video: VideoSubsystemWeak,
     audio: AudioSubsystemWeak,
 }
+
+struct VideoSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
+
+struct AudioSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
 
 impl SdlInner {
     unsafe fn init() -> Result<Self, Error> {
@@ -100,10 +100,6 @@ impl Drop for SdlInner {
         IS_SDL_INITIALIZED.store(false, Ordering::Release);
     }
 }
-
-struct VideoSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
-
-struct AudioSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
 
 #[derive(Clone)]
 struct Subsystem<const FLAG: u32 = 0> {
