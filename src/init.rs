@@ -106,10 +106,12 @@ struct Subsystem<const INIT_FLAG: u32>(Arc<SdlDrop>, PhantomData<*const ()>);
 
 impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
     fn init(sdl: &Arc<SdlDrop>) -> Result<Self, Error> {
-        let was_init = unsafe { sys::init::SDL_WasInit(INIT_FLAG) };
-        if was_init != 0 {
-            return Err(Error(String::from("Subsystem is already initialized.")));
-        }
+        // Subsystems are refcounted internally by SDL.
+        // If you create two instances of the same subsystem with this method, SDL will increase
+        // the refcount.
+        // Once Drop gets called (calling SDL_QuitSubSystem) the refcount is decremented.
+        // So it doesn't matter if a system has already been initialized by Sdl.
+        // This will just become a separate reference to that same subsystem.
         let result = unsafe { sys::init::SDL_InitSubSystem(INIT_FLAG) };
         if !result {
             return Err(Error::from_sdl());
@@ -120,12 +122,9 @@ impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
 
 impl<const INIT_FLAG: u32> Drop for Subsystem<INIT_FLAG> {
     fn drop(&mut self) {
-        unsafe {
-            let was_init = sys::init::SDL_WasInit(INIT_FLAG);
-            if was_init != 0 {
-                unsafe { sys::init::SDL_QuitSubSystem(INIT_FLAG) };
-            }
-        }
+        // This call matches the SDL_InitSubSystem from this instance.
+        // SDL refcounts subsystems internally so this should be safe.
+        unsafe { sys::init::SDL_QuitSubSystem(INIT_FLAG) };
     }
 }
 
