@@ -18,29 +18,21 @@ const UNINITIALIZED: bool = false;
 #[derive(Clone)]
 pub struct Sdl(Arc<SdlDrop>, PhantomData<*const ()>);
 
-#[derive(Clone)]
-pub struct AudioSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_AUDIO }>>);
+pub struct AudioSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_AUDIO }>>);
 
-#[derive(Clone)]
-pub struct CameraSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_CAMERA }>>);
+pub struct CameraSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_CAMERA }>>);
 
-#[derive(Clone)]
-pub struct EventsSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_EVENTS }>>);
+pub struct EventsSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_EVENTS }>>);
 
-#[derive(Clone)]
-pub struct GamepadSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_GAMEPAD }>>);
+pub struct GamepadSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_GAMEPAD }>>);
 
-#[derive(Clone)]
-pub struct HapticSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_HAPTIC }>>);
+pub struct HapticSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_HAPTIC }>>);
 
-#[derive(Clone)]
-pub struct JoystickSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_JOYSTICK }>>);
+pub struct JoystickSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_JOYSTICK }>>);
 
-#[derive(Clone)]
-pub struct VideoSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_VIDEO }>>);
+pub struct VideoSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_VIDEO }>>);
 
-#[derive(Clone)]
-pub struct SensorSubsystem(Arc<Subsystem<{ sys::init::SDL_INIT_SENSOR }>>);
+pub struct SensorSubsystem(pub(crate) Arc<Subsystem<{ sys::init::SDL_INIT_SENSOR }>>);
 
 impl Sdl {
     /// SAFETY: This must be called from the main thread.
@@ -102,7 +94,7 @@ impl Sdl {
     }
 }
 
-struct Subsystem<const INIT_FLAG: u32>(Arc<SdlDrop>, PhantomData<*const ()>);
+pub(crate) struct Subsystem<const INIT_FLAG: u32>(Arc<SdlDrop>, PhantomData<*const ()>);
 
 impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
     fn init(sdl: &Arc<SdlDrop>) -> Result<Self, Error> {

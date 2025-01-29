@@ -1,15 +1,17 @@
 #![no_std]
 
-use core::ffi::CStr;
-use alloc::{borrow::ToOwned, string::String};
-
 extern crate alloc;
 
 pub mod init;
-pub use sdl3_sys as sys;
+pub mod video;
 
+pub use sdl3_sys as sys;
+use alloc::{borrow::ToOwned, string::String};
+use core::ffi::CStr;
+
+#[allow(unused)]
 #[derive(Clone, Debug)]
-pub struct Error(pub(crate) String);
+pub struct Error(String);
 
 impl Error {
     pub(crate) fn from_sdl() -> Self {
@@ -18,7 +20,4 @@ impl Error {
             Error(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
         }
     }
-}
-
-pub struct Sdl {
 }
