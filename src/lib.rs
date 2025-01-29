@@ -1,12 +1,12 @@
 #![no_std]
 
 use core::ffi::CStr;
-
 use alloc::{borrow::ToOwned, string::String};
 
 extern crate alloc;
 
 pub mod init;
+pub use sdl3_sys as sys;
 
 #[derive(Clone, Debug)]
 pub struct Error(pub(crate) String);
