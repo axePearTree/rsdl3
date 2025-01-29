@@ -1,11 +1,13 @@
 #![allow(unused)]
 
-use core::ffi::c_int;
+use core::ffi::{c_int, c_void, CStr};
+use core::marker::PhantomData;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign};
 
 use alloc::ffi::CString;
 use alloc::string::String;
 use alloc::sync::Arc;
+use alloc::vec::Vec;
 
 use crate::init::VideoSubsystem;
 use crate::{sys, Error};
@@ -25,25 +27,46 @@ impl VideoSubsystem {
             c_int::try_from(width).map_err(|_| Error(String::from("Window width is too big.")))?;
         let height = c_int::try_from(height)
             .map_err(|_| Error(String::from("Window height is too big.")))?;
-        // SAFETY: the existence of &self guarantees that SDL has been initialized.
-        // The string pointer refers to valid memory (c_string/c_str).
         let ptr = unsafe { sys::video::SDL_CreateWindow(c_str.as_ptr(), width, height, flags.0) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
-        Ok(Window(Arc::new(WindowInner {
+        Ok(Window {
             video: VideoSubsystem(Arc::clone(&self.0)),
             ptr,
-        })))
+        })
+    }
+
+    pub fn displays(&self) -> Result<Vec<u32>, Error> {
+        let mut num_displays = 0;
+        unsafe {
+            let displays = sys::video::SDL_GetDisplays(&raw mut num_displays);
+            if displays.is_null() {
+                return Err(Error::from_sdl());
+            }
+            let vec = core::slice::from_raw_parts(displays, num_displays as usize).to_vec();
+            sys::stdinc::SDL_free(displays as *mut c_void);
+            Ok(vec)
+        }
     }
 }
 
-pub struct Window(pub(crate) Arc<WindowInner>);
+pub struct Window {
+    video: VideoSubsystem,
+    ptr: *mut sys::video::SDL_Window,
+}
 
 impl Window {
+    pub fn id(&self) -> Result<u32, Error> {
+        let id = unsafe { sys::video::SDL_GetWindowID(self.ptr) };
+        if id == 0 {
+            return Err(Error::from_sdl());
+        }
+        return Ok(id);
+    }
+
     pub fn show(&mut self) -> Result<(), Error> {
-        // SAFETY: The window pointer is valid throughout the lifetime of this struct.
-        let result = unsafe { sys::video::SDL_ShowWindow(self.0.ptr) };
+        let result = unsafe { sys::video::SDL_ShowWindow(self.ptr) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -51,8 +74,139 @@ impl Window {
     }
 
     pub fn hide(&mut self) -> Result<(), Error> {
-        // SAFETY: The window pointer is valid throughout the lifetime of this struct.
-        let result = unsafe { sys::video::SDL_HideWindow(self.0.ptr) };
+        let result = unsafe { sys::video::SDL_HideWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn flags(&self) -> WindowFlags {
+        let result = unsafe { sys::video::SDL_GetWindowFlags(self.ptr) };
+        WindowFlags(result)
+    }
+
+    pub fn set_fullscreen(&mut self, fullscreen: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowFullscreen(self.ptr, fullscreen) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn opacity(&self) -> Result<f32, Error> {
+        let result = unsafe { sys::video::SDL_GetWindowOpacity(self.ptr) };
+        if result == -1.0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(result)
+    }
+
+    pub fn set_opacity(&mut self, opacity: f32) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowOpacity(self.ptr, opacity) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn position(&self) -> Result<(i32, i32), Error> {
+        let mut x = 0;
+        let mut y = 0;
+        let result = unsafe { sys::video::SDL_GetWindowPosition(self.ptr, &raw mut x, &raw mut y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        return Ok((x, y));
+    }
+
+    pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowPosition(self.ptr, x, y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn size(&self) -> Result<(i32, i32), Error> {
+        let mut x = 0;
+        let mut y = 0;
+        let result = unsafe { sys::video::SDL_GetWindowSize(self.ptr, &raw mut x, &raw mut y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        return Ok((x, y));
+    }
+
+    pub fn set_size(&mut self, x: i32, y: i32) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowSize(self.ptr, x, y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn title(&self) -> Result<String, Error> {
+        let c_str = unsafe {
+            let ptr = sys::video::SDL_GetWindowTitle(self.ptr);
+            CStr::from_ptr(ptr)
+        };
+        Ok(c_str.to_string_lossy().into_owned())
+    }
+
+    pub fn set_title(&self, title: impl Into<String>) -> Result<(), Error> {
+        let s: String = title.into();
+        let c_string = CString::new(s).map_err(|_| Error("Invalid string title.".into()))?;
+        let c_str = c_string.as_c_str();
+        let result = unsafe { sys::video::SDL_SetWindowTitle(self.ptr, c_str.as_ptr()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_resizable(&mut self, resizable: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowResizable(self.ptr, resizable) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn flash(&mut self, operation: WindowFlashOperation) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_FlashWindow(self.ptr, operation.0) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        return Ok(());
+    }
+
+    pub fn maximize(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_MaximizeWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn minimize(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_MinimizeWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn raise(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_RaiseWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn restore(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_RestoreWindow(self.ptr) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -60,16 +214,8 @@ impl Window {
     }
 }
 
-pub struct WindowInner {
-    video: VideoSubsystem,
-    ptr: *mut sys::video::SDL_Window,
-}
-
-impl Drop for WindowInner {
+impl Drop for Window {
     fn drop(&mut self) {
-        // SAFETY: by keeping a live reference to the VideoSubsystem we guarantee that both SDL and
-        // the Video subsystem are valid. The window pointer is never cloned, copied or passed around.
-        // Therefore destroying this window using this pointer is a safe operation.
         unsafe { sys::video::SDL_DestroyWindow(self.ptr) };
     }
 }
@@ -90,9 +236,11 @@ impl WindowFlags {
     pub const MOUSE_GRABBED: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MOUSE_GRABBED);
     pub const INPUT_FOCUS: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_INPUT_FOCUS);
     pub const MOUSE_FOCUS: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MOUSE_FOCUS);
+
     pub const EXTERNAL: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_EXTERNAL);
     pub const MODAL: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MODAL);
-    pub const HIGH_PIXEL_DENSITY: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_HIGH_PIXEL_DENSITY);
+    pub const HIGH_PIXEL_DENSITY: WindowFlags =
+        WindowFlags(sys::video::SDL_WINDOW_HIGH_PIXEL_DENSITY);
     pub const MOUSE_CAPTURE: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MOUSE_CAPTURE);
     pub const ALWAYS_ON_TOP: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_ALWAYS_ON_TOP);
     pub const UTILITY: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_UTILITY);
@@ -153,4 +301,13 @@ impl Default for WindowFlags {
     fn default() -> Self {
         Self(0)
     }
+}
+
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct WindowFlashOperation(sys::video::SDL_FlashOperation);
+
+impl WindowFlashOperation {
+    pub const CANCEL: Self = Self(sys::video::SDL_FlashOperation::CANCEL);
+    pub const BRIEFLY: Self = Self(sys::video::SDL_FlashOperation::BRIEFLY);
+    pub const UNTIL_FOCUSED: Self = Self(sys::video::SDL_FlashOperation::UNTIL_FOCUSED);
 }
