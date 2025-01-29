@@ -34,21 +34,35 @@ impl VideoSubsystem {
         Ok(Window(Arc::new(WindowInner {
             video: VideoSubsystem(Arc::clone(&self.0)),
             ptr,
-            flags,
         })))
     }
 }
 
-// We're refcounting SDL_Windows because of SDL_Renderers.
-// The window must outlive any SDL_Renderer it creates.
-// The alternative to refcounting would be to encode the window's lifetime into the Renderer.
-// That wouldn't be as good in terms of usability.
 pub struct Window(pub(crate) Arc<WindowInner>);
+
+impl Window {
+    pub fn show(&mut self) -> Result<(), Error> {
+        // SAFETY: The window pointer is valid throughout the lifetime of this struct.
+        let result = unsafe { sys::video::SDL_ShowWindow(self.0.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn hide(&mut self) -> Result<(), Error> {
+        // SAFETY: The window pointer is valid throughout the lifetime of this struct.
+        let result = unsafe { sys::video::SDL_HideWindow(self.0.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+}
 
 pub struct WindowInner {
     video: VideoSubsystem,
     ptr: *mut sys::video::SDL_Window,
-    flags: WindowFlags,
 }
 
 impl Drop for WindowInner {
