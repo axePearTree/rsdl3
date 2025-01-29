@@ -1,130 +1,105 @@
 #![allow(warnings)]
 
+use crate::Error;
 use alloc::borrow::ToOwned;
-use alloc::rc::{Rc, Weak};
 use alloc::string::String;
-use core::cell::RefCell;
+use alloc::sync::{Arc, Weak};
+use core::cell::{Cell, RefCell};
 use core::ffi::CStr;
 use core::marker::PhantomData;
+use core::ptr::NonNull;
 use core::sync::atomic::{AtomicBool, Ordering};
+use sdl3_sys as sys;
 
 static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);
 
-#[derive(Clone, Debug)]
-pub struct Error(pub(crate) String);
+const LOCKED: bool = true;
+const UNLOCKED: bool = false;
 
-impl Error {
-    pub(crate) fn from_sdl() -> Self {
-        unsafe {
-            let err = sdl3_sys::error::SDL_GetError();
-            Error(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
-        }
-    }
-}
-
-/// An entry point for SDL subsystem initialization functions.
 pub struct Sdl {
-    inner: Rc<RefCell<SdlInner>>,
+    drop: Arc<SdlDrop>,
+    video: Arc<AtomicBool>,
+    _marker: PhantomData<*const ()>,
 }
-
-#[derive(Clone)]
-pub struct VideoSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
-
-#[derive(Clone)]
-pub struct AudioSubsystem(Rc<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
 
 impl Sdl {
-    /// Safety: Must be called from the main thread.
+    /// SAFETY: Must be called from the main thread.
     pub unsafe fn init() -> Result<Self, Error> {
-        let inner = SdlInner::init()?;
+        let drop = SdlDrop::new()?;
         Ok(Self {
-            inner: Rc::new(RefCell::new(inner)),
+            drop: Arc::new(drop),
+            video: Arc::new(AtomicBool::new(false)),
+            _marker: PhantomData,
         })
     }
 
     pub fn video(&self) -> Result<VideoSubsystem, Error> {
-        match self.inner.borrow().video.0.upgrade() {
-            Some(video) => return Ok(VideoSubsystem(Rc::clone(&video))),
-            _ => {}
-        }
-        let subsystem = Rc::new(Subsystem::init(&self.inner)?);
-        self.inner.borrow_mut().video = VideoSubsystemWeak(Rc::downgrade(&subsystem));
-        Ok(VideoSubsystem(subsystem))
-    }
-
-    pub fn audio(&self) -> Result<AudioSubsystem, Error> {
-        match self.inner.borrow().audio.0.upgrade() {
-            Some(audio) => return Ok(AudioSubsystem(Rc::clone(&audio))),
-            _ => {}
-        }
-        let subsystem = Rc::new(Subsystem::init(&self.inner)?);
-        self.inner.borrow_mut().audio = AudioSubsystemWeak(Rc::downgrade(&subsystem));
-        Ok(AudioSubsystem(subsystem))
+        Subsystem::init(&self.drop, &self.video).map(VideoSubsystem)
     }
 }
 
-// This struct keeps track of which subsystems are currently alive via Weak refcount.
-// Initializing a subsystem more than once will just return a new referece to the subsystem.
-struct SdlInner {
-    video: VideoSubsystemWeak,
-    audio: AudioSubsystemWeak,
-}
+pub struct VideoSubsystem(Subsystem<{ sys::init::SDL_INIT_VIDEO }>);
 
-struct VideoSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_VIDEO }>>);
+struct SdlDrop;
 
-struct AudioSubsystemWeak(Weak<Subsystem<{ sdl3_sys::init::SDL_INIT_AUDIO }>>);
+impl SdlDrop {
+    /// SAFETY: Must be called from the main thread.
+    unsafe fn new() -> Result<Self, Error> {
+        let cmp = IS_SDL_INITIALIZED.compare_exchange(
+            UNLOCKED,
+            LOCKED,
+            Ordering::Relaxed,
+            Ordering::Relaxed,
+        );
 
-impl SdlInner {
-    unsafe fn init() -> Result<Self, Error> {
-        if IS_SDL_INITIALIZED.load(Ordering::Acquire) {
-            return Err(Error(String::from("SDL is already initialized.")));
+        if cmp.is_err() {
+            return Err(Error(String::from("SDL is already initialized")));
         }
-        IS_SDL_INITIALIZED.store(true, Ordering::Release);
-        let result = sdl3_sys::init::SDL_Init(0);
-        if !result {
+
+        if !sys::init::SDL_Init(0) {
+            IS_SDL_INITIALIZED.store(false, Ordering::Relaxed);
             return Err(Error::from_sdl());
         }
-        Ok(SdlInner {
-            video: VideoSubsystemWeak(Weak::new()),
-            audio: AudioSubsystemWeak(Weak::new()),
-        })
+
+        Ok(Self)
     }
 }
 
-impl Drop for SdlInner {
+impl Drop for SdlDrop {
     fn drop(&mut self) {
-        if !IS_SDL_INITIALIZED.load(Ordering::Acquire) {
-            return;
-        }
-        unsafe { sdl3_sys::init::SDL_Quit() };
-        IS_SDL_INITIALIZED.store(false, Ordering::Release);
+        unsafe { sys::init::SDL_Quit() };
+        IS_SDL_INITIALIZED.store(false, Ordering::Relaxed);
     }
 }
 
-#[derive(Clone)]
-struct Subsystem<const FLAG: u32 = 0> {
-    _sdl: Rc<RefCell<SdlInner>>,
-    _m: PhantomData<&'static mut ()>,
+struct Subsystem<const INIT_FLAG: u32> {
+    flag: Arc<AtomicBool>,
+    drop: Arc<SdlDrop>,
+    _marker: PhantomData<*const ()>,
 }
 
-impl<const FLAG: u32> Subsystem<FLAG> {
-    fn init(sdl: &Rc<RefCell<SdlInner>>) -> Result<Self, Error> {
-        unsafe {
-            let result = sdl3_sys::init::SDL_InitSubSystem(FLAG);
-            if !result {
-                return Err(Error::from_sdl());
-            }
+impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
+    fn init(drop: &Arc<SdlDrop>, flag: &Arc<AtomicBool>) -> Result<Self, Error> {
+        let cmp = flag.compare_exchange(UNLOCKED, LOCKED, Ordering::Relaxed, Ordering::Relaxed);
+        if cmp.is_err() {
+            return Err(Error(String::from("Subsystem is already initialized")));
+        }
+        let ret = unsafe { sys::init::SDL_InitSubSystem(INIT_FLAG) };
+        if !ret {
+            flag.store(false, Ordering::Relaxed);
+            return Err(Error::from_sdl());
         }
         Ok(Self {
-            _sdl: Rc::clone(&sdl),
-            _m: PhantomData,
+            flag: Arc::clone(&flag),
+            drop: Arc::clone(&drop),
+            _marker: PhantomData,
         })
     }
 }
 
-impl<const FLAG: u32> Drop for Subsystem<FLAG> {
+impl<const INIT_FLAG: u32> Drop for Subsystem<INIT_FLAG> {
     fn drop(&mut self) {
-        // If a subsystem is alive then SdlInner is alive.
-        unsafe { sdl3_sys::init::SDL_QuitSubSystem(FLAG) }
+        unsafe { sys::init::SDL_QuitSubSystem(INIT_FLAG) };
+        self.flag.store(false, Ordering::Relaxed);
     }
 }
