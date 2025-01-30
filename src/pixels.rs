@@ -49,15 +49,23 @@ impl Color {
         self.0.a = a;
     }
 
-    pub fn raw(&self) -> sys::pixels::SDL_Color {
-        self.0
+        pub fn to_ll(&self) -> sys::pixels::SDL_Color {
+            self.0
+        }
     }
-}
 
-pub struct PixelFormat(sys::pixels::SDL_PixelFormat);
+    #[repr(transparent)]
+    #[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct PixelFormat(sys::pixels::SDL_PixelFormat);
 
-impl PixelFormat {
-    pub fn raw(&self) -> sys::pixels::SDL_PixelFormat {
+    impl PixelFormat {
+        #[inline]
+        pub fn from_ll(value: sys::pixels::SDL_PixelFormat) -> Self {
+            Self(value)
+        }
+
+        #[inline]
+        pub fn to_ll(&self) -> sys::pixels::SDL_PixelFormat {
         self.0
     }
 }

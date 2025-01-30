@@ -71,7 +71,7 @@ impl Rect {
     }
 
     #[inline]
-    pub fn raw(&self) -> sys::rect::SDL_Rect {
+    pub fn to_ll(&self) -> sys::rect::SDL_Rect {
         self.0
     }
 }

@@ -2,6 +2,7 @@
 
 use core::ffi::{c_int, c_void, CStr};
 use core::marker::PhantomData;
+use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign};
 
 use alloc::ffi::CString;
@@ -10,6 +11,7 @@ use alloc::sync::Arc;
 use alloc::vec::Vec;
 
 use crate::init::VideoSubsystem;
+use crate::pixels::PixelFormat;
 use crate::rect::Rect;
 use crate::{sys, Error};
 
@@ -60,12 +62,49 @@ impl VideoSubsystem {
     }
 
     pub fn display_bounds(&self, display_id: u32) -> Result<Rect, Error> {
-        let mut rect = Rect::new(0, 0, 0, 0).raw();
+        let mut rect = Rect::new(0, 0, 0, 0).to_ll();
         let result = unsafe { sys::video::SDL_GetDisplayBounds(display_id, &raw mut rect) };
         if !result {
             return Err(Error::from_sdl());
         }
         Ok(Rect::new(rect.x, rect.y, rect.w as u32, rect.h as u32))
+    }
+
+    pub fn current_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
+        unsafe {
+            let ptr = sys::video::SDL_GetCurrentDisplayMode(display_id);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(DisplayMode::from_ptr(ptr))
+        }
+    }
+
+    pub fn closest_fullscreen_display_mode(
+        &self,
+        display_id: u32,
+        w: i32,
+        h: i32,
+        refresh_rate: f32,
+        include_high_density_modes: bool,
+    ) -> Result<DisplayMode, Error> {
+        unsafe {
+            let mut out: MaybeUninit<sys::video::SDL_DisplayMode> = MaybeUninit::uninit();
+            let result = sys::video::SDL_GetClosestFullscreenDisplayMode(
+                display_id,
+                w,
+                h,
+                refresh_rate,
+                include_high_density_modes,
+                out.as_mut_ptr(),
+            );
+            if !result {
+                return Err(Error::from_sdl());
+            }
+            let out = out.assume_init();
+            let display_mode = DisplayMode::from_ptr(&raw const out);
+            Ok(display_mode)
+        }
     }
 
     pub fn enable_screensaver(&self) -> Result<(), Error> {
@@ -88,7 +127,7 @@ impl VideoSubsystem {
 pub struct Window {
     video: VideoSubsystem,
     ptr: *mut sys::video::SDL_Window,
-    // This pointer should be safe to dereference while the window is still alive.
+    // This pointer should be safe to dereference as long as the window is still alive.
 }
 
 impl Window {
@@ -117,6 +156,15 @@ impl Window {
             return Err(Error::from_sdl());
         }
         Ok((min, max))
+    }
+
+    pub fn set_aspect_ratio(&mut self, min_aspect: f32, max_aspect: f32) -> Result<(), Error> {
+        let result =
+            unsafe { sys::video::SDL_SetWindowAspectRatio(self.ptr, min_aspect, max_aspect) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     pub fn show(&mut self) -> Result<(), Error> {
@@ -393,4 +441,32 @@ impl WindowFlashOperation {
     pub const CANCEL: Self = Self(sys::video::SDL_FlashOperation::CANCEL);
     pub const BRIEFLY: Self = Self(sys::video::SDL_FlashOperation::BRIEFLY);
     pub const UNTIL_FOCUSED: Self = Self(sys::video::SDL_FlashOperation::UNTIL_FOCUSED);
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct DisplayMode {
+    pub id: u32,
+    pub format: PixelFormat,
+    pub w: i32,
+    pub h: i32,
+    pub pixel_density: f32,
+    pub refresh_rate: f32,
+    pub refresh_rate_numerator: i32,
+    pub refresh_rate_denominator: i32,
+}
+
+impl DisplayMode {
+    unsafe fn from_ptr(ptr: *const sys::video::SDL_DisplayMode) -> Self {
+        Self {
+            id: (*ptr).displayID,
+            format: PixelFormat::from_ll((*ptr).format),
+            w: (*ptr).w,
+            h: (*ptr).h,
+            pixel_density: (*ptr).pixel_density,
+            refresh_rate: (*ptr).refresh_rate,
+            refresh_rate_numerator: (*ptr).refresh_rate_numerator,
+            refresh_rate_denominator: (*ptr).refresh_rate_denominator,
+        }
+    }
 }
