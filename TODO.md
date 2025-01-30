@@ -20,12 +20,18 @@
 - [x] SDL_ShowWindow
 - [x] SDL_RestoreWindow
 - [x] SDL_SetWindowFullscreen
+- [x] SDL_GetDisplays
+- [x] SDL_GetDisplayName
+- [x] SDL_GetDisplayForWindow
+- [x] SDL_GetWindowMaximumSize
+- [x] SDL_GetWindowMinimumSize
+- [x] SDL_GetWindowAspectRatio - weird behaviour with aspect ratio returning (0.0, 0.0)
+- [x] SDL_DisableScreenSaver
+- [x] SDL_EnableScreenSaver
 
 - [ ] SDL_CreatePopupWindow
 - [ ] SDL_CreateWindowWithProperties
 - [ ] SDL_DestroyWindowSurface
-- [ ] SDL_DisableScreenSaver
-- [ ] SDL_EnableScreenSaver
 - [ ] SDL_GetClosestFullscreenDisplayMode
 - [ ] SDL_GetCurrentDisplayMode
 - [ ] SDL_GetCurrentDisplayOrientation
@@ -35,10 +41,7 @@
 - [ ] SDL_GetDisplayContentScale
 - [ ] SDL_GetDisplayForPoint
 - [ ] SDL_GetDisplayForRect
-- [ ] SDL_GetDisplayForWindow
-- [ ] SDL_GetDisplayName
 - [ ] SDL_GetDisplayProperties
-- [ ] SDL_GetDisplays
 - [ ] SDL_GetDisplayUsableBounds
 - [ ] SDL_GetFullscreenDisplayModes
 - [ ] SDL_GetGrabbedWindow
@@ -47,14 +50,11 @@
 - [ ] SDL_GetPrimaryDisplay
 - [ ] SDL_GetSystemTheme
 - [ ] SDL_GetVideoDriver
-- [ ] SDL_GetWindowAspectRatio
 - [ ] SDL_GetWindowBordersSize
 - [ ] SDL_GetWindowDisplayScale
 - [ ] SDL_GetWindowFullscreenMode
 - [ ] SDL_GetWindowICCProfile
 - [ ] SDL_GetWindowKeyboardGrab
-- [ ] SDL_GetWindowMaximumSize
-- [ ] SDL_GetWindowMinimumSize
 - [ ] SDL_GetWindowMouseGrab
 - [ ] SDL_GetWindowMouseRect
 - [ ] SDL_GetWindowParent
@@ -62,7 +62,6 @@
 - [ ] SDL_GetWindowPixelFormat
 - [ ] SDL_GetWindowSafeArea
 - [ ] SDL_GetWindowProperties
-- [ ] SDL_GetWindows
 - [ ] SDL_GetWindowSizeInPixels
 - [ ] SDL_GetWindowSurface
 - [ ] SDL_GetWindowSurfaceVSync
@@ -117,3 +116,4 @@
 ## Maybe not cause hard to make safe?
 
 - [ ] SDL_GetWindowFromID
+- [ ] SDL_GetWindows

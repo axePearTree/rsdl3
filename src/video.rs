@@ -49,6 +49,30 @@ impl VideoSubsystem {
             Ok(vec)
         }
     }
+
+    pub fn display_name(&self, display_id: u32) -> Result<String, Error> {
+        unsafe {
+            let name = sys::video::SDL_GetDisplayName(display_id);
+            let c_str = CStr::from_ptr(name);
+            Ok(c_str.to_string_lossy().into_owned())
+        }
+    }
+
+    pub fn enable_screensaver(&self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_EnableScreenSaver() };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn disable_screensaver(&self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_DisableScreenSaver() };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
 }
 
 pub struct Window {
@@ -62,7 +86,26 @@ impl Window {
         if id == 0 {
             return Err(Error::from_sdl());
         }
-        return Ok(id);
+        Ok(id)
+    }
+
+    pub fn display(&self) -> Result<u32, Error> {
+        let id = unsafe { sys::video::SDL_GetDisplayForWindow(self.ptr) };
+        if id == 0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(id)
+    }
+
+    pub fn aspect_ratio(&self) -> Result<(f32, f32), Error> {
+        let mut min = 0.0;
+        let mut max = 0.0;
+        let result =
+            unsafe { sys::video::SDL_GetWindowAspectRatio(self.ptr, &raw mut min, &raw mut max) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((min, max))
     }
 
     pub fn show(&mut self) -> Result<(), Error> {
@@ -117,7 +160,7 @@ impl Window {
         if !result {
             return Err(Error::from_sdl());
         }
-        return Ok((x, y));
+        Ok((x, y))
     }
 
     pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
@@ -135,7 +178,7 @@ impl Window {
         if !result {
             return Err(Error::from_sdl());
         }
-        return Ok((x, y));
+        Ok((x, y))
     }
 
     pub fn set_size(&mut self, x: i32, y: i32) -> Result<(), Error> {
@@ -173,12 +216,34 @@ impl Window {
         Ok(())
     }
 
+    pub fn max_size(&mut self) -> Result<(i32, i32), Error> {
+        let mut x = 0;
+        let mut y = 0;
+        let result =
+            unsafe { sys::video::SDL_GetWindowMaximumSize(self.ptr, &raw mut x, &raw mut y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((x, y))
+    }
+
+    pub fn min_size(&mut self) -> Result<(i32, i32), Error> {
+        let mut x = 0;
+        let mut y = 0;
+        let result =
+            unsafe { sys::video::SDL_GetWindowMinimumSize(self.ptr, &raw mut x, &raw mut y) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((x, y))
+    }
+
     pub fn flash(&mut self, operation: WindowFlashOperation) -> Result<(), Error> {
         let result = unsafe { sys::video::SDL_FlashWindow(self.ptr, operation.0) };
         if !result {
             return Err(Error::from_sdl());
         }
-        return Ok(());
+        Ok(())
     }
 
     pub fn maximize(&mut self) -> Result<(), Error> {
@@ -212,6 +277,14 @@ impl Window {
         }
         Ok(())
     }
+
+    pub fn as_ptr(&self) -> *const sys::video::SDL_Window {
+        self.ptr as *const sys::video::SDL_Window
+    }
+
+    pub fn as_mut_ptr(&self) -> *mut sys::video::SDL_Window {
+        self.ptr
+    }
 }
 
 impl Drop for Window {
@@ -236,7 +309,6 @@ impl WindowFlags {
     pub const MOUSE_GRABBED: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MOUSE_GRABBED);
     pub const INPUT_FOCUS: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_INPUT_FOCUS);
     pub const MOUSE_FOCUS: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MOUSE_FOCUS);
-
     pub const EXTERNAL: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_EXTERNAL);
     pub const MODAL: WindowFlags = WindowFlags(sys::video::SDL_WINDOW_MODAL);
     pub const HIGH_PIXEL_DENSITY: WindowFlags =
