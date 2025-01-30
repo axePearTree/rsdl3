@@ -3,12 +3,13 @@
 extern crate alloc;
 
 pub mod init;
-pub mod video;
+pub mod pixels;
 pub mod rect;
+pub mod video;
 
-pub use sdl3_sys as sys;
 use alloc::{borrow::ToOwned, string::String};
 use core::ffi::CStr;
+pub use sdl3_sys as sys;
 
 #[allow(unused)]
 #[derive(Clone, Debug)]

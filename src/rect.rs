@@ -1,5 +1,3 @@
-use sdl3_sys::rect::SDL_PointInRect;
-
 use crate::sys;
 
 const MAX_INT: u32 = i32::MAX as u32 / 2;
@@ -78,5 +76,49 @@ impl Rect {
     }
 }
 
+impl core::fmt::Debug for Rect {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let x = self.x();
+        let y = self.y();
+        let w = self.w();
+        let h = self.h();
+        write!(f, "Rect {{ x: {}, y: {}, w: {}, h: {} }}", x, y, w, h)
+    }
+}
+
 #[repr(transparent)]
 pub struct Point(sys::rect::SDL_Point);
+
+impl Point {
+    pub fn new(x: i32, y: i32) -> Self {
+        Self(sdl3_sys::rect::SDL_Point {
+            x: clamp_position(x),
+            y: clamp_position(y),
+        })
+    }
+
+    #[inline]
+    pub fn x(&self) -> i32 {
+        self.0.x
+    }
+
+    #[inline]
+    pub fn set_x(&mut self, x: i32) {
+        self.0.x = clamp_position(x);
+    }
+
+    #[inline]
+    pub fn y(&self) -> i32 {
+        self.0.y
+    }
+
+    #[inline]
+    pub fn set_y(&mut self, y: i32) {
+        self.0.y = clamp_position(y);
+    }
+
+    #[inline]
+    pub fn raw(&self) -> sys::rect::SDL_Point {
+        self.0
+    }
+}

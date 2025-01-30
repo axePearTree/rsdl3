@@ -10,6 +10,7 @@ use alloc::sync::Arc;
 use alloc::vec::Vec;
 
 use crate::init::VideoSubsystem;
+use crate::rect::Rect;
 use crate::{sys, Error};
 
 impl VideoSubsystem {
@@ -58,6 +59,15 @@ impl VideoSubsystem {
         }
     }
 
+    pub fn display_bounds(&self, display_id: u32) -> Result<Rect, Error> {
+        let mut rect = Rect::new(0, 0, 0, 0).raw();
+        let result = unsafe { sys::video::SDL_GetDisplayBounds(display_id, &raw mut rect) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(Rect::new(rect.x, rect.y, rect.w as u32, rect.h as u32))
+    }
+
     pub fn enable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::video::SDL_EnableScreenSaver() };
         if !result {
@@ -78,6 +88,7 @@ impl VideoSubsystem {
 pub struct Window {
     video: VideoSubsystem,
     ptr: *mut sys::video::SDL_Window,
+    // This pointer should be safe to dereference while the window is still alive.
 }
 
 impl Window {
