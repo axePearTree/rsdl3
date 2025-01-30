@@ -4,6 +4,7 @@ extern crate alloc;
 
 pub mod init;
 pub mod video;
+pub mod rect;
 
 pub use sdl3_sys as sys;
 use alloc::{borrow::ToOwned, string::String};
