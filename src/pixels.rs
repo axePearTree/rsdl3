@@ -1,6 +1,6 @@
 use crate::sys;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
 pub struct Color(sys::pixels::SDL_Color);
 
@@ -54,17 +54,7 @@ impl Color {
     }
 }
 
-impl core::fmt::Debug for Color {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        let r = self.r();
-        let g = self.g();
-        let b = self.b();
-        let a = self.a();
-        write!(f, "Color {{ r: {}, g: {}, b: {}, a: {} }}", r, g, b, a)
-    }
-}
-
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
 pub struct ColorF32(sys::pixels::SDL_FColor);
 
@@ -128,18 +118,8 @@ impl From<Color> for ColorF32 {
     }
 }
 
-impl core::fmt::Debug for ColorF32 {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        let r = self.r();
-        let g = self.g();
-        let b = self.b();
-        let a = self.a();
-        write!(f, "Color {{ r: {}, g: {}, b: {}, a: {} }}", r, g, b, a)
-    }
-}
-
 #[repr(transparent)]
-#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub struct PixelFormat(sys::pixels::SDL_PixelFormat);
 
 impl PixelFormat {

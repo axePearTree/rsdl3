@@ -13,7 +13,7 @@ use alloc::vec::Vec;
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
 use crate::rect::Rect;
-use crate::surface::{SurfaceMut, SurfaceRef};
+use crate::surface::{SurfaceOwned, SurfaceMut, SurfaceRef};
 use crate::{sys, Error};
 
 impl VideoSubsystem {
@@ -39,6 +39,15 @@ impl VideoSubsystem {
             video: VideoSubsystem(Arc::clone(&self.0)),
             ptr,
         })
+    }
+
+    pub fn create_surface(
+        &self,
+        w: u32,
+        h: u32,
+        format: PixelFormat,
+    ) -> Result<SurfaceOwned, Error> {
+        SurfaceOwned::new(self, w, h, format)
     }
 
     pub fn displays(&self) -> Result<Vec<u32>, Error> {

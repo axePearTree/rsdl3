@@ -13,6 +13,7 @@ fn clamp_position(val: i32) -> i32 {
 }
 
 #[repr(transparent)]
+#[derive(Copy, Clone, Default)]
 pub struct Rect(sys::rect::SDL_Rect);
 
 impl Rect {
@@ -71,7 +72,7 @@ impl Rect {
     }
 
     #[inline]
-    pub fn to_ll(&self) -> sys::rect::SDL_Rect {
+    pub fn to_ll(self) -> sys::rect::SDL_Rect {
         self.0
     }
 }
@@ -87,6 +88,7 @@ impl core::fmt::Debug for Rect {
 }
 
 #[repr(transparent)]
+#[derive(Copy, Clone, Default)]
 pub struct Point(sys::rect::SDL_Point);
 
 impl Point {
@@ -120,5 +122,13 @@ impl Point {
     #[inline]
     pub fn raw(&self) -> sys::rect::SDL_Point {
         self.0
+    }
+}
+
+impl core::fmt::Debug for Point {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let x = self.x();
+        let y = self.y();
+        write!(f, "Point {{ x: {}, y: {} }}", x, y)
     }
 }
