@@ -57,6 +57,12 @@ impl DerefMut for SurfaceOwned {
     }
 }
 
+impl Drop for SurfaceOwned {
+    fn drop(&mut self) {
+        unsafe { sys::surface::SDL_DestroySurface(self.0) };
+    }
+}
+
 pub struct SurfaceRef<'a> {
     inner: Surface,
     _m: PhantomData<&'a *const ()>,
@@ -216,6 +222,14 @@ impl Surface {
     pub fn format(&self) -> PixelFormat {
         let format = unsafe { (*self.0).format };
         PixelFormat::from_ll(format)
+    }
+
+    pub fn as_ptr(&self) -> *const sys::surface::SDL_Surface {
+        self.0 as *const _
+    }
+
+    pub fn as_mut_ptr(&mut self) -> *mut sys::surface::SDL_Surface {
+        self.0
     }
 }
 

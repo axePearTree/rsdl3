@@ -12,8 +12,8 @@ use alloc::vec::Vec;
 
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
-use crate::rect::Rect;
-use crate::surface::{SurfaceOwned, SurfaceMut, SurfaceRef};
+use crate::rect::{Point, Rect};
+use crate::surface::{Surface, SurfaceMut, SurfaceOwned, SurfaceRef};
 use crate::{sys, Error};
 
 impl VideoSubsystem {
@@ -50,6 +50,35 @@ impl VideoSubsystem {
         SurfaceOwned::new(self, w, h, format)
     }
 
+    pub fn num_drivers(&self) -> usize {
+        unsafe { sys::video::SDL_GetNumVideoDrivers() as usize }
+    }
+
+    pub fn driver(&self, driver_index: i32) -> Result<String, Error> {
+        unsafe {
+            let ptr = sys::video::SDL_GetVideoDriver(driver_index as i32);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
+        }
+    }
+
+    pub fn drivers(&self) -> impl Iterator<Item = Result<String, Error>> + use<'_> {
+        let num_drivers = self.num_drivers() as i32;
+        (0..num_drivers).map(|i| self.driver(i))
+    }
+
+    pub fn current_driver(&self) -> Result<String, Error> {
+        unsafe {
+            let ptr = sys::video::SDL_GetCurrentVideoDriver();
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
+        }
+    }
+
     pub fn displays(&self) -> Result<Vec<u32>, Error> {
         let mut num_displays = 0;
         unsafe {
@@ -61,6 +90,14 @@ impl VideoSubsystem {
             sys::stdinc::SDL_free(displays as *mut c_void);
             Ok(vec)
         }
+    }
+
+    pub fn primary_display(&self) -> Result<u32, Error> {
+        let result = unsafe { sys::video::SDL_GetPrimaryDisplay() };
+        if result == 0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(result)
     }
 
     pub fn display_name(&self, display_id: u32) -> Result<String, Error> {
@@ -80,6 +117,54 @@ impl VideoSubsystem {
         Ok(Rect::new(rect.x, rect.y, rect.w as u32, rect.h as u32))
     }
 
+    pub fn display_usable_bounds(&self, display_id: u32) -> Result<Rect, Error> {
+        let mut out: MaybeUninit<sys::rect::SDL_Rect> = MaybeUninit::uninit();
+        unsafe {
+            let result = sys::video::SDL_GetDisplayUsableBounds(display_id, out.as_mut_ptr());
+            if !result {
+                return Err(Error::from_sdl());
+            }
+            let out = out.assume_init();
+            Ok(Rect::from_ll(out))
+        }
+    }
+
+    pub fn display_for_rect(&self, rect: &Rect) -> Result<u32, Error> {
+        let rect = rect.to_ll();
+        let display_id = unsafe { sys::video::SDL_GetDisplayForRect(&raw const rect) };
+        if display_id == 0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(display_id)
+    }
+
+    pub fn display_for_point(&self, point: &Point) -> Result<u32, Error> {
+        let point = point.to_ll();
+        let display_id = unsafe { sys::video::SDL_GetDisplayForPoint(&raw const point) };
+        if display_id == 0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(display_id)
+    }
+
+    pub fn display_content_scale(&self, display_id: u32) -> Result<f32, Error> {
+        let scale = unsafe { sys::video::SDL_GetDisplayContentScale(display_id) };
+        if scale == 0.0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(scale)
+    }
+
+    pub fn desktop_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
+        unsafe {
+            let ptr = sys::video::SDL_GetDesktopDisplayMode(display_id);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(DisplayMode::from_ptr(ptr))
+        }
+    }
+
     pub fn current_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::video::SDL_GetCurrentDisplayMode(display_id);
@@ -88,6 +173,24 @@ impl VideoSubsystem {
             }
             Ok(DisplayMode::from_ptr(ptr))
         }
+    }
+
+    pub fn current_display_orientation(
+        &self,
+        display_id: u32,
+    ) -> Result<DisplayOrientation, Error> {
+        Ok(DisplayOrientation(unsafe {
+            sys::video::SDL_GetCurrentDisplayOrientation(display_id)
+        }))
+    }
+
+    pub fn natural_display_orientation(
+        &self,
+        display_id: u32,
+    ) -> Result<DisplayOrientation, Error> {
+        Ok(DisplayOrientation(unsafe {
+            sys::video::SDL_GetNaturalDisplayOrientation(display_id)
+        }))
     }
 
     pub fn closest_fullscreen_display_mode(
@@ -115,6 +218,10 @@ impl VideoSubsystem {
             let display_mode = DisplayMode::from_ptr(&raw const out);
             Ok(display_mode)
         }
+    }
+
+    pub fn screensaver_enabled(&self) -> bool {
+        unsafe { sys::video::SDL_ScreenSaverEnabled() }
     }
 
     pub fn enable_screensaver(&self) -> Result<(), Error> {
@@ -157,6 +264,26 @@ impl Window {
         Ok(id)
     }
 
+    pub fn display_scale(&self) -> Result<f32, Error> {
+        let scale = unsafe { sys::video::SDL_GetWindowDisplayScale(self.ptr) };
+        if scale == 0.0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(scale)
+    }
+
+    pub fn destroy_surface(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_DestroyWindowSurface(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn has_surface(&self) -> bool {
+        unsafe { sys::video::SDL_WindowHasSurface(self.ptr) }
+    }
+
     pub fn surface_ref(&self) -> Result<SurfaceRef, Error> {
         unsafe {
             let surface = sys::video::SDL_GetWindowSurface(self.ptr);
@@ -175,6 +302,25 @@ impl Window {
             }
             Ok(SurfaceMut::from_mut_ptr(surface))
         }
+    }
+
+    pub fn mouse_rect(&self) -> Result<Rect, Error> {
+        unsafe {
+            let result = sys::video::SDL_GetWindowMouseRect(self.ptr);
+            if result.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(Rect::from_ll(*result))
+        }
+    }
+
+    pub fn set_mouse_rect(&mut self, rect: Rect) -> Result<(), Error> {
+        let rect = rect.to_ll();
+        let result = unsafe { sys::video::SDL_SetWindowMouseRect(self.ptr, &raw const rect) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     pub fn aspect_ratio(&self) -> Result<(f32, f32), Error> {
@@ -305,7 +451,27 @@ impl Window {
         Ok(())
     }
 
-    pub fn max_size(&mut self) -> Result<(i32, i32), Error> {
+    pub fn pixel_format(&self) -> Result<PixelFormat, Error> {
+        let result = unsafe { sys::video::SDL_GetWindowPixelFormat(self.ptr) };
+        if result == sys::pixels::SDL_PixelFormat::UNKNOWN {
+            return Err(Error::from_sdl());
+        }
+        return Ok(PixelFormat::from_ll(result));
+    }
+
+    pub fn safe_area(&self) -> Result<Rect, Error> {
+        let mut out: MaybeUninit<sys::rect::SDL_Rect> = MaybeUninit::uninit();
+        unsafe {
+            let result = unsafe { sys::video::SDL_GetWindowSafeArea(self.ptr, out.as_mut_ptr()) };
+            if !result {
+                return Err(Error::from_sdl());
+            }
+            let out = out.assume_init();
+            Ok(Rect::from_ll(out))
+        }
+    }
+
+    pub fn max_size(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
         let result =
@@ -316,7 +482,17 @@ impl Window {
         Ok((x, y))
     }
 
-    pub fn min_size(&mut self) -> Result<(i32, i32), Error> {
+    pub fn set_max_size(&mut self, w: u32, h: u32) -> Result<(), Error> {
+        let w = w.min(i32::MAX as u32) as i32;
+        let h = h.min(i32::MAX as u32) as i32;
+        let result = unsafe { sys::video::SDL_SetWindowMaximumSize(self.ptr, w, h) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn min_size(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
         let result =
@@ -325,6 +501,82 @@ impl Window {
             return Err(Error::from_sdl());
         }
         Ok((x, y))
+    }
+
+    pub fn set_min_size(&mut self, w: u32, h: u32) -> Result<(), Error> {
+        let w = w.min(i32::MAX as u32) as i32;
+        let h = h.min(i32::MAX as u32) as i32;
+        let result = unsafe { sys::video::SDL_SetWindowMinimumSize(self.ptr, w, h) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_bordered(&mut self, bordered: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowBordered(self.ptr, bordered) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_always_on_top(&mut self, always_on_top: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowAlwaysOnTop(self.ptr, always_on_top) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_focusable(&mut self, focusable: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowFocusable(self.ptr, focusable) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    // SDL mutates the original surface but also creates a copy.
+    // So we're free to use it after calling this; hence why it takes a mutable surface as
+    // parameter.
+    pub fn set_icon(&mut self, icon: &mut Surface) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowIcon(self.ptr, icon.as_mut_ptr()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_mouse_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowMouseGrab(self.ptr, grabbed) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn is_mouse_grabbed(&self) -> bool {
+        unsafe { sys::video::SDL_GetWindowMouseGrab(self.ptr) }
+    }
+
+    pub fn pixel_density(&self) -> Result<f32, Error> {
+        let pixel_density = unsafe { sys::video::SDL_GetWindowPixelDensity(self.ptr) };
+        if pixel_density == 0.0 {
+            return Err(Error::from_sdl());
+        }
+        Ok(pixel_density)
+    }
+
+    pub fn size_in_pixels(&self) -> Result<(i32, i32), Error> {
+        let mut w = 0;
+        let mut h = 0;
+        let result =
+            unsafe { sys::video::SDL_GetWindowSizeInPixels(self.ptr, &raw mut w, &raw mut h) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((w, h))
     }
 
     pub fn flash(&mut self, operation: WindowFlashOperation) -> Result<(), Error> {
@@ -479,6 +731,11 @@ impl WindowFlashOperation {
     pub const CANCEL: Self = Self(sys::video::SDL_FlashOperation::CANCEL);
     pub const BRIEFLY: Self = Self(sys::video::SDL_FlashOperation::BRIEFLY);
     pub const UNTIL_FOCUSED: Self = Self(sys::video::SDL_FlashOperation::UNTIL_FOCUSED);
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::video::SDL_FlashOperation {
+        self.0
+    }
 }
 
 #[repr(C)]
@@ -495,6 +752,8 @@ pub struct DisplayMode {
 }
 
 impl DisplayMode {
+    /// SAFETY: safe to call as long as the pointer is valid.
+    /// This copies the contents of *ptr to a new DisplayMode value.
     unsafe fn from_ptr(ptr: *const sys::video::SDL_DisplayMode) -> Self {
         Self {
             id: (*ptr).displayID,
@@ -506,5 +765,27 @@ impl DisplayMode {
             refresh_rate_numerator: (*ptr).refresh_rate_numerator,
             refresh_rate_denominator: (*ptr).refresh_rate_denominator,
         }
+    }
+}
+
+#[repr(transparent)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DisplayOrientation(sys::video::SDL_DisplayOrientation);
+
+impl DisplayOrientation {
+    /// The display orientation can't be determined
+    pub const UNKNOWN: Self = Self(sys::video::SDL_DisplayOrientation::UNKNOWN);
+    /// The display is in landscape mode, with the right side up, relative to portrait mode
+    pub const LANDSCAPE: Self = Self(sys::video::SDL_DisplayOrientation::LANDSCAPE);
+    /// The display is in landscape mode, with the left side up, relative to portrait mode
+    pub const LANDSCAPE_FLIPPED: Self = Self(sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED);
+    /// The display is in portrait mode
+    pub const PORTRAIT: Self = Self(sys::video::SDL_DisplayOrientation::PORTRAIT);
+    /// The display is in portrait mode, upside down
+    pub const PORTRAIT_FLIPPED: Self = Self(sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED);
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::video::SDL_DisplayOrientation {
+        self.0
     }
 }

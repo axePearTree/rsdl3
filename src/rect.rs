@@ -12,6 +12,10 @@ fn clamp_position(val: i32) -> i32 {
     val.clamp(MIN_INT, MAX_INT as i32)
 }
 
+fn clamp_size_i32(val: i32) -> i32 {
+    val.max(1).min(MAX_INT as i32)
+}
+
 #[repr(transparent)]
 #[derive(Copy, Clone, Default)]
 pub struct Rect(sys::rect::SDL_Rect);
@@ -22,12 +26,26 @@ impl Rect {
     /// of the rectangle.
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
-    pub fn new(x: i32, y: i32, w: u32, h: u32) -> Rect {
+    pub fn new(x: i32, y: i32, w: u32, h: u32) -> Self {
         Self(sys::rect::SDL_Rect {
             x: clamp_position(x),
             y: clamp_position(y),
             w: clamp_size(w),
             h: clamp_size(h),
+        })
+    }
+
+    /// Creates a new `Rect` with the given dimensions from an existing [`sys::rect::SDL_Rect`].
+    /// The position and dimensions of the Rect need to be clamped to avoid overflowing the corners
+    /// of the rectangle.
+    /// The width and height must be greater than 0, otherwise they'll be set to 1.
+    #[inline]
+    pub fn from_ll(rect: sys::rect::SDL_Rect) -> Self {
+        Self(sys::rect::SDL_Rect {
+            x: clamp_position(rect.x),
+            y: clamp_position(rect.y),
+            w: clamp_size_i32(rect.w),
+            h: clamp_size_i32(rect.h),
         })
     }
 
@@ -120,7 +138,7 @@ impl Point {
     }
 
     #[inline]
-    pub fn raw(&self) -> sys::rect::SDL_Point {
+    pub fn to_ll(&self) -> sys::rect::SDL_Point {
         self.0
     }
 }
