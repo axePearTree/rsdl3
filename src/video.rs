@@ -13,6 +13,7 @@ use alloc::vec::Vec;
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
 use crate::rect::Rect;
+use crate::surface::{SurfaceMut, SurfaceRef};
 use crate::{sys, Error};
 
 impl VideoSubsystem {
@@ -145,6 +146,26 @@ impl Window {
             return Err(Error::from_sdl());
         }
         Ok(id)
+    }
+
+    pub fn surface_ref(&self) -> Result<SurfaceRef, Error> {
+        unsafe {
+            let surface = sys::video::SDL_GetWindowSurface(self.ptr);
+            if surface.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(SurfaceRef::from_mut_ptr(surface))
+        }
+    }
+
+    pub fn surface_mut(&mut self) -> Result<SurfaceMut, Error> {
+        unsafe {
+            let surface = sys::video::SDL_GetWindowSurface(self.ptr);
+            if surface.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(SurfaceMut::from_mut_ptr(surface))
+        }
     }
 
     pub fn aspect_ratio(&self) -> Result<(f32, f32), Error> {
@@ -331,6 +352,14 @@ impl Window {
 
     pub fn restore(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::video::SDL_RestoreWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn update_surface(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_UpdateWindowSurface(self.ptr) };
         if !result {
             return Err(Error::from_sdl());
         }

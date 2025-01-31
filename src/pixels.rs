@@ -49,23 +49,107 @@ impl Color {
         self.0.a = a;
     }
 
-        pub fn to_ll(&self) -> sys::pixels::SDL_Color {
-            self.0
-        }
+    pub fn to_ll(&self) -> sys::pixels::SDL_Color {
+        self.0
+    }
+}
+
+impl core::fmt::Debug for Color {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let r = self.r();
+        let g = self.g();
+        let b = self.b();
+        let a = self.a();
+        write!(f, "Color {{ r: {}, g: {}, b: {}, a: {} }}", r, g, b, a)
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(transparent)]
+pub struct ColorF32(sys::pixels::SDL_FColor);
+
+impl ColorF32 {
+    pub fn new(r: f32, g: f32, b: f32, a: f32) -> Self {
+        Self(sys::pixels::SDL_FColor { r, g, b, a })
     }
 
-    #[repr(transparent)]
-    #[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct PixelFormat(sys::pixels::SDL_PixelFormat);
+    #[inline]
+    pub fn r(&self) -> f32 {
+        self.0.r
+    }
 
-    impl PixelFormat {
-        #[inline]
-        pub fn from_ll(value: sys::pixels::SDL_PixelFormat) -> Self {
-            Self(value)
-        }
+    #[inline]
+    pub fn g(&self) -> f32 {
+        self.0.g
+    }
 
-        #[inline]
-        pub fn to_ll(&self) -> sys::pixels::SDL_PixelFormat {
+    #[inline]
+    pub fn b(&self) -> f32 {
+        self.0.b
+    }
+
+    #[inline]
+    pub fn a(&self) -> f32 {
+        self.0.a
+    }
+
+    #[inline]
+    pub fn set_r(&mut self, r: f32) {
+        self.0.r = r;
+    }
+
+    #[inline]
+    pub fn set_g(&mut self, g: f32) {
+        self.0.g = g;
+    }
+
+    #[inline]
+    pub fn set_b(&mut self, b: f32) {
+        self.0.b = b;
+    }
+
+    #[inline]
+    pub fn set_a(&mut self, a: f32) {
+        self.0.a = a;
+    }
+
+    pub fn to_ll(&self) -> sys::pixels::SDL_FColor {
+        self.0
+    }
+}
+
+impl From<Color> for ColorF32 {
+    fn from(value: Color) -> Self {
+        let r = value.r() as f32 / 255.0;
+        let g = value.g() as f32 / 255.0;
+        let b = value.b() as f32 / 255.0;
+        let a = value.a() as f32 / 255.0;
+        Self::new(r, g, b, a)
+    }
+}
+
+impl core::fmt::Debug for ColorF32 {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let r = self.r();
+        let g = self.g();
+        let b = self.b();
+        let a = self.a();
+        write!(f, "Color {{ r: {}, g: {}, b: {}, a: {} }}", r, g, b, a)
+    }
+}
+
+#[repr(transparent)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PixelFormat(sys::pixels::SDL_PixelFormat);
+
+impl PixelFormat {
+    #[inline]
+    pub fn from_ll(value: sys::pixels::SDL_PixelFormat) -> Self {
+        Self(value)
+    }
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::pixels::SDL_PixelFormat {
         self.0
     }
 }

@@ -6,6 +6,7 @@ pub mod init;
 pub mod pixels;
 pub mod rect;
 pub mod video;
+pub mod surface;
 
 use alloc::{borrow::ToOwned, string::String};
 use core::ffi::CStr;
