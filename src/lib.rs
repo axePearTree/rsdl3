@@ -5,11 +5,14 @@ extern crate alloc;
 pub mod init;
 pub mod pixels;
 pub mod rect;
-pub mod video;
+pub mod render;
 pub mod surface;
+pub mod video;
 
-use alloc::{borrow::ToOwned, string::String};
+use alloc::borrow::ToOwned;
+use alloc::string::String;
 use core::ffi::CStr;
+use core::num::TryFromIntError;
 pub use sdl3_sys as sys;
 
 #[allow(unused)]
@@ -26,6 +29,18 @@ impl Error {
 }
 
 impl core::error::Error for Error {}
+
+impl From<alloc::ffi::NulError> for Error {
+    fn from(_value: alloc::ffi::NulError) -> Self {
+        Self(String::from("Interior null byte found in string."))
+    }
+}
+
+impl From<TryFromIntError> for Error {
+    fn from(_value: TryFromIntError) -> Self {
+        Self(String::from("Integer conversion failed."))
+    }
+}
 
 impl core::fmt::Display for Error {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
