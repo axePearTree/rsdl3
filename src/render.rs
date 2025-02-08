@@ -37,26 +37,12 @@ impl WindowRenderer {
         }
     }
 
+    pub fn as_window_ref(&self) -> &Window {
+        &self.window
+    }
+
     pub fn into_window(self) -> Window {
         self.window
-    }
-}
-
-impl AsRef<Renderer> for WindowRenderer {
-    fn as_ref(&self) -> &Renderer {
-        self.deref()
-    }
-}
-
-impl AsMut<Renderer> for WindowRenderer {
-    fn as_mut(&mut self) -> &mut Renderer {
-        self.deref_mut()
-    }
-}
-
-impl AsRef<Window> for WindowRenderer {
-    fn as_ref(&self) -> &Window {
-        &self.window
     }
 }
 
@@ -97,6 +83,10 @@ impl SoftwareRenderer {
         }
     }
 
+    pub fn as_surface_ref(&self) -> &Surface {
+        &self.surface
+    }
+
     pub fn into_surface(self) -> SurfaceOwned {
         self.surface
     }
@@ -113,24 +103,6 @@ impl Deref for SoftwareRenderer {
 impl DerefMut for SoftwareRenderer {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.renderer
-    }
-}
-
-impl AsRef<Renderer> for SoftwareRenderer {
-    fn as_ref(&self) -> &Renderer {
-        self.deref()
-    }
-}
-
-impl AsMut<Renderer> for SoftwareRenderer {
-    fn as_mut(&mut self) -> &mut Renderer {
-        self.deref_mut()
-    }
-}
-
-impl AsRef<Surface> for SoftwareRenderer {
-    fn as_ref(&self) -> &Surface {
-        self.surface.deref()
     }
 }
 

@@ -20,6 +20,10 @@ pub use sdl3_sys as sys;
 pub struct Error(String);
 
 impl Error {
+    pub fn new(message: impl Into<String>) -> Self {
+        Self(message.into())
+    }
+
     pub(crate) fn from_sdl() -> Self {
         unsafe {
             let err = sdl3_sys::error::SDL_GetError();
