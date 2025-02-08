@@ -9,13 +9,14 @@ use alloc::string::String;
 use core::ops::{Deref, DerefMut};
 
 // The order of fields must be preserved so the drop order is correct.
+// Also, the window must not be exposed mutably while the Renderer exists.
 pub struct WindowRenderer {
     renderer: Renderer,
     window: Window,
 }
 
 impl WindowRenderer {
-    pub fn new(window: Window, driver: Option<&str>) -> Result<Self, Error> {
+    pub (crate) fn new(window: Window, driver: Option<&str>) -> Result<Self, Error> {
         unsafe {
             let driver = match driver {
                 Some(driver) => Some(CString::new(driver)?),
@@ -50,6 +51,12 @@ impl AsRef<Renderer> for WindowRenderer {
 impl AsMut<Renderer> for WindowRenderer {
     fn as_mut(&mut self) -> &mut Renderer {
         self.deref_mut()
+    }
+}
+
+impl AsRef<Window> for WindowRenderer {
+    fn as_ref(&self) -> &Window {
+        &self.window
     }
 }
 
@@ -121,6 +128,12 @@ impl AsMut<Renderer> for SoftwareRenderer {
     }
 }
 
+impl AsRef<Surface> for SoftwareRenderer {
+    fn as_ref(&self) -> &Surface {
+        self.surface.deref()
+    }
+}
+
 // SAFETY:
 // This struct should only be exposed as a reference bound to its' owner (either a WindowRenderer
 // or a SoftareRenderer) so the lifetime is sound.
@@ -133,8 +146,6 @@ pub struct Renderer {
 }
 
 impl Renderer {
-    /// NOTE:
-    /// BIG issue here. SDL does
     pub fn create_texture(
         &mut self,
         format: PixelFormat,
@@ -204,7 +215,32 @@ impl Renderer {
     }
 
     pub fn set_render_target(&mut self, texture: Texture) -> Result<(), Error> {
-        todo!()
+        self.validate_texture(&texture)?;
+
+        let result = unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, texture.ptr) };
+        self.target = Some(texture);
+
+        if !result {
+            return Err(Error::from_sdl());
+        }
+
+        Ok(())
+    }
+
+    pub fn take_render_target(&mut self) -> Result<Option<Texture>, Error> {
+        let result = unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, core::ptr::null_mut()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(self.target.take())
+    }
+
+    pub fn present(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::render::SDL_RenderPresent(*self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {

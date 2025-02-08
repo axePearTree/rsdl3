@@ -13,6 +13,7 @@ use alloc::vec::Vec;
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
 use crate::rect::{Point, Rect};
+use crate::render::WindowRenderer;
 use crate::surface::{Surface, SurfaceMut, SurfaceOwned, SurfaceRef};
 use crate::{sys, Error};
 
@@ -248,6 +249,10 @@ pub struct Window {
 }
 
 impl Window {
+    pub fn create_renderer(self, driver: Option<&str>) -> Result<WindowRenderer, Error> {
+        WindowRenderer::new(self, driver)
+    }
+
     pub fn id(&self) -> Result<u32, Error> {
         let id = unsafe { sys::video::SDL_GetWindowID(self.ptr) };
         if id == 0 {
@@ -343,7 +348,7 @@ impl Window {
         Ok(())
     }
 
-    pub fn show(&mut self) -> Result<(), Error> {
+    pub fn show(&self) -> Result<(), Error> {
         let result = unsafe { sys::video::SDL_ShowWindow(self.ptr) };
         if !result {
             return Err(Error::from_sdl());
@@ -351,7 +356,7 @@ impl Window {
         Ok(())
     }
 
-    pub fn hide(&mut self) -> Result<(), Error> {
+    pub fn hide(&self) -> Result<(), Error> {
         let result = unsafe { sys::video::SDL_HideWindow(self.ptr) };
         if !result {
             return Err(Error::from_sdl());
