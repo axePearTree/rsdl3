@@ -16,7 +16,7 @@ pub struct WindowRenderer {
 }
 
 impl WindowRenderer {
-    pub (crate) fn new(window: Window, driver: Option<&str>) -> Result<Self, Error> {
+    pub(crate) fn new(window: Window, driver: Option<&str>) -> Result<Self, Error> {
         unsafe {
             let driver = match driver {
                 Some(driver) => Some(CString::new(driver)?),
@@ -218,10 +218,11 @@ impl Renderer {
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
         match texture.parent.upgrade() {
             Some(ref parent) if Rc::ptr_eq(parent, &self.ptr) => Ok(()),
+            None => {
+                return Err(Error::new("Texture's renderer has already been destroyed."));
+            }
             _ => {
-                return Err(Error(String::from(
-                    "Texture does not belong to this renderer.",
-                )));
+                return Err(Error::new("Texture does not belong to this renderer."));
             }
         }
     }
