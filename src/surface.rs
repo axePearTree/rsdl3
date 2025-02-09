@@ -63,88 +63,16 @@ impl Drop for SurfaceOwned {
     }
 }
 
-pub struct SurfaceRef<'a> {
-    inner: Surface,
-    _m: PhantomData<&'a *const ()>,
-}
-
-impl<'a> SurfaceRef<'a> {
-    /// SAFETY:
-    /// Gotta make sure the lifetime of this object matches that of its' owner.
-    pub(crate) unsafe fn from_mut_ptr(ptr: *mut sys::surface::SDL_Surface) -> Self {
-        Self {
-            inner: Surface(ptr),
-            _m: PhantomData,
-        }
-    }
-}
-
-impl<'a> AsRef<Surface> for SurfaceRef<'a> {
-    fn as_ref(&self) -> &Surface {
-        self.deref()
-    }
-}
-
-impl<'a> Deref for SurfaceRef<'a> {
-    type Target = Surface;
-
-    #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.inner
-    }
-}
-
-
-pub struct SurfaceMut<'a> {
-    inner: Surface,
-    _m: PhantomData<&'a *const ()>,
-}
-
-impl<'a> SurfaceMut<'a> {
-    /// SAFETY:
-    /// Gotta make sure the lifetime of this object matches that of its' owner.
-    pub(crate) unsafe fn from_mut_ptr(ptr: *mut sys::surface::SDL_Surface) -> Self {
-        Self {
-            inner: Surface(ptr),
-            _m: PhantomData,
-        }
-    }
-}
-
-impl<'a> AsRef<Surface> for SurfaceMut<'a> {
-    fn as_ref(&self) -> &Surface {
-        self.deref()
-    }
-}
-
-impl<'a> AsMut<Surface> for SurfaceMut<'a> {
-    fn as_mut(&mut self) -> &mut Surface {
-        self.deref_mut()
-    }
-}
-
-impl<'a> Deref for SurfaceMut<'a> {
-    type Target = Surface;
-
-    #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.inner
-    }
-}
-
-impl<'a> DerefMut for SurfaceMut<'a> {
-    #[inline]
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.inner
-    }
-}
-
 // SAFETY:
 // We only ever hand out this struct via derefs. This object can't be constructed outside of this
 // module; so it's always exposed as a reference whose lifetime matches that of its' owner.
 pub struct Surface(*mut sys::surface::SDL_Surface);
 
 impl Surface {
+    pub(crate) unsafe fn new(ptr: *mut sys::surface::SDL_Surface) -> Self {
+        Self(ptr)
+    }
+
     /// This function takes a mutable reference to the [`Surface`] to mimic the parameters of
     /// [`sys::surface::SDL_BlitSurface`]. It doesn't actually mutate the surface's contents.
     pub fn blit(
