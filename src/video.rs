@@ -198,18 +198,18 @@ impl VideoSubsystem {
         &self,
         display_id: u32,
     ) -> Result<DisplayOrientation, Error> {
-        Ok(DisplayOrientation(unsafe {
+        DisplayOrientation::try_from_ll(unsafe {
             sys::video::SDL_GetCurrentDisplayOrientation(display_id)
-        }))
+        })
     }
 
     pub fn natural_display_orientation(
         &self,
         display_id: u32,
     ) -> Result<DisplayOrientation, Error> {
-        Ok(DisplayOrientation(unsafe {
+        DisplayOrientation::try_from_ll(unsafe {
             sys::video::SDL_GetNaturalDisplayOrientation(display_id)
-        }))
+        })
     }
 
     pub fn closest_fullscreen_display_mode(
@@ -405,10 +405,10 @@ impl Window {
         }
     }
 
-    pub fn set_fullscreen_mode(&mut self, display_mode: &DisplayMode) -> Result<DisplayMode, Error> {
-        if !Arc::ptr_eq(&self.video.0, &display_mode.video.0) {
-            return Err(Error::new("Display mode does not belong to subsystem."));
-        }
+    pub fn set_fullscreen_mode(
+        &mut self,
+        display_mode: &DisplayMode,
+    ) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::video::SDL_GetWindowFullscreenMode(self.ptr);
             if ptr.is_null() {
@@ -624,6 +624,43 @@ impl Window {
 
     pub fn is_mouse_grabbed(&self) -> bool {
         unsafe { sys::video::SDL_GetWindowMouseGrab(self.ptr) }
+    }
+
+    pub fn set_keyboard_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowKeyboardGrab(self.ptr, grabbed) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn is_keyboard_grabbed(&self) -> bool {
+        unsafe { sys::video::SDL_GetWindowKeyboardGrab(self.ptr) }
+    }
+
+    pub fn surface_vsync(&self) -> Result<WindowSurfaceVSync, Error> {
+        let mut vsync = 0;
+        let result = unsafe { sys::video::SDL_GetWindowSurfaceVSync(self.ptr, &raw mut vsync) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        WindowSurfaceVSync::try_from_ll(vsync)
+    }
+
+    pub fn set_surface_vsync(&mut self, vsync: WindowSurfaceVSync) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowSurfaceVSync(self.ptr, vsync.to_ll()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn set_window_shape(&mut self, surface: &mut Surface) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SetWindowShape(self.ptr, surface.as_mut_ptr()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     pub fn pixel_density(&self) -> Result<f32, Error> {
@@ -861,24 +898,63 @@ impl DisplayMode {
     }
 }
 
-#[repr(transparent)]
-#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct DisplayOrientation(sys::video::SDL_DisplayOrientation);
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum DisplayOrientation {
+    Unknown,
+    Landscape,
+    LandscapeFlipped,
+    Portrait,
+    PortraitFlipped,
+}
 
 impl DisplayOrientation {
-    /// The display orientation can't be determined
-    pub const UNKNOWN: Self = Self(sys::video::SDL_DisplayOrientation::UNKNOWN);
-    /// The display is in landscape mode, with the right side up, relative to portrait mode
-    pub const LANDSCAPE: Self = Self(sys::video::SDL_DisplayOrientation::LANDSCAPE);
-    /// The display is in landscape mode, with the left side up, relative to portrait mode
-    pub const LANDSCAPE_FLIPPED: Self = Self(sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED);
-    /// The display is in portrait mode
-    pub const PORTRAIT: Self = Self(sys::video::SDL_DisplayOrientation::PORTRAIT);
-    /// The display is in portrait mode, upside down
-    pub const PORTRAIT_FLIPPED: Self = Self(sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED);
+    pub fn try_from_ll(value: sys::video::SDL_DisplayOrientation) -> Result<Self, Error> {
+        Ok(match value {
+            sys::video::SDL_DisplayOrientation::UNKNOWN => Self::Unknown,
+            sys::video::SDL_DisplayOrientation::LANDSCAPE => Self::Landscape,
+            sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED => Self::LandscapeFlipped,
+            sys::video::SDL_DisplayOrientation::PORTRAIT => Self::Portrait,
+            sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED => Self::PortraitFlipped,
+            _ => return Err(Error::new("Unknown display orientation"))
+        })
+    }
 
-    #[inline]
     pub fn to_ll(&self) -> sys::video::SDL_DisplayOrientation {
-        self.0
+        match self {
+            DisplayOrientation::Unknown => sys::video::SDL_DisplayOrientation::UNKNOWN,
+            DisplayOrientation::Landscape => sys::video::SDL_DisplayOrientation::LANDSCAPE,
+            DisplayOrientation::LandscapeFlipped => sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED,
+            DisplayOrientation::Portrait => sys::video::SDL_DisplayOrientation::PORTRAIT,
+            DisplayOrientation::PortraitFlipped => sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED,
+        }
+    }
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum WindowSurfaceVSync {
+    EveryVerticalRefresh,
+    EverySecondVerticalRefresh,
+    Adaptive,
+    Disabled,
+}
+
+impl WindowSurfaceVSync {
+    pub fn try_from_ll(value: i32) -> Result<Self, Error> {
+        Ok(match value {
+            1 => Self::EveryVerticalRefresh,
+            2 => Self::EverySecondVerticalRefresh,
+            sys::video::SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE => Self::Adaptive,
+            sys::video::SDL_WINDOW_SURFACE_VSYNC_DISABLED => Self::Disabled,
+            _ => return Err(Error::new("Unknown window surface vsync type.")),
+        })
+    }
+
+    pub fn to_ll(&self) -> i32 {
+        match self {
+            WindowSurfaceVSync::EveryVerticalRefresh => 1,
+            WindowSurfaceVSync::EverySecondVerticalRefresh => 2,
+            WindowSurfaceVSync::Adaptive => sys::video::SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE,
+            WindowSurfaceVSync::Disabled => sys::video::SDL_WINDOW_SURFACE_VSYNC_DISABLED,
+        }
     }
 }
