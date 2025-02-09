@@ -162,7 +162,25 @@ impl VideoSubsystem {
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
-            Ok(DisplayMode::from_ptr(ptr))
+            Ok(DisplayMode::new(self, ptr))
+        }
+    }
+
+    pub fn fullscreen_display_modes(&self, display_id: u32) -> Result<Vec<DisplayMode>, Error> {
+        unsafe {
+            let mut count = 0;
+            let ptr = sys::video::SDL_GetFullscreenDisplayModes(display_id, &raw mut count);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            let mut display_modes = Vec::new();
+            // TODO: pointer arithmetic here operates on the assumption that SDL
+            for i in 0..count {
+                let display_mode = *ptr.offset(isize::try_from(i)?);
+                display_modes.push(DisplayMode::new(self, display_mode));
+            }
+            sys::stdinc::SDL_free(ptr as *mut c_void);
+            Ok(display_modes)
         }
     }
 
@@ -172,7 +190,7 @@ impl VideoSubsystem {
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
-            Ok(DisplayMode::from_ptr(ptr))
+            Ok(DisplayMode::new(self, ptr))
         }
     }
 
@@ -216,7 +234,7 @@ impl VideoSubsystem {
                 return Err(Error::from_sdl());
             }
             let out = out.assume_init();
-            let display_mode = DisplayMode::from_ptr(&raw const out);
+            let display_mode = DisplayMode::new(&self, &raw const out);
             Ok(display_mode)
         }
     }
@@ -377,6 +395,29 @@ impl Window {
         Ok(())
     }
 
+    pub fn fullscreen_mode(&self) -> Result<DisplayMode, Error> {
+        unsafe {
+            let ptr = sys::video::SDL_GetWindowFullscreenMode(self.ptr);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(DisplayMode::new(&self.video, ptr))
+        }
+    }
+
+    pub fn set_fullscreen_mode(&mut self, display_mode: &DisplayMode) -> Result<DisplayMode, Error> {
+        if !Arc::ptr_eq(&self.video.0, &display_mode.video.0) {
+            return Err(Error::new("Display mode does not belong to subsystem."));
+        }
+        unsafe {
+            let ptr = sys::video::SDL_GetWindowFullscreenMode(self.ptr);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(DisplayMode::new(&self.video, ptr))
+        }
+    }
+
     pub fn opacity(&self) -> Result<f32, Error> {
         let result = unsafe { sys::video::SDL_GetWindowOpacity(self.ptr) };
         if result == -1.0 {
@@ -516,6 +557,26 @@ impl Window {
             return Err(Error::from_sdl());
         }
         Ok(())
+    }
+
+    pub fn borders_size(&self) -> Result<(i32, i32, i32, i32), Error> {
+        let mut top = 0;
+        let mut left = 0;
+        let mut bottom = 0;
+        let mut right = 0;
+        let result = unsafe {
+            sys::video::SDL_GetWindowBordersSize(
+                self.ptr,
+                &raw mut top,
+                &raw mut left,
+                &raw mut bottom,
+                &raw mut right,
+            )
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((top, left, bottom, right))
     }
 
     pub fn set_bordered(&mut self, bordered: bool) -> Result<(), Error> {
@@ -744,32 +805,59 @@ impl WindowFlashOperation {
 }
 
 #[repr(C)]
-#[derive(Clone)]
 pub struct DisplayMode {
-    pub id: u32,
-    pub format: PixelFormat,
-    pub w: i32,
-    pub h: i32,
-    pub pixel_density: f32,
-    pub refresh_rate: f32,
-    pub refresh_rate_numerator: i32,
-    pub refresh_rate_denominator: i32,
+    video: VideoSubsystem,
+    ptr: *const sys::video::SDL_DisplayMode,
 }
 
 impl DisplayMode {
-    /// SAFETY: safe to call as long as the pointer is valid.
-    /// This copies the contents of *ptr to a new DisplayMode value.
-    unsafe fn from_ptr(ptr: *const sys::video::SDL_DisplayMode) -> Self {
+    // SAFETY:
+    // Safe to call and use as long as the ptr is owned by the video subsystem.
+    unsafe fn new(video: &VideoSubsystem, ptr: *const sys::video::SDL_DisplayMode) -> Self {
         Self {
-            id: (*ptr).displayID,
-            format: PixelFormat::from_ll((*ptr).format),
-            w: (*ptr).w,
-            h: (*ptr).h,
-            pixel_density: (*ptr).pixel_density,
-            refresh_rate: (*ptr).refresh_rate,
-            refresh_rate_numerator: (*ptr).refresh_rate_numerator,
-            refresh_rate_denominator: (*ptr).refresh_rate_denominator,
+            video: VideoSubsystem(Arc::clone(&video.0)),
+            ptr,
         }
+    }
+
+    #[inline]
+    pub fn id(&self) -> u32 {
+        unsafe { (*self.ptr).displayID }
+    }
+
+    #[inline]
+    pub fn format(&self) -> PixelFormat {
+        unsafe { PixelFormat::from_ll((*self.ptr).format) }
+    }
+
+    #[inline]
+    pub fn w(&self) -> i32 {
+        unsafe { (*self.ptr).w }
+    }
+
+    #[inline]
+    pub fn h(&self) -> i32 {
+        unsafe { (*self.ptr).h }
+    }
+
+    #[inline]
+    pub fn pixel_density(&self) -> f32 {
+        unsafe { (*self.ptr).pixel_density }
+    }
+
+    #[inline]
+    pub fn refresh_rate(&self) -> f32 {
+        unsafe { (*self.ptr).refresh_rate }
+    }
+
+    #[inline]
+    pub fn refresh_rate_numerator(&self) -> i32 {
+        unsafe { (*self.ptr).refresh_rate_numerator }
+    }
+
+    #[inline]
+    pub fn refresh_rate_denominator(&self) -> i32 {
+        unsafe { (*self.ptr).refresh_rate_denominator }
     }
 }
 
