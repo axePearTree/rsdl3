@@ -1,11 +1,10 @@
-use crate::pixels::PixelFormat;
+use crate::pixels::{Color, PixelFormat};
 use crate::rect::RectF32;
 use crate::surface::{Surface, SurfaceOwned};
 use crate::video::Window;
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
-use alloc::string::String;
 use core::ops::{Deref, DerefMut};
 
 // The order of fields must be preserved so the drop order is correct.
@@ -186,25 +185,61 @@ impl Renderer {
         Ok(())
     }
 
-    pub fn set_render_target(&mut self, texture: Texture) -> Result<(), Error> {
-        self.validate_texture(&texture)?;
-
-        let result = unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, texture.ptr) };
-        self.target = Some(texture);
-
+    pub fn render_draw_color(&self) -> Result<Color, Error> {
+        let mut r = 0;
+        let mut g = 0;
+        let mut b = 0;
+        let mut a = 0;
+        let result = unsafe {
+            sys::render::SDL_GetRenderDrawColor(
+                *self.ptr, &raw mut r, &raw mut g, &raw mut b, &raw mut a,
+            )
+        };
         if !result {
             return Err(Error::from_sdl());
         }
+        Ok(Color::new(r, g, b, a))
+    }
 
+    pub fn set_render_draw_color(&mut self, color: Color) -> Result<(), Error> {
+        let result = unsafe {
+            sys::render::SDL_SetRenderDrawColor(
+                *self.ptr,
+                color.r(),
+                color.g(),
+                color.b(),
+                color.a(),
+            )
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
         Ok(())
     }
 
-    pub fn take_render_target(&mut self) -> Result<Option<Texture>, Error> {
-        let result = unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, core::ptr::null_mut()) };
-        if !result {
-            return Err(Error::from_sdl());
+    /// Returns the previously used texture if there was one.
+    pub fn set_render_target(
+        &mut self,
+        texture: Option<Texture>,
+    ) -> Result<Option<Texture>, Error> {
+        match texture {
+            Some(texture) => {
+                self.validate_texture(&texture)?;
+                let result = unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, texture.ptr) };
+                if !result {
+                    return Err(Error::from_sdl());
+                }
+                Ok(self.target.replace(texture))
+            }
+            _ => {
+                let result =
+                    unsafe { sys::render::SDL_SetRenderTarget(*self.ptr, core::ptr::null_mut()) };
+                if !result {
+                    return Err(Error::from_sdl());
+                }
+                Ok(self.target.take())
+            }
         }
-        Ok(self.target.take())
     }
 
     pub fn present(&mut self) -> Result<(), Error> {
@@ -243,7 +278,6 @@ pub struct Texture {
 
 impl Drop for Texture {
     fn drop(&mut self) {
-        // SAFETY:
         if let Some(_) = self.parent.upgrade() {
             unsafe { sys::render::SDL_DestroyTexture(self.ptr) };
         }
