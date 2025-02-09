@@ -258,6 +258,10 @@ impl VideoSubsystem {
         }
         Ok(())
     }
+
+    pub fn system_theme(&self) -> Result<SysthemTheme, Error> {
+        SysthemTheme::try_from_ll(unsafe { sys::video::SDL_GetSystemTheme() })
+    }
 }
 
 pub struct Window {
@@ -730,6 +734,38 @@ impl Window {
         Ok(())
     }
 
+    pub fn update_surface_rects(&mut self, rects: &[Rect]) -> Result<(), Error> {
+        let rects: Vec<sys::rect::SDL_Rect> = rects.iter().map(|r| r.to_ll()).collect();
+        let result = unsafe {
+            sys::video::SDL_UpdateWindowSurfaceRects(
+                self.ptr,
+                rects.as_ptr(),
+                rects.len().try_into()?,
+            )
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn show_system_menu(&mut self, x: u32, y: u32) -> Result<(), Error> {
+        let result =
+            unsafe { sys::video::SDL_ShowWindowSystemMenu(self.ptr, x.try_into()?, y.try_into()?) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn sync(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::video::SDL_SyncWindow(self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
     pub fn as_ptr(&self) -> *const sys::video::SDL_Window {
         self.ptr as *const sys::video::SDL_Window
     }
@@ -915,7 +951,7 @@ impl DisplayOrientation {
             sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED => Self::LandscapeFlipped,
             sys::video::SDL_DisplayOrientation::PORTRAIT => Self::Portrait,
             sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED => Self::PortraitFlipped,
-            _ => return Err(Error::new("Unknown display orientation"))
+            _ => return Err(Error::new("Unknown display orientation")),
         })
     }
 
@@ -923,9 +959,13 @@ impl DisplayOrientation {
         match self {
             DisplayOrientation::Unknown => sys::video::SDL_DisplayOrientation::UNKNOWN,
             DisplayOrientation::Landscape => sys::video::SDL_DisplayOrientation::LANDSCAPE,
-            DisplayOrientation::LandscapeFlipped => sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED,
+            DisplayOrientation::LandscapeFlipped => {
+                sys::video::SDL_DisplayOrientation::LANDSCAPE_FLIPPED
+            }
             DisplayOrientation::Portrait => sys::video::SDL_DisplayOrientation::PORTRAIT,
-            DisplayOrientation::PortraitFlipped => sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED,
+            DisplayOrientation::PortraitFlipped => {
+                sys::video::SDL_DisplayOrientation::PORTRAIT_FLIPPED
+            }
         }
     }
 }
@@ -955,6 +995,32 @@ impl WindowSurfaceVSync {
             WindowSurfaceVSync::EverySecondVerticalRefresh => 2,
             WindowSurfaceVSync::Adaptive => sys::video::SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE,
             WindowSurfaceVSync::Disabled => sys::video::SDL_WINDOW_SURFACE_VSYNC_DISABLED,
+        }
+    }
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum SysthemTheme {
+    Light,
+    Dark,
+    Unknown,
+}
+
+impl SysthemTheme {
+    pub fn try_from_ll(theme: sys::video::SDL_SystemTheme) -> Result<Self, Error> {
+        Ok(match theme {
+            sys::video::SDL_SystemTheme::UNKNOWN => SysthemTheme::Unknown,
+            sys::video::SDL_SystemTheme::LIGHT => SysthemTheme::Light,
+            sys::video::SDL_SystemTheme::DARK => SysthemTheme::Dark,
+            _ => return Err(Error::new("Invalid system theme.")),
+        })
+    }
+
+    pub fn to_ll(&self) -> sys::video::SDL_SystemTheme {
+        match self {
+            SysthemTheme::Light => sys::video::SDL_SystemTheme::LIGHT,
+            SysthemTheme::Dark => sys::video::SDL_SystemTheme::LIGHT,
+            SysthemTheme::Unknown => sys::video::SDL_SystemTheme::LIGHT,
         }
     }
 }
