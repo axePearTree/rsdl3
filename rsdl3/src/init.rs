@@ -1,13 +1,9 @@
 #![allow(warnings)]
 
 use crate::Error;
-use alloc::borrow::ToOwned;
 use alloc::string::String;
-use alloc::sync::{Arc, Weak};
-use core::cell::{Cell, RefCell};
-use core::ffi::CStr;
+use alloc::sync::Arc;
 use core::marker::PhantomData;
-use core::ptr::NonNull;
 use core::sync::atomic::{AtomicBool, Ordering};
 use sdl3_sys as sys;
 

@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
 use crate::rect::{Point, Rect};
@@ -407,16 +405,13 @@ impl Window {
         }
     }
 
-    pub fn set_fullscreen_mode(
-        &mut self,
-        display_mode: &DisplayMode,
-    ) -> Result<DisplayMode, Error> {
+    pub fn set_fullscreen_mode(&mut self, display_mode: &DisplayMode) -> Result<(), Error> {
         unsafe {
-            let ptr = sys::video::SDL_GetWindowFullscreenMode(self.ptr);
-            if ptr.is_null() {
+            let result = sys::video::SDL_SetWindowFullscreenMode(self.ptr, display_mode.ptr);
+            if !result {
                 return Err(Error::from_sdl());
             }
-            Ok(DisplayMode::new(&self.video, ptr))
+            Ok(())
         }
     }
 
@@ -510,7 +505,7 @@ impl Window {
     pub fn safe_area(&self) -> Result<Rect, Error> {
         let mut out: MaybeUninit<sys::rect::SDL_Rect> = MaybeUninit::uninit();
         unsafe {
-            let result = unsafe { sys::video::SDL_GetWindowSafeArea(self.ptr, out.as_mut_ptr()) };
+            let result = sys::video::SDL_GetWindowSafeArea(self.ptr, out.as_mut_ptr());
             if !result {
                 return Err(Error::from_sdl());
             }

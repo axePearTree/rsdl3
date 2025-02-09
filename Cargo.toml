@@ -1,7 +1,3 @@
-[package]
-name = "rsdl3"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-[dependencies]
-sdl3-sys = { version = "0.4.2", features = ["build-from-source", "debug-impls"] }
+members = ["rsdl3"]

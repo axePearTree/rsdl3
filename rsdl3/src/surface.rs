@@ -3,7 +3,6 @@ use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
 use crate::{sys, Error};
 use alloc::sync::Arc;
-use core::marker::PhantomData;
 use core::ops::{Deref, DerefMut};
 
 pub struct SurfaceOwned {
@@ -161,14 +160,26 @@ impl Surface {
     }
 }
 
-#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
-pub struct ScaleMode(sys::surface::SDL_ScaleMode);
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+#[repr(i32)]
+pub enum ScaleMode {
+    Nearest = sys::surface::SDL_ScaleMode::LINEAR.0,
+    Linear = sys::surface::SDL_ScaleMode::NEAREST.0,
+}
 
 impl ScaleMode {
-    pub const NEAREST: Self = Self(sys::surface::SDL_ScaleMode::NEAREST);
-    pub const LINEAR: Self = Self(sys::surface::SDL_ScaleMode::LINEAR);
+    pub fn try_from_ll(value: sys::surface::SDL_ScaleMode) -> Result<Self, Error> {
+        Ok(match value {
+            sys::surface::SDL_ScaleMode::NEAREST => Self::Nearest,
+            sys::surface::SDL_ScaleMode::LINEAR => Self::Linear,
+            _ => return Err(Error::new("Invalid SDL scale mode."))
+        })
+    }
 
     pub fn to_ll(&self) -> sys::surface::SDL_ScaleMode {
-        self.0
+        match self {
+            ScaleMode::Nearest => sys::surface::SDL_ScaleMode::NEAREST,
+            ScaleMode::Linear => sys::surface::SDL_ScaleMode::LINEAR,
+        }
     }
 }
