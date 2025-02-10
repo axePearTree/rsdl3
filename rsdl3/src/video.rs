@@ -6,7 +6,6 @@ use crate::surface::{Surface, SurfaceOwned};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::string::String;
-use alloc::sync::Arc;
 use alloc::vec::Vec;
 use core::ffi::{c_int, c_void, CStr};
 use core::marker::PhantomData;
@@ -33,7 +32,7 @@ impl VideoSubsystem {
             return Err(Error::from_sdl());
         }
         Ok(Window {
-            video: VideoSubsystem(Arc::clone(&self.0)),
+            video: self.clone(),
             ptr,
         })
     }
@@ -956,7 +955,7 @@ impl DisplayMode {
     // Safe to call and use as long as the ptr is owned by the video subsystem.
     unsafe fn new(video: &VideoSubsystem, ptr: *const sys::video::SDL_DisplayMode) -> Self {
         Self {
-            video: VideoSubsystem(Arc::clone(&video.0)),
+            video: video.clone(),
             ptr,
         }
     }

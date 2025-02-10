@@ -2,7 +2,6 @@ use crate::init::VideoSubsystem;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
 use crate::{sys, Error};
-use alloc::sync::Arc;
 use core::ops::{Deref, DerefMut};
 
 pub struct SurfaceOwned {
@@ -24,7 +23,7 @@ impl SurfaceOwned {
             return Err(Error::from_sdl());
         }
         Ok(Self {
-            _video: VideoSubsystem(Arc::clone(&video.0)),
+            _video: video.clone(),
             inner: Surface(ptr),
         })
     }
