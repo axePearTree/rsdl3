@@ -1,12 +1,12 @@
 #![allow(unused)]
 
-use core::cell::RefCell;
-use std::sync::atomic::{AtomicBool, Ordering};
-
 use crate::events::EventPump;
+use crate::sys;
 use crate::Error;
 use alloc::rc::{Rc, Weak};
-use sdl3_sys as sys;
+use alloc::string::String;
+use core::cell::RefCell;
+use core::sync::atomic::{AtomicBool, Ordering};
 
 static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);
 const INITIALIZED: bool = true;
@@ -128,7 +128,6 @@ pub struct Subsystem<const INIT_FLAG: u32> {
 
 impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
     fn init(drop: &Rc<SdlDrop>) -> Result<Self, Error> {
-        println!("Initializing system {}", INIT_FLAG);
         // Subsystems are refcounted internally by SDL.
         // If you create two instances of the same subsystem with this method, SDL will increase
         // the refcount.
@@ -148,7 +147,6 @@ impl<const INIT_FLAG: u32> Drop for Subsystem<INIT_FLAG> {
     fn drop(&mut self) {
         // This call matches the SDL_InitSubSystem from this instance.
         // SDL refcounts subsystems internally so this should be safe.
-        println!("Deinitializing system {}", INIT_FLAG);
         unsafe { sys::init::SDL_QuitSubSystem(INIT_FLAG) };
     }
 }

@@ -250,6 +250,14 @@ impl Renderer {
         Ok(())
     }
 
+    pub fn clear(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::render::SDL_RenderClear(*self.ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
         match texture.parent.upgrade() {
             Some(ref parent) if Rc::ptr_eq(parent, &self.ptr) => Ok(()),
