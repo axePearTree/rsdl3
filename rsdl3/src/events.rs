@@ -68,8 +68,141 @@ impl Event {
     fn from_ll(ev: sys::events::SDL_Event) -> Self {
         unsafe {
             match sys::events::SDL_EventType(ev.r#type) {
-                sys::events::SDL_EVENT_WINDOW_MOUSE_ENTER => Self::Window(WindowEvent::MouseEnter),
-                sys::events::SDL_EVENT_WINDOW_MOUSE_LEAVE => Self::Window(WindowEvent::MouseLeave),
+                sys::events::SDL_EVENT_WINDOW_MOVED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Moved { x: ev.window.data1, y: ev.window.data2 },
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_SHOWN => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Shown,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_HIDDEN => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Hidden,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_EXPOSED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Exposed,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                // TODO: check if data fields have new window size.
+                sys::events::SDL_EVENT_WINDOW_RESIZED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Resized {
+                        w: ev.window.data1.max(0) as u32,
+                        h: ev.window.data2.max(0) as u32,
+                    },
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_HIT_TEST => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::HitTest,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_OCCLUDED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Occluded,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_RESTORED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Restored,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_DESTROYED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Destroyed,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_MAXIMIZED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Maximized,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_MINIMIZED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::Minimized,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_MOUSE_ENTER => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::MouseEnter,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_MOUSE_LEAVE => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::MouseLeave,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_FOCUS_GAINED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::FocusGained,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_FOCUS_LOST => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::FocusLost,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_CLOSE_REQUESTED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::CloseRequested,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_DISPLAY_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::DisplayChanged {
+                        display_id: ev.window.data1.max(0) as u32,
+                    },
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_ICCPROF_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::IccProfileChanged,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_ENTER_FULLSCREEN => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::EnterFullscreen,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_LEAVE_FULLSCREEN => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::LeaveFullscreen,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                // TODO: check if data fields have new safe area data.
+                sys::events::SDL_EVENT_WINDOW_SAFE_AREA_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::SafeAreaChanged,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_HDR_STATE_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::HdrStateChanged,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_METAL_VIEW_RESIZED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::MetalViewResized,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::PixelSizeChanged {
+                        w: ev.window.data1.max(0) as u32,
+                        h: ev.window.data2.max(0) as u32,
+                    },
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
+                sys::events::SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED => Self::Window(WindowEvent {
+                    payload: WindowEventPayload::DisplayScaleChanged,
+                    timestamp: ev.window.timestamp,
+                    window_id: ev.window.windowID,
+                }),
                 sys::events::SDL_EVENT_QUIT => Self::Quit,
                 _ => Self::Unknown,
             }
@@ -78,9 +211,38 @@ impl Event {
 }
 
 #[derive(Clone, Debug)]
-pub enum WindowEvent {
+pub struct WindowEvent {
+    pub payload: WindowEventPayload,
+    pub timestamp: u64,
+    pub window_id: u32,
+}
+
+#[derive(Clone, Debug)]
+pub enum WindowEventPayload {
+    Moved { x: i32, y: i32 },
+    Shown,
+    Hidden,
     MouseEnter,
     MouseLeave,
-    Last,
     Unknown,
+    Exposed,
+    Resized { w: u32, h: u32 },
+    HitTest,
+    Occluded,
+    Restored,
+    Destroyed,
+    Maximized,
+    Minimized,
+    FocusLost,
+    FocusGained,
+    CloseRequested,
+    DisplayChanged { display_id: u32 },
+    IccProfileChanged,
+    EnterFullscreen,
+    LeaveFullscreen,
+    SafeAreaChanged,
+    HdrStateChanged,
+    MetalViewResized,
+    PixelSizeChanged { w: u32, h: u32 },
+    DisplayScaleChanged,
 }
