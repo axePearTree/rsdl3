@@ -1,4 +1,4 @@
-#![no_std]
+// #![no_std]
 
 extern crate alloc;
 
@@ -8,6 +8,7 @@ pub mod rect;
 pub mod render;
 pub mod surface;
 pub mod video;
+pub mod events;
 
 use alloc::borrow::ToOwned;
 use alloc::string::String;
