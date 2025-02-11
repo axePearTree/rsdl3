@@ -1,6 +1,6 @@
-use crate::Error;
 use crate::init::EventsSubsystem;
 use crate::sys;
+use crate::Error;
 use core::cell::RefMut;
 use core::marker::PhantomData;
 use core::mem::MaybeUninit;
@@ -59,17 +59,28 @@ impl Iterator for EventPollIter<'_> {
 
 #[derive(Clone, Debug)]
 pub enum Event {
+    Window(WindowEvent),
     Quit,
     Unknown,
 }
 
 impl Event {
-    pub fn from_ll(ev: sys::events::SDL_Event) -> Self {
+    fn from_ll(ev: sys::events::SDL_Event) -> Self {
         unsafe {
             match sys::events::SDL_EventType(ev.r#type) {
+                sys::events::SDL_EVENT_WINDOW_MOUSE_ENTER => Self::Window(WindowEvent::MouseEnter),
+                sys::events::SDL_EVENT_WINDOW_MOUSE_LEAVE => Self::Window(WindowEvent::MouseLeave),
                 sys::events::SDL_EVENT_QUIT => Self::Quit,
                 _ => Self::Unknown,
             }
         }
     }
+}
+
+#[derive(Clone, Debug)]
+pub enum WindowEvent {
+    MouseEnter,
+    MouseLeave,
+    Last,
+    Unknown,
 }
