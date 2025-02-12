@@ -32,7 +32,7 @@ impl VideoSubsystem {
             return Err(Error::from_sdl());
         }
         Ok(Window {
-            video: self.clone(),
+            _video: self.clone(),
             ptr,
         })
     }
@@ -260,9 +260,9 @@ impl VideoSubsystem {
 }
 
 pub struct Window {
-    video: VideoSubsystem,
+    _video: VideoSubsystem,
+    /// This pointer should be safe to dereference as long as the window is still alive.
     ptr: *mut sys::video::SDL_Window,
-    // This pointer should be safe to dereference as long as the window is still alive.
 }
 
 impl Window {
@@ -404,8 +404,14 @@ impl Window {
         }
     }
 
-    /// `index`: The index of the selected display mode inside the vector returned by Video::fullscreen_display_modes
-    pub fn set_fullscreen_mode(&mut self, display_id: u32, mode_index: usize) -> Result<(), Error> {
+    /// Selects one of the available display modes to be this window's fullscreen mode.
+    /// NOTE: This method is very different from the original SDL function for memory safety
+    /// reasons.
+    pub fn select_fullscreen_mode(
+        &mut self,
+        display_id: u32,
+        select: impl Fn(DisplayMode) -> bool,
+    ) -> Result<(), Error> {
         // This method is a kind of a shit show and very different from the original SDL because the
         // lifetimes of SDL_DisplayModes are somewhat weird.
         // Originally, SDL_SetWindowFullscreenMode takes a *SDL_DisplayMode as a parameter.
@@ -418,15 +424,17 @@ impl Window {
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
-            let mode_i32: i32 = mode_index.try_into()?;
-            if mode_i32 >= count {
-                return Err(Error::new("Invalid display mode index."));
-            }
-            // TODO: pointer arithmetic here operates on the assumption that SDL
-            let display_mode_ptr = *ptr.offset(isize::try_from(mode_index)?);
-            let result = sys::video::SDL_SetWindowFullscreenMode(self.ptr, display_mode_ptr);
-            if !result {
-                return Err(Error::from_sdl());
+            let count: usize = count.try_into()?;
+            for i in 0..count {
+                let display_mode_ptr = *ptr.offset(isize::try_from(i)?);
+                let display_mode = DisplayMode::from_ptr(display_mode_ptr);
+                if select(display_mode) {
+                    let result = sys::video::SDL_SetWindowFullscreenMode(self.ptr, display_mode_ptr);
+                    if !result {
+                        return Err(Error::from_sdl());
+                    }
+                    return Ok(())
+                }
             }
             Ok(())
         }
@@ -966,7 +974,7 @@ impl WindowFlashOperation {
 // as pointers whose lifetimes are a bit messy. Adding or removing a display might move the
 // underlying memory of the pointer to a different location.
 #[repr(C)]
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub struct DisplayMode {
     pub display_id: u32,
     pub format: PixelFormat,
