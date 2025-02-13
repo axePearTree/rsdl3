@@ -520,11 +520,14 @@ impl Window {
     }
 
     pub fn pixel_format(&self) -> Result<PixelFormat, Error> {
-        let result = unsafe { sys::video::SDL_GetWindowPixelFormat(self.ptr) };
-        if result == sys::pixels::SDL_PixelFormat::UNKNOWN {
-            return Err(Error::from_sdl());
+        unsafe {
+            let result = sys::video::SDL_GetWindowPixelFormat(self.ptr);
+            // Even though the unknown PixelFormat is valid SDL tells us to handle it as an error.
+            if result == sys::pixels::SDL_PixelFormat::UNKNOWN {
+                return Err(Error::from_sdl());
+            }
+            return Ok(PixelFormat::from_ll_unchecked(result));
         }
-        return Ok(PixelFormat::from_ll(result));
     }
 
     pub fn safe_area(&self) -> Result<Rect, Error> {
@@ -992,7 +995,7 @@ impl DisplayMode {
     unsafe fn from_ptr(ptr: *const sys::video::SDL_DisplayMode) -> Self {
         Self {
             display_id: (*ptr).displayID,
-            format: PixelFormat::from_ll((*ptr).format),
+            format: PixelFormat::from_ll_unchecked((*ptr).format),
             w: (*ptr).w,
             h: (*ptr).h,
             pixel_density: (*ptr).pixel_density,

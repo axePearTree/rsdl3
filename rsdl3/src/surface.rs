@@ -2,6 +2,7 @@ use crate::init::VideoSubsystem;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
 use crate::{sys, Error};
+use core::mem::MaybeUninit;
 use core::ops::{Deref, DerefMut};
 
 pub struct SurfaceOwned {
@@ -26,6 +27,25 @@ impl SurfaceOwned {
             _video: video.clone(),
             inner: Surface(ptr),
         })
+    }
+
+    /// SAFETY: ptr must be valid
+    pub(crate) unsafe fn from_ptr(
+        video: &VideoSubsystem,
+        ptr: *mut sys::surface::SDL_Surface,
+    ) -> Self {
+        Self {
+            _video: video.clone(),
+            inner: Surface::new(ptr),
+        }
+    }
+
+    pub fn convert(self, format: PixelFormat) -> Result<SurfaceOwned, Error> {
+        let ptr = unsafe { sys::surface::SDL_ConvertSurface(self.0, format.to_ll()) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { SurfaceOwned::from_ptr(&self._video, ptr) })
     }
 
     #[inline]
@@ -64,6 +84,8 @@ impl Drop for SurfaceOwned {
 // SAFETY:
 // We only ever hand out this struct via derefs. This object can't be constructed outside of this
 // module; so it's always exposed as a reference whose lifetime matches that of its' owner.
+// Attempts to reassining the value of a &mut Surface won't work because Surfaces can't be moved
+// out of.
 pub struct Surface(*mut sys::surface::SDL_Surface);
 
 impl Surface {
@@ -107,6 +129,73 @@ impl Surface {
 
     pub fn set_blend_mode(&mut self, blend_mode: BlendMode) -> Result<(), Error> {
         let result = unsafe { sys::surface::SDL_SetSurfaceBlendMode(self.0, blend_mode.to_ll()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn clip_rect(&self) -> Result<Rect, Error> {
+        let mut rect = MaybeUninit::uninit();
+        let rect = unsafe {
+            let result = sys::surface::SDL_GetSurfaceClipRect(self.0, rect.as_mut_ptr());
+            if !result {
+                return Err(Error::from_sdl());
+            }
+            rect.assume_init()
+        };
+        Ok(Rect::from_ll(rect))
+    }
+
+    pub fn set_clip_rect(&mut self, rect: Option<Rect>) -> Result<(), Error> {
+        let clip_rect = rect.map(Rect::to_ll);
+        let clip_rect_ptr = clip_rect
+            .as_ref()
+            .map_or(core::ptr::null(), core::ptr::from_ref);
+        let result = unsafe { sys::surface::SDL_SetSurfaceClipRect(self.0, clip_rect_ptr) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn color_key(&self) -> Result<u32, Error> {
+        let mut color_key = 0;
+        let result = unsafe { sys::surface::SDL_GetSurfaceColorKey(self.0, &raw mut color_key) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(color_key)
+    }
+
+    pub fn set_color_key(&mut self, color_key: Option<u32>) -> Result<(), Error> {
+        let result = match color_key {
+            Some(color_key) => unsafe {
+                sys::surface::SDL_SetSurfaceColorKey(self.0, true, color_key)
+            },
+            None => unsafe { sys::surface::SDL_SetSurfaceColorKey(self.0, false, 0) },
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn color_mod(&self) -> Result<(u8, u8, u8), Error> {
+        let mut r = 0;
+        let mut g = 0;
+        let mut b = 0;
+        let result = unsafe {
+            sys::surface::SDL_GetSurfaceColorMod(self.0, &raw mut r, &raw mut g, &raw mut b)
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok((r, g, b))
+    }
+
+    pub fn set_color_mod(&mut self, r: u8, g: u8, b: u8) -> Result<(), Error> {
+        let result = unsafe { sys::surface::SDL_SetSurfaceColorMod(self.0, r, g, b) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -304,9 +393,19 @@ impl Surface {
         Ok(())
     }
 
+    pub fn lock<'a>(&'a mut self) -> Result<SurfaceLock<'a>, Error> {
+        let result = unsafe { sys::surface::SDL_LockSurface(self.0) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(SurfaceLock(self))
+    }
+
     pub fn format(&self) -> PixelFormat {
-        let format = unsafe { (*self.0).format };
-        PixelFormat::from_ll(format)
+        unsafe {
+            let format = (*self.0).format;
+            PixelFormat::from_ll_unchecked(format)
+        }
     }
 
     pub fn as_ptr(&self) -> *const sys::surface::SDL_Surface {
@@ -315,6 +414,51 @@ impl Surface {
 
     pub fn as_mut_ptr(&mut self) -> *mut sys::surface::SDL_Surface {
         self.0
+    }
+}
+
+pub struct SurfaceLock<'a>(&'a mut Surface);
+
+impl<'a> SurfaceLock<'a> {
+    pub fn as_bytes(&self) -> &[u8] {
+        unsafe {
+            let ptr = (*self.0 .0).pixels;
+            match self.pixels_length(self.0 .0) {
+                Some(length) => core::slice::from_raw_parts(ptr as *const u8, length),
+                None => &[],
+            }
+        }
+    }
+
+    pub fn as_bytes_mut(&mut self) -> &mut [u8] {
+        unsafe {
+            let ptr = (*self.0 .0).pixels;
+            match self.pixels_length(self.0 .0) {
+                Some(length) => core::slice::from_raw_parts_mut(ptr as *mut u8, length),
+                None => &mut [],
+            }
+        }
+    }
+
+    unsafe fn pixels_length(&self, ptr: *const sys::surface::SDL_Surface) -> Option<usize> {
+        if (*ptr).pixels.is_null() {
+            return None;
+        }
+        Some(((*ptr).h * (*ptr).pitch) as usize)
+    }
+}
+
+impl Deref for SurfaceLock<'_> {
+    type Target = Surface;
+
+    fn deref(&self) -> &Self::Target {
+        self.0
+    }
+}
+
+impl<'a> Drop for SurfaceLock<'a> {
+    fn drop(&mut self) {
+        unsafe { sys::surface::SDL_UnlockSurface(self.0 .0) };
     }
 }
 
