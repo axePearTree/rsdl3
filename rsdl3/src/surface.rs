@@ -1,3 +1,5 @@
+use alloc::borrow::ToOwned;
+
 use crate::init::VideoSubsystem;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
@@ -31,7 +33,7 @@ impl SurfaceOwned {
     }
 
     /// SAFETY: ptr must be valid
-    pub(crate) unsafe fn from_ptr(
+    pub(crate) unsafe fn from_mut_ptr(
         video: &VideoSubsystem,
         ptr: *mut sys::surface::SDL_Surface,
     ) -> Self {
@@ -50,8 +52,9 @@ impl SurfaceOwned {
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
-        Ok(unsafe { SurfaceOwned::from_ptr(&self._video, ptr) })
+        Ok(unsafe { SurfaceOwned::from_mut_ptr(&self._video, ptr) })
     }
+
 }
 
 impl Drop for SurfaceOwned {

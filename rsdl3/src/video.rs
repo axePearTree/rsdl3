@@ -45,6 +45,14 @@ impl VideoSubsystem {
         SurfaceOwned::new(self, w, h, format)
     }
 
+    pub fn duplicate_surface(&self, surface: &Surface) -> Result<SurfaceOwned, Error> {
+        let ptr = unsafe { sys::surface::SDL_DuplicateSurface(surface.as_ptr() as *mut _) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { SurfaceOwned::from_mut_ptr(self, ptr) })
+    }
+
     pub fn num_drivers(&self) -> usize {
         unsafe { sys::video::SDL_GetNumVideoDrivers() as usize }
     }
