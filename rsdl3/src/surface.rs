@@ -1,6 +1,7 @@
 use crate::init::VideoSubsystem;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
+use crate::render::Renderer;
 use crate::{sys, Error};
 use core::mem::MaybeUninit;
 use core::ops::{Deref, DerefMut};
@@ -38,6 +39,10 @@ impl SurfaceOwned {
             _video: video.clone(),
             ptr,
         }
+    }
+
+    pub fn create_renderer(self) -> Result<Renderer, Error> {
+        Renderer::try_from_surface(self)
     }
 
     pub fn convert(self, format: PixelFormat) -> Result<SurfaceOwned, Error> {

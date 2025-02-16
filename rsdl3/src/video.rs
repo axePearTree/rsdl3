@@ -1,7 +1,7 @@
 use crate::init::VideoSubsystem;
 use crate::pixels::PixelFormat;
 use crate::rect::{Point, Rect};
-use crate::render::WindowRenderer;
+use crate::render::Renderer;
 use crate::surface::{Surface, SurfaceOwned};
 use crate::{sys, Error};
 use alloc::ffi::CString;
@@ -265,8 +265,8 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn create_renderer(self, driver: Option<&str>) -> Result<WindowRenderer, Error> {
-        WindowRenderer::new(self, driver)
+    pub fn create_renderer(self, driver: Option<&str>) -> Result<Renderer, Error> {
+        Renderer::try_from_window(self, driver)
     }
 
     pub fn id(&self) -> Result<u32, Error> {
@@ -305,7 +305,7 @@ impl Window {
         unsafe { sys::video::SDL_WindowHasSurface(self.ptr) }
     }
 
-    pub fn surface_ref(&self) -> Result<&Surface, Error> {
+    pub fn as_surface_ref(&self) -> Result<&Surface, Error> {
         unsafe {
             let surface = sys::video::SDL_GetWindowSurface(self.ptr);
             if surface.is_null() {
@@ -315,7 +315,7 @@ impl Window {
         }
     }
 
-    pub fn surface_mut(&mut self) -> Result<&mut Surface, Error> {
+    pub fn as_surface_mut(&mut self) -> Result<&mut Surface, Error> {
         unsafe {
             let surface = sys::video::SDL_GetWindowSurface(self.ptr);
             if surface.is_null() {
@@ -428,11 +428,12 @@ impl Window {
                 let display_mode_ptr = *ptr.offset(isize::try_from(i)?);
                 let display_mode = DisplayMode::from_ptr(display_mode_ptr);
                 if select(display_mode) {
-                    let result = sys::video::SDL_SetWindowFullscreenMode(self.ptr, display_mode_ptr);
+                    let result =
+                        sys::video::SDL_SetWindowFullscreenMode(self.ptr, display_mode_ptr);
                     if !result {
                         return Err(Error::from_sdl());
                     }
-                    return Ok(())
+                    return Ok(());
                 }
             }
             Ok(())
