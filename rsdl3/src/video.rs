@@ -8,9 +8,8 @@ use alloc::ffi::CString;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::ffi::{c_int, c_void, CStr};
-use core::marker::PhantomData;
 use core::mem::MaybeUninit;
-use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
+use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign};
 
 impl VideoSubsystem {
     pub fn create_window(
@@ -306,23 +305,23 @@ impl Window {
         unsafe { sys::video::SDL_WindowHasSurface(self.ptr) }
     }
 
-    pub fn surface_ref(&self) -> Result<WindowSurfaceRef, Error> {
+    pub fn surface_ref(&self) -> Result<&Surface, Error> {
         unsafe {
             let surface = sys::video::SDL_GetWindowSurface(self.ptr);
             if surface.is_null() {
                 return Err(Error::from_sdl());
             }
-            Ok(WindowSurfaceRef::from_mut_ptr(surface))
+            Ok(Surface::from_mut_ptr(surface))
         }
     }
 
-    pub fn surface_mut(&mut self) -> Result<WindowSurfaceMut, Error> {
+    pub fn surface_mut(&mut self) -> Result<&mut Surface, Error> {
         unsafe {
             let surface = sys::video::SDL_GetWindowSurface(self.ptr);
             if surface.is_null() {
                 return Err(Error::from_sdl());
             }
-            Ok(WindowSurfaceMut::from_mut_ptr(surface))
+            Ok(Surface::from_mut_ptr(surface))
         }
     }
 
@@ -799,81 +798,6 @@ impl Window {
 impl Drop for Window {
     fn drop(&mut self) {
         unsafe { sys::video::SDL_DestroyWindow(self.ptr) };
-    }
-}
-
-pub struct WindowSurfaceRef<'a> {
-    inner: Surface,
-    _m: PhantomData<&'a *const ()>,
-}
-
-impl<'a> WindowSurfaceRef<'a> {
-    /// SAFETY:
-    /// Gotta make sure the lifetime of this object matches that of its' owner.
-    pub(crate) unsafe fn from_mut_ptr(ptr: *mut sys::surface::SDL_Surface) -> Self {
-        Self {
-            inner: Surface::new(ptr),
-            _m: PhantomData,
-        }
-    }
-}
-
-impl<'a> AsRef<Surface> for WindowSurfaceRef<'a> {
-    fn as_ref(&self) -> &Surface {
-        self.deref()
-    }
-}
-
-impl<'a> Deref for WindowSurfaceRef<'a> {
-    type Target = Surface;
-
-    #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.inner
-    }
-}
-
-pub struct WindowSurfaceMut<'a> {
-    inner: Surface,
-    _m: PhantomData<&'a *const ()>,
-}
-
-impl<'a> WindowSurfaceMut<'a> {
-    /// SAFETY:
-    /// Gotta make sure the lifetime of this object matches that of its' owner.
-    pub(crate) unsafe fn from_mut_ptr(ptr: *mut sys::surface::SDL_Surface) -> Self {
-        Self {
-            inner: Surface::new(ptr),
-            _m: PhantomData,
-        }
-    }
-}
-
-impl<'a> AsRef<Surface> for WindowSurfaceMut<'a> {
-    fn as_ref(&self) -> &Surface {
-        self.deref()
-    }
-}
-
-impl<'a> AsMut<Surface> for WindowSurfaceMut<'a> {
-    fn as_mut(&mut self) -> &mut Surface {
-        self.deref_mut()
-    }
-}
-
-impl<'a> Deref for WindowSurfaceMut<'a> {
-    type Target = Surface;
-
-    #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.inner
-    }
-}
-
-impl<'a> DerefMut for WindowSurfaceMut<'a> {
-    #[inline]
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.inner
     }
 }
 

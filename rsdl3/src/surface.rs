@@ -7,7 +7,7 @@ use core::ops::{Deref, DerefMut};
 
 pub struct SurfaceOwned {
     _video: VideoSubsystem,
-    inner: Surface,
+    ptr: *mut sys::surface::SDL_Surface,
 }
 
 impl SurfaceOwned {
@@ -25,7 +25,7 @@ impl SurfaceOwned {
         }
         Ok(Self {
             _video: video.clone(),
-            inner: Surface(ptr),
+            ptr,
         })
     }
 
@@ -36,65 +36,61 @@ impl SurfaceOwned {
     ) -> Self {
         Self {
             _video: video.clone(),
-            inner: Surface::new(ptr),
+            ptr,
         }
     }
 
     pub fn convert(self, format: PixelFormat) -> Result<SurfaceOwned, Error> {
-        let ptr = unsafe { sys::surface::SDL_ConvertSurface(self.0, format.to_ll()) };
+        let ptr = unsafe { sys::surface::SDL_ConvertSurface(self.ptr, format.to_ll()) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
         Ok(unsafe { SurfaceOwned::from_ptr(&self._video, ptr) })
     }
+}
 
-    #[inline]
-    pub fn as_ref(&self) -> &Surface {
-        &self.inner
-    }
-
-    #[inline]
-    pub fn as_mut(&mut self) -> &mut Surface {
-        &mut self.inner
+impl Drop for SurfaceOwned {
+    fn drop(&mut self) {
+        unsafe { sys::surface::SDL_DestroySurface(self.ptr) };
     }
 }
 
 impl Deref for SurfaceOwned {
     type Target = Surface;
 
-    #[inline]
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { Surface::from_ptr(self.ptr) }
     }
 }
 
 impl DerefMut for SurfaceOwned {
-    #[inline]
     fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.inner
-    }
-}
-
-impl Drop for SurfaceOwned {
-    fn drop(&mut self) {
-        unsafe { sys::surface::SDL_DestroySurface(self.0) };
+        unsafe { Surface::from_mut_ptr(self.ptr) }
     }
 }
 
 // SAFETY:
-// We only ever hand out this struct via derefs. This object can't be constructed outside of this
-// module; so it's always exposed as a reference whose lifetime matches that of its' owner.
-// Attempts to reassining the value of a &mut Surface won't work because Surfaces can't be moved
-// out of.
-pub struct Surface(*mut sys::surface::SDL_Surface);
+// This struct is used as a marker for *sys::surface::SDL_Surface.
+// We transmute *const sys::surface::SDL_Surface/*mut sys::surface::SDL_Surfaces into &Surface/&mut Surface
+// The lib only exposes references to this struct.
+pub struct Surface {
+    // This field is here so this struct can't be constructed outside this crate.
+    _inner: (),
+}
 
 impl Surface {
-    pub(crate) unsafe fn new(ptr: *mut sys::surface::SDL_Surface) -> Self {
-        Self(ptr)
+    pub(crate) unsafe fn from_ptr<'a>(ptr: *const sys::surface::SDL_Surface) -> &'a Self {
+        &*(ptr as *const Surface)
+    }
+
+    pub(crate) unsafe fn from_mut_ptr<'a>(ptr: *const sys::surface::SDL_Surface) -> &'a mut Self {
+        &mut *(ptr as *mut Surface)
     }
 
     pub fn add_alternate_image(&mut self, other: &mut Surface) -> Result<(), Error> {
-        let result = unsafe { sys::surface::SDL_AddSurfaceAlternateImage(self.0, other.0) };
+        let result = unsafe {
+            sys::surface::SDL_AddSurfaceAlternateImage(self.as_mut_ptr(), other.as_mut_ptr())
+        };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -103,7 +99,9 @@ impl Surface {
 
     pub fn alpha_mod(&self) -> Result<u8, Error> {
         let mut alpha_mod: u8 = 0;
-        let result = unsafe { sys::surface::SDL_GetSurfaceAlphaMod(self.0, &raw mut alpha_mod) };
+        let result = unsafe {
+            sys::surface::SDL_GetSurfaceAlphaMod(self.as_ptr() as *mut _, &raw mut alpha_mod)
+        };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -111,7 +109,7 @@ impl Surface {
     }
 
     pub fn set_alpha_mod(&mut self, alpha_mod: u8) -> Result<(), Error> {
-        let result = unsafe { sys::surface::SDL_SetSurfaceAlphaMod(self.0, alpha_mod) };
+        let result = unsafe { sys::surface::SDL_SetSurfaceAlphaMod(self.as_mut_ptr(), alpha_mod) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -120,7 +118,9 @@ impl Surface {
 
     pub fn blend_mode(&self) -> Result<Option<BlendMode>, Error> {
         let mut blend_mode = 0;
-        let result = unsafe { sys::surface::SDL_GetSurfaceBlendMode(self.0, &raw mut blend_mode) };
+        let result = unsafe {
+            sys::surface::SDL_GetSurfaceBlendMode(self.as_ptr() as *mut _, &raw mut blend_mode)
+        };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -128,7 +128,8 @@ impl Surface {
     }
 
     pub fn set_blend_mode(&mut self, blend_mode: BlendMode) -> Result<(), Error> {
-        let result = unsafe { sys::surface::SDL_SetSurfaceBlendMode(self.0, blend_mode.to_ll()) };
+        let result =
+            unsafe { sys::surface::SDL_SetSurfaceBlendMode(self.as_mut_ptr(), blend_mode.to_ll()) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -138,7 +139,8 @@ impl Surface {
     pub fn clip_rect(&self) -> Result<Rect, Error> {
         let mut rect = MaybeUninit::uninit();
         let rect = unsafe {
-            let result = sys::surface::SDL_GetSurfaceClipRect(self.0, rect.as_mut_ptr());
+            let result =
+                sys::surface::SDL_GetSurfaceClipRect(self.as_ptr() as *mut _, rect.as_mut_ptr());
             if !result {
                 return Err(Error::from_sdl());
             }
@@ -152,7 +154,8 @@ impl Surface {
         let clip_rect_ptr = clip_rect
             .as_ref()
             .map_or(core::ptr::null(), core::ptr::from_ref);
-        let result = unsafe { sys::surface::SDL_SetSurfaceClipRect(self.0, clip_rect_ptr) };
+        let result =
+            unsafe { sys::surface::SDL_SetSurfaceClipRect(self.as_mut_ptr(), clip_rect_ptr) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -161,7 +164,9 @@ impl Surface {
 
     pub fn color_key(&self) -> Result<u32, Error> {
         let mut color_key = 0;
-        let result = unsafe { sys::surface::SDL_GetSurfaceColorKey(self.0, &raw mut color_key) };
+        let result = unsafe {
+            sys::surface::SDL_GetSurfaceColorKey(self.as_ptr() as *mut _, &raw mut color_key)
+        };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -171,9 +176,9 @@ impl Surface {
     pub fn set_color_key(&mut self, color_key: Option<u32>) -> Result<(), Error> {
         let result = match color_key {
             Some(color_key) => unsafe {
-                sys::surface::SDL_SetSurfaceColorKey(self.0, true, color_key)
+                sys::surface::SDL_SetSurfaceColorKey(self.as_mut_ptr(), true, color_key)
             },
-            None => unsafe { sys::surface::SDL_SetSurfaceColorKey(self.0, false, 0) },
+            None => unsafe { sys::surface::SDL_SetSurfaceColorKey(self.as_mut_ptr(), false, 0) },
         };
         if !result {
             return Err(Error::from_sdl());
@@ -186,7 +191,12 @@ impl Surface {
         let mut g = 0;
         let mut b = 0;
         let result = unsafe {
-            sys::surface::SDL_GetSurfaceColorMod(self.0, &raw mut r, &raw mut g, &raw mut b)
+            sys::surface::SDL_GetSurfaceColorMod(
+                self.as_ptr() as *mut _,
+                &raw mut r,
+                &raw mut g,
+                &raw mut b,
+            )
         };
         if !result {
             return Err(Error::from_sdl());
@@ -195,7 +205,7 @@ impl Surface {
     }
 
     pub fn set_color_mod(&mut self, r: u8, g: u8, b: u8) -> Result<(), Error> {
-        let result = unsafe { sys::surface::SDL_SetSurfaceColorMod(self.0, r, g, b) };
+        let result = unsafe { sys::surface::SDL_SetSurfaceColorMod(self.as_mut_ptr(), r, g, b) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -221,8 +231,14 @@ impl Surface {
             .as_ref()
             .map_or(core::ptr::null(), core::ptr::from_ref);
 
-        let result =
-            unsafe { sys::surface::SDL_BlitSurface(self.0, src_rect_ptr, dest.0, dest_rect_ptr) };
+        let result = unsafe {
+            sys::surface::SDL_BlitSurface(
+                self.as_mut_ptr(),
+                src_rect_ptr,
+                dest.as_mut_ptr(),
+                dest_rect_ptr,
+            )
+        };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -250,9 +266,9 @@ impl Surface {
 
         let result = unsafe {
             sys::surface::SDL_BlitSurfaceScaled(
-                self.0,
+                self.as_mut_ptr(),
                 src_rect_ptr,
-                dest.0,
+                dest.as_mut_ptr(),
                 dest_rect_ptr,
                 scale_mode.to_ll(),
             )
@@ -289,7 +305,7 @@ impl Surface {
 
         let result = unsafe {
             sys::surface::SDL_BlitSurface9Grid(
-                self.0,
+                self.as_mut_ptr(),
                 src_rect_ptr,
                 left_width.try_into()?,
                 right_width.try_into()?,
@@ -297,7 +313,7 @@ impl Surface {
                 bottom_height.try_into()?,
                 scale,
                 scale_mode.to_ll(),
-                dest.0,
+                dest.as_mut_ptr(),
                 dest_rect_ptr,
             )
         };
@@ -326,7 +342,12 @@ impl Surface {
             .map_or(core::ptr::null(), core::ptr::from_ref);
 
         let result = unsafe {
-            sys::surface::SDL_BlitSurfaceTiled(self.0, src_rect_ptr, dest.0, dest_rect_ptr)
+            sys::surface::SDL_BlitSurfaceTiled(
+                self.as_mut_ptr(),
+                src_rect_ptr,
+                dest.as_mut_ptr(),
+                dest_rect_ptr,
+            )
         };
         if !result {
             return Err(Error::from_sdl());
@@ -354,11 +375,11 @@ impl Surface {
 
         let result = unsafe {
             sys::surface::SDL_BlitSurfaceTiledWithScale(
-                self.0,
+                self.as_mut_ptr(),
                 src_rect_ptr,
                 scale,
                 scale_mode.to_ll(),
-                dest.0,
+                dest.as_mut_ptr(),
                 dest_rect_ptr,
             )
         };
@@ -371,7 +392,7 @@ impl Surface {
     pub fn flip(&mut self, mode: Option<FlipMode>) -> Result<(), Error> {
         let result = unsafe {
             sys::surface::SDL_FlipSurface(
-                self.0,
+                self.as_mut_ptr(),
                 mode.map(|f| f.to_ll())
                     .unwrap_or(sys::surface::SDL_FlipMode::NONE),
             )
@@ -385,7 +406,13 @@ impl Surface {
     pub fn clear(&mut self, color: Color) -> Result<(), Error> {
         let color: ColorF32 = color.into();
         let result = unsafe {
-            sys::surface::SDL_ClearSurface(self.0, color.r(), color.g(), color.b(), color.a())
+            sys::surface::SDL_ClearSurface(
+                self.as_mut_ptr(),
+                color.r(),
+                color.g(),
+                color.b(),
+                color.a(),
+            )
         };
         if !result {
             return Err(Error::from_sdl());
@@ -394,7 +421,7 @@ impl Surface {
     }
 
     pub fn lock<'a>(&'a mut self) -> Result<SurfaceLock<'a>, Error> {
-        let result = unsafe { sys::surface::SDL_LockSurface(self.0) };
+        let result = unsafe { sys::surface::SDL_LockSurface(self.as_mut_ptr()) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -403,17 +430,19 @@ impl Surface {
 
     pub fn format(&self) -> PixelFormat {
         unsafe {
-            let format = (*self.0).format;
+            let format = (*self.as_ptr()).format;
             PixelFormat::from_ll_unchecked(format)
         }
     }
 
+    #[inline]
     pub fn as_ptr(&self) -> *const sys::surface::SDL_Surface {
-        self.0 as *const _
+        self as *const Self as *const sys::surface::SDL_Surface
     }
 
+    #[inline]
     pub fn as_mut_ptr(&mut self) -> *mut sys::surface::SDL_Surface {
-        self.0
+        self.as_ptr() as *mut Self as *mut sys::surface::SDL_Surface
     }
 }
 
@@ -422,29 +451,28 @@ pub struct SurfaceLock<'a>(&'a mut Surface);
 impl<'a> SurfaceLock<'a> {
     pub fn as_bytes(&self) -> &[u8] {
         unsafe {
-            let ptr = (*self.0 .0).pixels;
-            match self.pixels_length(self.0 .0) {
-                Some(length) => core::slice::from_raw_parts(ptr as *const u8, length),
-                None => &[],
+            let height = (*self.as_ptr()).h;
+            let pitch = (*self.as_ptr()).pitch;
+            let length = (height * pitch) as usize;
+            let pixels = (*self.as_ptr()).pixels;
+            if pixels.is_null() {
+                return &[];
             }
+            core::slice::from_raw_parts(pixels as *const u8, length)
         }
     }
 
     pub fn as_bytes_mut(&mut self) -> &mut [u8] {
         unsafe {
-            let ptr = (*self.0 .0).pixels;
-            match self.pixels_length(self.0 .0) {
-                Some(length) => core::slice::from_raw_parts_mut(ptr as *mut u8, length),
-                None => &mut [],
+            let height = (*self.as_ptr()).h;
+            let pitch = (*self.as_ptr()).pitch;
+            let length = (height * pitch) as usize;
+            let pixels = (*self.as_mut_ptr()).pixels;
+            if pixels.is_null() {
+                return &mut [];
             }
+            core::slice::from_raw_parts_mut(pixels as *mut u8, length)
         }
-    }
-
-    unsafe fn pixels_length(&self, ptr: *const sys::surface::SDL_Surface) -> Option<usize> {
-        if (*ptr).pixels.is_null() {
-            return None;
-        }
-        Some(((*ptr).h * (*ptr).pitch) as usize)
     }
 }
 
@@ -456,9 +484,15 @@ impl Deref for SurfaceLock<'_> {
     }
 }
 
+impl DerefMut for SurfaceLock<'_> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        self.0
+    }
+}
+
 impl<'a> Drop for SurfaceLock<'a> {
     fn drop(&mut self) {
-        unsafe { sys::surface::SDL_UnlockSurface(self.0 .0) };
+        unsafe { sys::surface::SDL_UnlockSurface(self.as_mut_ptr()) };
     }
 }
 
