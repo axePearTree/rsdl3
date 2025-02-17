@@ -1,5 +1,5 @@
 use crate::init::VideoSubsystem;
-use crate::pixels::PixelFormat;
+use crate::pixels::{ColorPalette, PixelFormat};
 use crate::rect::{Point, Rect};
 use crate::render::Renderer;
 use crate::surface::{Surface, SurfaceOwned};
@@ -263,6 +263,10 @@ impl VideoSubsystem {
 
     pub fn system_theme(&self) -> Result<SysthemTheme, Error> {
         SysthemTheme::try_from_ll(unsafe { sys::video::SDL_GetSystemTheme() })
+    }
+
+    pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
+        ColorPalette::try_new(self, count)
     }
 }
 

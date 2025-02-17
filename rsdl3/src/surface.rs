@@ -1,5 +1,3 @@
-use alloc::borrow::ToOwned;
-
 use crate::init::VideoSubsystem;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
@@ -54,7 +52,6 @@ impl SurfaceOwned {
         }
         Ok(unsafe { SurfaceOwned::from_mut_ptr(&self._video, ptr) })
     }
-
 }
 
 impl Drop for SurfaceOwned {
@@ -397,6 +394,14 @@ impl Surface {
         Ok(())
     }
 
+    pub fn fill_rect(&mut self, rect: Option<Rect>, color: Color) -> Result<(), Error> {
+        let rect = rect.map(Rect::to_ll);
+        let rect_ptr = rect
+            .as_ref()
+            .map_or(core::ptr::null(), core::ptr::from_ref);
+        todo!()
+    }
+
     pub fn flip(&mut self, mode: Option<FlipMode>) -> Result<(), Error> {
         let result = unsafe {
             sys::surface::SDL_FlipSurface(
@@ -429,11 +434,7 @@ impl Surface {
     }
 
     pub fn lock<'a>(&'a mut self) -> Result<SurfaceLock<'a>, Error> {
-        let result = unsafe { sys::surface::SDL_LockSurface(self.as_mut_ptr()) };
-        if !result {
-            return Err(Error::from_sdl());
-        }
-        Ok(SurfaceLock(self))
+        SurfaceLock::new(self)
     }
 
     pub fn format(&self) -> PixelFormat {
@@ -457,6 +458,14 @@ impl Surface {
 pub struct SurfaceLock<'a>(&'a mut Surface);
 
 impl<'a> SurfaceLock<'a> {
+    fn new(surface: &'a mut Surface) -> Result<Self, Error> {
+        let result = unsafe { sys::surface::SDL_LockSurface(surface.as_mut_ptr()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(Self(surface))
+    }
+
     pub fn as_bytes(&self) -> &[u8] {
         unsafe {
             let height = (*self.as_ptr()).h;
@@ -579,3 +588,4 @@ impl BlendMode {
         *self as u32
     }
 }
+

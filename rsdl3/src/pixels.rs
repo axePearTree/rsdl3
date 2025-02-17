@@ -1,4 +1,4 @@
-use crate::{sys, Error};
+use crate::{init::VideoSubsystem, sys, Error};
 
 #[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
@@ -209,5 +209,162 @@ impl PixelFormat {
     #[inline]
     pub fn to_ll(&self) -> sys::pixels::SDL_PixelFormat {
         sys::pixels::SDL_PixelFormat(*self as i32)
+    }
+
+    pub fn details(&self) -> Result<&PixelFormatDetails, Error> {
+        let details = unsafe { sys::pixels::SDL_GetPixelFormatDetails(self.to_ll()) };
+        if details.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { PixelFormatDetails::from_ptr(details) })
+    }
+}
+
+/// Zero-sized struct equivalent to `SDL_PixelFormatDetails`.
+// This struct is zero-sized.
+// We cast *SDL_PixelFormatDetails to &PixelFormatDetails.
+// It can't be constructed outside of this crate and it's only exposed as a reference.
+pub struct PixelFormatDetails {
+    _inner: (),
+}
+
+impl PixelFormatDetails {
+    pub(crate) unsafe fn from_ptr<'a>(ptr: *const sys::pixels::SDL_PixelFormatDetails) -> &'a Self {
+        &*(ptr as *const Self)
+    }
+
+    pub fn as_ptr(&self) -> *const sys::pixels::SDL_PixelFormatDetails {
+        self as *const PixelFormatDetails as *const _
+    }
+
+    #[inline]
+    pub fn format(&self) -> PixelFormat {
+        unsafe { PixelFormat::from_ll_unchecked((*self.as_ptr()).format) }
+    }
+
+    #[inline]
+    pub fn bits_per_pixel(&self) -> u8 {
+        unsafe { (*self.as_ptr()).bits_per_pixel }
+    }
+
+    #[inline]
+    pub fn bytes_per_pixel(&self) -> u8 {
+        unsafe { (*self.as_ptr()).bytes_per_pixel }
+    }
+
+    #[inline]
+    pub fn padding(&self) -> [u8; 2] {
+        unsafe { (*self.as_ptr()).padding }
+    }
+
+    #[inline]
+    pub fn r_mask(&self) -> u32 {
+        unsafe { (*self.as_ptr()).Rmask }
+    }
+
+    #[inline]
+    pub fn g_mask(&self) -> u32 {
+        unsafe { (*self.as_ptr()).Gmask }
+    }
+
+    #[inline]
+    pub fn b_mask(&self) -> u32 {
+        unsafe { (*self.as_ptr()).Bmask }
+    }
+
+    #[inline]
+    pub fn a_mask(&self) -> u32 {
+        unsafe { (*self.as_ptr()).Amask }
+    }
+
+    #[inline]
+    pub fn r_bits(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Rbits }
+    }
+
+    #[inline]
+    pub fn g_bits(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Gbits }
+    }
+
+    #[inline]
+    pub fn b_bits(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Bbits }
+    }
+
+    #[inline]
+    pub fn a_bits(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Abits }
+    }
+
+    #[inline]
+    pub fn r_shift(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Rshift }
+    }
+
+    #[inline]
+    pub fn g_shift(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Gshift }
+    }
+
+    #[inline]
+    pub fn b_shift(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Bshift }
+    }
+
+    #[inline]
+    pub fn a_shift(&self) -> u8 {
+        unsafe { (*self.as_ptr()).Ashift }
+    }
+}
+
+pub struct ColorPalette {
+    _video: VideoSubsystem,
+    ptr: *mut sys::pixels::SDL_Palette,
+}
+
+impl ColorPalette {
+    pub fn try_new(video: &VideoSubsystem, ncolors: usize) -> Result<Self, Error> {
+        let result = unsafe { sys::pixels::SDL_CreatePalette(ncolors as i32) };
+        if result.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(Self {
+            _video: video.clone(),
+            ptr: result,
+        })
+    }
+
+    pub fn set_colors(&mut self, colors: &[Color], at_index: usize) -> Result<(), Error> {
+        // TODO:
+        // Check SDL's behaviour when passing an array of colors with length greater than
+        // (ncount - at_index).
+        let colors_ptr = colors.as_ptr() as *const sys::pixels::SDL_Color;
+        let result = unsafe {
+            sys::pixels::SDL_SetPaletteColors(
+                self.ptr,
+                colors_ptr,
+                i32::try_from(at_index)?,
+                i32::try_from(colors.len())?,
+            )
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    pub fn colors(&self) -> &[Color] {
+        unsafe {
+            let len = (*self.ptr).ncolors as usize;
+            let colors = (*self.ptr).colors;
+            core::slice::from_raw_parts(colors as *const Color, len)
+        }
+    }
+}
+
+impl Drop for ColorPalette {
+    fn drop(&mut self) {
+        unsafe { sys::pixels::SDL_DestroyPalette(self.ptr) };
     }
 }
