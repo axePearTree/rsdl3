@@ -46,43 +46,33 @@ impl Renderer {
         }
     }
 
-    pub fn as_window_ref(&self) -> Result<&Window, Error> {
+    pub fn as_window_ref(&self) -> Option<&Window> {
         match &self.0.context {
-            RendererContext::Window(window) => Ok(window),
-            RendererContext::Software(_) => Err(Error::new(
-                "Attempted to borrow a window from a software renderer.",
-            )),
+            RendererContext::Window(window) => Some(window),
+            RendererContext::Software(_) => None,
         }
     }
 
-    pub fn as_window_mut(&mut self) -> Result<&mut Window, Error> {
-        let inner =
-            Rc::get_mut(&mut self.0).ok_or(Error::new("Window already borrowed mutably."))?;
+    pub fn as_window_mut(&mut self) -> Option<&mut Window> {
+        let inner = Rc::get_mut(&mut self.0)?;
         match &mut inner.context {
-            RendererContext::Window(window) => Ok(window),
-            RendererContext::Software(_) => Err(Error::new(
-                "Attempted to borrow a window from a software renderer.",
-            )),
+            RendererContext::Window(window) => Some(window),
+            RendererContext::Software(_) => None,
         }
     }
 
-    pub fn as_surface_ref(&self) -> Result<&Surface, Error> {
+    pub fn as_surface_ref(&self) -> Option<&Surface> {
         match &self.0.context {
-            RendererContext::Software(surface) => Ok(&*surface),
-            RendererContext::Window(_) => Err(Error::new(
-                "Attempted to borrow a surface from a window renderer.",
-            )),
+            RendererContext::Software(surface) => Some(&*surface),
+            RendererContext::Window(_) => None,
         }
     }
 
-    pub fn as_surface_mut(&mut self) -> Result<&mut Surface, Error> {
-        let inner =
-            Rc::get_mut(&mut self.0).ok_or(Error::new("Surface already borrowed mutably."))?;
+    pub fn as_surface_mut(&mut self) -> Option<&mut Surface> {
+        let inner = Rc::get_mut(&mut self.0)?;
         match &mut inner.context {
-            RendererContext::Software(surface) => Ok(&mut *surface),
-            RendererContext::Window(_) => Err(Error::new(
-                "Attempted to borrow a surface from a window renderer.",
-            )),
+            RendererContext::Software(surface) => Some(&mut *surface),
+            RendererContext::Window(_) => None,
         }
     }
 
