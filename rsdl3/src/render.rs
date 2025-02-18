@@ -241,7 +241,7 @@ impl Renderer {
         if texture.inner.weak_count() == 0 {
             return Err(Error::new("Texture's renderer has already been destroyed."));
         }
-        if Weak::ptr_eq(&texture.inner, &Rc::downgrade(&self.0)) {
+        if !Weak::ptr_eq(&texture.inner, &Rc::downgrade(&self.0)) {
             return Err(Error::new("Texture does not belong to this renderer."));
         }
         Ok(())
