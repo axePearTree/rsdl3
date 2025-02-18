@@ -1,5 +1,5 @@
 use crate::init::VideoSubsystem;
-use crate::pixels::{ColorPalette, PixelFormat};
+use crate::pixels::{ColorPalette, PixelFormat, PixelFormatRgbaMask};
 use crate::rect::{Point, Rect};
 use crate::render::Renderer;
 use crate::surface::{Surface, SurfaceOwned};
@@ -43,6 +43,17 @@ impl VideoSubsystem {
         format: PixelFormat,
     ) -> Result<SurfaceOwned, Error> {
         SurfaceOwned::new(self, w, h, format)
+    }
+
+    pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
+        ColorPalette::try_new(self, count)
+    }
+
+    pub fn pixel_format_for_mask(&self, mask: PixelFormatRgbaMask) -> PixelFormat {
+        unsafe {
+            let pixel_format = sys::pixels::SDL_GetPixelFormatForMasks(mask.bpp, mask.r_mask, mask.g_mask, mask.b_mask, mask.a_mask);
+            PixelFormat::from_ll_unchecked(pixel_format)
+        }
     }
 
     pub fn duplicate_surface(&self, surface: &Surface) -> Result<SurfaceOwned, Error> {
@@ -263,10 +274,6 @@ impl VideoSubsystem {
 
     pub fn system_theme(&self) -> Result<SysthemTheme, Error> {
         SysthemTheme::try_from_ll(unsafe { sys::video::SDL_GetSystemTheme() })
-    }
-
-    pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
-        ColorPalette::try_new(self, count)
     }
 }
 

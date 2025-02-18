@@ -1,3 +1,7 @@
+use core::{ffi::CStr, marker::PhantomData};
+
+use alloc::string::String;
+
 use crate::{init::VideoSubsystem, sys, Error};
 
 #[derive(Copy, Clone, Debug)]
@@ -218,6 +222,42 @@ impl PixelFormat {
         }
         Ok(unsafe { PixelFormatDetails::from_ptr(details) })
     }
+
+    pub fn masks(&self) -> Result<PixelFormatRgbaMask, Error> {
+        let mut bpp = 0;
+        let mut r_mask = 0;
+        let mut g_mask = 0;
+        let mut b_mask = 0;
+        let mut a_mask = 0;
+        let result = unsafe {
+            sys::pixels::SDL_GetMasksForPixelFormat(
+                self.to_ll(),
+                &raw mut bpp,
+                &raw mut r_mask,
+                &raw mut g_mask,
+                &raw mut b_mask,
+                &raw mut a_mask,
+            )
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(PixelFormatRgbaMask {
+            bpp,
+            r_mask,
+            g_mask,
+            b_mask,
+            a_mask,
+        })
+    }
+
+    pub fn name(&self) -> String {
+        unsafe {
+            let ptr = sys::pixels::SDL_GetPixelFormatName(self.to_ll());
+            let c_str = CStr::from_ptr(ptr);
+            String::from_utf8_lossy(c_str.to_bytes()).into_owned()
+        }
+    }
 }
 
 /// Zero-sized struct equivalent to `SDL_PixelFormatDetails`.
@@ -225,7 +265,8 @@ impl PixelFormat {
 // We cast *SDL_PixelFormatDetails to &PixelFormatDetails.
 // It can't be constructed outside of this crate and it's only exposed as a reference.
 pub struct PixelFormatDetails {
-    _inner: (),
+    // !Send + !Sync
+    _inner: PhantomData<*const ()>,
 }
 
 impl PixelFormatDetails {
@@ -235,6 +276,62 @@ impl PixelFormatDetails {
 
     pub fn as_ptr(&self) -> *const sys::pixels::SDL_PixelFormatDetails {
         self as *const PixelFormatDetails as *const _
+    }
+
+    pub fn map_rgb(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8) -> u32 {
+        let palette = palette
+            .map(|p| p.ptr as *const _)
+            .unwrap_or(core::ptr::null());
+        unsafe { sys::pixels::SDL_MapRGB(self.as_ptr(), palette, r, g, b) }
+    }
+
+    pub fn map_rgba(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8, a: u8) -> u32 {
+        let palette = palette
+            .map(|p| p.ptr as *const _)
+            .unwrap_or(core::ptr::null());
+        unsafe { sys::pixels::SDL_MapRGBA(self.as_ptr(), palette, r, g, b, a) }
+    }
+
+    pub fn rgb(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8) {
+        let mut r = 0;
+        let mut g = 0;
+        let mut b = 0;
+        let palette = palette
+            .map(|p| p.ptr as *const _)
+            .unwrap_or(core::ptr::null());
+        unsafe {
+            sys::pixels::SDL_GetRGB(
+                pixel,
+                self.as_ptr(),
+                palette,
+                &raw mut r,
+                &raw mut g,
+                &raw mut b,
+            )
+        };
+        (r, g, b)
+    }
+
+    pub fn rgba(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8, u8) {
+        let mut r = 0;
+        let mut g = 0;
+        let mut b = 0;
+        let mut a = 0;
+        let palette = palette
+            .map(|p| p.ptr as *const _)
+            .unwrap_or(core::ptr::null());
+        unsafe {
+            sys::pixels::SDL_GetRGBA(
+                pixel,
+                self.as_ptr(),
+                palette,
+                &raw mut r,
+                &raw mut g,
+                &raw mut b,
+                &raw mut a,
+            )
+        };
+        (r, g, b, a)
     }
 
     #[inline]
@@ -336,9 +433,6 @@ impl ColorPalette {
     }
 
     pub fn set_colors(&mut self, colors: &[Color], at_index: usize) -> Result<(), Error> {
-        // TODO:
-        // Check SDL's behaviour when passing an array of colors with length greater than
-        // (ncount - at_index).
         let colors_ptr = colors.as_ptr() as *const sys::pixels::SDL_Color;
         let result = unsafe {
             sys::pixels::SDL_SetPaletteColors(
@@ -348,6 +442,8 @@ impl ColorPalette {
                 i32::try_from(colors.len())?,
             )
         };
+        // SDL will return an error if the array doesn't have enough room for the color OR if the
+        // at_index is invalid. That being said... it's an empty error.
         if !result {
             return Err(Error::from_sdl());
         }
@@ -367,4 +463,13 @@ impl Drop for ColorPalette {
     fn drop(&mut self) {
         unsafe { sys::pixels::SDL_DestroyPalette(self.ptr) };
     }
+}
+
+#[derive(Copy, Clone, Debug)]
+pub struct PixelFormatRgbaMask {
+    pub bpp: i32,
+    pub r_mask: u32,
+    pub g_mask: u32,
+    pub b_mask: u32,
+    pub a_mask: u32,
 }
