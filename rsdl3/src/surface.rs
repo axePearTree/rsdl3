@@ -394,10 +394,15 @@ impl SurfaceRef {
         Ok(())
     }
 
-    pub fn fill_rect(&mut self, rect: Option<Rect>, color: Color) -> Result<(), Error> {
+    pub fn fill_rect(&mut self, rect: Option<Rect>, color: u32) -> Result<(), Error> {
         let rect = rect.map(Rect::to_ll);
         let rect_ptr = rect.as_ref().map_or(core::ptr::null(), core::ptr::from_ref);
-        todo!()
+        let result =
+            unsafe { sys::surface::SDL_FillSurfaceRect(self.as_mut_ptr(), rect_ptr, color) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     pub fn flip(&mut self, mode: Option<FlipMode>) -> Result<(), Error> {

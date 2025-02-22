@@ -1,6 +1,3 @@
-use core::cell::RefCell;
-use core::ops::DerefMut;
-
 use crate::pixels::{Color, PixelFormat};
 use crate::rect::RectF32;
 use crate::surface::{Surface, SurfaceRef};
@@ -8,6 +5,7 @@ use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
+use core::cell::RefCell;
 
 pub struct Renderer(Rc<RendererInner>);
 
