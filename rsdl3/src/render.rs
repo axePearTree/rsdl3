@@ -1,9 +1,10 @@
 use core::cell::RefCell;
+use core::ops::DerefMut;
 
 use crate::pixels::{Color, PixelFormat};
 use crate::rect::RectF32;
 use crate::surface::{Surface, SurfaceRef};
-use crate::video::Window;
+use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
@@ -46,14 +47,14 @@ impl Renderer {
         }
     }
 
-    pub fn as_window_ref(&self) -> Option<&Window> {
+    pub fn as_window_ref(&self) -> Option<&WindowRef> {
         match &self.0.context {
             RendererContext::Window(window) => Some(window),
             RendererContext::Software(_) => None,
         }
     }
 
-    pub fn as_window_mut(&mut self) -> Option<&mut Window> {
+    pub fn as_window_mut(&mut self) -> Option<&mut WindowRef> {
         let inner = Rc::get_mut(&mut self.0)?;
         match &mut inner.context {
             RendererContext::Window(window) => Some(window),
