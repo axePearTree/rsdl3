@@ -294,13 +294,13 @@ impl Deref for Window {
     type Target = WindowRef;
 
     fn deref(&self) -> &Self::Target {
-        unsafe { WindowRef::from_ptr(self.as_ptr() as *mut _) }
+        unsafe { WindowRef::from_ptr(self.ptr) }
     }
 }
 
 impl DerefMut for Window {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { WindowRef::from_mut_ptr(self.as_ptr() as *mut _) }
+        unsafe { WindowRef::from_mut_ptr(self.ptr as *mut _) }
     }
 }
 
