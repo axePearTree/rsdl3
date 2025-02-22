@@ -2,8 +2,8 @@ use core::cell::RefCell;
 
 use crate::pixels::{Color, PixelFormat};
 use crate::rect::RectF32;
-use crate::surface::Surface;
-use crate::{surface::SurfaceOwned, video::Window};
+use crate::surface::{Surface, SurfaceRef};
+use crate::video::Window;
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
@@ -11,7 +11,7 @@ use alloc::rc::{Rc, Weak};
 pub struct Renderer(Rc<RendererInner>);
 
 impl Renderer {
-    pub fn try_from_window(window: Window, driver: Option<&str>) -> Result<Self, Error> {
+    pub fn try_from_window(mut window: Window, driver: Option<&str>) -> Result<Self, Error> {
         unsafe {
             let driver = match driver {
                 Some(driver) => Some(CString::new(driver)?),
@@ -31,7 +31,7 @@ impl Renderer {
         }
     }
 
-    pub fn try_from_surface(mut surface: SurfaceOwned) -> Result<Self, Error> {
+    pub fn try_from_surface(mut surface: Surface) -> Result<Self, Error> {
         unsafe {
             let ptr = sys::render::SDL_CreateSoftwareRenderer(surface.as_mut_ptr());
             if ptr.is_null() {
@@ -61,14 +61,14 @@ impl Renderer {
         }
     }
 
-    pub fn as_surface_ref(&self) -> Option<&Surface> {
+    pub fn as_surface_ref(&self) -> Option<&SurfaceRef> {
         match &self.0.context {
             RendererContext::Software(surface) => Some(&*surface),
             RendererContext::Window(_) => None,
         }
     }
 
-    pub fn as_surface_mut(&mut self) -> Option<&mut Surface> {
+    pub fn as_surface_mut(&mut self) -> Option<&mut SurfaceRef> {
         let inner = Rc::get_mut(&mut self.0)?;
         match &mut inner.context {
             RendererContext::Software(surface) => Some(&mut *surface),
@@ -103,7 +103,10 @@ impl Renderer {
         })
     }
 
-    pub fn create_texture_from_surface(&mut self, surface: &mut Surface) -> Result<Texture, Error> {
+    pub fn create_texture_from_surface(
+        &mut self,
+        surface: &mut SurfaceRef,
+    ) -> Result<Texture, Error> {
         let ptr = unsafe {
             sys::render::SDL_CreateTextureFromSurface(self.as_mut_ptr(), surface.as_mut_ptr())
         };
@@ -280,7 +283,7 @@ impl TextureAccess {
 
 enum RendererContext {
     Window(Window),
-    Software(SurfaceOwned),
+    Software(Surface),
 }
 
 struct RendererInner {
