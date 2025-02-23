@@ -180,6 +180,16 @@ impl RectF32 {
     }
 }
 
+impl From<Rect> for RectF32 {
+    fn from(value: Rect) -> Self {
+        RectF32::new(
+            value.x() as f32,
+            value.y() as f32,
+            value.w() as f32,
+            value.h() as f32,
+        )
+    }
+}
 
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug, Default)]

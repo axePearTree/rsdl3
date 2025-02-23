@@ -5,9 +5,24 @@ use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
-use core::cell::RefCell;
 
-pub struct Renderer(Rc<RendererInner>);
+pub struct Renderer {
+    context: RendererContext,
+    target: Option<Texture>,
+    /// This ptr is used with the sole purpose of handing out Weak references.
+    ptr: Rc<*mut sys::render::SDL_Renderer>,
+}
+
+enum RendererContext {
+    Window(Window),
+    Software(Surface),
+}
+
+impl Drop for Renderer {
+    fn drop(&mut self) {
+        unsafe { sys::render::SDL_DestroyRenderer(*self.ptr) };
+    }
+}
 
 impl Renderer {
     pub fn try_from_window(mut window: Window, driver: Option<&str>) -> Result<Self, Error> {
@@ -21,12 +36,11 @@ impl Renderer {
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
-            let inner = RendererInner {
+            Ok(Self {
                 context: RendererContext::Window(window),
-                ptr,
-                target: RefCell::new(None),
-            };
-            Ok(Self(Rc::new(inner)))
+                ptr: Rc::new(ptr),
+                target: None,
+            })
         }
     }
 
@@ -36,40 +50,37 @@ impl Renderer {
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
-            let inner = RendererInner {
+            Ok(Self {
                 context: RendererContext::Software(surface),
-                ptr,
-                target: RefCell::new(None),
-            };
-            Ok(Self(Rc::new(inner)))
+                ptr: Rc::new(ptr),
+                target: None,
+            })
         }
     }
 
     pub fn as_window_ref(&self) -> Option<&WindowRef> {
-        match &self.0.context {
+        match &self.context {
             RendererContext::Window(window) => Some(window),
             RendererContext::Software(_) => None,
         }
     }
 
     pub fn as_window_mut(&mut self) -> Option<&mut WindowRef> {
-        let inner = Rc::get_mut(&mut self.0)?;
-        match &mut inner.context {
+        match &mut self.context {
             RendererContext::Window(window) => Some(window),
             RendererContext::Software(_) => None,
         }
     }
 
     pub fn as_surface_ref(&self) -> Option<&SurfaceRef> {
-        match &self.0.context {
+        match &self.context {
             RendererContext::Software(surface) => Some(&*surface),
             RendererContext::Window(_) => None,
         }
     }
 
     pub fn as_surface_mut(&mut self) -> Option<&mut SurfaceRef> {
-        let inner = Rc::get_mut(&mut self.0)?;
-        match &mut inner.context {
+        match &mut self.context {
             RendererContext::Software(surface) => Some(&mut *surface),
             RendererContext::Window(_) => None,
         }
@@ -97,23 +108,20 @@ impl Renderer {
             return Err(Error::from_sdl());
         }
         Ok(Texture {
-            inner: Rc::downgrade(&self.0),
+            renderer: Rc::downgrade(&self.ptr),
             ptr,
         })
     }
 
-    pub fn create_texture_from_surface(
-        &mut self,
-        surface: &mut SurfaceRef,
-    ) -> Result<Texture, Error> {
+    pub fn create_texture_from_surface(&mut self, surface: &SurfaceRef) -> Result<Texture, Error> {
         let ptr = unsafe {
-            sys::render::SDL_CreateTextureFromSurface(self.as_mut_ptr(), surface.as_mut_ptr())
+            sys::render::SDL_CreateTextureFromSurface(self.as_mut_ptr(), surface.as_ptr() as *mut _)
         };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
         Ok(Texture {
-            inner: Rc::downgrade(&self.0),
+            renderer: Rc::downgrade(&self.ptr),
             ptr,
         })
     }
@@ -201,7 +209,7 @@ impl Renderer {
                 if !result {
                     return Err(Error::from_sdl());
                 }
-                Ok(self.0.target.borrow_mut().replace(texture))
+                Ok(self.target.replace(texture))
             }
             _ => {
                 let result = unsafe {
@@ -210,7 +218,7 @@ impl Renderer {
                 if !result {
                     return Err(Error::from_sdl());
                 }
-                Ok(self.0.target.borrow_mut().take())
+                Ok(self.target.take())
             }
         }
     }
@@ -232,18 +240,18 @@ impl Renderer {
     }
 
     pub fn as_ptr(&self) -> *const sys::render::SDL_Renderer {
-        self.0.ptr
+        *self.ptr
     }
 
     pub fn as_mut_ptr(&mut self) -> *mut sys::render::SDL_Renderer {
-        self.0.ptr
+        *self.ptr
     }
 
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
-        if texture.inner.weak_count() == 0 {
+        if texture.renderer.weak_count() == 0 {
             return Err(Error::new("Texture's renderer has already been destroyed."));
         }
-        if !Weak::ptr_eq(&texture.inner, &Rc::downgrade(&self.0)) {
+        if !Weak::ptr_eq(&texture.renderer, &Rc::downgrade(&self.ptr)) {
             return Err(Error::new("Texture does not belong to this renderer."));
         }
         Ok(())
@@ -251,13 +259,15 @@ impl Renderer {
 }
 
 pub struct Texture {
-    inner: Weak<RendererInner>,
+    /// Tells us whether or not the backing Renderer is alive via Weak::strong_count.
+    /// This must *never* be upgraded to an Rc.
+    renderer: Weak<*mut sys::render::SDL_Renderer>,
     ptr: *mut sys::render::SDL_Texture,
 }
 
 impl Drop for Texture {
     fn drop(&mut self) {
-        if self.inner.weak_count() > 0 {
+        if self.renderer.strong_count() > 0 {
             unsafe { sys::render::SDL_DestroyTexture(self.ptr) };
         }
     }
@@ -277,22 +287,5 @@ impl TextureAccess {
 
     pub fn to_ll(self) -> sys::render::SDL_TextureAccess {
         self.0
-    }
-}
-
-enum RendererContext {
-    Window(Window),
-    Software(Surface),
-}
-
-struct RendererInner {
-    context: RendererContext,
-    target: RefCell<Option<Texture>>,
-    ptr: *mut sys::render::SDL_Renderer,
-}
-
-impl Drop for RendererInner {
-    fn drop(&mut self) {
-        unsafe { sys::render::SDL_DestroyRenderer(self.ptr) };
     }
 }

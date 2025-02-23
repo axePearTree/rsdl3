@@ -69,7 +69,10 @@ impl Event {
         unsafe {
             match sys::events::SDL_EventType(ev.r#type) {
                 sys::events::SDL_EVENT_WINDOW_MOVED => Self::Window(WindowEvent {
-                    payload: WindowEventPayload::Moved { x: ev.window.data1, y: ev.window.data2 },
+                    payload: WindowEventPayload::Moved {
+                        x: ev.window.data1,
+                        y: ev.window.data2,
+                    },
                     timestamp: ev.window.timestamp,
                     window_id: ev.window.windowID,
                 }),
