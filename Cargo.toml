@@ -1,3 +1,3 @@
 [workspace]
 
-members = ["rsdl3"]
+members = ["rsdl3", "rsdl3-sys"]
