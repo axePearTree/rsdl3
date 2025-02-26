@@ -5,6 +5,7 @@ use crate::render::Renderer;
 use crate::{sys, Error};
 use core::mem::MaybeUninit;
 use core::ops::{Deref, DerefMut};
+use std::marker::PhantomData;
 
 pub struct Surface {
     _video: VideoSubsystem,
@@ -80,7 +81,7 @@ impl DerefMut for Surface {
 // The lib only exposes references to this struct.
 pub struct SurfaceRef {
     // This field is here so this struct can't be constructed outside this crate.
-    _inner: (),
+    _inner: PhantomData<*const ()>,
 }
 
 impl SurfaceRef {

@@ -10,6 +10,7 @@ use alloc::vec::Vec;
 use core::ffi::{c_int, c_void, CStr};
 use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
+use std::marker::PhantomData;
 
 impl VideoSubsystem {
     pub fn create_window(
@@ -307,7 +308,7 @@ impl DerefMut for Window {
 // We cast pointers to &WindowRef and &mut WindowRef.
 // This allows us to safely expose references to a window from a Renderer.
 pub struct WindowRef {
-    _inner: (),
+    _inner: PhantomData<*const ()>, // !Send + !Sync
 }
 
 impl WindowRef {
