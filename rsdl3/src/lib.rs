@@ -2,6 +2,7 @@
 
 extern crate alloc;
 
+pub mod blendmode;
 pub mod events;
 pub mod init;
 pub mod pixels;
@@ -14,7 +15,7 @@ use alloc::borrow::ToOwned;
 use alloc::string::String;
 use core::ffi::CStr;
 use core::num::TryFromIntError;
-pub use sdl3_sys as sys;
+pub use rsdl3_sys as sys;
 
 #[allow(unused)]
 #[derive(Clone, Debug)]
@@ -27,7 +28,7 @@ impl Error {
 
     pub(crate) fn from_sdl() -> Self {
         unsafe {
-            let err = sdl3_sys::error::SDL_GetError();
+            let err = sys::SDL_GetError();
             Error(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
         }
     }

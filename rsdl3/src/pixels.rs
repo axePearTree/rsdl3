@@ -6,11 +6,11 @@ use crate::{init::VideoSubsystem, sys, Error};
 
 #[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
-pub struct Color(sys::pixels::SDL_Color);
+pub struct Color(sys::SDL_Color);
 
 impl Color {
     pub fn new(r: u8, g: u8, b: u8, a: u8) -> Self {
-        Self(sys::pixels::SDL_Color { r, g, b, a })
+        Self(sys::SDL_Color { r, g, b, a })
     }
 
     #[inline]
@@ -53,18 +53,18 @@ impl Color {
         self.0.a = a;
     }
 
-    pub fn to_ll(&self) -> sys::pixels::SDL_Color {
+    pub fn to_ll(&self) -> sys::SDL_Color {
         self.0
     }
 }
 
 #[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
-pub struct ColorF32(sys::pixels::SDL_FColor);
+pub struct ColorF32(sys::SDL_FColor);
 
 impl ColorF32 {
     pub fn new(r: f32, g: f32, b: f32, a: f32) -> Self {
-        Self(sys::pixels::SDL_FColor { r, g, b, a })
+        Self(sys::SDL_FColor { r, g, b, a })
     }
 
     #[inline]
@@ -107,7 +107,7 @@ impl ColorF32 {
         self.0.a = a;
     }
 
-    pub fn to_ll(&self) -> sys::pixels::SDL_FColor {
+    pub fn to_ll(&self) -> sys::SDL_FColor {
         self.0
     }
 }
@@ -122,101 +122,101 @@ impl From<Color> for ColorF32 {
     }
 }
 
-#[repr(i32)]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum PixelFormat {
-    Unknown = sys::pixels::SDL_PixelFormat::UNKNOWN.0,
-    Index1Lsb = sys::pixels::SDL_PixelFormat::INDEX1LSB.0,
-    Index1Msb = sys::pixels::SDL_PixelFormat::INDEX1MSB.0,
-    Index2Lsb = sys::pixels::SDL_PixelFormat::INDEX2LSB.0,
-    Index2Msb = sys::pixels::SDL_PixelFormat::INDEX2MSB.0,
-    Index4Lsb = sys::pixels::SDL_PixelFormat::INDEX4LSB.0,
-    Index4Msb = sys::pixels::SDL_PixelFormat::INDEX4MSB.0,
-    Index8 = sys::pixels::SDL_PixelFormat::INDEX8.0,
-    Rgb332 = sys::pixels::SDL_PixelFormat::RGB332.0,
-    Xrgb4444 = sys::pixels::SDL_PixelFormat::XRGB4444.0,
-    Xbgr4444 = sys::pixels::SDL_PixelFormat::XBGR4444.0,
-    Xrgb1555 = sys::pixels::SDL_PixelFormat::XRGB1555.0,
-    Xbgr1555 = sys::pixels::SDL_PixelFormat::XBGR1555.0,
-    Argb4444 = sys::pixels::SDL_PixelFormat::ARGB4444.0,
-    Rgba4444 = sys::pixels::SDL_PixelFormat::RGBA4444.0,
-    Abgr4444 = sys::pixels::SDL_PixelFormat::ABGR4444.0,
-    Bgra4444 = sys::pixels::SDL_PixelFormat::BGRA4444.0,
-    Argb1555 = sys::pixels::SDL_PixelFormat::ARGB1555.0,
-    Rgba5551 = sys::pixels::SDL_PixelFormat::RGBA5551.0,
-    Abgr1555 = sys::pixels::SDL_PixelFormat::ABGR1555.0,
-    Bgra5551 = sys::pixels::SDL_PixelFormat::BGRA5551.0,
-    Rgb565 = sys::pixels::SDL_PixelFormat::RGB565.0,
-    Bgr565 = sys::pixels::SDL_PixelFormat::BGR565.0,
-    Rgb24 = sys::pixels::SDL_PixelFormat::RGB24.0,
-    Bgr24 = sys::pixels::SDL_PixelFormat::BGR24.0,
-    Xrgb8888 = sys::pixels::SDL_PixelFormat::XRGB8888.0,
-    Rgbx8888 = sys::pixels::SDL_PixelFormat::RGBX8888.0,
-    Xbgr8888 = sys::pixels::SDL_PixelFormat::XBGR8888.0,
-    Bgrx8888 = sys::pixels::SDL_PixelFormat::BGRX8888.0,
-    Argb8888 = sys::pixels::SDL_PixelFormat::ARGB8888.0,
-    Rgba8888 = sys::pixels::SDL_PixelFormat::RGBA8888.0,
-    Abgr8888 = sys::pixels::SDL_PixelFormat::ABGR8888.0,
-    Bgra8888 = sys::pixels::SDL_PixelFormat::BGRA8888.0,
-    Xrgb2101010 = sys::pixels::SDL_PixelFormat::XRGB2101010.0,
-    Xbgr2101010 = sys::pixels::SDL_PixelFormat::XBGR2101010.0,
-    Argb2101010 = sys::pixels::SDL_PixelFormat::ARGB2101010.0,
-    Abgr2101010 = sys::pixels::SDL_PixelFormat::ABGR2101010.0,
-    Rgb48 = sys::pixels::SDL_PixelFormat::RGB48.0,
-    Bgr48 = sys::pixels::SDL_PixelFormat::BGR48.0,
-    Rgba64 = sys::pixels::SDL_PixelFormat::RGBA64.0,
-    Argb64 = sys::pixels::SDL_PixelFormat::ARGB64.0,
-    Bgra64 = sys::pixels::SDL_PixelFormat::BGRA64.0,
-    Abgr64 = sys::pixels::SDL_PixelFormat::ABGR64.0,
-    Rgb48Float = sys::pixels::SDL_PixelFormat::RGB48_FLOAT.0,
-    Bgr48Float = sys::pixels::SDL_PixelFormat::BGR48_FLOAT.0,
-    Rgba64Float = sys::pixels::SDL_PixelFormat::RGBA64_FLOAT.0,
-    Argb64Float = sys::pixels::SDL_PixelFormat::ARGB64_FLOAT.0,
-    Bgra64Float = sys::pixels::SDL_PixelFormat::BGRA64_FLOAT.0,
-    Abgr64Float = sys::pixels::SDL_PixelFormat::ABGR64_FLOAT.0,
-    Rgb96Float = sys::pixels::SDL_PixelFormat::RGB96_FLOAT.0,
-    Bgr96Float = sys::pixels::SDL_PixelFormat::BGR96_FLOAT.0,
-    Rgba128Float = sys::pixels::SDL_PixelFormat::RGBA128_FLOAT.0,
-    Argb128Float = sys::pixels::SDL_PixelFormat::ARGB128_FLOAT.0,
-    Bgra128Float = sys::pixels::SDL_PixelFormat::BGRA128_FLOAT.0,
-    Abgr128Float = sys::pixels::SDL_PixelFormat::ABGR128_FLOAT.0,
+    Unknown = sys::SDL_PixelFormat_SDL_PIXELFORMAT_UNKNOWN,
+    Index1Lsb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX1LSB,
+    Index1Msb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX1MSB,
+    Index2Lsb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX2LSB,
+    Index2Msb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX2MSB,
+    Index4Lsb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX4LSB,
+    Index4Msb = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX4MSB,
+    Index8 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_INDEX8,
+    Rgb332 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB332,
+    Xrgb4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XRGB4444,
+    Xbgr4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XBGR4444,
+    Xrgb1555 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XRGB1555,
+    Xbgr1555 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XBGR1555,
+    Argb4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB4444,
+    Rgba4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA4444,
+    Abgr4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR4444,
+    Bgra4444 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA4444,
+    Argb1555 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB1555,
+    Rgba5551 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA5551,
+    Abgr1555 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR1555,
+    Bgra5551 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA5551,
+    Rgb565 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB565,
+    Bgr565 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGR565,
+    Rgb24 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB24,
+    Bgr24 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGR24,
+    Xrgb8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XRGB8888,
+    Rgbx8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBX8888,
+    Xbgr8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XBGR8888,
+    Bgrx8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRX8888,
+    Argb8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB8888,
+    Rgba8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA8888,
+    Abgr8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR8888,
+    Bgra8888 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA8888,
+    Xrgb2101010 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XRGB2101010,
+    Xbgr2101010 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_XBGR2101010,
+    Argb2101010 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB2101010,
+    Abgr2101010 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR2101010,
+    Rgb48 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB48,
+    Bgr48 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGR48,
+    Rgba64 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA64,
+    Argb64 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB64,
+    Bgra64 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA64,
+    Abgr64 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR64,
+    Rgb48Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB48_FLOAT,
+    Bgr48Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGR48_FLOAT,
+    Rgba64Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA64_FLOAT,
+    Argb64Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB64_FLOAT,
+    Bgra64Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA64_FLOAT,
+    Abgr64Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR64_FLOAT,
+    Rgb96Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGB96_FLOAT,
+    Bgr96Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGR96_FLOAT,
+    Rgba128Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_RGBA128_FLOAT,
+    Argb128Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ARGB128_FLOAT,
+    Bgra128Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_BGRA128_FLOAT,
+    Abgr128Float = sys::SDL_PixelFormat_SDL_PIXELFORMAT_ABGR128_FLOAT,
     /// Planar mode: Y + V + U  (3 planes)
-    Yv12 = sys::pixels::SDL_PixelFormat::YV12.0,
+    Yv12 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_YV12,
     /// Planar mode: Y + U + V  (3 planes)
-    Iyuv = sys::pixels::SDL_PixelFormat::IYUV.0,
+    Iyuv = sys::SDL_PixelFormat_SDL_PIXELFORMAT_IYUV,
     /// Packed mode: Y0+U0+Y1+V0 (1 plane)
-    Yuy2 = sys::pixels::SDL_PixelFormat::YUY2.0,
+    Yuy2 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_YUY2,
     /// Packed mode: U0+Y0+V0+Y1 (1 plane)
-    Uyvy = sys::pixels::SDL_PixelFormat::UYVY.0,
+    Uyvy = sys::SDL_PixelFormat_SDL_PIXELFORMAT_UYVY,
     /// Packed mode: Y0+V0+Y1+U0 (1 plane)
-    Yvyu = sys::pixels::SDL_PixelFormat::YVYU.0,
+    Yvyu = sys::SDL_PixelFormat_SDL_PIXELFORMAT_YVYU,
     /// Planar mode: Y + U/V interleaved  (2 planes)
-    Nv12 = sys::pixels::SDL_PixelFormat::NV12.0,
+    Nv12 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_NV12,
     /// Planar mode: Y + V/U interleaved  (2 planes)
-    Nv21 = sys::pixels::SDL_PixelFormat::NV21.0,
+    Nv21 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_NV21,
     /// Planar mode: Y + U/V interleaved  (2 planes)
-    P010 = sys::pixels::SDL_PixelFormat::P010.0,
+    P010 = sys::SDL_PixelFormat_SDL_PIXELFORMAT_P010,
     /// Android video texture format
-    ExternalOes = sys::pixels::SDL_PixelFormat::EXTERNAL_OES.0,
+    ExternalOes = sys::SDL_PixelFormat_SDL_PIXELFORMAT_EXTERNAL_OES,
 }
 
 impl PixelFormat {
     /// Attempts to convert from a low-level SDL pixel format to PixelFormat
     /// It assumes the internal pixel format is valid since it comes from SDL!
-    pub(crate) unsafe fn from_ll_unchecked(format: sys::pixels::SDL_PixelFormat) -> Self {
+    pub(crate) unsafe fn from_ll_unchecked(format: sys::SDL_PixelFormat) -> Self {
         // Since we're using repr(i32) and the values match exactly,
         // we can safely transmute the integer value
-        let format_val = format.0 as i32;
+        let format_val = format;
         unsafe { core::mem::transmute(format_val) }
     }
 
     #[inline]
-    pub fn to_ll(&self) -> sys::pixels::SDL_PixelFormat {
-        sys::pixels::SDL_PixelFormat(*self as i32)
+    pub fn to_ll(&self) -> sys::SDL_PixelFormat {
+        *self as u32
     }
 
     pub fn details(&self) -> Result<&PixelFormatDetails, Error> {
-        let details = unsafe { sys::pixels::SDL_GetPixelFormatDetails(self.to_ll()) };
+        let details = unsafe { sys::SDL_GetPixelFormatDetails(self.to_ll()) };
         if details.is_null() {
             return Err(Error::from_sdl());
         }
@@ -230,7 +230,7 @@ impl PixelFormat {
         let mut b_mask = 0;
         let mut a_mask = 0;
         let result = unsafe {
-            sys::pixels::SDL_GetMasksForPixelFormat(
+            sys::SDL_GetMasksForPixelFormat(
                 self.to_ll(),
                 &raw mut bpp,
                 &raw mut r_mask,
@@ -253,7 +253,7 @@ impl PixelFormat {
 
     pub fn name(&self) -> String {
         unsafe {
-            let ptr = sys::pixels::SDL_GetPixelFormatName(self.to_ll());
+            let ptr = sys::SDL_GetPixelFormatName(self.to_ll());
             let c_str = CStr::from_ptr(ptr);
             String::from_utf8_lossy(c_str.to_bytes()).into_owned()
         }
@@ -270,11 +270,11 @@ pub struct PixelFormatDetails {
 }
 
 impl PixelFormatDetails {
-    pub(crate) unsafe fn from_ptr<'a>(ptr: *const sys::pixels::SDL_PixelFormatDetails) -> &'a Self {
+    pub(crate) unsafe fn from_ptr<'a>(ptr: *const sys::SDL_PixelFormatDetails) -> &'a Self {
         &*(ptr as *const Self)
     }
 
-    pub fn as_ptr(&self) -> *const sys::pixels::SDL_PixelFormatDetails {
+    pub fn as_ptr(&self) -> *const sys::SDL_PixelFormatDetails {
         self as *const PixelFormatDetails as *const _
     }
 
@@ -282,14 +282,14 @@ impl PixelFormatDetails {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
-        unsafe { sys::pixels::SDL_MapRGB(self.as_ptr(), palette, r, g, b) }
+        unsafe { sys::SDL_MapRGB(self.as_ptr(), palette, r, g, b) }
     }
 
     pub fn map_rgba(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8, a: u8) -> u32 {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
-        unsafe { sys::pixels::SDL_MapRGBA(self.as_ptr(), palette, r, g, b, a) }
+        unsafe { sys::SDL_MapRGBA(self.as_ptr(), palette, r, g, b, a) }
     }
 
     pub fn rgb(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8) {
@@ -300,7 +300,7 @@ impl PixelFormatDetails {
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
         unsafe {
-            sys::pixels::SDL_GetRGB(
+            sys::SDL_GetRGB(
                 pixel,
                 self.as_ptr(),
                 palette,
@@ -321,7 +321,7 @@ impl PixelFormatDetails {
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
         unsafe {
-            sys::pixels::SDL_GetRGBA(
+            sys::SDL_GetRGBA(
                 pixel,
                 self.as_ptr(),
                 palette,
@@ -417,12 +417,12 @@ impl PixelFormatDetails {
 
 pub struct ColorPalette {
     _video: VideoSubsystem,
-    ptr: *mut sys::pixels::SDL_Palette,
+    ptr: *mut sys::SDL_Palette,
 }
 
 impl ColorPalette {
     pub fn try_new(video: &VideoSubsystem, ncolors: usize) -> Result<Self, Error> {
-        let result = unsafe { sys::pixels::SDL_CreatePalette(ncolors as i32) };
+        let result = unsafe { sys::SDL_CreatePalette(ncolors as i32) };
         if result.is_null() {
             return Err(Error::from_sdl());
         }
@@ -433,9 +433,9 @@ impl ColorPalette {
     }
 
     pub fn set_colors(&mut self, colors: &[Color], at_index: usize) -> Result<(), Error> {
-        let colors_ptr = colors.as_ptr() as *const sys::pixels::SDL_Color;
+        let colors_ptr = colors.as_ptr() as *const sys::SDL_Color;
         let result = unsafe {
-            sys::pixels::SDL_SetPaletteColors(
+            sys::SDL_SetPaletteColors(
                 self.ptr,
                 colors_ptr,
                 i32::try_from(at_index)?,
@@ -461,7 +461,7 @@ impl ColorPalette {
 
 impl Drop for ColorPalette {
     fn drop(&mut self) {
-        unsafe { sys::pixels::SDL_DestroyPalette(self.ptr) };
+        unsafe { sys::SDL_DestroyPalette(self.ptr) };
     }
 }
 

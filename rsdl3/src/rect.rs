@@ -17,8 +17,8 @@ fn clamp_size_i32(val: i32) -> i32 {
 }
 
 #[repr(transparent)]
-#[derive(Copy, Clone, Debug, Default)]
-pub struct Rect(sys::rect::SDL_Rect);
+#[derive(Copy, Clone, Debug)]
+pub struct Rect(sys::SDL_Rect);
 
 impl Rect {
     /// Creates a new `Rect` with the given dimensions.
@@ -27,7 +27,7 @@ impl Rect {
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
     pub fn new(x: i32, y: i32, w: u32, h: u32) -> Self {
-        Self(sys::rect::SDL_Rect {
+        Self(sys::SDL_Rect {
             x: clamp_position(x),
             y: clamp_position(y),
             w: clamp_size(w),
@@ -35,13 +35,13 @@ impl Rect {
         })
     }
 
-    /// Creates a new `Rect` with the given dimensions from an existing [`sys::rect::SDL_Rect`].
+    /// Creates a new `Rect` with the given dimensions from an existing [`sys::SDL_Rect`].
     /// The position and dimensions of the Rect need to be clamped to avoid overflowing the corners
     /// of the rectangle.
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
-    pub fn from_ll(rect: sys::rect::SDL_Rect) -> Self {
-        Self(sys::rect::SDL_Rect {
+    pub fn from_ll(rect: sys::SDL_Rect) -> Self {
+        Self(sys::SDL_Rect {
             x: clamp_position(rect.x),
             y: clamp_position(rect.y),
             w: clamp_size_i32(rect.w),
@@ -90,14 +90,14 @@ impl Rect {
     }
 
     #[inline]
-    pub fn to_ll(self) -> sys::rect::SDL_Rect {
+    pub fn to_ll(self) -> sys::SDL_Rect {
         self.0
     }
 }
 
 #[repr(transparent)]
-#[derive(Copy, Clone, Debug, Default)]
-pub struct RectF32(sys::rect::SDL_FRect);
+#[derive(Copy, Clone, Debug)]
+pub struct RectF32(sys::SDL_FRect);
 
 impl RectF32 {
     /// Creates a new `Rect` with the given dimensions.
@@ -106,13 +106,13 @@ impl RectF32 {
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
     pub fn new(x: f32, y: f32, w: f32, h: f32) -> Self {
-        let rect = sys::rect::SDL_Rect {
+        let rect = sys::SDL_Rect {
             x: clamp_position(x as i32),
             y: clamp_position(y as i32),
             w: clamp_size(w.max(0.0) as u32),
             h: clamp_size(h.max(0.0) as u32),
         };
-        Self(sys::rect::SDL_FRect {
+        Self(sys::SDL_FRect {
             x: rect.x as f32,
             y: rect.y as f32,
             w: rect.w as f32,
@@ -120,13 +120,13 @@ impl RectF32 {
         })
     }
 
-    /// Creates a new `Rect` with the given dimensions from an existing [`sys::rect::SDL_Rect`].
+    /// Creates a new `Rect` with the given dimensions from an existing [`sys::SDL_Rect`].
     /// The position and dimensions of the Rect need to be clamped to avoid overflowing the corners
     /// of the rectangle.
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
-    pub fn from_ll(rect: sys::rect::SDL_FRect) -> Self {
-        Self(sys::rect::SDL_FRect {
+    pub fn from_ll(rect: sys::SDL_FRect) -> Self {
+        Self(sys::SDL_FRect {
             x: clamp_position(rect.x as i32) as f32,
             y: clamp_position(rect.y as i32) as f32,
             w: clamp_size_i32(rect.w as i32) as f32,
@@ -175,7 +175,7 @@ impl RectF32 {
     }
 
     #[inline]
-    pub fn to_ll(self) -> sys::rect::SDL_FRect {
+    pub fn to_ll(self) -> sys::SDL_FRect {
         self.0
     }
 }
@@ -192,12 +192,12 @@ impl From<Rect> for RectF32 {
 }
 
 #[repr(transparent)]
-#[derive(Copy, Clone, Debug, Default)]
-pub struct Point(sys::rect::SDL_Point);
+#[derive(Copy, Clone, Debug)]
+pub struct Point(sys::SDL_Point);
 
 impl Point {
     pub fn new(x: i32, y: i32) -> Self {
-        Self(sdl3_sys::rect::SDL_Point {
+        Self(sys::SDL_Point {
             x: clamp_position(x),
             y: clamp_position(y),
         })
@@ -224,7 +224,7 @@ impl Point {
     }
 
     #[inline]
-    pub fn to_ll(&self) -> sys::rect::SDL_Point {
+    pub fn to_ll(&self) -> sys::SDL_Point {
         self.0
     }
 }
