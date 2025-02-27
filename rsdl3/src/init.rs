@@ -13,44 +13,44 @@ const INITIALIZED: bool = true;
 const UNINITIALIZED: bool = false;
 
 pub struct Sdl {
-    audio: Weak<Subsystem<{ sys::init::SDL_INIT_AUDIO }>>,
-    camera: Weak<Subsystem<{ sys::init::SDL_INIT_CAMERA }>>,
-    events: Weak<Subsystem<{ sys::init::SDL_INIT_EVENTS }>>,
-    gamepad: Weak<Subsystem<{ sys::init::SDL_INIT_GAMEPAD }>>,
-    haptic: Weak<Subsystem<{ sys::init::SDL_INIT_HAPTIC }>>,
-    joystick: Weak<Subsystem<{ sys::init::SDL_INIT_JOYSTICK }>>,
-    video: Weak<Subsystem<{ sys::init::SDL_INIT_VIDEO }>>,
-    sensor: Weak<Subsystem<{ sys::init::SDL_INIT_SENSOR }>>,
+    audio: Weak<Subsystem<{ sys::SDL_INIT_AUDIO }>>,
+    camera: Weak<Subsystem<{ sys::SDL_INIT_CAMERA }>>,
+    events: Weak<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
+    gamepad: Weak<Subsystem<{ sys::SDL_INIT_GAMEPAD }>>,
+    haptic: Weak<Subsystem<{ sys::SDL_INIT_HAPTIC }>>,
+    joystick: Weak<Subsystem<{ sys::SDL_INIT_JOYSTICK }>>,
+    video: Weak<Subsystem<{ sys::SDL_INIT_VIDEO }>>,
+    sensor: Weak<Subsystem<{ sys::SDL_INIT_SENSOR }>>,
     event_pump: Weak<RefCell<EventPump>>,
     drop: Rc<SdlDrop>,
 }
 
 #[derive(Clone)]
-pub struct AudioSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_AUDIO }>>);
+pub struct AudioSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_AUDIO }>>);
 
 #[derive(Clone)]
-pub struct CameraSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_CAMERA }>>);
+pub struct CameraSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_CAMERA }>>);
 
 #[derive(Clone)]
 pub struct EventsSubsystem(
-    pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_EVENTS }>>,
+    pub(crate) Rc<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
     pub(crate) Rc<RefCell<EventPump>>,
 );
 
 #[derive(Clone)]
-pub struct GamepadSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_GAMEPAD }>>);
+pub struct GamepadSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_GAMEPAD }>>);
 
 #[derive(Clone)]
-pub struct HapticSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_HAPTIC }>>);
+pub struct HapticSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_HAPTIC }>>);
 
 #[derive(Clone)]
-pub struct JoystickSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_JOYSTICK }>>);
+pub struct JoystickSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_JOYSTICK }>>);
 
 #[derive(Clone)]
-pub struct VideoSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_VIDEO }>>);
+pub struct VideoSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_VIDEO }>>);
 
 #[derive(Clone)]
-pub struct SensorSubsystem(pub(crate) Rc<Subsystem<{ sys::init::SDL_INIT_SENSOR }>>);
+pub struct SensorSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_SENSOR }>>);
 
 impl Sdl {
     // SAFETY:
@@ -133,7 +133,7 @@ impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
         // the refcount.
         // Once Drop gets called (calling SDL_QuitSubSystem) the refcount is decremented.
         // So it doesn't matter if a system has already been initialized by Sdl.
-        let result = unsafe { sys::init::SDL_InitSubSystem(INIT_FLAG) };
+        let result = unsafe { sys::SDL_InitSubSystem(INIT_FLAG) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -147,7 +147,7 @@ impl<const INIT_FLAG: u32> Drop for Subsystem<INIT_FLAG> {
     fn drop(&mut self) {
         // This call matches the SDL_InitSubSystem from this instance.
         // SDL refcounts subsystems internally so this should be safe.
-        unsafe { sys::init::SDL_QuitSubSystem(INIT_FLAG) };
+        unsafe { sys::SDL_QuitSubSystem(INIT_FLAG) };
     }
 }
 
@@ -165,7 +165,7 @@ impl SdlDrop {
             return Err(Error(String::from("SDL is already initialized.")));
         }
 
-        let result = unsafe { sys::init::SDL_Init(0) };
+        let result = unsafe { sys::SDL_Init(0) };
         if !result {
             let _ = IS_SDL_INITIALIZED.compare_exchange(
                 INITIALIZED,
@@ -181,7 +181,7 @@ impl SdlDrop {
 
 impl Drop for SdlDrop {
     fn drop(&mut self) {
-        unsafe { sys::init::SDL_Quit() };
+        unsafe { sys::SDL_Quit() };
         IS_SDL_INITIALIZED.store(true, Ordering::Relaxed);
     }
 }
