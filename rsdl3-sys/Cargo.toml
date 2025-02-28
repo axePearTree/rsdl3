@@ -3,6 +3,9 @@ name = "rsdl3-sys"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+image = []
+
 [dependencies]
 libc = "0.2"
 

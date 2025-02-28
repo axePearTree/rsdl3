@@ -4,6 +4,8 @@ extern crate alloc;
 
 pub mod blendmode;
 pub mod events;
+#[cfg(feature = "image")]
+pub mod image;
 pub mod init;
 pub mod pixels;
 pub mod rect;
