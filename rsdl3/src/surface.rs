@@ -4,9 +4,9 @@ use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::Rect;
 use crate::render::Renderer;
 use crate::{sys, Error};
+use core::marker::PhantomData;
 use core::mem::MaybeUninit;
 use core::ops::{Deref, DerefMut};
-use std::marker::PhantomData;
 
 pub struct Surface {
     _video: VideoSubsystem,

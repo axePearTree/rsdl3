@@ -13,6 +13,7 @@ const INITIALIZED: bool = true;
 const UNINITIALIZED: bool = false;
 
 pub struct Sdl {
+    pub(crate) drop: Rc<SdlDrop>,
     audio: Weak<Subsystem<{ sys::SDL_INIT_AUDIO }>>,
     camera: Weak<Subsystem<{ sys::SDL_INIT_CAMERA }>>,
     events: Weak<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
@@ -22,7 +23,6 @@ pub struct Sdl {
     video: Weak<Subsystem<{ sys::SDL_INIT_VIDEO }>>,
     sensor: Weak<Subsystem<{ sys::SDL_INIT_SENSOR }>>,
     event_pump: Weak<RefCell<EventPump>>,
-    drop: Rc<SdlDrop>,
 }
 
 #[derive(Clone)]
@@ -151,7 +151,7 @@ impl<const INIT_FLAG: u32> Drop for Subsystem<INIT_FLAG> {
     }
 }
 
-struct SdlDrop;
+pub(crate) struct SdlDrop;
 
 impl SdlDrop {
     unsafe fn init() -> Result<Self, Error> {

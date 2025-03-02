@@ -1,10 +1,11 @@
-// #![no_std]
+#![no_std]
 
 extern crate alloc;
 
 pub mod blendmode;
 pub mod events;
 pub mod init;
+pub mod iostream;
 pub mod pixels;
 pub mod rect;
 pub mod render;
