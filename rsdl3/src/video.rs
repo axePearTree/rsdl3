@@ -8,9 +8,9 @@ use alloc::ffi::CString;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::ffi::{c_int, c_void, CStr};
+use core::marker::PhantomData;
 use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
-use std::marker::PhantomData;
 
 impl VideoSubsystem {
     pub fn create_window(
