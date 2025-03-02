@@ -1,7 +1,10 @@
 #![no_std]
 #![allow(warnings)]
 
-mod bindings;
+mod core;
+
+#[cfg(feature = "image")]
+pub mod image;
 
 mod defines {
     pub const SDL_WINDOW_FULLSCREEN: u64 = 0x0000000000000001;
@@ -31,5 +34,5 @@ mod defines {
     pub const SDL_WINDOW_NOT_FOCUSABLE: u64 = 0x0000000080000000;
 }
 
-pub use bindings::*;
+pub use core::*;
 pub use defines::*;

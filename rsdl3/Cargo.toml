@@ -3,5 +3,8 @@ name = "rsdl3"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+image = ["rsdl3-sys/image"]
+
 [dependencies]
 rsdl3-sys = { path = "../rsdl3-sys" }

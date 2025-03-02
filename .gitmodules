@@ -1,3 +1,6 @@
 [submodule "rsdl3-sys/SDL"]
 	path = rsdl3-sys/SDL
 	url = https://github.com/libsdl-org/SDL
+[submodule "rsdl3-sys/SDL_image"]
+	path = rsdl3-sys/SDL_image
+	url = https://github.com/libsdl-org/SDL_image
