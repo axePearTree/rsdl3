@@ -1,9 +1,8 @@
-use std::ffi::CString;
-
 use crate::init::VideoSubsystem;
 use crate::surface::Surface;
 use crate::sys;
 use crate::Error;
+use alloc::ffi::CString;
 
 impl VideoSubsystem {
     pub fn load_image(&self, path: &str) -> Result<Surface, Error> {
