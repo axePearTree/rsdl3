@@ -25,7 +25,7 @@ impl Drop for Renderer {
 }
 
 impl Renderer {
-    pub fn try_from_window(mut window: Window, driver: Option<&str>) -> Result<Self, Error> {
+    pub fn from_window(mut window: Window, driver: Option<&str>) -> Result<Self, Error> {
         unsafe {
             let driver = match driver {
                 Some(driver) => Some(CString::new(driver)?),
@@ -44,7 +44,7 @@ impl Renderer {
         }
     }
 
-    pub fn try_from_surface(mut surface: Surface) -> Result<Self, Error> {
+    pub fn from_surface(mut surface: Surface) -> Result<Self, Error> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.as_mut_ptr());
             if ptr.is_null() {
@@ -175,7 +175,7 @@ impl Renderer {
         Ok(Color::new(r, g, b, a))
     }
 
-    pub fn set_render_draw_color(&mut self, color: Color) -> Result<(), Error> {
+    pub fn set_draw_color(&mut self, color: Color) -> Result<(), Error> {
         let result = unsafe {
             sys::SDL_SetRenderDrawColor(
                 self.as_mut_ptr(),
@@ -256,6 +256,12 @@ pub struct Texture {
     /// This must *never* be upgraded to an Rc.
     renderer: Weak<*mut sys::SDL_Renderer>,
     ptr: *mut sys::SDL_Texture,
+}
+
+impl Texture {
+    pub fn from_surface(renderer: &mut Renderer, surface: &SurfaceRef) -> Result<Self, Error> {
+        renderer.create_texture_from_surface(surface)
+    }
 }
 
 impl Drop for Texture {

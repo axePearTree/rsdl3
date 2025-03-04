@@ -41,7 +41,7 @@ impl Surface {
     }
 
     pub fn create_renderer(self) -> Result<Renderer, Error> {
-        Renderer::try_from_surface(self)
+        Renderer::from_surface(self)
     }
 
     pub fn convert(self, format: PixelFormat) -> Result<Surface, Error> {

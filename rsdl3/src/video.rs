@@ -14,40 +14,21 @@ use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
 
 impl VideoSubsystem {
     pub fn create_window(
-        &mut self,
+        &self,
         name: &str,
         width: u32,
         height: u32,
         flags: WindowFlags,
     ) -> Result<Window, Error> {
-        let c_string =
-            CString::new(name).map_err(|_| Error(String::from("Window name is not valid.")))?;
-        let c_str = c_string.as_c_str();
-        let width =
-            c_int::try_from(width).map_err(|_| Error(String::from("Window width is too big.")))?;
-        let height = c_int::try_from(height)
-            .map_err(|_| Error(String::from("Window height is too big.")))?;
-        let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags.0) };
-        if ptr.is_null() {
-            return Err(Error::from_sdl());
-        }
-        Ok(Window {
-            _video: self.clone(),
-            ptr,
-        })
+        Window::new(self, name, width, height, flags)
     }
 
-    pub fn create_surface(
-        &mut self,
-        w: u32,
-        h: u32,
-        format: PixelFormat,
-    ) -> Result<Surface, Error> {
+    pub fn create_surface(&self, w: u32, h: u32, format: PixelFormat) -> Result<Surface, Error> {
         Surface::new(self, w, h, format)
     }
 
-    pub fn create_palette(&mut self, count: usize) -> Result<ColorPalette, Error> {
-        ColorPalette::try_new(self, count)
+    pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
+        ColorPalette::new(self, count)
     }
 
     pub fn pixel_format_for_mask(&self, mask: PixelFormatRgbaMask) -> PixelFormat {
@@ -63,7 +44,7 @@ impl VideoSubsystem {
         }
     }
 
-    pub fn duplicate_surface(&mut self, surface: &SurfaceRef) -> Result<Surface, Error> {
+    pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface, Error> {
         let ptr = unsafe { sys::SDL_DuplicateSurface(surface.as_ptr() as *mut _) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
@@ -263,7 +244,7 @@ impl VideoSubsystem {
         unsafe { sys::SDL_ScreenSaverEnabled() }
     }
 
-    pub fn enable_screensaver(&mut self) -> Result<(), Error> {
+    pub fn enable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_EnableScreenSaver() };
         if !result {
             return Err(Error::from_sdl());
@@ -271,7 +252,7 @@ impl VideoSubsystem {
         Ok(())
     }
 
-    pub fn disable_screensaver(&mut self) -> Result<(), Error> {
+    pub fn disable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_DisableScreenSaver() };
         if !result {
             return Err(Error::from_sdl());
@@ -291,8 +272,32 @@ pub struct Window {
 }
 
 impl Window {
+    pub fn new(
+        video: &VideoSubsystem,
+        name: &str,
+        width: u32,
+        height: u32,
+        flags: WindowFlags,
+    ) -> Result<Window, Error> {
+        let c_string =
+            CString::new(name).map_err(|_| Error(String::from("Window name is not valid.")))?;
+        let c_str = c_string.as_c_str();
+        let width =
+            c_int::try_from(width).map_err(|_| Error(String::from("Window width is too big.")))?;
+        let height = c_int::try_from(height)
+            .map_err(|_| Error(String::from("Window height is too big.")))?;
+        let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags.0) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(Window {
+            _video: video.clone(),
+            ptr,
+        })
+    }
+
     pub fn create_renderer(self, driver: Option<&str>) -> Result<Renderer, Error> {
-        Renderer::try_from_window(self, driver)
+        Renderer::from_window(self, driver)
     }
 }
 

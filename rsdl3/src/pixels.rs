@@ -421,7 +421,7 @@ pub struct ColorPalette {
 }
 
 impl ColorPalette {
-    pub fn try_new(video: &VideoSubsystem, ncolors: usize) -> Result<Self, Error> {
+    pub fn new(video: &VideoSubsystem, ncolors: usize) -> Result<Self, Error> {
         let result = unsafe { sys::SDL_CreatePalette(ncolors as i32) };
         if result.is_null() {
             return Err(Error::from_sdl());

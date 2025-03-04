@@ -6,7 +6,6 @@ pub mod blendmode;
 pub mod events;
 #[cfg(feature = "image")]
 pub mod image;
-pub mod init;
 pub mod iostream;
 pub mod pixels;
 pub mod rect;
@@ -14,10 +13,13 @@ pub mod render;
 pub mod surface;
 pub mod video;
 
+mod init;
+
 use alloc::borrow::ToOwned;
 use alloc::string::String;
 use core::ffi::CStr;
 use core::num::TryFromIntError;
+pub use init::*;
 pub use rsdl3_sys as sys;
 
 #[allow(unused)]
