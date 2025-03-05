@@ -14,12 +14,7 @@ pub struct Surface {
 }
 
 impl Surface {
-    pub(crate) fn new(
-        video: &VideoSubsystem,
-        w: u32,
-        h: u32,
-        format: PixelFormat,
-    ) -> Result<Self, Error> {
+    pub fn new(video: &VideoSubsystem, w: u32, h: u32, format: PixelFormat) -> Result<Self, Error> {
         let w = w.clamp(0, i32::MAX as u32) as i32;
         let h = h.clamp(0, i32::MAX as u32) as i32;
         let ptr = unsafe { sys::SDL_CreateSurface(w, h, format.to_ll()) };

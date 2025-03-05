@@ -185,6 +185,14 @@ impl VideoSubsystem {
         Ok(display_id)
     }
 
+    /// Returns the content scale of a display.
+    ///
+    /// The content scale is the expected scale for content based on the DPI settings of the display.
+    ///
+    /// For example, a 4K display might have a 2.0 (200%) display scale, which means that the user expects UI elements to be twice as big on this display, to aid in readability.
+    ///
+    /// After window creation, [`Window::display_scale`] should be used to query the content scale factor for individual windows instead of querying the display for a window and
+    /// calling this function, as the per-window content scale factor may differ from the base value of the display it is on, particularly on high-DPI and/or multi-monitor desktop configurations.
     pub fn display_content_scale(&self, display_id: u32) -> Result<f32, Error> {
         let scale = unsafe { sys::SDL_GetDisplayContentScale(display_id) };
         if scale == 0.0 {
@@ -193,6 +201,11 @@ impl VideoSubsystem {
         Ok(scale)
     }
 
+    /// Returns information about the desktop's display mode.
+    ///
+    /// There's a difference between this function and [`VideoSubsystem::current_display_mode`] when SDL runs fullscreen and has changed the resolution.
+    ///
+    /// In that case this function will return the previous native display mode, and not the current display mode.
     pub fn desktop_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::SDL_GetDesktopDisplayMode(display_id);
@@ -203,6 +216,14 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns a `Vec` containing all of the fullscreen display modes available on a display.
+    /// The display modes are sorted in this priority:
+    /// - w -> largest to smallest
+    /// - h -> largest to smallest
+    /// - bits per pixel -> more colors to fewer colors
+    /// - packed pixel layout -> largest to smallest
+    /// - refresh rate -> highest to lowest
+    /// - pixel density -> lowest to highest
     pub fn fullscreen_display_modes(&self, display_id: u32) -> Result<Vec<DisplayMode>, Error> {
         unsafe {
             let mut count = 0;
@@ -211,7 +232,6 @@ impl VideoSubsystem {
                 return Err(Error::from_sdl());
             }
             let mut display_modes = Vec::new();
-            // TODO: pointer arithmetic here operates on the assumption that SDL
             for i in 0..count {
                 let display_mode = *ptr.offset(isize::try_from(i)?);
                 display_modes.push(DisplayMode::from_ptr(display_mode));
@@ -221,6 +241,9 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns the current display mode.
+    /// There's a difference between this function and [`VideoSubsystem::desktop_display_mode`] when SDL runs fullscreen and has changed the resolution.
+    /// In that case this\n function will return the current display mode, and not the previous native display mode.
     pub fn current_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::SDL_GetCurrentDisplayMode(display_id);
@@ -231,6 +254,7 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns the orientation of a display.
     pub fn current_display_orientation(
         &self,
         display_id: u32,
@@ -240,6 +264,7 @@ impl VideoSubsystem {
         })
     }
 
+    /// Returns the orientation of a display when it is unrotated.
     pub fn natural_display_orientation(
         &self,
         display_id: u32,
@@ -249,6 +274,11 @@ impl VideoSubsystem {
         })
     }
 
+    /// Returns the closest match to the requested display mode.
+    /// The available display modes are scanned and `closest` is filled in with the closest mode matching the requested mode and returned.
+    /// The mode format and refresh rate default to the desktop mode if they are set to 0.
+    /// The modes are scanned with size being first priority, format being second priority, and finally checking the refresh rate.
+    /// If all the available modes are too small, then an `Error` is returned.
     pub fn closest_fullscreen_display_mode(
         &self,
         display_id: u32,
@@ -276,10 +306,12 @@ impl VideoSubsystem {
         }
     }
 
+    /// Check whether the screensaver is currently enabled. The screensaver is disabled by default.
     pub fn screensaver_enabled(&self) -> bool {
         unsafe { sys::SDL_ScreenSaverEnabled() }
     }
 
+    /// Allow the screen to be blanked by a screen saver.
     pub fn enable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_EnableScreenSaver() };
         if !result {
@@ -288,6 +320,7 @@ impl VideoSubsystem {
         Ok(())
     }
 
+    /// Prevent the screen from being blanked by a screen saver. If you disable the screensaver, it is automatically re-enabled when SDL quits.
     pub fn disable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_DisableScreenSaver() };
         if !result {
@@ -296,6 +329,7 @@ impl VideoSubsystem {
         Ok(())
     }
 
+    /// Returns the current `SystemTheme`.
     pub fn system_theme(&self) -> Result<SysthemTheme, Error> {
         SysthemTheme::try_from_ll(unsafe { sys::SDL_GetSystemTheme() })
     }
