@@ -6,6 +6,7 @@ use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
 
+/// A structure representing rendering state.
 pub struct Renderer {
     context: RendererContext,
     target: Option<Texture>,
@@ -25,6 +26,13 @@ impl Drop for Renderer {
 }
 
 impl Renderer {
+    /// Creates a `Renderer` from an existing `Window` using the specified `driver`.
+    ///
+    /// The `driver` name can be obtained by calling [`VideoSubsystem::render_driver`] using the driver's index.
+    ///
+    /// If `driver` is `None`, SDL will choose the best available option.
+    ///
+    /// The `Window` can later be borrowed by calling `Renderer::as_window_ref` or `Renderer::as_window_mut`.
     pub fn from_window(mut window: Window, driver: Option<&str>) -> Result<Self, Error> {
         unsafe {
             let driver = match driver {
@@ -44,6 +52,9 @@ impl Renderer {
         }
     }
 
+    /// Creates a software `Renderer` from an existing `Surface`.
+    ///
+    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
     pub fn from_surface(mut surface: Surface) -> Result<Self, Error> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.as_mut_ptr());

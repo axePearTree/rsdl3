@@ -20,6 +20,7 @@ mod init;
 use alloc::borrow::ToOwned;
 use alloc::string::String;
 use core::ffi::CStr;
+
 pub use init::*;
 pub use rsdl3_sys as sys;
 

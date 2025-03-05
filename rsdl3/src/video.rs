@@ -13,8 +13,8 @@ use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
 
 impl VideoSubsystem {
-    /// Creates a [`Window`].
-    ///
+    /// Creates a `Window`.
+    /// This method is equivalent to [`Window::new`].
     pub fn create_window(
         &self,
         name: &str,
@@ -25,14 +25,20 @@ impl VideoSubsystem {
         Window::new(self, name, width, height, flags)
     }
 
+    /// Creates a `Window`.
+    /// This method is equivalent to [`Surface::new`].
     pub fn create_surface(&self, w: u32, h: u32, format: PixelFormat) -> Result<Surface, Error> {
         Surface::new(self, w, h, format)
     }
 
+    /// Creates a `ColorPalette`.
+    /// This method is equivalent to [`ColorPalette::new`].
     pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
         ColorPalette::new(self, count)
     }
 
+    /// Converts an RGBA mask into a `PixelFormat`.
+    /// This will return a `PixelFormat::Unknown` if the conversion wasn't possible.
     pub fn pixel_format_for_mask(&self, mask: PixelFormatRgbaMask) -> PixelFormat {
         unsafe {
             let pixel_format = sys::SDL_GetPixelFormatForMasks(
@@ -46,6 +52,8 @@ impl VideoSubsystem {
         }
     }
 
+    /// Creates a new surface identical to the existing surface.
+    /// If the original surface has alternate images, the new surface will have a reference to them as well.
     pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface, Error> {
         let ptr = unsafe { sys::SDL_DuplicateSurface(surface.as_ptr() as *mut _) };
         if ptr.is_null() {
@@ -54,13 +62,17 @@ impl VideoSubsystem {
         Ok(unsafe { Surface::from_mut_ptr(self, ptr) })
     }
 
-    pub fn num_drivers(&self) -> usize {
-        unsafe { sys::SDL_GetNumVideoDrivers() as usize }
+    /// Returns the number of video drivers compiled into SDL.
+    pub fn num_drivers(&self) -> Result<usize, Error> {
+        Ok(usize::try_from(unsafe { sys::SDL_GetNumVideoDrivers() })?)
     }
 
-    pub fn driver(&self, driver_index: i32) -> Result<String, Error> {
+    /// Returns the name of a builtin video driver.
+    /// The number of drivers can be obtained by calling [`VideoSubsystem::num_drivers`].
+    pub fn driver(&self, driver_index: usize) -> Result<String, Error> {
         unsafe {
-            let ptr = sys::SDL_GetVideoDriver(driver_index as i32);
+            let driver_index = i32::try_from(driver_index)?;
+            let ptr = sys::SDL_GetVideoDriver(driver_index);
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
@@ -68,11 +80,24 @@ impl VideoSubsystem {
         }
     }
 
-    pub fn drivers(&self) -> impl Iterator<Item = Result<String, Error>> + use<'_> {
-        let num_drivers = self.num_drivers() as i32;
-        (0..num_drivers).map(|i| self.driver(i))
+    /// Returns the number of 2D rendering drivers available for the current display.
+    pub fn num_render_drivers(&self) -> Result<usize, Error> {
+        Ok(usize::try_from(unsafe { sys::SDL_GetNumRenderDrivers() })?)
     }
 
+    /// Returns the name of a builtin render driver.
+    /// The number of drivers can be obtained by calling [`VideoSubsystem::num_render_drivers`].
+    pub fn render_driver(&self, index: usize) -> Result<String, Error> {
+        unsafe {
+            let ptr = sys::SDL_GetRenderDriver(i32::try_from(index)?);
+            if ptr.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
+        }
+    }
+
+    /// Returns the name of the currently initialized video driver.
     pub fn current_driver(&self) -> Result<String, Error> {
         unsafe {
             let ptr = sys::SDL_GetCurrentVideoDriver();
@@ -83,6 +108,7 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns a `Vec<u32>` containing the names of all available displays.
     pub fn displays(&self) -> Result<Vec<u32>, Error> {
         let mut num_displays = 0;
         unsafe {
@@ -96,6 +122,7 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns the id of the primary display.
     pub fn primary_display(&self) -> Result<u32, Error> {
         let result = unsafe { sys::SDL_GetPrimaryDisplay() };
         if result == 0 {
@@ -104,6 +131,7 @@ impl VideoSubsystem {
         Ok(result)
     }
 
+    /// Returns the name of a given display.
     pub fn display_name(&self, display_id: u32) -> Result<String, Error> {
         unsafe {
             let name = sys::SDL_GetDisplayName(display_id);
@@ -112,6 +140,8 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns the desktop area represented by a display.
+    /// The primary display is often located at (0,0), but may be placed at a different location depending on monitor layout.
     pub fn display_bounds(&self, display_id: u32) -> Result<Rect, Error> {
         let mut rect = Rect::new(0, 0, 0, 0).to_ll();
         let result = unsafe { sys::SDL_GetDisplayBounds(display_id, &raw mut rect) };
@@ -121,6 +151,8 @@ impl VideoSubsystem {
         Ok(Rect::new(rect.x, rect.y, rect.w as u32, rect.h as u32))
     }
 
+    /// Returns the usable desktop area represented by a display, in screen coordinates.
+    /// This is the same area as `VideoSubsystem::display_bounds`, but with portions reserved by the system removed.
     pub fn display_usable_bounds(&self, display_id: u32) -> Result<Rect, Error> {
         let mut out: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
         unsafe {
@@ -133,6 +165,7 @@ impl VideoSubsystem {
         }
     }
 
+    /// Returns the id of the display primarily containing a rect.
     pub fn display_for_rect(&self, rect: &Rect) -> Result<u32, Error> {
         let rect = rect.to_ll();
         let display_id = unsafe { sys::SDL_GetDisplayForRect(&raw const rect) };
@@ -142,6 +175,7 @@ impl VideoSubsystem {
         Ok(display_id)
     }
 
+    /// Returns the id of the display containing a point.
     pub fn display_for_point(&self, point: &Point) -> Result<u32, Error> {
         let point = point.to_ll();
         let display_id = unsafe { sys::SDL_GetDisplayForPoint(&raw const point) };

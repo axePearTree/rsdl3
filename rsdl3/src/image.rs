@@ -7,7 +7,7 @@ use alloc::ffi::CString;
 impl VideoSubsystem {
     #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
     /// Loads an image from the specified file path into a [`Surface`].
-    /// It internally calls [`Surface::from_image`].
+    /// This method is equivalent to [`Surface::from_image`].
     pub fn load_image(&self, path: &str) -> Result<Surface, Error> {
         Surface::from_image(self, path)
     }
