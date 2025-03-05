@@ -13,6 +13,8 @@ use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Deref, DerefMut};
 
 impl VideoSubsystem {
+    /// Creates a [`Window`].
+    ///
     pub fn create_window(
         &self,
         name: &str,
@@ -265,6 +267,7 @@ impl VideoSubsystem {
     }
 }
 
+/// Type used to identify a window.
 pub struct Window {
     _video: VideoSubsystem,
     /// This pointer should be safe to dereference as long as the window is still alive.
@@ -272,6 +275,7 @@ pub struct Window {
 }
 
 impl Window {
+    /// Creates a new [`Window`].
     pub fn new(
         video: &VideoSubsystem,
         name: &str,
@@ -296,7 +300,9 @@ impl Window {
         })
     }
 
-    pub fn create_renderer(self, driver: Option<&str>) -> Result<Renderer, Error> {
+    /// Creates a [`Renderer`]. Consumes the [`Window`].
+    /// Once the renderer is instantiated, the window can be accessed again via [`Renderer::as_window_mut`] or [`Renderer::as_window_ref`].
+    pub fn into_renderer(self, driver: Option<&str>) -> Result<Renderer, Error> {
         Renderer::from_window(self, driver)
     }
 }
@@ -315,6 +321,7 @@ impl DerefMut for Window {
     }
 }
 
+/// A reference to a [`Window`].
 // We cast pointers to &WindowRef and &mut WindowRef.
 // This allows us to safely expose references to a window from a Renderer.
 pub struct WindowRef {

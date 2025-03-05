@@ -53,8 +53,10 @@ pub struct VideoSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_VIDEO }>>);
 pub struct SensorSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_SENSOR }>>);
 
 impl Sdl {
-    // SAFETY:
-    // This must be called from the main thread.
+    /// Initializes SDL.
+    /// Will return an [`Error`] if SDL can't be initialized or if SDL is *already* initialized.
+    /// SAFETY:
+    /// Must be called from the main thread.
     pub unsafe fn init() -> Result<Self, Error> {
         Ok(Self {
             audio: Weak::new(),
@@ -70,14 +72,20 @@ impl Sdl {
         })
     }
 
+    /// Returns a unique instance of the `AudioSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn audio(&mut self) -> Result<AudioSubsystem, Error> {
         Self::get_or_init(&mut self.audio, &self.drop).map(AudioSubsystem)
     }
 
+    /// Returns a unique instance of the `CameraSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn camera(&mut self) -> Result<CameraSubsystem, Error> {
         Self::get_or_init(&mut self.camera, &self.drop).map(CameraSubsystem)
     }
 
+    /// Returns a unique instance of the `EventsSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn events(&mut self) -> Result<EventsSubsystem, Error> {
         let subsystem = Self::get_or_init(&mut self.events, &self.drop)?;
         let event_pump = match self.event_pump.upgrade() {
@@ -91,18 +99,26 @@ impl Sdl {
         Ok(EventsSubsystem(subsystem, event_pump))
     }
 
+    /// Returns a unique instance of the `HapticSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn haptic(&mut self) -> Result<HapticSubsystem, Error> {
         Self::get_or_init(&mut self.haptic, &self.drop).map(HapticSubsystem)
     }
 
+    /// Returns a unique instance of the `JoystickSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn joystick(&mut self) -> Result<JoystickSubsystem, Error> {
         Self::get_or_init(&mut self.joystick, &self.drop).map(JoystickSubsystem)
     }
 
+    /// Returns a unique instance of the `VideoSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn video(&mut self) -> Result<VideoSubsystem, Error> {
         Self::get_or_init(&mut self.video, &self.drop).map(VideoSubsystem)
     }
 
+    /// Returns a unique instance of the `SensorSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
     pub fn sensor(&mut self) -> Result<SensorSubsystem, Error> {
         Self::get_or_init(&mut self.sensor, &self.drop).map(SensorSubsystem)
     }

@@ -1,11 +1,13 @@
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![no_std]
 
 extern crate alloc;
 
-pub mod blendmode;
-pub mod events;
 #[cfg(feature = "image")]
 pub mod image;
+
+pub mod blendmode;
+pub mod events;
 pub mod iostream;
 pub mod pixels;
 pub mod rect;

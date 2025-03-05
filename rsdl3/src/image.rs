@@ -5,12 +5,17 @@ use crate::Error;
 use alloc::ffi::CString;
 
 impl VideoSubsystem {
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
+    /// Loads an image from the specified file path into a [`Surface`].
+    /// It internally calls [`Surface::from_image`].
     pub fn load_image(&self, path: &str) -> Result<Surface, Error> {
         Surface::from_image(self, path)
     }
 }
 
 impl Surface {
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
+    /// Creates a new `Surface` by loading an image from the specified file path.
     pub fn from_image(video: &VideoSubsystem, path: &str) -> Result<Self, Error> {
         let path = CString::new(path)?;
         unsafe {

@@ -1,5 +1,6 @@
 use crate::{sys, Error};
 
+/// A set of blend modes used in drawing operations.
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum BlendMode {
@@ -13,7 +14,9 @@ pub enum BlendMode {
 }
 
 impl BlendMode {
-    pub fn try_from_ll(value: u32) -> Result<Option<Self>, Error> {
+    /// Converts a [`sys::SDL_BlendMode`] into a [`BlendMode`].
+    /// Returns an [`Error`] if `value` is invalid.
+    pub fn try_from_ll(value: sys::SDL_BlendMode) -> Result<Option<Self>, Error> {
         match value {
             sys::SDL_BLENDMODE_BLEND => Ok(Some(Self::Blend)),
             sys::SDL_BLENDMODE_BLEND_PREMULTIPLIED => Ok(Some(Self::BlendPremultiplied)),
@@ -27,8 +30,9 @@ impl BlendMode {
         }
     }
 
+    /// Converts a [`BlendMode`] into [`sys::SDL_BlendMode`].
     #[inline]
-    pub fn to_ll(&self) -> u32 {
+    pub fn to_ll(&self) -> sys::SDL_BlendMode {
         *self as u32
     }
 }

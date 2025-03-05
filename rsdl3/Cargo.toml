@@ -9,3 +9,7 @@ image = ["rsdl3-sys/image"]
 
 [dependencies]
 rsdl3-sys = { path = "../rsdl3-sys" }
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
