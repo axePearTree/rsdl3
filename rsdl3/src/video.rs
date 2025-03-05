@@ -243,7 +243,7 @@ impl VideoSubsystem {
 
     /// Returns the current display mode.
     /// There's a difference between this function and [`VideoSubsystem::desktop_display_mode`] when SDL runs fullscreen and has changed the resolution.
-    /// In that case this\n function will return the current display mode, and not the previous native display mode.
+    /// In that case this function will return the current display mode, and not the previous native display mode.
     pub fn current_display_mode(&self, display_id: u32) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::SDL_GetCurrentDisplayMode(display_id);
@@ -681,12 +681,6 @@ impl WindowRef {
     /// When the window state changes, [`crate::events::Event::Window`] with payload
     /// [`crate::events::Event::WindowEvent::Moved`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
-    ///
-    /// When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be emitted with the window's new
-    /// coordinates. Note that the new coordinates may not match the exact coordinates requested, as some windowing
-    /// systems can restrict the position of the window in certain scenarios (e.g. constraining the position so the
-    /// window is always within desktop bounds). Additionally, as this is just a request, it can be denied by the
-    /// windowing system.
     pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowPosition(self.as_ptr() as *mut _, x, y) };
         if !result {
@@ -711,6 +705,19 @@ impl WindowRef {
         Ok((x, y))
     }
 
+    /// Request that the size of a window's client area be set.
+    ///
+    /// If the window is in a fullscreen or maximized state, this request has no effect.
+    ///
+    /// To change the exclusive fullscreen mode of a window, use [`WindowRef::select_fullscreen_mode`].
+    ///
+    /// On some windowing systems, this request is asynchronous and the new window size may not have have been
+    /// applied immediately upon the return of this function. If an immediate change is required, call
+    /// [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::Resized`] will be emitted. Note that, as this is just a request,
+    /// it can be denied by the windowing system.
     pub fn set_size(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowSize(self.as_ptr() as *mut _, x, y) };
         if !result {
@@ -719,6 +726,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the title of the window.
     pub fn title(&self) -> Result<String, Error> {
         let c_str = unsafe {
             let ptr = sys::SDL_GetWindowTitle(self.as_ptr() as *mut _);
@@ -727,8 +735,9 @@ impl WindowRef {
         Ok(c_str.to_string_lossy().into_owned())
     }
 
-    pub fn set_title(&self, title: impl Into<String>) -> Result<(), Error> {
-        let s: String = title.into();
+    /// Sets the title of the window.
+    pub fn set_title<'a>(&self, title: impl Into<&'a str>) -> Result<(), Error> {
+        let s: &str = title.into();
         let c_string = CString::new(s)?;
         let c_str = c_string.as_c_str();
         let result = unsafe { sys::SDL_SetWindowTitle(self.as_ptr() as *mut _, c_str.as_ptr()) };
@@ -738,6 +747,12 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Sets the user-resizable state of a window.
+    ///
+    /// This will add or remove the window's [`WindowFlags::RESIZABLE`] flag and allow/disallow user resizing of the window.
+    /// This is a no-op if the window's resizable state already matches the requested state.
+    ///
+    /// The resizable state of a fullscreen window can't be changed.
     pub fn set_resizable(&mut self, resizable: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowResizable(self.as_ptr() as *mut _, resizable) };
         if !result {
@@ -746,6 +761,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the pixel format associated with the window.
     pub fn pixel_format(&self) -> Result<PixelFormat, Error> {
         unsafe {
             let result = sys::SDL_GetWindowPixelFormat(self.as_ptr() as *mut _);
@@ -757,6 +773,13 @@ impl WindowRef {
         }
     }
 
+    /// Returns the safe area for this window.
+    ///
+    /// Some devices have portions of the screen which are partially obscured or not interactive, possibly
+    /// due to on-screen controls, curved edges, camera notches, TV overscan, etc.
+    /// This function provides the area of the window which is safe to have interactable content.
+    /// You should continue rendering into the rest of the window, but it should not contain visually important
+    /// or interactible content.
     pub fn safe_area(&self) -> Result<Rect, Error> {
         let mut out: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
         unsafe {
@@ -769,6 +792,7 @@ impl WindowRef {
         }
     }
 
+    /// Returns the maximum size of a window's client area.\
     pub fn max_size(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
@@ -781,6 +805,7 @@ impl WindowRef {
         Ok((x, y))
     }
 
+    /// Sets the maximum size of a window's client area.
     pub fn set_max_size(&mut self, w: u32, h: u32) -> Result<(), Error> {
         let w = w.min(i32::MAX as u32) as i32;
         let h = h.min(i32::MAX as u32) as i32;
@@ -791,6 +816,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the minimum size of a window's client area.
     pub fn min_size(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
@@ -803,6 +829,7 @@ impl WindowRef {
         Ok((x, y))
     }
 
+    /// Sets the minimum size of a window's client area.
     pub fn set_min_size(&mut self, w: u32, h: u32) -> Result<(), Error> {
         let w = w.min(i32::MAX as u32) as i32;
         let h = h.min(i32::MAX as u32) as i32;
@@ -813,6 +840,12 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the size of a window's borders (decorations) around the client area.
+    ///
+    /// This function may fail on systems where the window has not yet been decorated by the display server
+    /// (for example, immediately after calling [`Window::new`]). It is recommended that you wait at least
+    /// until the window has been presented and composited, so that the window system has a chance to decorate
+    /// the window and provide the border dimensions to SDL.
     pub fn borders_size(&self) -> Result<(i32, i32, i32, i32), Error> {
         let mut top = 0;
         let mut left = 0;
@@ -833,6 +866,13 @@ impl WindowRef {
         Ok((top, left, bottom, right))
     }
 
+    /// Sets the border state of a window.
+    ///
+    /// This will add or remove the window's [`WindowFlags::BORDERLESS`] flag and add or remove the
+    /// border from the actual window. This is a no-op if the window's border already matches the
+    /// requested state.
+    ///
+    /// You can't change the border state of a fullscreen window.
     pub fn set_bordered(&mut self, bordered: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowBordered(self.as_ptr() as *mut _, bordered) };
         if !result {
@@ -841,6 +881,10 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Sets the window to always be above the others.
+    ///
+    /// This will add or remove the window's [`WindowFlags::ALWAYS_ON_TOP`]  flag. This will bring the
+    /// window to the front and keep the window above the rest.
     pub fn set_always_on_top(&mut self, always_on_top: bool) -> Result<(), Error> {
         let result =
             unsafe { sys::SDL_SetWindowAlwaysOnTop(self.as_ptr() as *mut _, always_on_top) };
@@ -850,6 +894,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Sets whether the window may have input focus.
     pub fn set_focusable(&mut self, focusable: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowFocusable(self.as_ptr() as *mut _, focusable) };
         if !result {
@@ -858,17 +903,27 @@ impl WindowRef {
         Ok(())
     }
 
-    // SDL mutates the original surface but also creates a copy.
-    // So we're free to use it after calling this; hence why it takes a mutable surface as
-    // parameter.
-    pub fn set_icon(&mut self, icon: &mut SurfaceRef) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_SetWindowIcon(self.as_ptr() as *mut _, icon.as_mut_ptr()) };
+    /// Sets the icon for a window.
+    ///
+    /// If this function is passed a surface with alternate representations, the surface will be interpreted
+    /// as the content to be used for 100% display scale, and the alternate representations will be used for
+    /// high DPI situations. For example, if the original surface is 32x32, then on a 2x macOS display or
+    /// 200% display scale on Windows, a 64x64 version of the image will be used, if available. If a matching
+    /// version of the image isn't available, the closest larger size image will be downscaled to the appropriate
+    /// size and be used instead, if available. Otherwise, the closest smaller image will be upscaled and be
+    /// used instead.
+    pub fn set_icon(&mut self, icon: &SurfaceRef) -> Result<(), Error> {
+        let result =
+            unsafe { sys::SDL_SetWindowIcon(self.as_ptr() as *mut _, icon.as_ptr() as *mut _) };
         if !result {
             return Err(Error::from_sdl());
         }
         Ok(())
     }
 
+    /// Set the window's mouse grab mode.
+    ///
+    /// Mouse grab confines the mouse cursor to the window.
     pub fn set_mouse_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowMouseGrab(self.as_ptr() as *mut _, grabbed) };
         if !result {
@@ -877,10 +932,25 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns a window's mouse grab mode.
     pub fn is_mouse_grabbed(&self) -> bool {
         unsafe { sys::SDL_GetWindowMouseGrab(self.as_ptr() as *mut _) }
     }
 
+    /// Sets a window's keyboard grab mode.
+    ///
+    /// Keyboard grab enables capture of system keyboard shortcuts like Alt+Tab or the Meta/Super key.
+    /// Note that not all system keyboard shortcuts can be captured by applications (one example is
+    /// Ctrl+Alt+Del on Windows).
+    ///
+    /// This is primarily intended for specialized applications such as VNC clients or VM frontends.
+    /// Normal games should not use keyboard grab.
+    ///
+    /// When keyboard grab is enabled, SDL will continue to handle Alt+Tab when the window is full-screen
+    /// to ensure the user is not trapped in your application.
+    ///
+    /// If the caller enables a grab while another window is currently grabbed, the other window loses its
+    /// grab in favor of the caller's window.
     pub fn set_keyboard_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowKeyboardGrab(self.as_ptr() as *mut _, grabbed) };
         if !result {
@@ -889,10 +959,12 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the window's keyboard grab mode.
     pub fn is_keyboard_grabbed(&self) -> bool {
         unsafe { sys::SDL_GetWindowKeyboardGrab(self.as_ptr() as *mut _) }
     }
 
+    /// Returns the VSync for the window surface.
     pub fn surface_vsync(&self) -> Result<WindowSurfaceVSync, Error> {
         let mut vsync = 0;
         let result =
@@ -903,6 +975,19 @@ impl WindowRef {
         WindowSurfaceVSync::try_from_ll(vsync)
     }
 
+    /// Toggles VSync for the window surface.
+    ///
+    /// When a window surface is created, vsync defaults to [`WindowSurfaceVSync::Disabled`].
+    ///
+    /// The `vsync` parameter can be:
+    ///
+    /// - [`WindowSurfaceVSync::EveryVerticalRefresh`] to synchronize present with every vertical refresh
+    /// - [`WindowSurfaceVSync::EverySecondVerticalRefresh`] to synchronize present with every second
+    /// vertical refresh, etc.
+    /// - [`WindowSurfaceVSync::Adaptive`] for late swap tearing (adaptive vsync)
+    /// - [`WindowSurfaceVSync::Disabled`] to disable vsync
+    ///
+    /// Not every value is supported by every driver.
     pub fn set_surface_vsync(&mut self, vsync: WindowSurfaceVSync) -> Result<(), Error> {
         let result =
             unsafe { sys::SDL_SetWindowSurfaceVSync(self.as_ptr() as *mut _, vsync.to_ll()) };
@@ -912,6 +997,16 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Sets the shape of a transparent window.
+    ///
+    /// This sets the alpha channel of a transparent window and any fully transparent areas are also transparent
+    /// to mouse clicks. If you are using something besides the SDL render API, then you are responsible for drawing
+    /// the alpha channel of the window to match the shape alpha channel to get consistent cross-platform results.
+    ///
+    /// The shape is copied inside this function. If your shape surface changes, you should call this method again
+    /// to update the window. This is an expensive operation, so should be done sparingly.
+    ///
+    /// The window must have been created with the [`WindowFlags::TRANSPARENT`] flag.
     pub fn set_window_shape(&mut self, surface: &mut SurfaceRef) -> Result<(), Error> {
         let result =
             unsafe { sys::SDL_SetWindowShape(self.as_ptr() as *mut _, surface.as_mut_ptr()) };
@@ -921,6 +1016,10 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the pixel density of a window.
+    ///
+    /// This is a ratio of pixel size to window size. For example, if the window is 1920x1080 and it has a high density
+    /// back buffer of 3840x2160 pixels, it would have a pixel density of 2.0.
     pub fn pixel_density(&self) -> Result<f32, Error> {
         let pixel_density = unsafe { sys::SDL_GetWindowPixelDensity(self.as_ptr() as *mut _) };
         if pixel_density == 0.0 {
@@ -929,6 +1028,7 @@ impl WindowRef {
         Ok(pixel_density)
     }
 
+    /// Returns the size of a window's client area, in pixels.
     pub fn size_in_pixels(&self) -> Result<(i32, i32), Error> {
         let mut w = 0;
         let mut h = 0;
@@ -941,6 +1041,7 @@ impl WindowRef {
         Ok((w, h))
     }
 
+    /// Request a window to demand attention from the user.
     pub fn flash(&mut self, operation: WindowFlashOperation) -> Result<(), Error> {
         let result = unsafe { sys::SDL_FlashWindow(self.as_ptr() as *mut _, operation.0) };
         if !result {
@@ -949,6 +1050,18 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Request that the window be made as large as possible.
+    ///
+    /// Non-resizable windows can't be maximized. The window must have the [`WindowFlags::RESIZABLE`] flag set,
+    /// or this will have no effect.
+    ///
+    /// On some windowing systems, this request is asynchronous and the new window size may not have have been
+    /// applied immediately upon the return of this function. If an immediate change is required, call
+    /// [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::Maximized`] will be emitted. Note that, as this is just a request,
+    /// it can be denied by the windowing system.
     pub fn maximize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MaximizeWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -957,6 +1070,18 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Request that the window be minimized to an iconic representation.
+    ///
+    /// If the window is in a fullscreen state, this request has no direct effect. It may alter the state the
+    /// window is returned to when leaving fullscreen.
+    ///
+    /// On some windowing systems, this request is asynchronous and the new window size may not have have been
+    /// applied immediately upon the return of this function. If an immediate change is required, call
+    /// [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::Minimized`] will be emitted. Note that, as this is just a request,
+    /// it can be denied by the windowing system.
     pub fn minimize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MinimizeWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -965,6 +1090,14 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Request that a window be raised above other windows and gain the input focus.
+    ///
+    /// The result of this request is subject to desktop window manager policy, particularly if raising the
+    /// requested window would result in stealing focus from another application. If the window is successfully
+    ///
+    /// If the window is successfully raised and gains input focus, a [`crate::events::Event::Window`] event with payload
+    /// [`crate::events::WindowEventPayload::FocusGained`] will be emitted, and the window will have the
+    /// [`WindowFlags::INPUT_FOCUS`] flag set.
     pub fn raise(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RaiseWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -973,6 +1106,18 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Request that the size and position of a minimized or maximized window be restored.
+    ///
+    /// If the window is in a fullscreen state, this request has no direct effect. It may alter the state the
+    /// window is returned to when leaving fullscreen.
+    ///
+    /// On some windowing systems, this request is asynchronous and the new window size may not have have been
+    /// applied immediately upon the return of this function. If an immediate change is required, call
+    /// [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::Restored`] will be emitted. Note that, as this is just a request,
+    /// it can be denied by the windowing system.
     pub fn restore(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RestoreWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -981,6 +1126,9 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Copy the window surface to the screen.
+    ///
+    /// This is the function you use to reflect any changes to the surface on the screen.
     pub fn update_surface(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_UpdateWindowSurface(self.as_ptr() as *mut _) };
         if !result {
@@ -989,6 +1137,12 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Copy areas of the window surface to the screen.
+    ///
+    /// This is the function you use to reflect changes to portions of the surface on the screen.
+    /// Note that this function will update _at least_ the rectangles specified, but this is only
+    /// intended as an optimization; in practice, this might update more of the screen (or all of
+    /// the screen!), depending on what method SDL uses to send pixels to the system.
     pub fn update_surface_rects(&mut self, rects: &[Rect]) -> Result<(), Error> {
         let rects: Vec<sys::SDL_Rect> = rects.iter().map(|r| r.to_ll()).collect();
         let result = unsafe {
@@ -1004,6 +1158,13 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Display the system-level window menu.
+    ///
+    /// This default window menu is provided by the system and on some platforms provides functionality
+    /// for setting or changing privileged state on the window, such as moving it between workspaces
+    /// or displays, or toggling the always-on-top property.
+    ///
+    /// On platforms or desktops where this is unsupported, this function does nothing.
     pub fn show_system_menu(&mut self, x: u32, y: u32) -> Result<(), Error> {
         let result = unsafe {
             sys::SDL_ShowWindowSystemMenu(self.as_ptr() as *mut _, x.try_into()?, y.try_into()?)
@@ -1014,6 +1175,14 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Block until any pending window state is finalized.
+    ///
+    /// On asynchronous windowing systems, this acts as a synchronization barrier for pending window state.
+    /// It will attempt to wait until any pending window state has been applied and is guaranteed to return within finite time.
+    /// Note that for how long it can potentially block depends on the underlying window system, as window state changes may
+    /// involve somewhat lengthy animations that must complete before the window is in its final requested state.
+    ///
+    /// On windowing systems where changes are immediate, this does nothing.
     pub fn sync(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SyncWindow(self.as_ptr() as *mut _) };
         if !result {
