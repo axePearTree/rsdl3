@@ -17,7 +17,7 @@ fn generate_core_bindings() {
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .generate()
         .unwrap()
-        .write_to_file(manifest_dir.join("src").join("core.rs"))
+        .write_to_file(manifest_dir.join("../src").join("core.rs"))
         .unwrap();
 }
 
@@ -37,6 +37,6 @@ fn generate_image_bindings() {
         .blocklist_type("SDL_.*")
         .generate()
         .unwrap()
-        .write_to_file(manifest_dir.join("src").join("image.rs"))
+        .write_to_file(manifest_dir.join("../src").join("image.rs"))
         .unwrap();
 }

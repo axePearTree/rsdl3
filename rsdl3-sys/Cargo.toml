@@ -9,8 +9,5 @@ image = []
 [dependencies]
 libc = "0.2"
 
-[build-dependencies]
-bindgen = "0.71.1"
-
 [lib]
 doctest = false

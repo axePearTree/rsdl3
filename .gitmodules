@@ -1,6 +1,6 @@
 [submodule "rsdl3-sys/SDL"]
-	path = rsdl3-sys/SDL
+	path = rsdl3-sys/bindgen-wrapper/SDL
 	url = https://github.com/libsdl-org/SDL
 [submodule "rsdl3-sys/SDL_image"]
-	path = rsdl3-sys/SDL_image
+	path = rsdl3-sys/bindgen-wrapper/SDL_image
 	url = https://github.com/libsdl-org/SDL_image

@@ -1,3 +1,4 @@
 [workspace]
 resolver = "3"
 members = ["rsdl3", "rsdl3-sys"]
+exclude = ["rsdl3-sys/bindgen-wrapper"]
