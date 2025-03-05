@@ -191,7 +191,7 @@ impl VideoSubsystem {
     ///
     /// For example, a 4K display might have a 2.0 (200%) display scale, which means that the user expects UI elements to be twice as big on this display, to aid in readability.
     ///
-    /// After window creation, [`Window::display_scale`] should be used to query the content scale factor for individual windows instead of querying the display for a window and
+    /// After window creation, [`WindowRef::display_scale`] should be used to query the content scale factor for individual windows instead of querying the display for a window and
     /// calling this function, as the per-window content scale factor may differ from the base value of the display it is on, particularly on high-DPI and/or multi-monitor desktop configurations.
     pub fn display_content_scale(&self, display_id: u32) -> Result<f32, Error> {
         let scale = unsafe { sys::SDL_GetDisplayContentScale(display_id) };
@@ -518,7 +518,7 @@ impl WindowRef {
     ///
     /// On some windowing systems, this request is asynchronous and the new window aspect ratio may not have have
     /// been applied immediately upon the return of this function. If an immediate change is required, call
-    /// [`Window::sync`] to block until the changes have taken effect.
+    /// [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window size changes, an [`crate::events::Event::Window`] event with payload
     /// [`crate::events::WindowEventPayload::Resized`] will be emitted with the new window dimensions. Note that
@@ -570,7 +570,7 @@ impl WindowRef {
     /// change is required, call [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::EnterFullscreen`] or  [`crate::events::Event::WindowEvent::LeaveFullscreen`]
+    /// [`crate::events::WindowEventPayload::EnterFullscreen`] or  [`crate::events::WindowEventPayload::LeaveFullscreen`]
     /// will be emitted. Note that, as this is just a request, it can be denied by the windowing system.
     pub fn set_fullscreen(&mut self, fullscreen: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowFullscreen(self.as_ptr() as *mut _, fullscreen) };
@@ -679,7 +679,7 @@ impl WindowRef {
     /// If an immediate change is required, call [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::Moved`] will be emitted. Note that, as this is just a request,
+    /// [`crate::events::WindowEventPayload::Moved`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
     pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowPosition(self.as_ptr() as *mut _, x, y) };
@@ -716,7 +716,7 @@ impl WindowRef {
     /// [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::Resized`] will be emitted. Note that, as this is just a request,
+    /// [`crate::events::WindowEventPayload::Resized`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
     pub fn set_size(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowSize(self.as_ptr() as *mut _, x, y) };
@@ -1060,7 +1060,7 @@ impl WindowRef {
     /// [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::Maximized`] will be emitted. Note that, as this is just a request,
+    /// [`crate::events::WindowEventPayload::Maximized`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
     pub fn maximize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MaximizeWindow(self.as_ptr() as *mut _) };
@@ -1080,7 +1080,7 @@ impl WindowRef {
     /// [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::Minimized`] will be emitted. Note that, as this is just a request,
+    /// [`crate::events::WindowEventPayload::Minimized`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
     pub fn minimize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MinimizeWindow(self.as_ptr() as *mut _) };
@@ -1116,7 +1116,7 @@ impl WindowRef {
     /// [`WindowRef::sync`] to block until the changes have taken effect.
     ///
     /// When the window state changes, [`crate::events::Event::Window`] with payload
-    /// [`crate::events::Event::WindowEvent::Restored`] will be emitted. Note that, as this is just a request,
+    /// [`crate::events::WindowEventPayload::Restored`] will be emitted. Note that, as this is just a request,
     /// it can be denied by the windowing system.
     pub fn restore(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RestoreWindow(self.as_ptr() as *mut _) };
