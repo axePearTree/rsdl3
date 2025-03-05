@@ -402,6 +402,9 @@ impl WindowRef {
         &mut *(ptr as *mut Self)
     }
 
+    /// Returns the numeric ID of this window.
+    /// The numeric ID is what [`crate::events::WindowEvent`] references, and is necessary to map
+    /// these events to specific `WindowRef` objects.
     pub fn id(&self) -> Result<u32, Error> {
         let id = unsafe { sys::SDL_GetWindowID(self.as_ptr() as *mut _) };
         if id == 0 {
@@ -410,6 +413,7 @@ impl WindowRef {
         Ok(id)
     }
 
+    /// Returns the ID of the display associated with a window.
     pub fn display(&self) -> Result<u32, Error> {
         let id = unsafe { sys::SDL_GetDisplayForWindow(self.as_ptr() as *mut _) };
         if id == 0 {
@@ -418,6 +422,18 @@ impl WindowRef {
         Ok(id)
     }
 
+    /// Returns the content display scale relative to a `WindowRef`'s pixel size.
+    ///
+    /// This is a combination of the window pixel density and the display content scale,
+    /// and is the expected scale for displaying content in this window.
+    ///
+    /// For example, if a 3840x2160 window had a display scale of 2.0, the user expects
+    /// the content to take twice as many pixels and be the same physical size as if it were being
+    /// displayed in a 1920x1080 window with a display scale of 1.0.
+    ///
+    /// Conceptually this value corresponds to the scale display setting, and is updated
+    /// when that setting is changed, or the window moves to a display with a different
+    /// scale setting.
     pub fn display_scale(&self) -> Result<f32, Error> {
         let scale = unsafe { sys::SDL_GetWindowDisplayScale(self.as_ptr() as *mut _) };
         if scale == 0.0 {
@@ -426,18 +442,13 @@ impl WindowRef {
         Ok(scale)
     }
 
-    pub fn destroy_surface(&mut self) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_DestroyWindowSurface(self.as_ptr() as *mut _) };
-        if !result {
-            return Err(Error::from_sdl());
-        }
-        Ok(())
-    }
-
+    /// Return whether the `WindowRef` has a [`Surface`] associated with it.
     pub fn has_surface(&self) -> bool {
         unsafe { sys::SDL_WindowHasSurface(self.as_ptr() as *mut _) }
     }
 
+    /// Returns a reference to a [`SurfaceRef`] associated with the `WindowRef`.
+    /// A new surface will be created with the optimal format for the window, if necessary.
     pub fn as_surface_ref(&self) -> Result<&SurfaceRef, Error> {
         unsafe {
             let surface = sys::SDL_GetWindowSurface(self.as_ptr() as *mut _);
@@ -448,6 +459,8 @@ impl WindowRef {
         }
     }
 
+    /// Returns a mutable reference to a [`SurfaceRef`] associated with the `WindowRef`.
+    /// A new surface will be created with the optimal format for the window, if necessary.
     pub fn as_surface_mut(&mut self) -> Result<&mut SurfaceRef, Error> {
         unsafe {
             let surface = sys::SDL_GetWindowSurface(self.as_ptr() as *mut _);
@@ -458,6 +471,7 @@ impl WindowRef {
         }
     }
 
+    /// Returns the mouse confinement rectangle of a `WindowRef`.
     pub fn mouse_rect(&self) -> Result<Rect, Error> {
         unsafe {
             let result = sys::SDL_GetWindowMouseRect(self.as_ptr() as *mut _);
@@ -468,6 +482,9 @@ impl WindowRef {
         }
     }
 
+    /// Confines the cursor to the specified area of a window.
+    /// Note that this does NOT grab the cursor, it only defines the area a cursor is
+    /// restricted to when the window has mouse focus.
     pub fn set_mouse_rect(&mut self, rect: Rect) -> Result<(), Error> {
         let rect = rect.to_ll();
         let result =
@@ -478,6 +495,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the size of a `Window`'s client area.
     pub fn aspect_ratio(&self) -> Result<(f32, f32), Error> {
         let mut min = 0.0;
         let mut max = 0.0;
@@ -490,6 +508,24 @@ impl WindowRef {
         Ok((min, max))
     }
 
+    /// Request that the aspect ratio of a `Window`'s client area be set.
+    ///
+    /// The aspect ratio is the ratio of width divided by height, e.g. 2560x1600 would be 1.6.
+    /// Larger aspect ratios are wider and smaller aspect ratios are narrower.
+    ///
+    /// If, at the time of this request, the window in a fixed-size state, such as maximized
+    /// or fullscreen, the request will be deferred until the window exits this state and becomes resizable again.
+    ///
+    /// On some windowing systems, this request is asynchronous and the new window aspect ratio may not have have
+    /// been applied immediately upon the return of this function. If an immediate change is required, call
+    /// [`Window::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window size changes, an [`crate::events::Event::Window`] event with payload
+    /// [`crate::events::WindowEventPayload::Resized`] will be emitted with the new window dimensions. Note that
+    /// the new dimensions may not match the exact aspect ratio requested, as some windowing
+    /// systems can restrict the window size in certain scenarios (e.g. constraining the size of the content area
+    /// to remain within the usable desktop bounds). Additionally, as this is just a request, it can be denied by
+    /// the windowing system.
     pub fn set_aspect_ratio(&mut self, min_aspect: f32, max_aspect: f32) -> Result<(), Error> {
         let result = unsafe {
             sys::SDL_SetWindowAspectRatio(self.as_ptr() as *mut _, min_aspect, max_aspect)
@@ -500,6 +536,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Shows the window.
     pub fn show(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_ShowWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -508,6 +545,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Hides the window.
     pub fn hide(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_HideWindow(self.as_ptr() as *mut _) };
         if !result {
@@ -516,11 +554,24 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the window's [`WindowFlags`].
     pub fn flags(&self) -> WindowFlags {
         let result = unsafe { sys::SDL_GetWindowFlags(self.as_ptr() as *mut _) };
         WindowFlags(result)
     }
 
+    /// Request that the window's fullscreen state be changed.
+    ///
+    /// By default a window in fullscreen state uses borderless fullscreen desktop mode, but a
+    /// specific exclusive display mode can be set using [`WindowRef::select_fullscreen_mode`]
+    ///
+    /// On some windowing systems this request is asynchronous and the new fullscreen state may
+    /// not have have been applied immediately upon the return of this function. If an immediate
+    /// change is required, call [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::EnterFullscreen`] or  [`crate::events::Event::WindowEvent::LeaveFullscreen`]
+    /// will be emitted. Note that, as this is just a request, it can be denied by the windowing system.
     pub fn set_fullscreen(&mut self, fullscreen: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowFullscreen(self.as_ptr() as *mut _, fullscreen) };
         if !result {
@@ -529,6 +580,7 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Query the display mode to use when a window is visible at fullscreen.
     pub fn fullscreen_mode(&self) -> Result<DisplayMode, Error> {
         unsafe {
             let ptr = sys::SDL_GetWindowFullscreenMode(self.as_ptr() as *mut _);
@@ -542,13 +594,14 @@ impl WindowRef {
     /// Selects one of the available display modes to be this window's fullscreen mode.
     /// NOTE: This method is very different from the original SDL function for memory safety
     /// reasons.
+    // TODO: refactor this using ZSTs for DisplayMode.
     pub fn select_fullscreen_mode(
         &mut self,
         display_id: u32,
         select: impl Fn(DisplayMode) -> bool,
     ) -> Result<(), Error> {
-        // This method is a kind of a shit show and very different from the original SDL because the
-        // lifetimes of SDL_DisplayModes are somewhat weird.
+        // This method is a kind of a shit show and very different from the original SDL function
+        // because the lifetimes of SDL_DisplayModes are somewhat weird.
         // Originally, SDL_SetWindowFullscreenMode takes a *SDL_DisplayMode as a parameter.
         // A *SDL_DisplayMode can be obtained by calling SDL_GetFullscreenDisplayModes.
         // The issue is: the pointer might get invalidated internally by SDL at any time since the
@@ -576,6 +629,7 @@ impl WindowRef {
         }
     }
 
+    /// Returns the window's opacity.
     pub fn opacity(&self) -> Result<f32, Error> {
         let result = unsafe { sys::SDL_GetWindowOpacity(self.as_ptr() as *mut _) };
         if result == -1.0 {
@@ -584,6 +638,11 @@ impl WindowRef {
         Ok(result)
     }
 
+    /// Sets the window's opacity.
+    ///
+    /// The parameter `opacity` will be clamped internally between 0.0f (transparent) and 1.0f (opaque).
+    ///
+    /// This function also returns an `Error` if setting the opacity isn't supported.
     pub fn set_opacity(&mut self, opacity: f32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowOpacity(self.as_ptr() as *mut _, opacity) };
         if !result {
@@ -592,6 +651,9 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the window's position.
+    ///
+    /// This is the current position of the window as last reported by the windowing system.
     pub fn position(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
@@ -603,6 +665,28 @@ impl WindowRef {
         Ok((x, y))
     }
 
+    /// Request that the window's position be set.
+    ///
+    /// If the window is in an exclusive fullscreen or maximized state, this request has no effect.
+    ///
+    /// This can be used to reposition fullscreen-desktop windows onto a different display, however, as exclusive
+    /// fullscreen windows are locked to a specific display, they can only be repositioned programmatically via
+    /// SDL_SetWindowFullscreenMode().
+    ///
+    /// On some windowing systems this request is asynchronous and the new coordinates may not have have been
+    /// applied immediately upon the return of this function.
+    ///
+    /// If an immediate change is required, call [`WindowRef::sync`] to block until the changes have taken effect.
+    ///
+    /// When the window state changes, [`crate::events::Event::Window`] with payload
+    /// [`crate::events::Event::WindowEvent::Moved`] will be emitted. Note that, as this is just a request,
+    /// it can be denied by the windowing system.
+    ///
+    /// When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be emitted with the window's new
+    /// coordinates. Note that the new coordinates may not match the exact coordinates requested, as some windowing
+    /// systems can restrict the position of the window in certain scenarios (e.g. constraining the position so the
+    /// window is always within desktop bounds). Additionally, as this is just a request, it can be denied by the
+    /// windowing system.
     pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowPosition(self.as_ptr() as *mut _, x, y) };
         if !result {
@@ -611,6 +695,11 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Returns the size of a window's client area.
+    ///
+    /// The window pixel size may differ from its window coordinate size if the window is on a high pixel density
+    /// display. Use [`WindowRef::size_in_pixels`] or [`crate::render::Renderer::output_size`] to get the real
+    /// client area size in pixels.
     pub fn size(&self) -> Result<(i32, i32), Error> {
         let mut x = 0;
         let mut y = 0;
