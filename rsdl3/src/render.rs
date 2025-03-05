@@ -28,7 +28,7 @@ impl Drop for Renderer {
 impl Renderer {
     /// Creates a `Renderer` from an existing `Window` using the specified `driver`.
     ///
-    /// The `driver` name can be obtained by calling [`VideoSubsystem::render_driver`] using the driver's index.
+    /// The `driver` name can be obtained by calling [`crate::VideoSubsystem::render_driver`] using the driver's index.
     ///
     /// If `driver` is `None`, SDL will choose the best available option.
     ///
@@ -241,6 +241,18 @@ impl Renderer {
             return Err(Error::from_sdl());
         }
         Ok(())
+    }
+
+    pub fn output_size(&self) -> Result<(u32, u32), Error> {
+        let mut w = 0;
+        let mut h = 0;
+        let res = unsafe {
+            sys::SDL_GetRenderOutputSize(self.as_ptr() as *mut _, &raw mut w, &raw mut h)
+        };
+        if !res {
+            return Err(Error::from_sdl());
+        }
+        Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
 
     pub fn as_ptr(&self) -> *const sys::SDL_Renderer {
