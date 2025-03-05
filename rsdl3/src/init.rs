@@ -178,7 +178,7 @@ impl SdlDrop {
             Ordering::Relaxed,
         );
         if res.is_err() {
-            return Err(Error(String::from("SDL is already initialized.")));
+            return Err(Error::SdlAlreadyInitialized);
         }
 
         let result = unsafe { sys::SDL_Init(0) };

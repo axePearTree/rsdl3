@@ -242,10 +242,10 @@ impl Renderer {
 
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
         if texture.renderer.weak_count() == 0 {
-            return Err(Error::new("Texture's renderer has already been destroyed."));
+            return Err(Error::RendererAlreadyDestroyed);
         }
         if !Weak::ptr_eq(&texture.renderer, &Rc::downgrade(&self.ptr)) {
-            return Err(Error::new("Texture does not belong to this renderer."));
+            return Err(Error::TextureFromDifferentRenderer);
         }
         Ok(())
     }

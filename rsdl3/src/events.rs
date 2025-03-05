@@ -12,7 +12,7 @@ impl EventsSubsystem {
     pub fn event_pump(&self) -> Result<RefMut<EventPump>, Error> {
         self.1
             .try_borrow_mut()
-            .map_err(|_| Error::new("Event pump can't be borrowed more than once at a time."))
+            .map_err(|_| Error::EventPumpAlreadyBorrowed)
     }
 
     /// Returns an [`EventQueue`] that can be used to push events to SDL.

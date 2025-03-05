@@ -283,13 +283,10 @@ impl Window {
         height: u32,
         flags: WindowFlags,
     ) -> Result<Window, Error> {
-        let c_string =
-            CString::new(name).map_err(|_| Error(String::from("Window name is not valid.")))?;
+        let c_string = CString::new(name)?;
         let c_str = c_string.as_c_str();
-        let width =
-            c_int::try_from(width).map_err(|_| Error(String::from("Window width is too big.")))?;
-        let height = c_int::try_from(height)
-            .map_err(|_| Error(String::from("Window height is too big.")))?;
+        let width = c_int::try_from(width)?;
+        let height = c_int::try_from(height)?;
         let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags.0) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
@@ -575,7 +572,7 @@ impl WindowRef {
 
     pub fn set_title(&self, title: impl Into<String>) -> Result<(), Error> {
         let s: String = title.into();
-        let c_string = CString::new(s).map_err(|_| Error("Invalid string title.".into()))?;
+        let c_string = CString::new(s)?;
         let c_str = c_string.as_c_str();
         let result = unsafe { sys::SDL_SetWindowTitle(self.as_ptr() as *mut _, c_str.as_ptr()) };
         if !result {
@@ -1030,7 +1027,7 @@ impl DisplayOrientation {
             sys::SDL_DisplayOrientation_SDL_ORIENTATION_LANDSCAPE_FLIPPED => Self::LandscapeFlipped,
             sys::SDL_DisplayOrientation_SDL_ORIENTATION_PORTRAIT => Self::Portrait,
             sys::SDL_DisplayOrientation_SDL_ORIENTATION_PORTRAIT_FLIPPED => Self::PortraitFlipped,
-            _ => return Err(Error::new("Unknown display orientation")),
+            _ => return Err(Error::UnknownDisplayOrientation(value)),
         })
     }
 
@@ -1068,7 +1065,7 @@ impl WindowSurfaceVSync {
         } else if value == sys::SDL_WINDOW_SURFACE_VSYNC_DISABLED as i32 {
             Ok(Self::Disabled)
         } else {
-            Err(Error::new("Unknown window surface vsync type."))
+            Err(Error::UnknownSurfaceVsyncType(value))
         }
     }
 
@@ -1095,7 +1092,7 @@ impl SysthemTheme {
             sys::SDL_SystemTheme_SDL_SYSTEM_THEME_UNKNOWN => SysthemTheme::Unknown,
             sys::SDL_SystemTheme_SDL_SYSTEM_THEME_LIGHT => SysthemTheme::Light,
             sys::SDL_SystemTheme_SDL_SYSTEM_THEME_DARK => SysthemTheme::Dark,
-            _ => return Err(Error::new("Invalid system theme.")),
+            _ => return Err(Error::InvalidSystemTheme),
         })
     }
 

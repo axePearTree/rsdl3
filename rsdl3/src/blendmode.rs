@@ -26,7 +26,7 @@ impl BlendMode {
             sys::SDL_BLENDMODE_MUL => Ok(Some(Self::Mul)),
             sys::SDL_BLENDMODE_INVALID => Ok(Some(Self::Invalid)),
             sys::SDL_BLENDMODE_NONE => Ok(None),
-            _ => Err(Error::new("Unknown blend mode.")),
+            _ => Err(Error::UnknownBlendMode(value)),
         }
     }
 

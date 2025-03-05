@@ -20,23 +20,33 @@ mod init;
 use alloc::borrow::ToOwned;
 use alloc::string::String;
 use core::ffi::CStr;
-use core::num::TryFromIntError;
 pub use init::*;
 pub use rsdl3_sys as sys;
 
+/// Error type for any operations involving SDL.
+/// This type also includes variants for conversion errors that happen outside of SDL.
 #[allow(unused)]
 #[derive(Clone, Debug)]
-pub struct Error(String);
+pub enum Error {
+    SdlError(String),
+    SdlAlreadyInitialized,
+    EventPumpAlreadyBorrowed,
+    RendererAlreadyDestroyed,
+    TextureFromDifferentRenderer,
+    UnknownBlendMode(sys::SDL_BlendMode),
+    UnknownScaleMode(sys::SDL_ScaleMode),
+    UnknownDisplayOrientation(sys::SDL_DisplayOrientation),
+    UnknownSurfaceVsyncType(i32),
+    InvalidSystemTheme,
+    NulError(alloc::ffi::NulError),
+    TryFromIntError,
+}
 
 impl Error {
-    pub fn new(message: impl Into<String>) -> Self {
-        Self(message.into())
-    }
-
     pub(crate) fn from_sdl() -> Self {
         unsafe {
             let err = sys::SDL_GetError();
-            Error(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
+            Error::SdlError(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
         }
     }
 }
@@ -44,19 +54,19 @@ impl Error {
 impl core::error::Error for Error {}
 
 impl From<alloc::ffi::NulError> for Error {
-    fn from(_value: alloc::ffi::NulError) -> Self {
-        Self(String::from("Interior null byte found in string."))
+    fn from(value: alloc::ffi::NulError) -> Self {
+        Self::NulError(value)
     }
 }
 
-impl From<TryFromIntError> for Error {
-    fn from(_value: TryFromIntError) -> Self {
-        Self(String::from("Integer conversion failed."))
+impl From<core::num::TryFromIntError> for Error {
+    fn from(_value: core::num::TryFromIntError) -> Self {
+        Self::TryFromIntError
     }
 }
 
 impl core::fmt::Display for Error {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "{:?}", self)
     }
 }

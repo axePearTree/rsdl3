@@ -78,8 +78,7 @@ impl DerefMut for Surface {
 // We transmute *const sys::SDL_Surface/*mut sys::SDL_Surfaces into &Surface/&mut Surface
 // The lib only exposes references to this struct.
 pub struct SurfaceRef {
-    // This field is here so this struct can't be constructed outside this crate.
-    _inner: PhantomData<*const ()>,
+    _inner: PhantomData<*const ()>, // !Send + !Sync
 }
 
 impl SurfaceRef {
@@ -514,7 +513,7 @@ impl ScaleMode {
         Ok(match value {
             sys::SDL_ScaleMode_SDL_SCALEMODE_NEAREST => Self::Nearest,
             sys::SDL_ScaleMode_SDL_SCALEMODE_LINEAR => Self::Linear,
-            _ => return Err(Error::new("Invalid SDL scale mode.")),
+            _ => return Err(Error::UnknownScaleMode(value)),
         })
     }
 
