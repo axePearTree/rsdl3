@@ -264,11 +264,10 @@ impl Renderer {
     }
 
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
+        // We could check whether or not this texture belongs to this renderer, but SDL does it for us.
+        // So we only check whether or not texture's renderer is still alive.
         if texture.renderer.strong_count() == 0 {
             return Err(Error::RendererAlreadyDestroyed);
-        }
-        if !Weak::ptr_eq(&texture.renderer, &Rc::downgrade(&self.ptr)) {
-            return Err(Error::TextureFromDifferentRenderer);
         }
         Ok(())
     }
