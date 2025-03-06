@@ -69,6 +69,9 @@ impl Renderer {
         }
     }
 
+    /// Returns a reference to the renderer's window, if it has one.
+    ///
+    /// This will return `None` if this is a software renderer.
     pub fn as_window_ref(&self) -> Option<&WindowRef> {
         match &self.context {
             RendererContext::Window(window) => Some(window),
@@ -76,6 +79,9 @@ impl Renderer {
         }
     }
 
+    /// Returns a mutable reference to the renderer's window, if it has one.
+    ///
+    /// This will return `None` if this is a software renderer.
     pub fn as_window_mut(&mut self) -> Option<&mut WindowRef> {
         match &mut self.context {
             RendererContext::Window(window) => Some(window),
@@ -83,6 +89,9 @@ impl Renderer {
         }
     }
 
+    /// Returns a reference to the renderer's underlying surface, if it has one.
+    ///
+    /// This will return `None` if this is a window renderer.
     pub fn as_surface_ref(&self) -> Option<&SurfaceRef> {
         match &self.context {
             RendererContext::Software(surface) => Some(&*surface),
@@ -90,6 +99,9 @@ impl Renderer {
         }
     }
 
+    /// Returns a mutable reference to the renderer's underlying surface, if it has one.
+    ///
+    /// This will return `None` if this is a window renderer.
     pub fn as_surface_mut(&mut self) -> Option<&mut SurfaceRef> {
         match &mut self.context {
             RendererContext::Software(surface) => Some(&mut *surface),
@@ -97,6 +109,11 @@ impl Renderer {
         }
     }
 
+    /// Creates a texture for a rendering context.
+    ///
+    /// The contents of a texture when first created are not defined.
+    ///
+    /// This method is equivalent to [`Texture::new`].
     pub fn create_texture(
         &mut self,
         format: PixelFormat,
@@ -104,37 +121,20 @@ impl Renderer {
         width: u32,
         height: u32,
     ) -> Result<Texture, Error> {
-        let format = format.to_ll();
-        let access = access.to_ll();
-        let ptr = unsafe {
-            sys::SDL_CreateTexture(
-                self.as_mut_ptr(),
-                format,
-                access,
-                width.try_into()?,
-                height.try_into()?,
-            )
-        };
-        if ptr.is_null() {
-            return Err(Error::from_sdl());
-        }
-        Ok(Texture {
-            renderer: Rc::downgrade(&self.ptr),
-            ptr,
-        })
+        Texture::new(self, format, access, width, height)
     }
 
+    /// Create a texture from an existing surface.
+    ///
+    /// The surface is not modified by this function.
+    ///
+    /// The [`TextureAccess`] hint for the created texture is [`TextureAccess::Static`].
+    ///
+    /// The pixel format of the created texture may be different from the pixel format of the surface.
+    ///
+    /// This method is equivalent to [`Texture::from_surface`].
     pub fn create_texture_from_surface(&mut self, surface: &SurfaceRef) -> Result<Texture, Error> {
-        let ptr = unsafe {
-            sys::SDL_CreateTextureFromSurface(self.as_mut_ptr(), surface.as_ptr() as *mut _)
-        };
-        if ptr.is_null() {
-            return Err(Error::from_sdl());
-        }
-        Ok(Texture {
-            renderer: Rc::downgrade(&self.ptr),
-            ptr,
-        })
+        Texture::from_surface(self, surface)
     }
 
     pub fn render_texture(
@@ -281,8 +281,54 @@ pub struct Texture {
 }
 
 impl Texture {
+    /// Creates a texture for a rendering context.
+    ///
+    /// The contents of a texture when first created are not defined.
+    pub fn new(
+        renderer: &mut Renderer,
+        format: PixelFormat,
+        access: TextureAccess,
+        width: u32,
+        height: u32,
+    ) -> Result<Self, Error> {
+        let format = format.to_ll();
+        let access = access.to_ll();
+        let ptr = unsafe {
+            sys::SDL_CreateTexture(
+                renderer.as_mut_ptr(),
+                format,
+                access,
+                width.try_into()?,
+                height.try_into()?,
+            )
+        };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(Self {
+            renderer: Rc::downgrade(&renderer.ptr),
+            ptr,
+        })
+    }
+
+    /// Create a texture from an existing surface.
+    ///
+    /// The surface is not modified by this function.
+    ///
+    /// The [`TextureAccess`] hint for the created texture is [`TextureAccess::Static`].
+    ///
+    /// The pixel format of the created texture may be different from the pixel format of the surface.
     pub fn from_surface(renderer: &mut Renderer, surface: &SurfaceRef) -> Result<Self, Error> {
-        renderer.create_texture_from_surface(surface)
+        let ptr = unsafe {
+            sys::SDL_CreateTextureFromSurface(renderer.as_mut_ptr(), surface.as_ptr() as *mut _)
+        };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(Texture {
+            renderer: Rc::downgrade(&renderer.ptr),
+            ptr,
+        })
     }
 }
 
