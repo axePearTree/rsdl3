@@ -55,7 +55,7 @@ impl VideoSubsystem {
     /// Creates a new surface identical to the existing surface.
     /// If the original surface has alternate images, the new surface will have a reference to them as well.
     pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface, Error> {
-        let ptr = unsafe { sys::SDL_DuplicateSurface(surface.as_ptr() as *mut _) };
+        let ptr = unsafe { sys::SDL_DuplicateSurface(surface.raw()) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
@@ -913,8 +913,7 @@ impl WindowRef {
     /// size and be used instead, if available. Otherwise, the closest smaller image will be upscaled and be
     /// used instead.
     pub fn set_icon(&mut self, icon: &SurfaceRef) -> Result<(), Error> {
-        let result =
-            unsafe { sys::SDL_SetWindowIcon(self.as_ptr() as *mut _, icon.as_ptr() as *mut _) };
+        let result = unsafe { sys::SDL_SetWindowIcon(self.as_ptr() as *mut _, icon.raw()) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -1008,8 +1007,7 @@ impl WindowRef {
     ///
     /// The window must have been created with the [`WindowFlags::TRANSPARENT`] flag.
     pub fn set_window_shape(&mut self, surface: &mut SurfaceRef) -> Result<(), Error> {
-        let result =
-            unsafe { sys::SDL_SetWindowShape(self.as_ptr() as *mut _, surface.as_mut_ptr()) };
+        let result = unsafe { sys::SDL_SetWindowShape(self.as_ptr() as *mut _, surface.raw()) };
         if !result {
             return Err(Error::from_sdl());
         }

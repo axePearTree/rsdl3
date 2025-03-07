@@ -35,4 +35,11 @@ impl BlendMode {
     pub fn to_ll(&self) -> sys::SDL_BlendMode {
         *self as u32
     }
+
+    pub fn option_to_ll(mode: Option<BlendMode>) -> sys::SDL_BlendMode {
+        match mode {
+            Some(mode) => mode.to_ll(),
+            None => sys::SDL_BLENDMODE_NONE,
+        }
+    }
 }

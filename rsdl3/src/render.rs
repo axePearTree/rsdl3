@@ -55,9 +55,9 @@ impl Renderer {
     /// Creates a software `Renderer` from an existing `Surface`.
     ///
     /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
-    pub fn from_surface(mut surface: Surface) -> Result<Self, Error> {
+    pub fn from_surface(surface: Surface) -> Result<Self, Error> {
         unsafe {
-            let ptr = sys::SDL_CreateSoftwareRenderer(surface.as_mut_ptr());
+            let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
             if ptr.is_null() {
                 return Err(Error::from_sdl());
             }
@@ -160,9 +160,8 @@ impl Renderer {
             .as_ref()
             .map_or(core::ptr::null(), core::ptr::from_ref);
 
-        let result = unsafe {
-            sys::SDL_RenderTexture(self.as_mut_ptr(), texture.ptr, src_rect_ptr, dest_rect_ptr)
-        };
+        let result =
+            unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
 
         if !result {
             return Err(Error::from_sdl());
@@ -179,7 +178,7 @@ impl Renderer {
         let mut a = 0;
         let result = unsafe {
             sys::SDL_GetRenderDrawColor(
-                self.as_ptr() as *mut _,
+                self.raw() as *mut _,
                 &raw mut r,
                 &raw mut g,
                 &raw mut b,
@@ -197,13 +196,7 @@ impl Renderer {
     /// Set the color for drawing or filling rectangles, lines, and points, and for [`Renderer::clear`].
     pub fn set_draw_color(&mut self, color: Color) -> Result<(), Error> {
         let result = unsafe {
-            sys::SDL_SetRenderDrawColor(
-                self.as_mut_ptr(),
-                color.r(),
-                color.g(),
-                color.b(),
-                color.a(),
-            )
+            sys::SDL_SetRenderDrawColor(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
             return Err(Error::from_sdl());
@@ -223,15 +216,14 @@ impl Renderer {
         match texture {
             Some(texture) => {
                 self.validate_texture(&texture)?;
-                let result = unsafe { sys::SDL_SetRenderTarget(self.as_mut_ptr(), texture.ptr) };
+                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
                 if !result {
                     return Err(Error::from_sdl());
                 }
                 Ok(self.target.replace(texture))
             }
             _ => {
-                let result =
-                    unsafe { sys::SDL_SetRenderTarget(self.as_mut_ptr(), core::ptr::null_mut()) };
+                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
                 if !result {
                     return Err(Error::from_sdl());
                 }
@@ -259,7 +251,7 @@ impl Renderer {
     /// Calling [`Renderer::present`] while rendering to a texture will still update the screen with any current drawing that
     /// has been done _to the window itself_.
     pub fn present(&mut self) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_RenderPresent(self.as_mut_ptr()) };
+        let result = unsafe { sys::SDL_RenderPresent(self.raw()) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -272,7 +264,7 @@ impl Renderer {
     /// set/fill all pixels of the rendering target to current renderer draw color, so make sure to invoke [`Renderer::set_draw_color`]
     /// when needed.
     pub fn clear(&mut self) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_RenderClear(self.as_mut_ptr()) };
+        let result = unsafe { sys::SDL_RenderClear(self.raw()) };
         if !result {
             return Err(Error::from_sdl());
         }
@@ -285,22 +277,16 @@ impl Renderer {
     pub fn output_size(&self) -> Result<(u32, u32), Error> {
         let mut w = 0;
         let mut h = 0;
-        let res = unsafe {
-            sys::SDL_GetRenderOutputSize(self.as_ptr() as *mut _, &raw mut w, &raw mut h)
-        };
+        let res =
+            unsafe { sys::SDL_GetRenderOutputSize(self.raw() as *mut _, &raw mut w, &raw mut h) };
         if !res {
             return Err(Error::from_sdl());
         }
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
 
-    /// Returns a pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
-    pub fn as_ptr(&self) -> *const sys::SDL_Renderer {
-        *self.ptr
-    }
-
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
-    pub fn as_mut_ptr(&mut self) -> *mut sys::SDL_Renderer {
+    pub fn raw(&self) -> *mut sys::SDL_Renderer {
         *self.ptr
     }
 
@@ -339,7 +325,7 @@ impl Texture {
         let access = access.to_ll();
         let ptr = unsafe {
             sys::SDL_CreateTexture(
-                renderer.as_mut_ptr(),
+                renderer.raw(),
                 format,
                 access,
                 width.try_into()?,
@@ -363,9 +349,8 @@ impl Texture {
     ///
     /// The pixel format of the created texture may be different from the pixel format of the surface.
     pub fn from_surface(renderer: &mut Renderer, surface: &SurfaceRef) -> Result<Self, Error> {
-        let ptr = unsafe {
-            sys::SDL_CreateTextureFromSurface(renderer.as_mut_ptr(), surface.as_ptr() as *mut _)
-        };
+        let ptr =
+            unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
