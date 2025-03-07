@@ -137,6 +137,11 @@ impl Renderer {
         Texture::from_surface(self, surface)
     }
 
+    /// Copy a portion of the texture to the current rendering target at subpixel precision.
+    ///
+    /// * `texture` - the source texture
+    /// * `src_rect` - the source rectangle or `None` for the entire texture.
+    /// * `dest_rect` - the destination rectangle or `None` for the entire rendering target.
     pub fn render_texture(
         &mut self,
         texture: &Texture,
@@ -166,6 +171,7 @@ impl Renderer {
         Ok(())
     }
 
+    /// Returns the color used for drawing operations.
     pub fn render_draw_color(&self) -> Result<Color, Error> {
         let mut r = 0;
         let mut g = 0;
@@ -186,6 +192,9 @@ impl Renderer {
         Ok(Color::new(r, g, b, a))
     }
 
+    /// Set the color used for drawing operations.
+    ///
+    /// Set the color for drawing or filling rectangles, lines, and points, and for [`Renderer::clear`].
     pub fn set_draw_color(&mut self, color: Color) -> Result<(), Error> {
         let result = unsafe {
             sys::SDL_SetRenderDrawColor(
@@ -202,7 +211,11 @@ impl Renderer {
         Ok(())
     }
 
-    /// Returns the previously used texture if there was one.
+    /// Sets a texture as the current rendering target. Returns the previously used texture if there was one.
+    ///
+    /// The default render target is the window (or surface) for which the renderer was created.
+    ///
+    /// To stop rendering to a texture and render to the window (or surface), use `None` as the `texture` parameter.
     pub fn set_render_target(
         &mut self,
         texture: Option<Texture>,
@@ -227,6 +240,24 @@ impl Renderer {
         }
     }
 
+    /// Update the screen with any rendering performed since the previous call.
+    ///
+    /// SDL's rendering functions operate on a backbuffer; that is, calling a rendering function such as [`Renderer::render_line`]
+    /// does not directly put a line on the screen, but rather updates the backbuffer. As such, you compose your entire scene and
+    /// *present* the composed backbuffer to the screen as a complete picture.
+    ///
+    /// Therefore, when using SDL's rendering API, one does all drawing intended for the frame, and then calls this function once
+    /// per frame to present the final drawing to the user.
+    ///
+    /// The backbuffer should be considered invalidated after each present; do not assume that previous contents will exist between
+    /// frames. You are strongly encouraged to call [`Renderer::clear`] to initialize the backbuffer before starting each new frame's
+    /// drawing, even if you plan to overwrite every pixel.
+    ///
+    /// Please note, that in case of rendering to a texture - there is **no need** to call [`Renderer::present`] after drawing needed
+    /// objects to a texture, and should not be done; you are only required to change back the rendering target to default via
+    /// [`Renderer::set_render_target`] afterwards, as textures by themselves do not have a concept of backbuffers.
+    /// Calling [`Renderer::present`] while rendering to a texture will still update the screen with any current drawing that
+    /// has been done _to the window itself_.
     pub fn present(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderPresent(self.as_mut_ptr()) };
         if !result {
@@ -235,6 +266,11 @@ impl Renderer {
         Ok(())
     }
 
+    /// Clear the current rendering target with the drawing color.
+    ///
+    /// This function clears the entire rendering target, ignoring the viewport and the clip rectangle. Note, that clearing will also
+    /// set/fill all pixels of the rendering target to current renderer draw color, so make sure to invoke [`Renderer::set_draw_color`]
+    /// when needed.
     pub fn clear(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderClear(self.as_mut_ptr()) };
         if !result {
@@ -243,6 +279,9 @@ impl Renderer {
         Ok(())
     }
 
+    /// Get the output size in pixels of a rendering context.
+    ///
+    /// This returns the true output size in pixels, ignoring any render targets or logical size and presentation.
     pub fn output_size(&self) -> Result<(u32, u32), Error> {
         let mut w = 0;
         let mut h = 0;
@@ -255,10 +294,12 @@ impl Renderer {
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
 
+    /// Returns a pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     pub fn as_ptr(&self) -> *const sys::SDL_Renderer {
         *self.ptr
     }
 
+    /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     pub fn as_mut_ptr(&mut self) -> *mut sys::SDL_Renderer {
         *self.ptr
     }
@@ -273,6 +314,9 @@ impl Renderer {
     }
 }
 
+/// Driver-specific representation of pixel data.
+///
+/// This struct wraps [`sys::SDL_Texture`].
 pub struct Texture {
     /// Tells us whether or not the backing Renderer is alive via Weak::strong_count.
     /// This must *never* be upgraded to an Rc.
@@ -340,19 +384,17 @@ impl Drop for Texture {
     }
 }
 
+/// The access pattern allowed for a texture.
+#[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct TextureAccess(sys::SDL_TextureAccess);
+pub enum TextureAccess {
+    Static = sys::SDL_TextureAccess_SDL_TEXTUREACCESS_STATIC,
+    Streaming = sys::SDL_TextureAccess_SDL_TEXTUREACCESS_STREAMING,
+    Target = sys::SDL_TextureAccess_SDL_TEXTUREACCESS_TARGET,
+}
 
 impl TextureAccess {
-    /// Changes rarely, not lockable
-    pub const STATIC: Self = Self(sys::SDL_TextureAccess_SDL_TEXTUREACCESS_STATIC);
-    /// Changes frequently, lockable
-    pub const STREAMING: Self = Self(sys::SDL_TextureAccess_SDL_TEXTUREACCESS_STREAMING);
-    /// Texture can be used as a render target
-    pub const TARGET: Self = Self(sys::SDL_TextureAccess_SDL_TEXTUREACCESS_TARGET);
-
     pub fn to_ll(self) -> sys::SDL_TextureAccess {
-        self.0
+        self as sys::SDL_TextureAccess
     }
 }
