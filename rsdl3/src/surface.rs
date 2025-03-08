@@ -23,12 +23,13 @@ use core::ops::{Deref, DerefMut};
 /// When a surface holds YUV format data, the planes are assumed to be contiguous without padding
 /// between them, e.g. a 32x32 surface in NV12 format with a pitch of 32 would consist of 32x32
 /// bytes of Y plane followed by 32x16 bytes of UV plane.
-pub struct Surface {
+pub struct Surface<'a> {
     _video: VideoSubsystem,
     ptr: *mut sys::SDL_Surface,
+    _marker: PhantomData<&'a ()>,
 }
 
-impl Surface {
+impl Surface<'static> {
     pub fn new(video: &VideoSubsystem, w: u32, h: u32, format: PixelFormat) -> Result<Self, Error> {
         let w = w.clamp(0, i32::MAX as u32) as i32;
         let h = h.clamp(0, i32::MAX as u32) as i32;
@@ -39,14 +40,22 @@ impl Surface {
         Ok(Self {
             _video: video.clone(),
             ptr,
+            _marker: PhantomData,
         })
     }
 
-    /// SAFETY: ptr must be valid
-    pub(crate) unsafe fn from_mut_ptr(video: &VideoSubsystem, ptr: *mut sys::SDL_Surface) -> Self {
-        Self {
-            _video: video.clone(),
-            ptr,
+    #[cfg(feature = "image")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
+    /// Creates a new `Surface` by loading an image from the specified file path.
+    pub fn from_image(video: &VideoSubsystem, path: &str) -> Result<Self, Error> {
+        use alloc::ffi::CString;
+        let path = CString::new(path)?;
+        unsafe {
+            let surface = sys::image::IMG_Load(path.as_ptr());
+            if surface.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(Self::from_mut_ptr(video, surface))
         }
     }
 
@@ -58,6 +67,44 @@ impl Surface {
     pub fn create_renderer(self) -> Result<Renderer, Error> {
         Renderer::from_surface(self)
     }
+}
+
+impl<'a> Surface<'a> {
+    pub fn from_pixels(
+        video: &VideoSubsystem,
+        format: PixelFormat,
+        pixels: &'a mut [u8],
+        width: u32,
+        height: u32,
+    ) -> Result<Surface<'a>, Error> {
+        // we need to make sure we won't overflow the byte buffer...
+        let details = format.details()?;
+        let bytes_per_pixel = details.bytes_per_pixel(); // cast ok because we're going from u8 to i32
+        let total_bytes = usize::try_from(
+            width
+                .saturating_mul(height)
+                .saturating_mul(bytes_per_pixel as u32),
+        )?;
+        if total_bytes > pixels.len() {
+            return Err(Error::InvalidSurfacePixelParameters);
+        }
+        let width = i32::try_from(width)?;
+        let height = i32::try_from(height)?;
+        let pitch = width.saturating_mul(bytes_per_pixel as i32);
+        let ptr = unsafe {
+            sys::SDL_CreateSurfaceFrom(
+                width,
+                height,
+                format.to_ll(),
+                pixels.as_mut_ptr() as *mut _,
+                pitch,
+            )
+        };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
+    }
 
     /// Copy an existing surface to a new surface of the specified format.
     ///
@@ -67,24 +114,31 @@ impl Surface {
     ///
     /// If you are converting to an indexed surface and want to map colors to a palette, you can use
     /// [`Surface::convert_surface_and_colorspace`] instead.
-    ///
-    /// If the original surface has alternate images, the new surface will have a reference to them as well.
-    pub fn convert(self, format: PixelFormat) -> Result<Surface, Error> {
+    pub fn convert(&self, format: PixelFormat) -> Result<Surface<'a>, Error> {
         let ptr = unsafe { sys::SDL_ConvertSurface(self.ptr, format.to_ll()) };
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
         Ok(unsafe { Surface::from_mut_ptr(&self._video, ptr) })
     }
+
+    /// SAFETY: ptr must be valid
+    pub(crate) unsafe fn from_mut_ptr(video: &VideoSubsystem, ptr: *mut sys::SDL_Surface) -> Self {
+        Self {
+            _video: video.clone(),
+            ptr,
+            _marker: PhantomData,
+        }
+    }
 }
 
-impl Drop for Surface {
+impl<'a> Drop for Surface<'a> {
     fn drop(&mut self) {
         unsafe { sys::SDL_DestroySurface(self.ptr) };
     }
 }
 
-impl Deref for Surface {
+impl<'a> Deref for Surface<'a> {
     type Target = SurfaceRef;
 
     fn deref(&self) -> &Self::Target {
@@ -92,7 +146,7 @@ impl Deref for Surface {
     }
 }
 
-impl DerefMut for Surface {
+impl<'a> DerefMut for Surface<'a> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         unsafe { SurfaceRef::from_mut_ptr(self.ptr) }
     }
@@ -114,24 +168,6 @@ impl SurfaceRef {
 
     pub(crate) unsafe fn from_mut_ptr<'a>(ptr: *mut sys::SDL_Surface) -> &'a mut Self {
         &mut *(ptr as *mut Self)
-    }
-
-    // TODO: the lifetime requirements here sound sketchy as fuck.
-    // SDL tells us that it's going to add a reference to the image, but that we should also call
-    // `SDL_DestroySurface` afterwards. Ok, I guess? Hm.
-    //
-    /// Add an alternate version of a surface.
-    ///
-    /// This function adds an alternate version of this surface, usually used for content with
-    /// high DPI representations like cursors or icons. The size, format, and content do not
-    /// need to match the original surface, and these alternate versions will not be updated
-    /// when the original surface changes.
-    pub fn add_alternate_image(&mut self, other: &mut SurfaceRef) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_AddSurfaceAlternateImage(self.raw(), other.raw()) };
-        if !result {
-            return Err(Error::from_sdl());
-        }
-        Ok(())
     }
 
     /// Returns the additional alpha value used in blit operations.

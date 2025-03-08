@@ -3,9 +3,6 @@
 
 extern crate alloc;
 
-#[cfg(feature = "image")]
-pub mod image;
-
 pub mod blendmode;
 pub mod events;
 pub mod iostream;
@@ -39,6 +36,7 @@ pub enum Error {
     UnknownDisplayOrientation(sys::SDL_DisplayOrientation),
     UnknownSurfaceVsyncType(i32),
     InvalidSystemTheme,
+    InvalidSurfacePixelParameters,
     NulError(alloc::ffi::NulError),
     TryFromIntError,
 }

@@ -16,7 +16,7 @@ pub struct Renderer {
 
 enum RendererContext {
     Window(Window),
-    Software(Surface),
+    Software(Surface<'static>),
 }
 
 impl Drop for Renderer {
@@ -55,7 +55,7 @@ impl Renderer {
     /// Creates a software `Renderer` from an existing `Surface`.
     ///
     /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
-    pub fn from_surface(surface: Surface) -> Result<Self, Error> {
+    pub fn from_surface(surface: Surface<'static>) -> Result<Self, Error> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
             if ptr.is_null() {
