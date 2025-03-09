@@ -1,6 +1,6 @@
 use crate::blendmode::BlendMode;
 use crate::init::VideoSubsystem;
-use crate::pixels::{Color, ColorF32, PixelFormat};
+use crate::pixels::{Color, ColorF32, Colorspace, PixelFormat};
 use crate::rect::Rect;
 use crate::render::Renderer;
 use crate::{sys, Error};
@@ -331,6 +331,11 @@ impl SurfaceRef {
             return Err(Error::from_sdl());
         }
         Ok(())
+    }
+
+    pub fn colorspace(&self) -> Colorspace {
+        let result = unsafe { sys::SDL_GetSurfaceColorspace(self.raw()) };
+        Colorspace(result)
     }
 
     /// Performs a fast blit from the source surface to the destination surface with clipping.

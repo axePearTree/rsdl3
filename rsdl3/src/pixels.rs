@@ -559,3 +559,25 @@ pub struct PixelFormatRgbaMask {
     pub b_mask: u32,
     pub a_mask: u32,
 }
+
+/// Colorspace definitions.
+///
+/// Since similar colorspaces may vary in their details (matrix, transfer function, etc.), this is not
+/// an exhaustive list, but rather a representative sample of the kinds of colorspaces supported in SDL.
+#[repr(transparent)]
+#[derive(Copy, Clone, Debug)]
+pub struct Colorspace(pub(crate) sys::SDL_Colorspace);
+
+impl Colorspace {
+    pub const UNKNOWN: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_UNKNOWN);
+    pub const SRGB: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_SRGB);
+    pub const SRGB_LINEAR: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_SRGB_LINEAR);
+    pub const HDR10: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_HDR10);
+    pub const JPEG: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_JPEG);
+    pub const BT601_LIMITED: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_BT601_LIMITED);
+    pub const BT601_FULL: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_BT601_FULL);
+    pub const BT2020_LIMITED: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_BT2020_LIMITED);
+    pub const BT2020_FULL: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_BT2020_FULL);
+    pub const RGB_DEFAULT: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_RGB_DEFAULT);
+    pub const YUV_DEFAULT: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_YUV_DEFAULT);
+}
