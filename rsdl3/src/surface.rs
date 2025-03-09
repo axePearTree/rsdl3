@@ -126,7 +126,7 @@ impl<'a> Surface<'a> {
     ///
     /// If the original surface has alternate images, the new surface will have a reference to them as well.
     ///
-    /// This method is equivalent to [`Surface::duplicate`] and [`VideoSubsystem::duplicate_surface`].
+    /// This method is equivalent to [`Surface::uplicate`] and [`VideoSubsystem::duplicate_surface`].
     #[inline]
     pub fn try_clone(&self) -> Result<Surface<'static>, Error> {
         self.duplicate()
@@ -574,6 +574,49 @@ impl SurfaceRef {
         let color: ColorF32 = color.into();
         let result = unsafe {
             sys::SDL_ClearSurface(self.raw(), color.r(), color.g(), color.b(), color.a())
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    /// Writes a single pixel to a surface.
+    ///
+    /// This function prioritizes correctness over speed: it is suitable for unit tests, but is
+    /// not intended for use in a game engine.
+    ///
+    /// Like [`PixelFormat::map_rgba`], this uses the entire 0..255 range when converting color
+    /// components from pixel formats with less than 8 bits per RGB component.
+    pub fn write_pixel(&mut self, x: u32, y: u32, color: Color) -> Result<(), Error> {
+        let x = i32::try_from(x)?;
+        let y = i32::try_from(y)?;
+        let result = unsafe {
+            sys::SDL_WriteSurfacePixel(self.raw(), x, y, color.r(), color.g(), color.b(), color.a())
+        };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    /// Writes a single pixel to a surface.
+    ///
+    /// This function prioritizes correctness over speed: it is suitable for unit tests, but is
+    /// not intended for use in a game engine.
+    pub fn write_pixel_float(&mut self, x: u32, y: u32, color: ColorF32) -> Result<(), Error> {
+        let x = i32::try_from(x)?;
+        let y = i32::try_from(y)?;
+        let result = unsafe {
+            sys::SDL_WriteSurfacePixelFloat(
+                self.raw(),
+                x,
+                y,
+                color.r(),
+                color.g(),
+                color.b(),
+                color.a(),
+            )
         };
         if !result {
             return Err(Error::from_sdl());
