@@ -131,6 +131,35 @@ impl From<Color> for ColorF32 {
     }
 }
 
+/// Pixel format.
+///
+/// SDL's pixel formats have the following naming convention:
+///
+/// - Names with a list of components and a single bit count, such as `Rgb24` and `Abgr32`,
+/// define a platform-independent encoding into bytes in the order specified. For example,
+/// in `Rgb24` data, each pixel is encoded in 3 bytes (red, green, blue) in that order, and
+/// in `Abgr32` data, each pixel is encoded in 4 bytes alpha, blue, green, red) in that order.
+/// Use these names if the property of a format that is important to you is the order of
+/// the bytes in memory or on disk.
+///
+/// - Names with a bit count per component, such as `Argb8888` and `Xrgb1555`, are "packed"
+/// into an appropriately-sized integer in the platform's native endianness. For example,
+/// `Argb8888` is a sequence of 32-bit integers; in each integer, the most significant bits
+/// are alpha, and the least significant bits are blue. On a little-endian CPU such as x86,
+/// the least significant bits of each integer are arranged first in memory, but on a big-endian
+/// CPU such as s390x, the most significant bits are arranged first. Use these names if the
+/// property of a format that is important to you is the meaning of each bit position within
+/// a native-endianness integer.
+///
+/// - In indexed formats such as `Index4Lsb`, each pixel is represented by encoding an index into
+/// the palette into the indicated number of bits, with multiple pixels packed into each byte
+/// if appropriate. In LSB formats, the first (leftmost) pixel is stored in the least-significant
+/// bits of the byte; in MSB formats, it's stored in the most-significant bits. `Index8` does not
+/// need LSB/MSB variants, because each pixel exactly fills one byte.
+///
+/// The 32-bit byte-array encodings such as `Rgba32` are aliases for the appropriate 8888 encoding
+/// for the current platform. For example, `Rgba32` is an alias for `Abgr8888` on little-endian CPUs
+/// like x86, or an alias for `Rgba8888` on big-endian CPUs.
 #[repr(u32)]
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum PixelFormat {
@@ -283,14 +312,14 @@ impl PixelFormatDetails {
         &*(ptr as *const Self)
     }
 
-    pub fn as_ptr(&self) -> *const sys::SDL_PixelFormatDetails {
+    pub fn raw(&self) -> *const sys::SDL_PixelFormatDetails {
         self as *const PixelFormatDetails as *const _
     }
 
     /// Map an RGB triple to an opaque pixel value for a given pixel format.
     ///
     /// This function maps the RGB color value to the specified pixel format and returns the
-    /// pixel value best approximating the given RGB color value for\n the given pixel format.
+    /// pixel value best approximating the given RGB color value for the given pixel format.
     ///
     /// If the format has a palette (8-bit) the index of the closest matching color in the palette
     /// will be returned.
@@ -305,7 +334,7 @@ impl PixelFormatDetails {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
-        unsafe { sys::SDL_MapRGB(self.as_ptr(), palette, r, g, b) }
+        unsafe { sys::SDL_MapRGB(self.raw(), palette, r, g, b) }
     }
 
     /// Map an RGBA quadruple to a pixel value for a given pixel format.
@@ -326,9 +355,14 @@ impl PixelFormatDetails {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
-        unsafe { sys::SDL_MapRGBA(self.as_ptr(), palette, r, g, b, a) }
+        unsafe { sys::SDL_MapRGBA(self.raw(), palette, r, g, b, a) }
     }
 
+    /// Get RGB values from a pixel in the specified format.
+    ///
+    /// This function uses the entire 8-bit [0..255] range when converting color components
+    /// from pixel formats with less than 8-bits per RGB component (e.g., a completely white
+    /// pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).
     pub fn rgb(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8) {
         let mut r = 0;
         let mut g = 0;
@@ -339,7 +373,7 @@ impl PixelFormatDetails {
         unsafe {
             sys::SDL_GetRGB(
                 pixel,
-                self.as_ptr(),
+                self.raw(),
                 palette,
                 &raw mut r,
                 &raw mut g,
@@ -349,6 +383,13 @@ impl PixelFormatDetails {
         (r, g, b)
     }
 
+    /// Get RGBA values from a pixel in the specified format.
+    ///
+    /// This function uses the entire 8-bit [0..255] range when converting color components
+    /// from pixel formats with less than 8-bits per RGB component (e.g., a completely white
+    /// pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).
+    ///
+    /// If the surface has no alpha component, the alpha will be returned as 0xff (100% opaque).
     pub fn rgba(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8, u8) {
         let mut r = 0;
         let mut g = 0;
@@ -360,7 +401,7 @@ impl PixelFormatDetails {
         unsafe {
             sys::SDL_GetRGBA(
                 pixel,
-                self.as_ptr(),
+                self.raw(),
                 palette,
                 &raw mut r,
                 &raw mut g,
@@ -373,82 +414,82 @@ impl PixelFormatDetails {
 
     #[inline]
     pub fn format(&self) -> PixelFormat {
-        unsafe { PixelFormat::from_ll_unchecked((*self.as_ptr()).format) }
+        unsafe { PixelFormat::from_ll_unchecked((*self.raw()).format) }
     }
 
     #[inline]
     pub fn bits_per_pixel(&self) -> u8 {
-        unsafe { (*self.as_ptr()).bits_per_pixel }
+        unsafe { (*self.raw()).bits_per_pixel }
     }
 
     #[inline]
     pub fn bytes_per_pixel(&self) -> u8 {
-        unsafe { (*self.as_ptr()).bytes_per_pixel }
+        unsafe { (*self.raw()).bytes_per_pixel }
     }
 
     #[inline]
     pub fn padding(&self) -> [u8; 2] {
-        unsafe { (*self.as_ptr()).padding }
+        unsafe { (*self.raw()).padding }
     }
 
     #[inline]
     pub fn r_mask(&self) -> u32 {
-        unsafe { (*self.as_ptr()).Rmask }
+        unsafe { (*self.raw()).Rmask }
     }
 
     #[inline]
     pub fn g_mask(&self) -> u32 {
-        unsafe { (*self.as_ptr()).Gmask }
+        unsafe { (*self.raw()).Gmask }
     }
 
     #[inline]
     pub fn b_mask(&self) -> u32 {
-        unsafe { (*self.as_ptr()).Bmask }
+        unsafe { (*self.raw()).Bmask }
     }
 
     #[inline]
     pub fn a_mask(&self) -> u32 {
-        unsafe { (*self.as_ptr()).Amask }
+        unsafe { (*self.raw()).Amask }
     }
 
     #[inline]
     pub fn r_bits(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Rbits }
+        unsafe { (*self.raw()).Rbits }
     }
 
     #[inline]
     pub fn g_bits(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Gbits }
+        unsafe { (*self.raw()).Gbits }
     }
 
     #[inline]
     pub fn b_bits(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Bbits }
+        unsafe { (*self.raw()).Bbits }
     }
 
     #[inline]
     pub fn a_bits(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Abits }
+        unsafe { (*self.raw()).Abits }
     }
 
     #[inline]
     pub fn r_shift(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Rshift }
+        unsafe { (*self.raw()).Rshift }
     }
 
     #[inline]
     pub fn g_shift(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Gshift }
+        unsafe { (*self.raw()).Gshift }
     }
 
     #[inline]
     pub fn b_shift(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Bshift }
+        unsafe { (*self.raw()).Bshift }
     }
 
     #[inline]
     pub fn a_shift(&self) -> u8 {
-        unsafe { (*self.as_ptr()).Ashift }
+        unsafe { (*self.raw()).Ashift }
     }
 }
 
