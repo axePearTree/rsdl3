@@ -1358,18 +1358,18 @@ pub const SDL_IMAGE_MINOR_VERSION: u32 = 2;
 pub const SDL_IMAGE_MICRO_VERSION: u32 = 0;
 pub type __gnuc_va_list = __builtin_va_list;
 pub type va_list = __builtin_va_list;
-pub type __u_char = libc::c_uchar;
-pub type __u_short = libc::c_ushort;
-pub type __u_int = libc::c_uint;
-pub type __u_long = libc::c_ulong;
-pub type __int8_t = libc::c_schar;
-pub type __uint8_t = libc::c_uchar;
-pub type __int16_t = libc::c_short;
-pub type __uint16_t = libc::c_ushort;
-pub type __int32_t = libc::c_int;
-pub type __uint32_t = libc::c_uint;
-pub type __int64_t = libc::c_long;
-pub type __uint64_t = libc::c_ulong;
+pub type __u_char = ::core::ffi::c_uchar;
+pub type __u_short = ::core::ffi::c_ushort;
+pub type __u_int = ::core::ffi::c_uint;
+pub type __u_long = ::core::ffi::c_ulong;
+pub type __int8_t = ::core::ffi::c_schar;
+pub type __uint8_t = ::core::ffi::c_uchar;
+pub type __int16_t = ::core::ffi::c_short;
+pub type __uint16_t = ::core::ffi::c_ushort;
+pub type __int32_t = ::core::ffi::c_int;
+pub type __uint32_t = ::core::ffi::c_uint;
+pub type __int64_t = ::core::ffi::c_long;
+pub type __uint64_t = ::core::ffi::c_ulong;
 pub type __int_least8_t = __int8_t;
 pub type __uint_least8_t = __uint8_t;
 pub type __int_least16_t = __int16_t;
@@ -1378,24 +1378,24 @@ pub type __int_least32_t = __int32_t;
 pub type __uint_least32_t = __uint32_t;
 pub type __int_least64_t = __int64_t;
 pub type __uint_least64_t = __uint64_t;
-pub type __quad_t = libc::c_long;
-pub type __u_quad_t = libc::c_ulong;
-pub type __intmax_t = libc::c_long;
-pub type __uintmax_t = libc::c_ulong;
-pub type __dev_t = libc::c_ulong;
-pub type __uid_t = libc::c_uint;
-pub type __gid_t = libc::c_uint;
-pub type __ino_t = libc::c_ulong;
-pub type __ino64_t = libc::c_ulong;
-pub type __mode_t = libc::c_uint;
-pub type __nlink_t = libc::c_ulong;
-pub type __off_t = libc::c_long;
-pub type __off64_t = libc::c_long;
-pub type __pid_t = libc::c_int;
+pub type __quad_t = ::core::ffi::c_long;
+pub type __u_quad_t = ::core::ffi::c_ulong;
+pub type __intmax_t = ::core::ffi::c_long;
+pub type __uintmax_t = ::core::ffi::c_ulong;
+pub type __dev_t = ::core::ffi::c_ulong;
+pub type __uid_t = ::core::ffi::c_uint;
+pub type __gid_t = ::core::ffi::c_uint;
+pub type __ino_t = ::core::ffi::c_ulong;
+pub type __ino64_t = ::core::ffi::c_ulong;
+pub type __mode_t = ::core::ffi::c_uint;
+pub type __nlink_t = ::core::ffi::c_ulong;
+pub type __off_t = ::core::ffi::c_long;
+pub type __off64_t = ::core::ffi::c_long;
+pub type __pid_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __fsid_t {
-    pub __val: [libc::c_int; 2usize],
+    pub __val: [::core::ffi::c_int; 2usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1403,34 +1403,34 @@ const _: () = {
     ["Alignment of __fsid_t"][::core::mem::align_of::<__fsid_t>() - 4usize];
     ["Offset of field: __fsid_t::__val"][::core::mem::offset_of!(__fsid_t, __val) - 0usize];
 };
-pub type __clock_t = libc::c_long;
-pub type __rlim_t = libc::c_ulong;
-pub type __rlim64_t = libc::c_ulong;
-pub type __id_t = libc::c_uint;
-pub type __time_t = libc::c_long;
-pub type __useconds_t = libc::c_uint;
-pub type __suseconds_t = libc::c_long;
-pub type __suseconds64_t = libc::c_long;
-pub type __daddr_t = libc::c_int;
-pub type __key_t = libc::c_int;
-pub type __clockid_t = libc::c_int;
-pub type __timer_t = *mut libc::c_void;
-pub type __blksize_t = libc::c_long;
-pub type __blkcnt_t = libc::c_long;
-pub type __blkcnt64_t = libc::c_long;
-pub type __fsblkcnt_t = libc::c_ulong;
-pub type __fsblkcnt64_t = libc::c_ulong;
-pub type __fsfilcnt_t = libc::c_ulong;
-pub type __fsfilcnt64_t = libc::c_ulong;
-pub type __fsword_t = libc::c_long;
-pub type __ssize_t = libc::c_long;
-pub type __syscall_slong_t = libc::c_long;
-pub type __syscall_ulong_t = libc::c_ulong;
+pub type __clock_t = ::core::ffi::c_long;
+pub type __rlim_t = ::core::ffi::c_ulong;
+pub type __rlim64_t = ::core::ffi::c_ulong;
+pub type __id_t = ::core::ffi::c_uint;
+pub type __time_t = ::core::ffi::c_long;
+pub type __useconds_t = ::core::ffi::c_uint;
+pub type __suseconds_t = ::core::ffi::c_long;
+pub type __suseconds64_t = ::core::ffi::c_long;
+pub type __daddr_t = ::core::ffi::c_int;
+pub type __key_t = ::core::ffi::c_int;
+pub type __clockid_t = ::core::ffi::c_int;
+pub type __timer_t = *mut ::core::ffi::c_void;
+pub type __blksize_t = ::core::ffi::c_long;
+pub type __blkcnt_t = ::core::ffi::c_long;
+pub type __blkcnt64_t = ::core::ffi::c_long;
+pub type __fsblkcnt_t = ::core::ffi::c_ulong;
+pub type __fsblkcnt64_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt64_t = ::core::ffi::c_ulong;
+pub type __fsword_t = ::core::ffi::c_long;
+pub type __ssize_t = ::core::ffi::c_long;
+pub type __syscall_slong_t = ::core::ffi::c_long;
+pub type __syscall_ulong_t = ::core::ffi::c_ulong;
 pub type __loff_t = __off64_t;
-pub type __caddr_t = *mut libc::c_char;
-pub type __intptr_t = libc::c_long;
-pub type __socklen_t = libc::c_uint;
-pub type __sig_atomic_t = libc::c_int;
+pub type __caddr_t = *mut ::core::ffi::c_char;
+pub type __intptr_t = ::core::ffi::c_long;
+pub type __socklen_t = ::core::ffi::c_uint;
+pub type __sig_atomic_t = ::core::ffi::c_int;
 pub type int_least8_t = __int_least8_t;
 pub type int_least16_t = __int_least16_t;
 pub type int_least32_t = __int_least32_t;
@@ -1439,114 +1439,126 @@ pub type uint_least8_t = __uint_least8_t;
 pub type uint_least16_t = __uint_least16_t;
 pub type uint_least32_t = __uint_least32_t;
 pub type uint_least64_t = __uint_least64_t;
-pub type int_fast8_t = libc::c_schar;
-pub type int_fast16_t = libc::c_long;
-pub type int_fast32_t = libc::c_long;
-pub type int_fast64_t = libc::c_long;
-pub type uint_fast8_t = libc::c_uchar;
-pub type uint_fast16_t = libc::c_ulong;
-pub type uint_fast32_t = libc::c_ulong;
-pub type uint_fast64_t = libc::c_ulong;
+pub type int_fast8_t = ::core::ffi::c_schar;
+pub type int_fast16_t = ::core::ffi::c_long;
+pub type int_fast32_t = ::core::ffi::c_long;
+pub type int_fast64_t = ::core::ffi::c_long;
+pub type uint_fast8_t = ::core::ffi::c_uchar;
+pub type uint_fast16_t = ::core::ffi::c_ulong;
+pub type uint_fast32_t = ::core::ffi::c_ulong;
+pub type uint_fast64_t = ::core::ffi::c_ulong;
 pub type intmax_t = __intmax_t;
 pub type uintmax_t = __uintmax_t;
 unsafe extern "C" {
     pub fn memcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memmove(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memccpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memset(
-        __s: *mut libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __s: *mut ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memcmp(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn __memcmpeq(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
         __n: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn memchr(
-        __s: *const libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __s: *const ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn strcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcat(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strcat(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strncat(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcmp(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcmp(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncmp(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strcoll(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcoll(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strxfrm(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __locale_struct {
     pub __locales: [*mut __locale_data; 13usize],
-    pub __ctype_b: *const libc::c_ushort,
-    pub __ctype_tolower: *const libc::c_int,
-    pub __ctype_toupper: *const libc::c_int,
-    pub __names: [*const libc::c_char; 13usize],
+    pub __ctype_b: *const ::core::ffi::c_ushort,
+    pub __ctype_tolower: *const ::core::ffi::c_int,
+    pub __ctype_toupper: *const ::core::ffi::c_int,
+    pub __names: [*const ::core::ffi::c_char; 13usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1567,230 +1579,273 @@ pub type __locale_t = *mut __locale_struct;
 pub type locale_t = __locale_t;
 unsafe extern "C" {
     pub fn strcoll_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __l: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strxfrm_l(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
         __n: usize,
         __l: locale_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    pub fn strdup(__s: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strdup(__s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strndup(__string: *const libc::c_char, __n: libc::c_ulong) -> *mut libc::c_char;
+    pub fn strndup(
+        __string: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strchr(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strchr(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strrchr(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strrchr(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strchrnul(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strchrnul(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcspn(__s: *const libc::c_char, __reject: *const libc::c_char) -> libc::c_ulong;
+    pub fn strcspn(
+        __s: *const ::core::ffi::c_char,
+        __reject: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strspn(__s: *const libc::c_char, __accept: *const libc::c_char) -> libc::c_ulong;
+    pub fn strspn(
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strpbrk(__s: *const libc::c_char, __accept: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strpbrk(
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strstr(
-        __haystack: *const libc::c_char,
-        __needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strtok(__s: *mut libc::c_char, __delim: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strtok(
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn __strtok_r(
-        __s: *mut libc::c_char,
-        __delim: *const libc::c_char,
-        __save_ptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+        __save_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strtok_r(
-        __s: *mut libc::c_char,
-        __delim: *const libc::c_char,
-        __save_ptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+        __save_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strcasestr(
-        __haystack: *const libc::c_char,
-        __needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn memmem(
-        __haystack: *const libc::c_void,
+        __haystack: *const ::core::ffi::c_void,
         __haystacklen: usize,
-        __needle: *const libc::c_void,
+        __needle: *const ::core::ffi::c_void,
         __needlelen: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn __mempcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
         __n: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn mempcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn strlen(__s: *const libc::c_char) -> libc::c_ulong;
+    pub fn strlen(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strnlen(__string: *const libc::c_char, __maxlen: usize) -> usize;
+    pub fn strnlen(__string: *const ::core::ffi::c_char, __maxlen: usize) -> usize;
 }
 unsafe extern "C" {
-    pub fn strerror(__errnum: libc::c_int) -> *mut libc::c_char;
+    pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__xpg_strerror_r"]
     pub fn strerror_r(
-        __errnum: libc::c_int,
-        __buf: *mut libc::c_char,
+        __errnum: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_char,
         __buflen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strerror_l(__errnum: libc::c_int, __l: locale_t) -> *mut libc::c_char;
+    pub fn strerror_l(__errnum: ::core::ffi::c_int, __l: locale_t) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn bcmp(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn bcopy(__src: *const libc::c_void, __dest: *mut libc::c_void, __n: libc::c_ulong);
+    pub fn bcopy(
+        __src: *const ::core::ffi::c_void,
+        __dest: *mut ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    );
 }
 unsafe extern "C" {
-    pub fn bzero(__s: *mut libc::c_void, __n: libc::c_ulong);
+    pub fn bzero(__s: *mut ::core::ffi::c_void, __n: ::core::ffi::c_ulong);
 }
 unsafe extern "C" {
-    pub fn index(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn index(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn rindex(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn rindex(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn ffs(__i: libc::c_int) -> libc::c_int;
+    pub fn ffs(__i: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn ffsl(__l: libc::c_long) -> libc::c_int;
+    pub fn ffsl(__l: ::core::ffi::c_long) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn ffsll(__ll: libc::c_longlong) -> libc::c_int;
+    pub fn ffsll(__ll: ::core::ffi::c_longlong) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strcasecmp(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcasecmp(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncasecmp(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strcasecmp_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncasecmp_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __n: usize,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn explicit_bzero(__s: *mut libc::c_void, __n: usize);
+    pub fn explicit_bzero(__s: *mut ::core::ffi::c_void, __n: usize);
 }
 unsafe extern "C" {
     pub fn strsep(
-        __stringp: *mut *mut libc::c_char,
-        __delim: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __stringp: *mut *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strsignal(__sig: libc::c_int) -> *mut libc::c_char;
+    pub fn strsignal(__sig: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn __stpcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn __stpcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn stpcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn stpcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn __stpncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
         __n: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn stpncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strlcpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn strlcat(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 pub type _Float32 = f32;
 pub type _Float64 = f64;
 pub type _Float32x = f64;
 pub type _Float64x = u128;
-pub type wchar_t = libc::c_int;
-pub type wint_t = libc::c_uint;
+pub type wchar_t = ::core::ffi::c_int;
+pub type wint_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct __mbstate_t {
-    pub __count: libc::c_int,
+    pub __count: ::core::ffi::c_int,
     pub __value: __mbstate_t__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union __mbstate_t__bindgen_ty_1 {
-    pub __wch: libc::c_uint,
-    pub __wchb: [libc::c_char; 4usize],
+    pub __wch: ::core::ffi::c_uint,
+    pub __wchb: [::core::ffi::c_char; 4usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1844,24 +1899,34 @@ unsafe extern "C" {
     pub fn wcsncat(__dest: *mut wchar_t, __src: *const wchar_t, __n: usize) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcscmp(__s1: *const libc::c_int, __s2: *const libc::c_int) -> libc::c_int;
+    pub fn wcscmp(
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsncmp(
-        __s1: *const libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscasecmp(__s1: *const wchar_t, __s2: *const wchar_t) -> libc::c_int;
+    pub fn wcscasecmp(__s1: *const wchar_t, __s2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcsncasecmp(__s1: *const wchar_t, __s2: *const wchar_t, __n: usize) -> libc::c_int;
+    pub fn wcsncasecmp(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __n: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscasecmp_l(__s1: *const wchar_t, __s2: *const wchar_t, __loc: locale_t)
-        -> libc::c_int;
+    pub fn wcscasecmp_l(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __loc: locale_t,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsncasecmp_l(
@@ -1869,16 +1934,20 @@ unsafe extern "C" {
         __s2: *const wchar_t,
         __n: usize,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscoll(__s1: *const wchar_t, __s2: *const wchar_t) -> libc::c_int;
+    pub fn wcscoll(__s1: *const wchar_t, __s2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsxfrm(__s1: *mut wchar_t, __s2: *const wchar_t, __n: usize) -> usize;
 }
 unsafe extern "C" {
-    pub fn wcscoll_l(__s1: *const wchar_t, __s2: *const wchar_t, __loc: locale_t) -> libc::c_int;
+    pub fn wcscoll_l(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __loc: locale_t,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsxfrm_l(
@@ -1892,7 +1961,10 @@ unsafe extern "C" {
     pub fn wcsdup(__s: *const wchar_t) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcschr(__wcs: *const libc::c_int, __wc: libc::c_int) -> *mut libc::c_int;
+    pub fn wcschr(
+        __wcs: *const ::core::ffi::c_int,
+        __wc: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsrchr(__wcs: *const wchar_t, __wc: wchar_t) -> *mut wchar_t;
@@ -1917,79 +1989,79 @@ unsafe extern "C" {
     ) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcslen(__s: *const libc::c_int) -> libc::c_ulong;
+    pub fn wcslen(__s: *const ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn wcsnlen(__s: *const wchar_t, __maxlen: usize) -> usize;
 }
 unsafe extern "C" {
     pub fn wmemchr(
-        __s: *const libc::c_int,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s: *const ::core::ffi::c_int,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemcmp(
-        __s1: *const libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemcpy(
-        __s1: *mut libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s1: *mut ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemmove(
-        __s1: *mut libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s1: *mut ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemset(__s: *mut wchar_t, __c: wchar_t, __n: usize) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn btowc(__c: libc::c_int) -> wint_t;
+    pub fn btowc(__c: ::core::ffi::c_int) -> wint_t;
 }
 unsafe extern "C" {
-    pub fn wctob(__c: wint_t) -> libc::c_int;
+    pub fn wctob(__c: wint_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn mbsinit(__ps: *const mbstate_t) -> libc::c_int;
+    pub fn mbsinit(__ps: *const mbstate_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn mbrtowc(
         __pwc: *mut wchar_t,
-        __s: *const libc::c_char,
+        __s: *const ::core::ffi::c_char,
         __n: usize,
         __p: *mut mbstate_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    pub fn wcrtomb(__s: *mut libc::c_char, __wc: wchar_t, __ps: *mut mbstate_t) -> usize;
+    pub fn wcrtomb(__s: *mut ::core::ffi::c_char, __wc: wchar_t, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
-    pub fn __mbrlen(__s: *const libc::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
+    pub fn __mbrlen(__s: *const ::core::ffi::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
-    pub fn mbrlen(__s: *const libc::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
+    pub fn mbrlen(__s: *const ::core::ffi::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
     pub fn mbsrtowcs(
         __dst: *mut wchar_t,
-        __src: *mut *const libc::c_char,
+        __src: *mut *const ::core::ffi::c_char,
         __len: usize,
         __ps: *mut mbstate_t,
     ) -> usize;
 }
 unsafe extern "C" {
     pub fn wcsrtombs(
-        __dst: *mut libc::c_char,
+        __dst: *mut ::core::ffi::c_char,
         __src: *mut *const wchar_t,
         __len: usize,
         __ps: *mut mbstate_t,
@@ -1998,7 +2070,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn mbsnrtowcs(
         __dst: *mut wchar_t,
-        __src: *mut *const libc::c_char,
+        __src: *mut *const ::core::ffi::c_char,
         __nmc: usize,
         __len: usize,
         __ps: *mut mbstate_t,
@@ -2006,7 +2078,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn wcsnrtombs(
-        __dst: *mut libc::c_char,
+        __dst: *mut ::core::ffi::c_char,
         __src: *mut *const wchar_t,
         __nwc: usize,
         __len: usize,
@@ -2026,29 +2098,29 @@ unsafe extern "C" {
     pub fn wcstol(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_long;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     pub fn wcstoul(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_ulong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn wcstoll(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_longlong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_longlong;
 }
 unsafe extern "C" {
     pub fn wcstoull(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_ulonglong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulonglong;
 }
 unsafe extern "C" {
     pub fn wcpcpy(__dest: *mut wchar_t, __src: *const wchar_t) -> *mut wchar_t;
@@ -2060,26 +2132,31 @@ unsafe extern "C" {
     pub fn open_wmemstream(__bufloc: *mut *mut wchar_t, __sizeloc: *mut usize) -> *mut __FILE;
 }
 unsafe extern "C" {
-    pub fn fwide(__fp: *mut __FILE, __mode: libc::c_int) -> libc::c_int;
+    pub fn fwide(__fp: *mut __FILE, __mode: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn fwprintf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwprintf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wprintf(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wprintf(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn swprintf(__s: *mut wchar_t, __n: usize, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swprintf(
+        __s: *mut wchar_t,
+        __n: usize,
+        __format: *const wchar_t,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vfwprintf(
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn vwprintf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwprintf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vswprintf(
@@ -2087,45 +2164,45 @@ unsafe extern "C" {
         __n: usize,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn fwscanf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwscanf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wscanf(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wscanf(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn swscanf(__s: *const wchar_t, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swscanf(__s: *const wchar_t, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_fwscanf"]
-    pub fn fwscanf1(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwscanf1(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_wscanf"]
-    pub fn wscanf1(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wscanf1(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_swscanf"]
-    pub fn swscanf1(__s: *const wchar_t, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swscanf1(__s: *const wchar_t, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vfwscanf(
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn vwscanf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwscanf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vswscanf(
         __s: *const wchar_t,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vfwscanf"]
@@ -2133,11 +2210,11 @@ unsafe extern "C" {
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vwscanf"]
-    pub fn vwscanf1(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwscanf1(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vswscanf"]
@@ -2145,7 +2222,7 @@ unsafe extern "C" {
         __s: *const wchar_t,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn fgetwc(__stream: *mut __FILE) -> wint_t;
@@ -2166,10 +2243,14 @@ unsafe extern "C" {
     pub fn putwchar(__wc: wchar_t) -> wint_t;
 }
 unsafe extern "C" {
-    pub fn fgetws(__ws: *mut wchar_t, __n: libc::c_int, __stream: *mut __FILE) -> *mut wchar_t;
+    pub fn fgetws(
+        __ws: *mut wchar_t,
+        __n: ::core::ffi::c_int,
+        __stream: *mut __FILE,
+    ) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn fputws(__ws: *const wchar_t, __stream: *mut __FILE) -> libc::c_int;
+    pub fn fputws(__ws: *const wchar_t, __stream: *mut __FILE) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn ungetwc(__wc: wint_t, __stream: *mut __FILE) -> wint_t;
@@ -2182,12 +2263,12 @@ unsafe extern "C" {
         __tp: *const tm,
     ) -> usize;
 }
-pub type __gwchar_t = libc::c_int;
+pub type __gwchar_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct imaxdiv_t {
-    pub quot: libc::c_long,
-    pub rem: libc::c_long,
+    pub quot: ::core::ffi::c_long,
+    pub rem: ::core::ffi::c_long,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -2204,30 +2285,30 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn strtoimax(
-        __nptr: *const libc::c_char,
-        __endptr: *mut *mut libc::c_char,
-        __base: libc::c_int,
+        __nptr: *const ::core::ffi::c_char,
+        __endptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 unsafe extern "C" {
     pub fn strtoumax(
-        __nptr: *const libc::c_char,
-        __endptr: *mut *mut libc::c_char,
-        __base: libc::c_int,
+        __nptr: *const ::core::ffi::c_char,
+        __endptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 unsafe extern "C" {
     pub fn wcstoimax(
         __nptr: *const __gwchar_t,
         __endptr: *mut *mut __gwchar_t,
-        __base: libc::c_int,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 unsafe extern "C" {
     pub fn wcstoumax(
         __nptr: *const __gwchar_t,
         __endptr: *mut *mut __gwchar_t,
-        __base: libc::c_int,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 pub type Sint8 = i8;
@@ -2239,16 +2320,16 @@ pub type Uint32 = u32;
 pub type Sint64 = i64;
 pub type Uint64 = u64;
 unsafe extern "C" {
-    pub fn SDL_malloc(size: usize) -> *mut libc::c_void;
+    pub fn SDL_malloc(size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_calloc(nmemb: usize, size: usize) -> *mut libc::c_void;
+    pub fn SDL_calloc(nmemb: usize, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_realloc(mem: *mut libc::c_void, size: usize) -> *mut libc::c_void;
+    pub fn SDL_realloc(mem: *mut ::core::ffi::c_void, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_free(mem: *mut libc::c_void);
+    pub fn SDL_free(mem: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     pub fn SDL_GetOriginalMemoryFunctions(
@@ -2275,13 +2356,13 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_aligned_alloc(alignment: usize, size: usize) -> *mut libc::c_void;
+    pub fn SDL_aligned_alloc(alignment: usize, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_aligned_free(mem: *mut libc::c_void);
+    pub fn SDL_aligned_free(mem: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumAllocations() -> libc::c_int;
+    pub fn SDL_GetNumAllocations() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetEnvironment() -> *mut SDL_Environment;
@@ -2292,48 +2373,48 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
-    ) -> *const libc::c_char;
+        name: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut libc::c_char;
+    pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_SetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
         overwrite: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_UnsetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_DestroyEnvironment(env: *mut SDL_Environment);
 }
 unsafe extern "C" {
-    pub fn SDL_getenv(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_getenv(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_getenv_unsafe(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_getenv_unsafe(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_setenv_unsafe(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
-        overwrite: libc::c_int,
-    ) -> libc::c_int;
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
+        overwrite: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_unsetenv_unsafe(name: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_unsetenv_unsafe(name: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_qsort(
-        base: *mut libc::c_void,
+        base: *mut ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback,
@@ -2341,108 +2422,120 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_bsearch(
-        key: *const libc::c_void,
-        base: *const libc::c_void,
+        key: *const ::core::ffi::c_void,
+        base: *const ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_qsort_r(
-        base: *mut libc::c_void,
+        base: *mut ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback_r,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
     pub fn SDL_bsearch_r(
-        key: *const libc::c_void,
-        base: *const libc::c_void,
+        key: *const ::core::ffi::c_void,
+        base: *const ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback_r,
-        userdata: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        userdata: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_abs(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_abs(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isalpha(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isalpha(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isalnum(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isalnum(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isblank(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isblank(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_iscntrl(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_iscntrl(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isdigit(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isdigit(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isxdigit(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isxdigit(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_ispunct(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_ispunct(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isspace(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isspace(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isupper(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isupper(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_islower(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_islower(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isprint(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isprint(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isgraph(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isgraph(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_toupper(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_toupper(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_tolower(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_tolower(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_crc16(crc: Uint16, data: *const libc::c_void, len: usize) -> Uint16;
+    pub fn SDL_crc16(crc: Uint16, data: *const ::core::ffi::c_void, len: usize) -> Uint16;
 }
 unsafe extern "C" {
-    pub fn SDL_crc32(crc: Uint32, data: *const libc::c_void, len: usize) -> Uint32;
+    pub fn SDL_crc32(crc: Uint32, data: *const ::core::ffi::c_void, len: usize) -> Uint32;
 }
 unsafe extern "C" {
-    pub fn SDL_murmur3_32(data: *const libc::c_void, len: usize, seed: Uint32) -> Uint32;
+    pub fn SDL_murmur3_32(data: *const ::core::ffi::c_void, len: usize, seed: Uint32) -> Uint32;
 }
 unsafe extern "C" {
     pub fn SDL_memcpy(
-        dst: *mut libc::c_void,
-        src: *const libc::c_void,
+        dst: *mut ::core::ffi::c_void,
+        src: *const ::core::ffi::c_void,
         len: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_memmove(
-        dst: *mut libc::c_void,
-        src: *const libc::c_void,
+        dst: *mut ::core::ffi::c_void,
+        src: *const ::core::ffi::c_void,
         len: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_memset(dst: *mut libc::c_void, c: libc::c_int, len: usize) -> *mut libc::c_void;
+    pub fn SDL_memset(
+        dst: *mut ::core::ffi::c_void,
+        c: ::core::ffi::c_int,
+        len: usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_memset4(dst: *mut libc::c_void, val: Uint32, dwords: usize) -> *mut libc::c_void;
+    pub fn SDL_memset4(
+        dst: *mut ::core::ffi::c_void,
+        val: Uint32,
+        dwords: usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_memcmp(s1: *const libc::c_void, s2: *const libc::c_void, len: usize) -> libc::c_int;
+    pub fn SDL_memcmp(
+        s1: *const ::core::ffi::c_void,
+        s2: *const ::core::ffi::c_void,
+        len: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_wcslen(wstr: *const wchar_t) -> usize;
@@ -2470,243 +2563,283 @@ unsafe extern "C" {
     ) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn SDL_wcscmp(str1: *const wchar_t, str2: *const wchar_t) -> libc::c_int;
+    pub fn SDL_wcscmp(str1: *const wchar_t, str2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_wcsncmp(str1: *const wchar_t, str2: *const wchar_t, maxlen: usize) -> libc::c_int;
+    pub fn SDL_wcsncmp(
+        str1: *const wchar_t,
+        str2: *const wchar_t,
+        maxlen: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_wcscasecmp(str1: *const wchar_t, str2: *const wchar_t) -> libc::c_int;
+    pub fn SDL_wcscasecmp(str1: *const wchar_t, str2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_wcsncasecmp(
         str1: *const wchar_t,
         str2: *const wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_wcstol(
         str_: *const wchar_t,
         endp: *mut *mut wchar_t,
-        base: libc::c_int,
-    ) -> libc::c_long;
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
-    pub fn SDL_strlen(str_: *const libc::c_char) -> usize;
+    pub fn SDL_strlen(str_: *const ::core::ffi::c_char) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_strnlen(str_: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strnlen(str_: *const ::core::ffi::c_char, maxlen: usize) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_strlcpy(dst: *mut libc::c_char, src: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strlcpy(
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
+        maxlen: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
     pub fn SDL_utf8strlcpy(
-        dst: *mut libc::c_char,
-        src: *const libc::c_char,
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
         dst_bytes: usize,
     ) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_strlcat(dst: *mut libc::c_char, src: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strlcat(
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
+        maxlen: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_strdup(str_: *const libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strdup(str_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strndup(str_: *const libc::c_char, maxlen: usize) -> *mut libc::c_char;
+    pub fn SDL_strndup(str_: *const ::core::ffi::c_char, maxlen: usize)
+        -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strrev(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strrev(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strupr(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strupr(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strlwr(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strlwr(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strchr(str_: *const libc::c_char, c: libc::c_int) -> *mut libc::c_char;
+    pub fn SDL_strchr(
+        str_: *const ::core::ffi::c_char,
+        c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_strrchr(str_: *const libc::c_char, c: libc::c_int) -> *mut libc::c_char;
+    pub fn SDL_strrchr(
+        str_: *const ::core::ffi::c_char,
+        c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_strstr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_strnstr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_strcasestr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_strtok_r(
-        str_: *mut libc::c_char,
-        delim: *const libc::c_char,
-        saveptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        str_: *mut ::core::ffi::c_char,
+        delim: *const ::core::ffi::c_char,
+        saveptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_utf8strlen(str_: *const libc::c_char) -> usize;
+    pub fn SDL_utf8strlen(str_: *const ::core::ffi::c_char) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_utf8strnlen(str_: *const libc::c_char, bytes: usize) -> usize;
+    pub fn SDL_utf8strnlen(str_: *const ::core::ffi::c_char, bytes: usize) -> usize;
 }
 unsafe extern "C" {
     pub fn SDL_itoa(
-        value: libc::c_int,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_int,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_uitoa(
-        value: libc::c_uint,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_uint,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_ltoa(
-        value: libc::c_long,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_long,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_ultoa(
-        value: libc::c_ulong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_ulong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_lltoa(
-        value: libc::c_longlong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_longlong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_ulltoa(
-        value: libc::c_ulonglong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_ulonglong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_atoi(str_: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_atoi(str_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_atof(str_: *const libc::c_char) -> f64;
+    pub fn SDL_atof(str_: *const ::core::ffi::c_char) -> f64;
 }
 unsafe extern "C" {
     pub fn SDL_strtol(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_long;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     pub fn SDL_strtoul(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_ulong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn SDL_strtoll(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_longlong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_longlong;
 }
 unsafe extern "C" {
     pub fn SDL_strtoull(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_ulonglong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulonglong;
 }
 unsafe extern "C" {
-    pub fn SDL_strtod(str_: *const libc::c_char, endp: *mut *mut libc::c_char) -> f64;
+    pub fn SDL_strtod(str_: *const ::core::ffi::c_char, endp: *mut *mut ::core::ffi::c_char)
+        -> f64;
 }
 unsafe extern "C" {
-    pub fn SDL_strcmp(str1: *const libc::c_char, str2: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_strcmp(
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_strncmp(
-        str1: *const libc::c_char,
-        str2: *const libc::c_char,
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_strcasecmp(str1: *const libc::c_char, str2: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_strcasecmp(
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_strncasecmp(
-        str1: *const libc::c_char,
-        str2: *const libc::c_char,
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_strpbrk(
-        str_: *const libc::c_char,
-        breakset: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        str_: *const ::core::ffi::c_char,
+        breakset: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_StepUTF8(pstr: *mut *const libc::c_char, pslen: *mut usize) -> Uint32;
+    pub fn SDL_StepUTF8(pstr: *mut *const ::core::ffi::c_char, pslen: *mut usize) -> Uint32;
 }
 unsafe extern "C" {
-    pub fn SDL_StepBackUTF8(start: *const libc::c_char, pstr: *mut *const libc::c_char) -> Uint32;
+    pub fn SDL_StepBackUTF8(
+        start: *const ::core::ffi::c_char,
+        pstr: *mut *const ::core::ffi::c_char,
+    ) -> Uint32;
 }
 unsafe extern "C" {
-    pub fn SDL_UCS4ToUTF8(codepoint: Uint32, dst: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_UCS4ToUTF8(
+        codepoint: Uint32,
+        dst: *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_sscanf(text: *const libc::c_char, fmt: *const libc::c_char, ...) -> libc::c_int;
+    pub fn SDL_sscanf(
+        text: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_vsscanf(
-        text: *const libc::c_char,
-        fmt: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_snprintf(
-        text: *mut libc::c_char,
+        text: *mut ::core::ffi::c_char,
         maxlen: usize,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_swprintf(text: *mut wchar_t, maxlen: usize, fmt: *const wchar_t, ...)
-        -> libc::c_int;
+    pub fn SDL_swprintf(
+        text: *mut wchar_t,
+        maxlen: usize,
+        fmt: *const wchar_t,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_vsnprintf(
-        text: *mut libc::c_char,
+        text: *mut ::core::ffi::c_char,
         maxlen: usize,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_vswprintf(
@@ -2714,18 +2847,21 @@ unsafe extern "C" {
         maxlen: usize,
         fmt: *const wchar_t,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_asprintf(strp: *mut *mut libc::c_char, fmt: *const libc::c_char, ...)
-        -> libc::c_int;
+    pub fn SDL_asprintf(
+        strp: *mut *mut ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_vasprintf(
-        strp: *mut *mut libc::c_char,
-        fmt: *const libc::c_char,
+        strp: *mut *mut ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_srand(seed: Uint64);
@@ -2821,16 +2957,16 @@ unsafe extern "C" {
     pub fn SDL_fmodf(x: f32, y: f32) -> f32;
 }
 unsafe extern "C" {
-    pub fn SDL_isinf(x: f64) -> libc::c_int;
+    pub fn SDL_isinf(x: f64) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isinff(x: f32) -> libc::c_int;
+    pub fn SDL_isinff(x: f32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isnan(x: f64) -> libc::c_int;
+    pub fn SDL_isnan(x: f64) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_isnanf(x: f32) -> libc::c_int;
+    pub fn SDL_isnanf(x: f32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_log(x: f64) -> f64;
@@ -2863,16 +2999,16 @@ unsafe extern "C" {
     pub fn SDL_roundf(x: f32) -> f32;
 }
 unsafe extern "C" {
-    pub fn SDL_lround(x: f64) -> libc::c_long;
+    pub fn SDL_lround(x: f64) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
-    pub fn SDL_lroundf(x: f32) -> libc::c_long;
+    pub fn SDL_lroundf(x: f32) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
-    pub fn SDL_scalbn(x: f64, n: libc::c_int) -> f64;
+    pub fn SDL_scalbn(x: f64, n: ::core::ffi::c_int) -> f64;
 }
 unsafe extern "C" {
-    pub fn SDL_scalbnf(x: f32, n: libc::c_int) -> f32;
+    pub fn SDL_scalbnf(x: f32, n: ::core::ffi::c_int) -> f32;
 }
 unsafe extern "C" {
     pub fn SDL_sin(x: f64) -> f64;
@@ -2894,46 +3030,51 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_iconv_open(
-        tocode: *const libc::c_char,
-        fromcode: *const libc::c_char,
+        tocode: *const ::core::ffi::c_char,
+        fromcode: *const ::core::ffi::c_char,
     ) -> SDL_iconv_t;
 }
 unsafe extern "C" {
-    pub fn SDL_iconv_close(cd: SDL_iconv_t) -> libc::c_int;
+    pub fn SDL_iconv_close(cd: SDL_iconv_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_iconv(
         cd: SDL_iconv_t,
-        inbuf: *mut *const libc::c_char,
+        inbuf: *mut *const ::core::ffi::c_char,
         inbytesleft: *mut usize,
-        outbuf: *mut *mut libc::c_char,
+        outbuf: *mut *mut ::core::ffi::c_char,
         outbytesleft: *mut usize,
     ) -> usize;
 }
 unsafe extern "C" {
     pub fn SDL_iconv_string(
-        tocode: *const libc::c_char,
-        fromcode: *const libc::c_char,
-        inbuf: *const libc::c_char,
+        tocode: *const ::core::ffi::c_char,
+        fromcode: *const ::core::ffi::c_char,
+        inbuf: *const ::core::ffi::c_char,
         inbytesleft: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_ReportAssertion(
         data: *mut SDL_AssertData,
-        func: *const libc::c_char,
-        file: *const libc::c_char,
-        line: libc::c_int,
+        func: *const ::core::ffi::c_char,
+        file: *const ::core::ffi::c_char,
+        line: ::core::ffi::c_int,
     ) -> SDL_AssertState;
 }
 unsafe extern "C" {
-    pub fn SDL_SetAssertionHandler(handler: SDL_AssertionHandler, userdata: *mut libc::c_void);
+    pub fn SDL_SetAssertionHandler(
+        handler: SDL_AssertionHandler,
+        userdata: *mut ::core::ffi::c_void,
+    );
 }
 unsafe extern "C" {
     pub fn SDL_GetDefaultAssertionHandler() -> SDL_AssertionHandler;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAssertionHandler(puserdata: *mut *mut libc::c_void) -> SDL_AssertionHandler;
+    pub fn SDL_GetAssertionHandler(
+        puserdata: *mut *mut ::core::ffi::c_void,
+    ) -> SDL_AssertionHandler;
 }
 unsafe extern "C" {
     pub fn SDL_GetAssertionReport() -> *const SDL_AssertData;
@@ -2943,8 +3084,8 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_AsyncIOFromFile(
-        file: *const libc::c_char,
-        mode: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
+        mode: *const ::core::ffi::c_char,
     ) -> *mut SDL_AsyncIO;
 }
 unsafe extern "C" {
@@ -2953,21 +3094,21 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ReadAsyncIO(
         asyncio: *mut SDL_AsyncIO,
-        ptr: *mut libc::c_void,
+        ptr: *mut ::core::ffi::c_void,
         offset: Uint64,
         size: Uint64,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_WriteAsyncIO(
         asyncio: *mut SDL_AsyncIO,
-        ptr: *mut libc::c_void,
+        ptr: *mut ::core::ffi::c_void,
         offset: Uint64,
         size: Uint64,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -2975,7 +3116,7 @@ unsafe extern "C" {
         asyncio: *mut SDL_AsyncIO,
         flush: bool,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3002,9 +3143,9 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_LoadFileAsync(
-        file: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3025,18 +3166,18 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_CompareAndSwapAtomicInt(
         a: *mut SDL_AtomicInt,
-        oldval: libc::c_int,
-        newval: libc::c_int,
+        oldval: ::core::ffi::c_int,
+        newval: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetAtomicInt(a: *mut SDL_AtomicInt, v: libc::c_int) -> libc::c_int;
+    pub fn SDL_SetAtomicInt(a: *mut SDL_AtomicInt, v: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAtomicInt(a: *mut SDL_AtomicInt) -> libc::c_int;
+    pub fn SDL_GetAtomicInt(a: *mut SDL_AtomicInt) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_AddAtomicInt(a: *mut SDL_AtomicInt, v: libc::c_int) -> libc::c_int;
+    pub fn SDL_AddAtomicInt(a: *mut SDL_AtomicInt, v: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_CompareAndSwapAtomicU32(
@@ -3053,31 +3194,31 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_CompareAndSwapAtomicPointer(
-        a: *mut *mut libc::c_void,
-        oldval: *mut libc::c_void,
-        newval: *mut libc::c_void,
+        a: *mut *mut ::core::ffi::c_void,
+        oldval: *mut ::core::ffi::c_void,
+        newval: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetAtomicPointer(
-        a: *mut *mut libc::c_void,
-        v: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        a: *mut *mut ::core::ffi::c_void,
+        v: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAtomicPointer(a: *mut *mut libc::c_void) -> *mut libc::c_void;
+    pub fn SDL_GetAtomicPointer(a: *mut *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_SetError(fmt: *const libc::c_char, ...) -> bool;
+    pub fn SDL_SetError(fmt: *const ::core::ffi::c_char, ...) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetErrorV(fmt: *const libc::c_char, ap: *mut __va_list_tag) -> bool;
+    pub fn SDL_SetErrorV(fmt: *const ::core::ffi::c_char, ap: *mut __va_list_tag) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_OutOfMemory() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetError() -> *const libc::c_char;
+    pub fn SDL_GetError() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_ClearError() -> bool;
@@ -3100,99 +3241,99 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SetPointerPropertyWithCleanup(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        value: *mut ::core::ffi::c_void,
         cleanup: SDL_CleanupPropertyCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetPointerProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        value: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetStringProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetNumberProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: Sint64,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetFloatProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: f32,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetBooleanProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: bool,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_HasProperty(props: SDL_PropertiesID, name: *const libc::c_char) -> bool;
+    pub fn SDL_HasProperty(props: SDL_PropertiesID, name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetPropertyType(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> SDL_PropertyType;
 }
 unsafe extern "C" {
     pub fn SDL_GetPointerProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        default_value: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        name: *const ::core::ffi::c_char,
+        default_value: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_GetStringProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        default_value: *const libc::c_char,
-    ) -> *const libc::c_char;
+        name: *const ::core::ffi::c_char,
+        default_value: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetNumberProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: Sint64,
     ) -> Sint64;
 }
 unsafe extern "C" {
     pub fn SDL_GetFloatProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: f32,
     ) -> f32;
 }
 unsafe extern "C" {
     pub fn SDL_GetBooleanProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: bool,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_ClearProperty(props: SDL_PropertiesID, name: *const libc::c_char) -> bool;
+    pub fn SDL_ClearProperty(props: SDL_PropertiesID, name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_EnumerateProperties(
         props: SDL_PropertiesID,
         callback: SDL_EnumeratePropertiesCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3201,8 +3342,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_CreateThreadRuntime(
         fn_: SDL_ThreadFunction,
-        name: *const libc::c_char,
-        data: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        data: *mut ::core::ffi::c_void,
         pfnBeginThread: SDL_FunctionPointer,
         pfnEndThread: SDL_FunctionPointer,
     ) -> *mut SDL_Thread;
@@ -3215,7 +3356,7 @@ unsafe extern "C" {
     ) -> *mut SDL_Thread;
 }
 unsafe extern "C" {
-    pub fn SDL_GetThreadName(thread: *mut SDL_Thread) -> *const libc::c_char;
+    pub fn SDL_GetThreadName(thread: *mut SDL_Thread) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetCurrentThreadID() -> SDL_ThreadID;
@@ -3227,7 +3368,7 @@ unsafe extern "C" {
     pub fn SDL_SetCurrentThreadPriority(priority: SDL_ThreadPriority) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_WaitThread(thread: *mut SDL_Thread, status: *mut libc::c_int);
+    pub fn SDL_WaitThread(thread: *mut SDL_Thread, status: *mut ::core::ffi::c_int);
 }
 unsafe extern "C" {
     pub fn SDL_GetThreadState(thread: *mut SDL_Thread) -> SDL_ThreadState;
@@ -3236,12 +3377,12 @@ unsafe extern "C" {
     pub fn SDL_DetachThread(thread: *mut SDL_Thread);
 }
 unsafe extern "C" {
-    pub fn SDL_GetTLS(id: *mut SDL_TLSID) -> *mut libc::c_void;
+    pub fn SDL_GetTLS(id: *mut SDL_TLSID) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_SetTLS(
         id: *mut SDL_TLSID,
-        value: *const libc::c_void,
+        value: *const ::core::ffi::c_void,
         destructor: SDL_TLSDestructorCallback,
     ) -> bool;
 }
@@ -3338,15 +3479,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_IOFromFile(
-        file: *const libc::c_char,
-        mode: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
+        mode: *const ::core::ffi::c_char,
     ) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
-    pub fn SDL_IOFromMem(mem: *mut libc::c_void, size: usize) -> *mut SDL_IOStream;
+    pub fn SDL_IOFromMem(mem: *mut ::core::ffi::c_void, size: usize) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
-    pub fn SDL_IOFromConstMem(mem: *const libc::c_void, size: usize) -> *mut SDL_IOStream;
+    pub fn SDL_IOFromConstMem(mem: *const ::core::ffi::c_void, size: usize) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
     pub fn SDL_IOFromDynamicMem() -> *mut SDL_IOStream;
@@ -3354,7 +3495,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_OpenIO(
         iface: *const SDL_IOStreamInterface,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
@@ -3376,18 +3517,26 @@ unsafe extern "C" {
     pub fn SDL_TellIO(context: *mut SDL_IOStream) -> Sint64;
 }
 unsafe extern "C" {
-    pub fn SDL_ReadIO(context: *mut SDL_IOStream, ptr: *mut libc::c_void, size: usize) -> usize;
+    pub fn SDL_ReadIO(
+        context: *mut SDL_IOStream,
+        ptr: *mut ::core::ffi::c_void,
+        size: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_WriteIO(context: *mut SDL_IOStream, ptr: *const libc::c_void, size: usize) -> usize;
+    pub fn SDL_WriteIO(
+        context: *mut SDL_IOStream,
+        ptr: *const ::core::ffi::c_void,
+        size: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_IOprintf(context: *mut SDL_IOStream, fmt: *const libc::c_char, ...) -> usize;
+    pub fn SDL_IOprintf(context: *mut SDL_IOStream, fmt: *const ::core::ffi::c_char, ...) -> usize;
 }
 unsafe extern "C" {
     pub fn SDL_IOvprintf(
         context: *mut SDL_IOStream,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
     ) -> usize;
 }
@@ -3399,23 +3548,26 @@ unsafe extern "C" {
         src: *mut SDL_IOStream,
         datasize: *mut usize,
         closeio: bool,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_LoadFile(file: *const libc::c_char, datasize: *mut usize) -> *mut libc::c_void;
+    pub fn SDL_LoadFile(
+        file: *const ::core::ffi::c_char,
+        datasize: *mut usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_SaveFile_IO(
         src: *mut SDL_IOStream,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         datasize: usize,
         closeio: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SaveFile(
-        file: *const libc::c_char,
-        data: *const libc::c_void,
+        file: *const ::core::ffi::c_char,
+        data: *const ::core::ffi::c_void,
         datasize: usize,
     ) -> bool;
 }
@@ -3504,35 +3656,35 @@ unsafe extern "C" {
     pub fn SDL_WriteS64BE(dst: *mut SDL_IOStream, value: Sint64) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumAudioDrivers() -> libc::c_int;
+    pub fn SDL_GetNumAudioDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetAudioDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCurrentAudioDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentAudioDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioPlaybackDevices(count: *mut libc::c_int) -> *mut SDL_AudioDeviceID;
+    pub fn SDL_GetAudioPlaybackDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_AudioDeviceID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioRecordingDevices(count: *mut libc::c_int) -> *mut SDL_AudioDeviceID;
+    pub fn SDL_GetAudioRecordingDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_AudioDeviceID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioDeviceName(devid: SDL_AudioDeviceID) -> *const libc::c_char;
+    pub fn SDL_GetAudioDeviceName(devid: SDL_AudioDeviceID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetAudioDeviceFormat(
         devid: SDL_AudioDeviceID,
         spec: *mut SDL_AudioSpec,
-        sample_frames: *mut libc::c_int,
+        sample_frames: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetAudioDeviceChannelMap(
         devid: SDL_AudioDeviceID,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_OpenAudioDevice(
@@ -3568,14 +3720,17 @@ unsafe extern "C" {
     pub fn SDL_BindAudioStreams(
         devid: SDL_AudioDeviceID,
         streams: *const *mut SDL_AudioStream,
-        num_streams: libc::c_int,
+        num_streams: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_BindAudioStream(devid: SDL_AudioDeviceID, stream: *mut SDL_AudioStream) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_UnbindAudioStreams(streams: *const *mut SDL_AudioStream, num_streams: libc::c_int);
+    pub fn SDL_UnbindAudioStreams(
+        streams: *const *mut SDL_AudioStream,
+        num_streams: ::core::ffi::c_int,
+    );
 }
 unsafe extern "C" {
     pub fn SDL_UnbindAudioStream(stream: *mut SDL_AudioStream);
@@ -3621,48 +3776,48 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetAudioStreamInputChannelMap(
         stream: *mut SDL_AudioStream,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetAudioStreamOutputChannelMap(
         stream: *mut SDL_AudioStream,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_SetAudioStreamInputChannelMap(
         stream: *mut SDL_AudioStream,
-        chmap: *const libc::c_int,
-        count: libc::c_int,
+        chmap: *const ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetAudioStreamOutputChannelMap(
         stream: *mut SDL_AudioStream,
-        chmap: *const libc::c_int,
-        count: libc::c_int,
+        chmap: *const ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_PutAudioStreamData(
         stream: *mut SDL_AudioStream,
-        buf: *const libc::c_void,
-        len: libc::c_int,
+        buf: *const ::core::ffi::c_void,
+        len: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetAudioStreamData(
         stream: *mut SDL_AudioStream,
-        buf: *mut libc::c_void,
-        len: libc::c_int,
-    ) -> libc::c_int;
+        buf: *mut ::core::ffi::c_void,
+        len: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioStreamAvailable(stream: *mut SDL_AudioStream) -> libc::c_int;
+    pub fn SDL_GetAudioStreamAvailable(stream: *mut SDL_AudioStream) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioStreamQueued(stream: *mut SDL_AudioStream) -> libc::c_int;
+    pub fn SDL_GetAudioStreamQueued(stream: *mut SDL_AudioStream) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_FlushAudioStream(stream: *mut SDL_AudioStream) -> bool;
@@ -3689,14 +3844,14 @@ unsafe extern "C" {
     pub fn SDL_SetAudioStreamGetCallback(
         stream: *mut SDL_AudioStream,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetAudioStreamPutCallback(
         stream: *mut SDL_AudioStream,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3707,14 +3862,14 @@ unsafe extern "C" {
         devid: SDL_AudioDeviceID,
         spec: *const SDL_AudioSpec,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_AudioStream;
 }
 unsafe extern "C" {
     pub fn SDL_SetAudioPostmixCallback(
         devid: SDL_AudioDeviceID,
         callback: SDL_AudioPostmixCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3728,7 +3883,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_LoadWAV(
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         spec: *mut SDL_AudioSpec,
         audio_buf: *mut *mut Uint8,
         audio_len: *mut Uint32,
@@ -3747,17 +3902,17 @@ unsafe extern "C" {
     pub fn SDL_ConvertAudioSamples(
         src_spec: *const SDL_AudioSpec,
         src_data: *const Uint8,
-        src_len: libc::c_int,
+        src_len: ::core::ffi::c_int,
         dst_spec: *const SDL_AudioSpec,
         dst_data: *mut *mut Uint8,
-        dst_len: *mut libc::c_int,
+        dst_len: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAudioFormatName(format: SDL_AudioFormat) -> *const libc::c_char;
+    pub fn SDL_GetAudioFormatName(format: SDL_AudioFormat) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSilenceValueForFormat(format: SDL_AudioFormat) -> libc::c_int;
+    pub fn SDL_GetSilenceValueForFormat(format: SDL_AudioFormat) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_ComposeCustomBlendMode(
@@ -3770,12 +3925,12 @@ unsafe extern "C" {
     ) -> SDL_BlendMode;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPixelFormatName(format: SDL_PixelFormat) -> *const libc::c_char;
+    pub fn SDL_GetPixelFormatName(format: SDL_PixelFormat) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetMasksForPixelFormat(
         format: SDL_PixelFormat,
-        bpp: *mut libc::c_int,
+        bpp: *mut ::core::ffi::c_int,
         Rmask: *mut Uint32,
         Gmask: *mut Uint32,
         Bmask: *mut Uint32,
@@ -3784,7 +3939,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_GetPixelFormatForMasks(
-        bpp: libc::c_int,
+        bpp: ::core::ffi::c_int,
         Rmask: Uint32,
         Gmask: Uint32,
         Bmask: Uint32,
@@ -3795,14 +3950,14 @@ unsafe extern "C" {
     pub fn SDL_GetPixelFormatDetails(format: SDL_PixelFormat) -> *const SDL_PixelFormatDetails;
 }
 unsafe extern "C" {
-    pub fn SDL_CreatePalette(ncolors: libc::c_int) -> *mut SDL_Palette;
+    pub fn SDL_CreatePalette(ncolors: ::core::ffi::c_int) -> *mut SDL_Palette;
 }
 unsafe extern "C" {
     pub fn SDL_SetPaletteColors(
         palette: *mut SDL_Palette,
         colors: *const SDL_Color,
-        firstcolor: libc::c_int,
-        ncolors: libc::c_int,
+        firstcolor: ::core::ffi::c_int,
+        ncolors: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3864,7 +4019,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetRectEnclosingPoints(
         points: *const SDL_Point,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         clip: *const SDL_Rect,
         result: *mut SDL_Rect,
     ) -> bool;
@@ -3872,10 +4027,10 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetRectAndLineIntersection(
         rect: *const SDL_Rect,
-        X1: *mut libc::c_int,
-        Y1: *mut libc::c_int,
-        X2: *mut libc::c_int,
-        Y2: *mut libc::c_int,
+        X1: *mut ::core::ffi::c_int,
+        Y1: *mut ::core::ffi::c_int,
+        X2: *mut ::core::ffi::c_int,
+        Y2: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3898,7 +4053,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetRectEnclosingPointsFloat(
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         clip: *const SDL_FRect,
         result: *mut SDL_FRect,
     ) -> bool;
@@ -3914,18 +4069,18 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_CreateSurface(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         format: SDL_PixelFormat,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     pub fn SDL_CreateSurfaceFrom(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         format: SDL_PixelFormat,
-        pixels: *mut libc::c_void,
-        pitch: libc::c_int,
+        pixels: *mut ::core::ffi::c_void,
+        pitch: ::core::ffi::c_int,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
@@ -3959,7 +4114,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetSurfaceImages(
         surface: *mut SDL_Surface,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_Surface;
 }
 unsafe extern "C" {
@@ -3975,14 +4130,14 @@ unsafe extern "C" {
     pub fn SDL_LoadBMP_IO(src: *mut SDL_IOStream, closeio: bool) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
-    pub fn SDL_LoadBMP(file: *const libc::c_char) -> *mut SDL_Surface;
+    pub fn SDL_LoadBMP(file: *const ::core::ffi::c_char) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     pub fn SDL_SaveBMP_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
         -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SaveBMP(surface: *mut SDL_Surface, file: *const libc::c_char) -> bool;
+    pub fn SDL_SaveBMP(surface: *mut SDL_Surface, file: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetSurfaceRLE(surface: *mut SDL_Surface, enabled: bool) -> bool;
@@ -4040,8 +4195,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ScaleSurface(
         surface: *mut SDL_Surface,
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         scaleMode: SDL_ScaleMode,
     ) -> *mut SDL_Surface;
 }
@@ -4062,42 +4217,42 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_ConvertPixels(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_ConvertPixelsAndColorspace(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
         src_colorspace: SDL_Colorspace,
         src_properties: SDL_PropertiesID,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
         dst_colorspace: SDL_Colorspace,
         dst_properties: SDL_PropertiesID,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_PremultiplyAlpha(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
         linear: bool,
     ) -> bool;
 }
@@ -4115,7 +4270,7 @@ unsafe extern "C" {
     pub fn SDL_FillSurfaceRects(
         dst: *mut SDL_Surface,
         rects: *const SDL_Rect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         color: Uint32,
     ) -> bool;
 }
@@ -4184,10 +4339,10 @@ unsafe extern "C" {
     pub fn SDL_BlitSurface9Grid(
         src: *mut SDL_Surface,
         srcrect: *const SDL_Rect,
-        left_width: libc::c_int,
-        right_width: libc::c_int,
-        top_height: libc::c_int,
-        bottom_height: libc::c_int,
+        left_width: ::core::ffi::c_int,
+        right_width: ::core::ffi::c_int,
+        top_height: ::core::ffi::c_int,
+        bottom_height: ::core::ffi::c_int,
         scale: f32,
         scaleMode: SDL_ScaleMode,
         dst: *mut SDL_Surface,
@@ -4209,8 +4364,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ReadSurfacePixel(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: *mut Uint8,
         g: *mut Uint8,
         b: *mut Uint8,
@@ -4220,8 +4375,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ReadSurfacePixelFloat(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: *mut f32,
         g: *mut f32,
         b: *mut f32,
@@ -4231,8 +4386,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_WriteSurfacePixel(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: Uint8,
         g: Uint8,
         b: Uint8,
@@ -4242,8 +4397,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_WriteSurfacePixelFloat(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: f32,
         g: f32,
         b: f32,
@@ -4251,25 +4406,25 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumCameraDrivers() -> libc::c_int;
+    pub fn SDL_GetNumCameraDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCameraDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetCameraDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCurrentCameraDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentCameraDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCameras(count: *mut libc::c_int) -> *mut SDL_CameraID;
+    pub fn SDL_GetCameras(count: *mut ::core::ffi::c_int) -> *mut SDL_CameraID;
 }
 unsafe extern "C" {
     pub fn SDL_GetCameraSupportedFormats(
         instance_id: SDL_CameraID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_CameraSpec;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCameraName(instance_id: SDL_CameraID) -> *const libc::c_char;
+    pub fn SDL_GetCameraName(instance_id: SDL_CameraID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetCameraPosition(instance_id: SDL_CameraID) -> SDL_CameraPosition;
@@ -4281,7 +4436,7 @@ unsafe extern "C" {
     ) -> *mut SDL_Camera;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCameraPermissionState(camera: *mut SDL_Camera) -> libc::c_int;
+    pub fn SDL_GetCameraPermissionState(camera: *mut SDL_Camera) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetCameraID(camera: *mut SDL_Camera) -> SDL_CameraID;
@@ -4305,19 +4460,19 @@ unsafe extern "C" {
     pub fn SDL_CloseCamera(camera: *mut SDL_Camera);
 }
 unsafe extern "C" {
-    pub fn SDL_SetClipboardText(text: *const libc::c_char) -> bool;
+    pub fn SDL_SetClipboardText(text: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetClipboardText() -> *mut libc::c_char;
+    pub fn SDL_GetClipboardText() -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_HasClipboardText() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetPrimarySelectionText(text: *const libc::c_char) -> bool;
+    pub fn SDL_SetPrimarySelectionText(text: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPrimarySelectionText() -> *mut libc::c_char;
+    pub fn SDL_GetPrimarySelectionText() -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_HasPrimarySelectionText() -> bool;
@@ -4326,8 +4481,8 @@ unsafe extern "C" {
     pub fn SDL_SetClipboardData(
         callback: SDL_ClipboardDataCallback,
         cleanup: SDL_ClipboardCleanupCallback,
-        userdata: *mut libc::c_void,
-        mime_types: *mut *const libc::c_char,
+        userdata: *mut ::core::ffi::c_void,
+        mime_types: *mut *const ::core::ffi::c_char,
         num_mime_types: usize,
     ) -> bool;
 }
@@ -4336,21 +4491,21 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_GetClipboardData(
-        mime_type: *const libc::c_char,
+        mime_type: *const ::core::ffi::c_char,
         size: *mut usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_HasClipboardData(mime_type: *const libc::c_char) -> bool;
+    pub fn SDL_HasClipboardData(mime_type: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetClipboardMimeTypes(num_mime_types: *mut usize) -> *mut *mut libc::c_char;
+    pub fn SDL_GetClipboardMimeTypes(num_mime_types: *mut usize) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumLogicalCPUCores() -> libc::c_int;
+    pub fn SDL_GetNumLogicalCPUCores() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCPUCacheLineSize() -> libc::c_int;
+    pub fn SDL_GetCPUCacheLineSize() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_HasAltiVec() -> bool;
@@ -4395,25 +4550,25 @@ unsafe extern "C" {
     pub fn SDL_HasLASX() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSystemRAM() -> libc::c_int;
+    pub fn SDL_GetSystemRAM() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetSIMDAlignment() -> usize;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumVideoDrivers() -> libc::c_int;
+    pub fn SDL_GetNumVideoDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetVideoDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetVideoDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCurrentVideoDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentVideoDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetSystemTheme() -> SDL_SystemTheme;
 }
 unsafe extern "C" {
-    pub fn SDL_GetDisplays(count: *mut libc::c_int) -> *mut SDL_DisplayID;
+    pub fn SDL_GetDisplays(count: *mut ::core::ffi::c_int) -> *mut SDL_DisplayID;
 }
 unsafe extern "C" {
     pub fn SDL_GetPrimaryDisplay() -> SDL_DisplayID;
@@ -4422,7 +4577,7 @@ unsafe extern "C" {
     pub fn SDL_GetDisplayProperties(displayID: SDL_DisplayID) -> SDL_PropertiesID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetDisplayName(displayID: SDL_DisplayID) -> *const libc::c_char;
+    pub fn SDL_GetDisplayName(displayID: SDL_DisplayID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetDisplayBounds(displayID: SDL_DisplayID, rect: *mut SDL_Rect) -> bool;
@@ -4442,14 +4597,14 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetFullscreenDisplayModes(
         displayID: SDL_DisplayID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_DisplayMode;
 }
 unsafe extern "C" {
     pub fn SDL_GetClosestFullscreenDisplayMode(
         displayID: SDL_DisplayID,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         refresh_rate: f32,
         include_high_density_modes: bool,
         closest: *mut SDL_DisplayMode,
@@ -4486,29 +4641,32 @@ unsafe extern "C" {
     pub fn SDL_GetWindowFullscreenMode(window: *mut SDL_Window) -> *const SDL_DisplayMode;
 }
 unsafe extern "C" {
-    pub fn SDL_GetWindowICCProfile(window: *mut SDL_Window, size: *mut usize) -> *mut libc::c_void;
+    pub fn SDL_GetWindowICCProfile(
+        window: *mut SDL_Window,
+        size: *mut usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowPixelFormat(window: *mut SDL_Window) -> SDL_PixelFormat;
 }
 unsafe extern "C" {
-    pub fn SDL_GetWindows(count: *mut libc::c_int) -> *mut *mut SDL_Window;
+    pub fn SDL_GetWindows(count: *mut ::core::ffi::c_int) -> *mut *mut SDL_Window;
 }
 unsafe extern "C" {
     pub fn SDL_CreateWindow(
-        title: *const libc::c_char,
-        w: libc::c_int,
-        h: libc::c_int,
+        title: *const ::core::ffi::c_char,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         flags: SDL_WindowFlags,
     ) -> *mut SDL_Window;
 }
 unsafe extern "C" {
     pub fn SDL_CreatePopupWindow(
         parent: *mut SDL_Window,
-        offset_x: libc::c_int,
-        offset_y: libc::c_int,
-        w: libc::c_int,
-        h: libc::c_int,
+        offset_x: ::core::ffi::c_int,
+        offset_y: ::core::ffi::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         flags: SDL_WindowFlags,
     ) -> *mut SDL_Window;
 }
@@ -4531,32 +4689,40 @@ unsafe extern "C" {
     pub fn SDL_GetWindowFlags(window: *mut SDL_Window) -> SDL_WindowFlags;
 }
 unsafe extern "C" {
-    pub fn SDL_SetWindowTitle(window: *mut SDL_Window, title: *const libc::c_char) -> bool;
+    pub fn SDL_SetWindowTitle(window: *mut SDL_Window, title: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetWindowTitle(window: *mut SDL_Window) -> *const libc::c_char;
+    pub fn SDL_GetWindowTitle(window: *mut SDL_Window) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_SetWindowIcon(window: *mut SDL_Window, icon: *mut SDL_Surface) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetWindowPosition(window: *mut SDL_Window, x: libc::c_int, y: libc::c_int) -> bool;
+    pub fn SDL_SetWindowPosition(
+        window: *mut SDL_Window,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowPosition(
         window: *mut SDL_Window,
-        x: *mut libc::c_int,
-        y: *mut libc::c_int,
+        x: *mut ::core::ffi::c_int,
+        y: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetWindowSize(window: *mut SDL_Window, w: libc::c_int, h: libc::c_int) -> bool;
+    pub fn SDL_SetWindowSize(
+        window: *mut SDL_Window,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4579,45 +4745,45 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetWindowBordersSize(
         window: *mut SDL_Window,
-        top: *mut libc::c_int,
-        left: *mut libc::c_int,
-        bottom: *mut libc::c_int,
-        right: *mut libc::c_int,
+        top: *mut ::core::ffi::c_int,
+        left: *mut ::core::ffi::c_int,
+        bottom: *mut ::core::ffi::c_int,
+        right: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowSizeInPixels(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetWindowMinimumSize(
         window: *mut SDL_Window,
-        min_w: libc::c_int,
-        min_h: libc::c_int,
+        min_w: ::core::ffi::c_int,
+        min_h: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowMinimumSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetWindowMaximumSize(
         window: *mut SDL_Window,
-        max_w: libc::c_int,
-        max_h: libc::c_int,
+        max_w: ::core::ffi::c_int,
+        max_h: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowMaximumSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4660,10 +4826,13 @@ unsafe extern "C" {
     pub fn SDL_GetWindowSurface(window: *mut SDL_Window) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
-    pub fn SDL_SetWindowSurfaceVSync(window: *mut SDL_Window, vsync: libc::c_int) -> bool;
+    pub fn SDL_SetWindowSurfaceVSync(window: *mut SDL_Window, vsync: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetWindowSurfaceVSync(window: *mut SDL_Window, vsync: *mut libc::c_int) -> bool;
+    pub fn SDL_GetWindowSurfaceVSync(
+        window: *mut SDL_Window,
+        vsync: *mut ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_UpdateWindowSurface(window: *mut SDL_Window) -> bool;
@@ -4672,7 +4841,7 @@ unsafe extern "C" {
     pub fn SDL_UpdateWindowSurfaceRects(
         window: *mut SDL_Window,
         rects: *const SDL_Rect,
-        numrects: libc::c_int,
+        numrects: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4717,15 +4886,15 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ShowWindowSystemMenu(
         window: *mut SDL_Window,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetWindowHitTest(
         window: *mut SDL_Window,
         callback: SDL_HitTest,
-        callback_data: *mut libc::c_void,
+        callback_data: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4747,28 +4916,28 @@ unsafe extern "C" {
     pub fn SDL_DisableScreenSaver() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GL_LoadLibrary(path: *const libc::c_char) -> bool;
+    pub fn SDL_GL_LoadLibrary(path: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GL_GetProcAddress(proc_: *const libc::c_char) -> SDL_FunctionPointer;
+    pub fn SDL_GL_GetProcAddress(proc_: *const ::core::ffi::c_char) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
-    pub fn SDL_EGL_GetProcAddress(proc_: *const libc::c_char) -> SDL_FunctionPointer;
+    pub fn SDL_EGL_GetProcAddress(proc_: *const ::core::ffi::c_char) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
     pub fn SDL_GL_UnloadLibrary();
 }
 unsafe extern "C" {
-    pub fn SDL_GL_ExtensionSupported(extension: *const libc::c_char) -> bool;
+    pub fn SDL_GL_ExtensionSupported(extension: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GL_ResetAttributes();
 }
 unsafe extern "C" {
-    pub fn SDL_GL_SetAttribute(attr: SDL_GLAttr, value: libc::c_int) -> bool;
+    pub fn SDL_GL_SetAttribute(attr: SDL_GLAttr, value: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GL_GetAttribute(attr: SDL_GLAttr, value: *mut libc::c_int) -> bool;
+    pub fn SDL_GL_GetAttribute(attr: SDL_GLAttr, value: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GL_CreateContext(window: *mut SDL_Window) -> SDL_GLContext;
@@ -4796,14 +4965,14 @@ unsafe extern "C" {
         platformAttribCallback: SDL_EGLAttribArrayCallback,
         surfaceAttribCallback: SDL_EGLIntArrayCallback,
         contextAttribCallback: SDL_EGLIntArrayCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
-    pub fn SDL_GL_SetSwapInterval(interval: libc::c_int) -> bool;
+    pub fn SDL_GL_SetSwapInterval(interval: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GL_GetSwapInterval(interval: *mut libc::c_int) -> bool;
+    pub fn SDL_GL_GetSwapInterval(interval: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GL_SwapWindow(window: *mut SDL_Window) -> bool;
@@ -4814,30 +4983,30 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_ShowOpenFileDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
         filters: *const SDL_DialogFileFilter,
-        nfilters: libc::c_int,
-        default_location: *const libc::c_char,
+        nfilters: ::core::ffi::c_int,
+        default_location: *const ::core::ffi::c_char,
         allow_many: bool,
     );
 }
 unsafe extern "C" {
     pub fn SDL_ShowSaveFileDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
         filters: *const SDL_DialogFileFilter,
-        nfilters: libc::c_int,
-        default_location: *const libc::c_char,
+        nfilters: ::core::ffi::c_int,
+        default_location: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     pub fn SDL_ShowOpenFolderDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
-        default_location: *const libc::c_char,
+        default_location: *const ::core::ffi::c_char,
         allow_many: bool,
     );
 }
@@ -4845,31 +5014,37 @@ unsafe extern "C" {
     pub fn SDL_ShowFileDialogWithProperties(
         type_: SDL_FileDialogType,
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         props: SDL_PropertiesID,
     );
 }
 unsafe extern "C" {
-    pub fn SDL_GUIDToString(guid: SDL_GUID, pszGUID: *mut libc::c_char, cbGUID: libc::c_int);
+    pub fn SDL_GUIDToString(
+        guid: SDL_GUID,
+        pszGUID: *mut ::core::ffi::c_char,
+        cbGUID: ::core::ffi::c_int,
+    );
 }
 unsafe extern "C" {
-    pub fn SDL_StringToGUID(pchGUID: *const libc::c_char) -> SDL_GUID;
+    pub fn SDL_StringToGUID(pchGUID: *const ::core::ffi::c_char) -> SDL_GUID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPowerInfo(seconds: *mut libc::c_int, percent: *mut libc::c_int)
-        -> SDL_PowerState;
+    pub fn SDL_GetPowerInfo(
+        seconds: *mut ::core::ffi::c_int,
+        percent: *mut ::core::ffi::c_int,
+    ) -> SDL_PowerState;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSensors(count: *mut libc::c_int) -> *mut SDL_SensorID;
+    pub fn SDL_GetSensors(count: *mut ::core::ffi::c_int) -> *mut SDL_SensorID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSensorNameForID(instance_id: SDL_SensorID) -> *const libc::c_char;
+    pub fn SDL_GetSensorNameForID(instance_id: SDL_SensorID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetSensorTypeForID(instance_id: SDL_SensorID) -> SDL_SensorType;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSensorNonPortableTypeForID(instance_id: SDL_SensorID) -> libc::c_int;
+    pub fn SDL_GetSensorNonPortableTypeForID(instance_id: SDL_SensorID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_OpenSensor(instance_id: SDL_SensorID) -> *mut SDL_Sensor;
@@ -4881,13 +5056,13 @@ unsafe extern "C" {
     pub fn SDL_GetSensorProperties(sensor: *mut SDL_Sensor) -> SDL_PropertiesID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSensorName(sensor: *mut SDL_Sensor) -> *const libc::c_char;
+    pub fn SDL_GetSensorName(sensor: *mut SDL_Sensor) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetSensorType(sensor: *mut SDL_Sensor) -> SDL_SensorType;
 }
 unsafe extern "C" {
-    pub fn SDL_GetSensorNonPortableType(sensor: *mut SDL_Sensor) -> libc::c_int;
+    pub fn SDL_GetSensorNonPortableType(sensor: *mut SDL_Sensor) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetSensorID(sensor: *mut SDL_Sensor) -> SDL_SensorID;
@@ -4896,7 +5071,7 @@ unsafe extern "C" {
     pub fn SDL_GetSensorData(
         sensor: *mut SDL_Sensor,
         data: *mut f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4915,16 +5090,16 @@ unsafe extern "C" {
     pub fn SDL_HasJoystick() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoysticks(count: *mut libc::c_int) -> *mut SDL_JoystickID;
+    pub fn SDL_GetJoysticks(count: *mut ::core::ffi::c_int) -> *mut SDL_JoystickID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickNameForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetJoystickNameForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickPathForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetJoystickPathForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickPlayerIndexForID(instance_id: SDL_JoystickID) -> libc::c_int;
+    pub fn SDL_GetJoystickPlayerIndexForID(instance_id: SDL_JoystickID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetJoystickGUIDForID(instance_id: SDL_JoystickID) -> SDL_GUID;
@@ -4948,7 +5123,7 @@ unsafe extern "C" {
     pub fn SDL_GetJoystickFromID(instance_id: SDL_JoystickID) -> *mut SDL_Joystick;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickFromPlayerIndex(player_index: libc::c_int) -> *mut SDL_Joystick;
+    pub fn SDL_GetJoystickFromPlayerIndex(player_index: ::core::ffi::c_int) -> *mut SDL_Joystick;
 }
 unsafe extern "C" {
     pub fn SDL_AttachVirtualJoystick(desc: *const SDL_VirtualJoystickDesc) -> SDL_JoystickID;
@@ -4962,14 +5137,14 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SetJoystickVirtualAxis(
         joystick: *mut SDL_Joystick,
-        axis: libc::c_int,
+        axis: ::core::ffi::c_int,
         value: Sint16,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetJoystickVirtualBall(
         joystick: *mut SDL_Joystick,
-        ball: libc::c_int,
+        ball: ::core::ffi::c_int,
         xrel: Sint16,
         yrel: Sint16,
     ) -> bool;
@@ -4977,22 +5152,22 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SetJoystickVirtualButton(
         joystick: *mut SDL_Joystick,
-        button: libc::c_int,
+        button: ::core::ffi::c_int,
         down: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetJoystickVirtualHat(
         joystick: *mut SDL_Joystick,
-        hat: libc::c_int,
+        hat: ::core::ffi::c_int,
         value: Uint8,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetJoystickVirtualTouchpad(
         joystick: *mut SDL_Joystick,
-        touchpad: libc::c_int,
-        finger: libc::c_int,
+        touchpad: ::core::ffi::c_int,
+        finger: ::core::ffi::c_int,
         down: bool,
         x: f32,
         y: f32,
@@ -5005,25 +5180,25 @@ unsafe extern "C" {
         type_: SDL_SensorType,
         sensor_timestamp: Uint64,
         data: *const f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetJoystickProperties(joystick: *mut SDL_Joystick) -> SDL_PropertiesID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickName(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickName(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickPath(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickPath(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickPlayerIndex(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetJoystickPlayerIndex(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_SetJoystickPlayerIndex(
         joystick: *mut SDL_Joystick,
-        player_index: libc::c_int,
+        player_index: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5042,7 +5217,7 @@ unsafe extern "C" {
     pub fn SDL_GetJoystickFirmwareVersion(joystick: *mut SDL_Joystick) -> Uint16;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickSerial(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickSerial(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetJoystickType(joystick: *mut SDL_Joystick) -> SDL_JoystickType;
@@ -5063,16 +5238,16 @@ unsafe extern "C" {
     pub fn SDL_GetJoystickID(joystick: *mut SDL_Joystick) -> SDL_JoystickID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumJoystickAxes(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickAxes(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumJoystickBalls(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickBalls(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumJoystickHats(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickHats(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumJoystickButtons(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickButtons(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_SetJoystickEventsEnabled(enabled: bool);
@@ -5084,28 +5259,28 @@ unsafe extern "C" {
     pub fn SDL_UpdateJoysticks();
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickAxis(joystick: *mut SDL_Joystick, axis: libc::c_int) -> Sint16;
+    pub fn SDL_GetJoystickAxis(joystick: *mut SDL_Joystick, axis: ::core::ffi::c_int) -> Sint16;
 }
 unsafe extern "C" {
     pub fn SDL_GetJoystickAxisInitialState(
         joystick: *mut SDL_Joystick,
-        axis: libc::c_int,
+        axis: ::core::ffi::c_int,
         state: *mut Sint16,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetJoystickBall(
         joystick: *mut SDL_Joystick,
-        ball: libc::c_int,
-        dx: *mut libc::c_int,
-        dy: *mut libc::c_int,
+        ball: ::core::ffi::c_int,
+        dx: *mut ::core::ffi::c_int,
+        dy: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickHat(joystick: *mut SDL_Joystick, hat: libc::c_int) -> Uint8;
+    pub fn SDL_GetJoystickHat(joystick: *mut SDL_Joystick, hat: ::core::ffi::c_int) -> Uint8;
 }
 unsafe extern "C" {
-    pub fn SDL_GetJoystickButton(joystick: *mut SDL_Joystick, button: libc::c_int) -> bool;
+    pub fn SDL_GetJoystickButton(joystick: *mut SDL_Joystick, button: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_RumbleJoystick(
@@ -5134,8 +5309,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SendJoystickEffect(
         joystick: *mut SDL_Joystick,
-        data: *const libc::c_void,
-        size: libc::c_int,
+        data: *const ::core::ffi::c_void,
+        size: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5149,51 +5324,56 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetJoystickPowerInfo(
         joystick: *mut SDL_Joystick,
-        percent: *mut libc::c_int,
+        percent: *mut ::core::ffi::c_int,
     ) -> SDL_PowerState;
 }
 unsafe extern "C" {
-    pub fn SDL_AddGamepadMapping(mapping: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_AddGamepadMapping(mapping: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_AddGamepadMappingsFromIO(src: *mut SDL_IOStream, closeio: bool) -> libc::c_int;
+    pub fn SDL_AddGamepadMappingsFromIO(
+        src: *mut SDL_IOStream,
+        closeio: bool,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_AddGamepadMappingsFromFile(file: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_AddGamepadMappingsFromFile(file: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_ReloadGamepadMappings() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadMappings(count: *mut libc::c_int) -> *mut *mut libc::c_char;
+    pub fn SDL_GetGamepadMappings(count: *mut ::core::ffi::c_int) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadMappingForGUID(guid: SDL_GUID) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMappingForGUID(guid: SDL_GUID) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadMapping(gamepad: *mut SDL_Gamepad) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMapping(gamepad: *mut SDL_Gamepad) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_SetGamepadMapping(instance_id: SDL_JoystickID, mapping: *const libc::c_char)
-        -> bool;
+    pub fn SDL_SetGamepadMapping(
+        instance_id: SDL_JoystickID,
+        mapping: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_HasGamepad() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepads(count: *mut libc::c_int) -> *mut SDL_JoystickID;
+    pub fn SDL_GetGamepads(count: *mut ::core::ffi::c_int) -> *mut SDL_JoystickID;
 }
 unsafe extern "C" {
     pub fn SDL_IsGamepad(instance_id: SDL_JoystickID) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadNameForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetGamepadNameForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadPathForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetGamepadPathForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadPlayerIndexForID(instance_id: SDL_JoystickID) -> libc::c_int;
+    pub fn SDL_GetGamepadPlayerIndexForID(instance_id: SDL_JoystickID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadGUIDForID(instance_id: SDL_JoystickID) -> SDL_GUID;
@@ -5214,7 +5394,7 @@ unsafe extern "C" {
     pub fn SDL_GetRealGamepadTypeForID(instance_id: SDL_JoystickID) -> SDL_GamepadType;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadMappingForID(instance_id: SDL_JoystickID) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMappingForID(instance_id: SDL_JoystickID) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_OpenGamepad(instance_id: SDL_JoystickID) -> *mut SDL_Gamepad;
@@ -5223,7 +5403,7 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadFromID(instance_id: SDL_JoystickID) -> *mut SDL_Gamepad;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadFromPlayerIndex(player_index: libc::c_int) -> *mut SDL_Gamepad;
+    pub fn SDL_GetGamepadFromPlayerIndex(player_index: ::core::ffi::c_int) -> *mut SDL_Gamepad;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadProperties(gamepad: *mut SDL_Gamepad) -> SDL_PropertiesID;
@@ -5232,10 +5412,10 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadID(gamepad: *mut SDL_Gamepad) -> SDL_JoystickID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadName(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadName(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadPath(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadPath(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadType(gamepad: *mut SDL_Gamepad) -> SDL_GamepadType;
@@ -5244,10 +5424,13 @@ unsafe extern "C" {
     pub fn SDL_GetRealGamepadType(gamepad: *mut SDL_Gamepad) -> SDL_GamepadType;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad) -> libc::c_int;
+    pub fn SDL_GetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_SetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad, player_index: libc::c_int) -> bool;
+    pub fn SDL_SetGamepadPlayerIndex(
+        gamepad: *mut SDL_Gamepad,
+        player_index: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadVendor(gamepad: *mut SDL_Gamepad) -> Uint16;
@@ -5262,7 +5445,7 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadFirmwareVersion(gamepad: *mut SDL_Gamepad) -> Uint16;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadSerial(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadSerial(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadSteamHandle(gamepad: *mut SDL_Gamepad) -> Uint64;
@@ -5273,7 +5456,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetGamepadPowerInfo(
         gamepad: *mut SDL_Gamepad,
-        percent: *mut libc::c_int,
+        percent: *mut ::core::ffi::c_int,
     ) -> SDL_PowerState;
 }
 unsafe extern "C" {
@@ -5291,23 +5474,23 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetGamepadBindings(
         gamepad: *mut SDL_Gamepad,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_GamepadBinding;
 }
 unsafe extern "C" {
     pub fn SDL_UpdateGamepads();
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadTypeFromString(str_: *const libc::c_char) -> SDL_GamepadType;
+    pub fn SDL_GetGamepadTypeFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadType;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadStringForType(type_: SDL_GamepadType) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForType(type_: SDL_GamepadType) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadAxisFromString(str_: *const libc::c_char) -> SDL_GamepadAxis;
+    pub fn SDL_GetGamepadAxisFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadAxis;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadStringForAxis(axis: SDL_GamepadAxis) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForAxis(axis: SDL_GamepadAxis) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GamepadHasAxis(gamepad: *mut SDL_Gamepad, axis: SDL_GamepadAxis) -> bool;
@@ -5316,10 +5499,10 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadAxis(gamepad: *mut SDL_Gamepad, axis: SDL_GamepadAxis) -> Sint16;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadButtonFromString(str_: *const libc::c_char) -> SDL_GamepadButton;
+    pub fn SDL_GetGamepadButtonFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadButton;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGamepadStringForButton(button: SDL_GamepadButton) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForButton(button: SDL_GamepadButton) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GamepadHasButton(gamepad: *mut SDL_Gamepad, button: SDL_GamepadButton) -> bool;
@@ -5340,19 +5523,19 @@ unsafe extern "C" {
     ) -> SDL_GamepadButtonLabel;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumGamepadTouchpads(gamepad: *mut SDL_Gamepad) -> libc::c_int;
+    pub fn SDL_GetNumGamepadTouchpads(gamepad: *mut SDL_Gamepad) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetNumGamepadTouchpadFingers(
         gamepad: *mut SDL_Gamepad,
-        touchpad: libc::c_int,
-    ) -> libc::c_int;
+        touchpad: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadTouchpadFinger(
         gamepad: *mut SDL_Gamepad,
-        touchpad: libc::c_int,
-        finger: libc::c_int,
+        touchpad: ::core::ffi::c_int,
+        finger: ::core::ffi::c_int,
         down: *mut bool,
         x: *mut f32,
         y: *mut f32,
@@ -5380,7 +5563,7 @@ unsafe extern "C" {
         gamepad: *mut SDL_Gamepad,
         type_: SDL_SensorType,
         data: *mut f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5410,8 +5593,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SendGamepadEffect(
         gamepad: *mut SDL_Gamepad,
-        data: *const libc::c_void,
-        size: libc::c_int,
+        data: *const ::core::ffi::c_void,
+        size: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5421,28 +5604,28 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadAppleSFSymbolsNameForButton(
         gamepad: *mut SDL_Gamepad,
         button: SDL_GamepadButton,
-    ) -> *const libc::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetGamepadAppleSFSymbolsNameForAxis(
         gamepad: *mut SDL_Gamepad,
         axis: SDL_GamepadAxis,
-    ) -> *const libc::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_HasKeyboard() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetKeyboards(count: *mut libc::c_int) -> *mut SDL_KeyboardID;
+    pub fn SDL_GetKeyboards(count: *mut ::core::ffi::c_int) -> *mut SDL_KeyboardID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetKeyboardNameForID(instance_id: SDL_KeyboardID) -> *const libc::c_char;
+    pub fn SDL_GetKeyboardNameForID(instance_id: SDL_KeyboardID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetKeyboardFocus() -> *mut SDL_Window;
 }
 unsafe extern "C" {
-    pub fn SDL_GetKeyboardState(numkeys: *mut libc::c_int) -> *const bool;
+    pub fn SDL_GetKeyboardState(numkeys: *mut ::core::ffi::c_int) -> *const bool;
 }
 unsafe extern "C" {
     pub fn SDL_ResetKeyboard();
@@ -5464,19 +5647,19 @@ unsafe extern "C" {
     pub fn SDL_GetScancodeFromKey(key: SDL_Keycode, modstate: *mut SDL_Keymod) -> SDL_Scancode;
 }
 unsafe extern "C" {
-    pub fn SDL_SetScancodeName(scancode: SDL_Scancode, name: *const libc::c_char) -> bool;
+    pub fn SDL_SetScancodeName(scancode: SDL_Scancode, name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetScancodeName(scancode: SDL_Scancode) -> *const libc::c_char;
+    pub fn SDL_GetScancodeName(scancode: SDL_Scancode) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetScancodeFromName(name: *const libc::c_char) -> SDL_Scancode;
+    pub fn SDL_GetScancodeFromName(name: *const ::core::ffi::c_char) -> SDL_Scancode;
 }
 unsafe extern "C" {
-    pub fn SDL_GetKeyName(key: SDL_Keycode) -> *const libc::c_char;
+    pub fn SDL_GetKeyName(key: SDL_Keycode) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetKeyFromName(name: *const libc::c_char) -> SDL_Keycode;
+    pub fn SDL_GetKeyFromName(name: *const ::core::ffi::c_char) -> SDL_Keycode;
 }
 unsafe extern "C" {
     pub fn SDL_StartTextInput(window: *mut SDL_Window) -> bool;
@@ -5500,14 +5683,14 @@ unsafe extern "C" {
     pub fn SDL_SetTextInputArea(
         window: *mut SDL_Window,
         rect: *const SDL_Rect,
-        cursor: libc::c_int,
+        cursor: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetTextInputArea(
         window: *mut SDL_Window,
         rect: *mut SDL_Rect,
-        cursor: *mut libc::c_int,
+        cursor: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5520,10 +5703,10 @@ unsafe extern "C" {
     pub fn SDL_HasMouse() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetMice(count: *mut libc::c_int) -> *mut SDL_MouseID;
+    pub fn SDL_GetMice(count: *mut ::core::ffi::c_int) -> *mut SDL_MouseID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetMouseNameForID(instance_id: SDL_MouseID) -> *const libc::c_char;
+    pub fn SDL_GetMouseNameForID(instance_id: SDL_MouseID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetMouseFocus() -> *mut SDL_Window;
@@ -5556,17 +5739,17 @@ unsafe extern "C" {
     pub fn SDL_CreateCursor(
         data: *const Uint8,
         mask: *const Uint8,
-        w: libc::c_int,
-        h: libc::c_int,
-        hot_x: libc::c_int,
-        hot_y: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
+        hot_x: ::core::ffi::c_int,
+        hot_y: ::core::ffi::c_int,
     ) -> *mut SDL_Cursor;
 }
 unsafe extern "C" {
     pub fn SDL_CreateColorCursor(
         surface: *mut SDL_Surface,
-        hot_x: libc::c_int,
-        hot_y: libc::c_int,
+        hot_x: ::core::ffi::c_int,
+        hot_y: ::core::ffi::c_int,
     ) -> *mut SDL_Cursor;
 }
 unsafe extern "C" {
@@ -5594,10 +5777,10 @@ unsafe extern "C" {
     pub fn SDL_CursorVisible() -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetTouchDevices(count: *mut libc::c_int) -> *mut SDL_TouchID;
+    pub fn SDL_GetTouchDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_TouchID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetTouchDeviceName(touchID: SDL_TouchID) -> *const libc::c_char;
+    pub fn SDL_GetTouchDeviceName(touchID: SDL_TouchID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetTouchDeviceType(touchID: SDL_TouchID) -> SDL_TouchDeviceType;
@@ -5605,7 +5788,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetTouchFingers(
         touchID: SDL_TouchID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_Finger;
 }
 unsafe extern "C" {
@@ -5614,11 +5797,11 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_PeepEvents(
         events: *mut SDL_Event,
-        numevents: libc::c_int,
+        numevents: ::core::ffi::c_int,
         action: SDL_EventAction,
         minType: Uint32,
         maxType: Uint32,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_HasEvent(type_: Uint32) -> bool;
@@ -5645,22 +5828,22 @@ unsafe extern "C" {
     pub fn SDL_PushEvent(event: *mut SDL_Event) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetEventFilter(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_SetEventFilter(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     pub fn SDL_GetEventFilter(
         filter: *mut SDL_EventFilter,
-        userdata: *mut *mut libc::c_void,
+        userdata: *mut *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_AddEventWatch(filter: SDL_EventFilter, userdata: *mut libc::c_void) -> bool;
+    pub fn SDL_AddEventWatch(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_RemoveEventWatch(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_RemoveEventWatch(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
-    pub fn SDL_FilterEvents(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_FilterEvents(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     pub fn SDL_SetEventEnabled(type_: Uint32, enabled: bool);
@@ -5669,58 +5852,66 @@ unsafe extern "C" {
     pub fn SDL_EventEnabled(type_: Uint32) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_RegisterEvents(numevents: libc::c_int) -> Uint32;
+    pub fn SDL_RegisterEvents(numevents: ::core::ffi::c_int) -> Uint32;
 }
 unsafe extern "C" {
     pub fn SDL_GetWindowFromEvent(event: *const SDL_Event) -> *mut SDL_Window;
 }
 unsafe extern "C" {
-    pub fn SDL_GetBasePath() -> *const libc::c_char;
+    pub fn SDL_GetBasePath() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPrefPath(org: *const libc::c_char, app: *const libc::c_char)
-        -> *mut libc::c_char;
+    pub fn SDL_GetPrefPath(
+        org: *const ::core::ffi::c_char,
+        app: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetUserFolder(folder: SDL_Folder) -> *const libc::c_char;
+    pub fn SDL_GetUserFolder(folder: SDL_Folder) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_CreateDirectory(path: *const libc::c_char) -> bool;
+    pub fn SDL_CreateDirectory(path: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_EnumerateDirectory(
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         callback: SDL_EnumerateDirectoryCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_RemovePath(path: *const libc::c_char) -> bool;
+    pub fn SDL_RemovePath(path: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_RenamePath(oldpath: *const libc::c_char, newpath: *const libc::c_char) -> bool;
+    pub fn SDL_RenamePath(
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_CopyFile(oldpath: *const libc::c_char, newpath: *const libc::c_char) -> bool;
+    pub fn SDL_CopyFile(
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPathInfo(path: *const libc::c_char, info: *mut SDL_PathInfo) -> bool;
+    pub fn SDL_GetPathInfo(path: *const ::core::ffi::c_char, info: *mut SDL_PathInfo) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GlobDirectory(
-        path: *const libc::c_char,
-        pattern: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
+        pattern: *const ::core::ffi::c_char,
         flags: SDL_GlobFlags,
-        count: *mut libc::c_int,
-    ) -> *mut *mut libc::c_char;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetCurrentDirectory() -> *mut libc::c_char;
+    pub fn SDL_GetCurrentDirectory() -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GPUSupportsShaderFormats(
         format_flags: SDL_GPUShaderFormat,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5730,7 +5921,7 @@ unsafe extern "C" {
     pub fn SDL_CreateGPUDevice(
         format_flags: SDL_GPUShaderFormat,
         debug_mode: bool,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> *mut SDL_GPUDevice;
 }
 unsafe extern "C" {
@@ -5740,13 +5931,13 @@ unsafe extern "C" {
     pub fn SDL_DestroyGPUDevice(device: *mut SDL_GPUDevice);
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumGPUDrivers() -> libc::c_int;
+    pub fn SDL_GetNumGPUDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGPUDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetGPUDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetGPUDeviceDriver(device: *mut SDL_GPUDevice) -> *const libc::c_char;
+    pub fn SDL_GetGPUDeviceDriver(device: *mut SDL_GPUDevice) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetGPUShaderFormats(device: *mut SDL_GPUDevice) -> SDL_GPUShaderFormat;
@@ -5797,26 +5988,26 @@ unsafe extern "C" {
     pub fn SDL_SetGPUBufferName(
         device: *mut SDL_GPUDevice,
         buffer: *mut SDL_GPUBuffer,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     pub fn SDL_SetGPUTextureName(
         device: *mut SDL_GPUDevice,
         texture: *mut SDL_GPUTexture,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     pub fn SDL_InsertGPUDebugLabel(
         command_buffer: *mut SDL_GPUCommandBuffer,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     pub fn SDL_PushGPUDebugGroup(
         command_buffer: *mut SDL_GPUCommandBuffer,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
@@ -5859,7 +6050,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUVertexUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -5867,7 +6058,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUFragmentUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -5875,7 +6066,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUComputeUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -6074,7 +6265,7 @@ unsafe extern "C" {
         device: *mut SDL_GPUDevice,
         transfer_buffer: *mut SDL_GPUTransferBuffer,
         cycle: bool,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_UnmapGPUTransferBuffer(
@@ -6267,10 +6458,10 @@ unsafe extern "C" {
     ) -> Uint32;
 }
 unsafe extern "C" {
-    pub fn SDL_GetHaptics(count: *mut libc::c_int) -> *mut SDL_HapticID;
+    pub fn SDL_GetHaptics(count: *mut ::core::ffi::c_int) -> *mut SDL_HapticID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetHapticNameForID(instance_id: SDL_HapticID) -> *const libc::c_char;
+    pub fn SDL_GetHapticNameForID(instance_id: SDL_HapticID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_OpenHaptic(instance_id: SDL_HapticID) -> *mut SDL_Haptic;
@@ -6282,7 +6473,7 @@ unsafe extern "C" {
     pub fn SDL_GetHapticID(haptic: *mut SDL_Haptic) -> SDL_HapticID;
 }
 unsafe extern "C" {
-    pub fn SDL_GetHapticName(haptic: *mut SDL_Haptic) -> *const libc::c_char;
+    pub fn SDL_GetHapticName(haptic: *mut SDL_Haptic) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_IsMouseHaptic() -> bool;
@@ -6300,16 +6491,16 @@ unsafe extern "C" {
     pub fn SDL_CloseHaptic(haptic: *mut SDL_Haptic);
 }
 unsafe extern "C" {
-    pub fn SDL_GetMaxHapticEffects(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetMaxHapticEffects(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetMaxHapticEffectsPlaying(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetMaxHapticEffectsPlaying(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetHapticFeatures(haptic: *mut SDL_Haptic) -> Uint32;
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumHapticAxes(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetNumHapticAxes(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_HapticEffectSupported(
@@ -6321,36 +6512,37 @@ unsafe extern "C" {
     pub fn SDL_CreateHapticEffect(
         haptic: *mut SDL_Haptic,
         effect: *const SDL_HapticEffect,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_UpdateHapticEffect(
         haptic: *mut SDL_Haptic,
-        effect: libc::c_int,
+        effect: ::core::ffi::c_int,
         data: *const SDL_HapticEffect,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_RunHapticEffect(
         haptic: *mut SDL_Haptic,
-        effect: libc::c_int,
+        effect: ::core::ffi::c_int,
         iterations: Uint32,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_StopHapticEffect(haptic: *mut SDL_Haptic, effect: libc::c_int) -> bool;
+    pub fn SDL_StopHapticEffect(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_DestroyHapticEffect(haptic: *mut SDL_Haptic, effect: libc::c_int);
+    pub fn SDL_DestroyHapticEffect(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int);
 }
 unsafe extern "C" {
-    pub fn SDL_GetHapticEffectStatus(haptic: *mut SDL_Haptic, effect: libc::c_int) -> bool;
+    pub fn SDL_GetHapticEffectStatus(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetHapticGain(haptic: *mut SDL_Haptic, gain: libc::c_int) -> bool;
+    pub fn SDL_SetHapticGain(haptic: *mut SDL_Haptic, gain: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetHapticAutocenter(haptic: *mut SDL_Haptic, autocenter: libc::c_int) -> bool;
+    pub fn SDL_SetHapticAutocenter(haptic: *mut SDL_Haptic, autocenter: ::core::ffi::c_int)
+        -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_PauseHaptic(haptic: *mut SDL_Haptic) -> bool;
@@ -6374,18 +6566,18 @@ unsafe extern "C" {
     pub fn SDL_StopHapticRumble(haptic: *mut SDL_Haptic) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_hid_init() -> libc::c_int;
+    pub fn SDL_hid_init() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_hid_exit() -> libc::c_int;
+    pub fn SDL_hid_exit() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_device_change_count() -> Uint32;
 }
 unsafe extern "C" {
     pub fn SDL_hid_enumerate(
-        vendor_id: libc::c_ushort,
-        product_id: libc::c_ushort,
+        vendor_id: ::core::ffi::c_ushort,
+        product_id: ::core::ffi::c_ushort,
     ) -> *mut SDL_hid_device_info;
 }
 unsafe extern "C" {
@@ -6393,91 +6585,94 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn SDL_hid_open(
-        vendor_id: libc::c_ushort,
-        product_id: libc::c_ushort,
+        vendor_id: ::core::ffi::c_ushort,
+        product_id: ::core::ffi::c_ushort,
         serial_number: *const wchar_t,
     ) -> *mut SDL_hid_device;
 }
 unsafe extern "C" {
-    pub fn SDL_hid_open_path(path: *const libc::c_char) -> *mut SDL_hid_device;
+    pub fn SDL_hid_open_path(path: *const ::core::ffi::c_char) -> *mut SDL_hid_device;
 }
 unsafe extern "C" {
     pub fn SDL_hid_write(
         dev: *mut SDL_hid_device,
-        data: *const libc::c_uchar,
+        data: *const ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_read_timeout(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-        milliseconds: libc::c_int,
-    ) -> libc::c_int;
+        milliseconds: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_read(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_hid_set_nonblocking(dev: *mut SDL_hid_device, nonblock: libc::c_int) -> libc::c_int;
+    pub fn SDL_hid_set_nonblocking(
+        dev: *mut SDL_hid_device,
+        nonblock: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_send_feature_report(
         dev: *mut SDL_hid_device,
-        data: *const libc::c_uchar,
+        data: *const ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_feature_report(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_input_report(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_hid_close(dev: *mut SDL_hid_device) -> libc::c_int;
+    pub fn SDL_hid_close(dev: *mut SDL_hid_device) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_manufacturer_string(
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_product_string(
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_serial_number_string(
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_indexed_string(
         dev: *mut SDL_hid_device,
-        string_index: libc::c_int,
+        string_index: ::core::ffi::c_int,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_get_device_info(dev: *mut SDL_hid_device) -> *mut SDL_hid_device_info;
@@ -6485,47 +6680,48 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_hid_get_report_descriptor(
         dev: *mut SDL_hid_device,
-        buf: *mut libc::c_uchar,
+        buf: *mut ::core::ffi::c_uchar,
         buf_size: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_hid_ble_scan(active: bool);
 }
 unsafe extern "C" {
     pub fn SDL_SetHintWithPriority(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
         priority: SDL_HintPriority,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetHint(name: *const libc::c_char, value: *const libc::c_char) -> bool;
+    pub fn SDL_SetHint(name: *const ::core::ffi::c_char, value: *const ::core::ffi::c_char)
+        -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_ResetHint(name: *const libc::c_char) -> bool;
+    pub fn SDL_ResetHint(name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_ResetHints();
 }
 unsafe extern "C" {
-    pub fn SDL_GetHint(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_GetHint(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_GetHintBoolean(name: *const libc::c_char, default_value: bool) -> bool;
+    pub fn SDL_GetHintBoolean(name: *const ::core::ffi::c_char, default_value: bool) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_AddHintCallback(
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         callback: SDL_HintCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_RemoveHintCallback(
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         callback: SDL_HintCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
@@ -6549,94 +6745,98 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_RunOnMainThread(
         callback: SDL_MainThreadCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         wait_complete: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetAppMetadata(
-        appname: *const libc::c_char,
-        appversion: *const libc::c_char,
-        appidentifier: *const libc::c_char,
+        appname: *const ::core::ffi::c_char,
+        appversion: *const ::core::ffi::c_char,
+        appidentifier: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetAppMetadataProperty(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetAppMetadataProperty(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_GetAppMetadataProperty(
+        name: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn SDL_LoadObject(sofile: *const libc::c_char) -> *mut SDL_SharedObject;
+    pub fn SDL_LoadObject(sofile: *const ::core::ffi::c_char) -> *mut SDL_SharedObject;
 }
 unsafe extern "C" {
     pub fn SDL_LoadFunction(
         handle: *mut SDL_SharedObject,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
     pub fn SDL_UnloadObject(handle: *mut SDL_SharedObject);
 }
 unsafe extern "C" {
-    pub fn SDL_GetPreferredLocales(count: *mut libc::c_int) -> *mut *mut SDL_Locale;
+    pub fn SDL_GetPreferredLocales(count: *mut ::core::ffi::c_int) -> *mut *mut SDL_Locale;
 }
 unsafe extern "C" {
     pub fn SDL_SetLogPriorities(priority: SDL_LogPriority);
 }
 unsafe extern "C" {
-    pub fn SDL_SetLogPriority(category: libc::c_int, priority: SDL_LogPriority);
+    pub fn SDL_SetLogPriority(category: ::core::ffi::c_int, priority: SDL_LogPriority);
 }
 unsafe extern "C" {
-    pub fn SDL_GetLogPriority(category: libc::c_int) -> SDL_LogPriority;
+    pub fn SDL_GetLogPriority(category: ::core::ffi::c_int) -> SDL_LogPriority;
 }
 unsafe extern "C" {
     pub fn SDL_ResetLogPriorities();
 }
 unsafe extern "C" {
-    pub fn SDL_SetLogPriorityPrefix(priority: SDL_LogPriority, prefix: *const libc::c_char)
-        -> bool;
+    pub fn SDL_SetLogPriorityPrefix(
+        priority: SDL_LogPriority,
+        prefix: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_Log(fmt: *const libc::c_char, ...);
+    pub fn SDL_Log(fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogTrace(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogTrace(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogVerbose(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogVerbose(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogDebug(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogDebug(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogInfo(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogInfo(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogWarn(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogWarn(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogError(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogError(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
-    pub fn SDL_LogCritical(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogCritical(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     pub fn SDL_LogMessage(
-        category: libc::c_int,
+        category: ::core::ffi::c_int,
         priority: SDL_LogPriority,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
     );
 }
 unsafe extern "C" {
     pub fn SDL_LogMessageV(
-        category: libc::c_int,
+        category: ::core::ffi::c_int,
         priority: SDL_LogPriority,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
     );
 }
@@ -6646,23 +6846,26 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetLogOutputFunction(
         callback: *mut SDL_LogOutputFunction,
-        userdata: *mut *mut libc::c_void,
+        userdata: *mut *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
-    pub fn SDL_SetLogOutputFunction(callback: SDL_LogOutputFunction, userdata: *mut libc::c_void);
+    pub fn SDL_SetLogOutputFunction(
+        callback: SDL_LogOutputFunction,
+        userdata: *mut ::core::ffi::c_void,
+    );
 }
 unsafe extern "C" {
     pub fn SDL_ShowMessageBox(
         messageboxdata: *const SDL_MessageBoxData,
-        buttonid: *mut libc::c_int,
+        buttonid: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_ShowSimpleMessageBox(
         flags: SDL_MessageBoxFlags,
-        title: *const libc::c_char,
-        message: *const libc::c_char,
+        title: *const ::core::ffi::c_char,
+        message: *const ::core::ffi::c_char,
         window: *mut SDL_Window,
     ) -> bool;
 }
@@ -6673,17 +6876,17 @@ unsafe extern "C" {
     pub fn SDL_Metal_DestroyView(view: SDL_MetalView);
 }
 unsafe extern "C" {
-    pub fn SDL_Metal_GetLayer(view: SDL_MetalView) -> *mut libc::c_void;
+    pub fn SDL_Metal_GetLayer(view: SDL_MetalView) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_OpenURL(url: *const libc::c_char) -> bool;
+    pub fn SDL_OpenURL(url: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetPlatform() -> *const libc::c_char;
+    pub fn SDL_GetPlatform() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_CreateProcess(
-        args: *const *const libc::c_char,
+        args: *const *const ::core::ffi::c_char,
         pipe_stdio: bool,
     ) -> *mut SDL_Process;
 }
@@ -6697,8 +6900,8 @@ unsafe extern "C" {
     pub fn SDL_ReadProcess(
         process: *mut SDL_Process,
         datasize: *mut usize,
-        exitcode: *mut libc::c_int,
-    ) -> *mut libc::c_void;
+        exitcode: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_GetProcessInput(process: *mut SDL_Process) -> *mut SDL_IOStream;
@@ -6713,23 +6916,23 @@ unsafe extern "C" {
     pub fn SDL_WaitProcess(
         process: *mut SDL_Process,
         block: bool,
-        exitcode: *mut libc::c_int,
+        exitcode: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_DestroyProcess(process: *mut SDL_Process);
 }
 unsafe extern "C" {
-    pub fn SDL_GetNumRenderDrivers() -> libc::c_int;
+    pub fn SDL_GetNumRenderDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRenderDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetRenderDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_CreateWindowAndRenderer(
-        title: *const libc::c_char,
-        width: libc::c_int,
-        height: libc::c_int,
+        title: *const ::core::ffi::c_char,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         window_flags: SDL_WindowFlags,
         window: *mut *mut SDL_Window,
         renderer: *mut *mut SDL_Renderer,
@@ -6738,7 +6941,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_CreateRenderer(
         window: *mut SDL_Window,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> *mut SDL_Renderer;
 }
 unsafe extern "C" {
@@ -6754,7 +6957,7 @@ unsafe extern "C" {
     pub fn SDL_GetRenderWindow(renderer: *mut SDL_Renderer) -> *mut SDL_Window;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRendererName(renderer: *mut SDL_Renderer) -> *const libc::c_char;
+    pub fn SDL_GetRendererName(renderer: *mut SDL_Renderer) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_GetRendererProperties(renderer: *mut SDL_Renderer) -> SDL_PropertiesID;
@@ -6762,15 +6965,15 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetRenderOutputSize(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetCurrentRenderOutputSize(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6778,8 +6981,8 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         format: SDL_PixelFormat,
         access: SDL_TextureAccess,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
     ) -> *mut SDL_Texture;
 }
 unsafe extern "C" {
@@ -6859,8 +7062,8 @@ unsafe extern "C" {
     pub fn SDL_UpdateTexture(
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
-        pixels: *const libc::c_void,
-        pitch: libc::c_int,
+        pixels: *const ::core::ffi::c_void,
+        pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6868,11 +7071,11 @@ unsafe extern "C" {
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
         Yplane: *const Uint8,
-        Ypitch: libc::c_int,
+        Ypitch: ::core::ffi::c_int,
         Uplane: *const Uint8,
-        Upitch: libc::c_int,
+        Upitch: ::core::ffi::c_int,
         Vplane: *const Uint8,
-        Vpitch: libc::c_int,
+        Vpitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6880,17 +7083,17 @@ unsafe extern "C" {
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
         Yplane: *const Uint8,
-        Ypitch: libc::c_int,
+        Ypitch: ::core::ffi::c_int,
         UVplane: *const Uint8,
-        UVpitch: libc::c_int,
+        UVpitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_LockTexture(
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
-        pixels: *mut *mut libc::c_void,
-        pitch: *mut libc::c_int,
+        pixels: *mut *mut ::core::ffi::c_void,
+        pitch: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6912,16 +7115,16 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_SetRenderLogicalPresentation(
         renderer: *mut SDL_Renderer,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         mode: SDL_RendererLogicalPresentation,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetRenderLogicalPresentation(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
         mode: *mut SDL_RendererLogicalPresentation,
     ) -> bool;
 }
@@ -7050,7 +7253,7 @@ unsafe extern "C" {
     pub fn SDL_RenderPoints(
         renderer: *mut SDL_Renderer,
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7060,7 +7263,7 @@ unsafe extern "C" {
     pub fn SDL_RenderLines(
         renderer: *mut SDL_Renderer,
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7070,7 +7273,7 @@ unsafe extern "C" {
     pub fn SDL_RenderRects(
         renderer: *mut SDL_Renderer,
         rects: *const SDL_FRect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7080,7 +7283,7 @@ unsafe extern "C" {
     pub fn SDL_RenderFillRects(
         renderer: *mut SDL_Renderer,
         rects: *const SDL_FRect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7139,9 +7342,9 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
         vertices: *const SDL_Vertex,
-        num_vertices: libc::c_int,
-        indices: *const libc::c_int,
-        num_indices: libc::c_int,
+        num_vertices: ::core::ffi::c_int,
+        indices: *const ::core::ffi::c_int,
+        num_indices: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7149,15 +7352,15 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
         xy: *const f32,
-        xy_stride: libc::c_int,
+        xy_stride: ::core::ffi::c_int,
         color: *const SDL_FColor,
-        color_stride: libc::c_int,
+        color_stride: ::core::ffi::c_int,
         uv: *const f32,
-        uv_stride: libc::c_int,
-        num_vertices: libc::c_int,
-        indices: *const libc::c_void,
-        num_indices: libc::c_int,
-        size_indices: libc::c_int,
+        uv_stride: ::core::ffi::c_int,
+        num_vertices: ::core::ffi::c_int,
+        indices: *const ::core::ffi::c_void,
+        num_indices: ::core::ffi::c_int,
+        size_indices: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7179,10 +7382,12 @@ unsafe extern "C" {
     pub fn SDL_FlushRenderer(renderer: *mut SDL_Renderer) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRenderMetalLayer(renderer: *mut SDL_Renderer) -> *mut libc::c_void;
+    pub fn SDL_GetRenderMetalLayer(renderer: *mut SDL_Renderer) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRenderMetalCommandEncoder(renderer: *mut SDL_Renderer) -> *mut libc::c_void;
+    pub fn SDL_GetRenderMetalCommandEncoder(
+        renderer: *mut SDL_Renderer,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn SDL_AddVulkanRenderSemaphores(
@@ -7193,17 +7398,17 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_SetRenderVSync(renderer: *mut SDL_Renderer, vsync: libc::c_int) -> bool;
+    pub fn SDL_SetRenderVSync(renderer: *mut SDL_Renderer, vsync: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRenderVSync(renderer: *mut SDL_Renderer, vsync: *mut libc::c_int) -> bool;
+    pub fn SDL_GetRenderVSync(renderer: *mut SDL_Renderer, vsync: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_RenderDebugText(
         renderer: *mut SDL_Renderer,
         x: f32,
         y: f32,
-        str_: *const libc::c_char,
+        str_: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7211,30 +7416,30 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         x: f32,
         y: f32,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_OpenTitleStorage(
-        override_: *const libc::c_char,
+        override_: *const ::core::ffi::c_char,
         props: SDL_PropertiesID,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
     pub fn SDL_OpenUserStorage(
-        org: *const libc::c_char,
-        app: *const libc::c_char,
+        org: *const ::core::ffi::c_char,
+        app: *const ::core::ffi::c_char,
         props: SDL_PropertiesID,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
-    pub fn SDL_OpenFileStorage(path: *const libc::c_char) -> *mut SDL_Storage;
+    pub fn SDL_OpenFileStorage(path: *const ::core::ffi::c_char) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
     pub fn SDL_OpenStorage(
         iface: *const SDL_StorageInterface,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
@@ -7246,59 +7451,64 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetStorageFileSize(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         length: *mut Uint64,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_ReadStorageFile(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        destination: *mut libc::c_void,
+        path: *const ::core::ffi::c_char,
+        destination: *mut ::core::ffi::c_void,
         length: Uint64,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_WriteStorageFile(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        source: *const libc::c_void,
+        path: *const ::core::ffi::c_char,
+        source: *const ::core::ffi::c_void,
         length: Uint64,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_CreateStorageDirectory(storage: *mut SDL_Storage, path: *const libc::c_char)
-        -> bool;
+    pub fn SDL_CreateStorageDirectory(
+        storage: *mut SDL_Storage,
+        path: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_EnumerateStorageDirectory(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         callback: SDL_EnumerateDirectoryCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_RemoveStoragePath(storage: *mut SDL_Storage, path: *const libc::c_char) -> bool;
+    pub fn SDL_RemoveStoragePath(
+        storage: *mut SDL_Storage,
+        path: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_RenameStoragePath(
         storage: *mut SDL_Storage,
-        oldpath: *const libc::c_char,
-        newpath: *const libc::c_char,
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_CopyStorageFile(
         storage: *mut SDL_Storage,
-        oldpath: *const libc::c_char,
-        newpath: *const libc::c_char,
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_GetStoragePathInfo(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         info: *mut SDL_PathInfo,
     ) -> bool;
 }
@@ -7308,11 +7518,11 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GlobStorageDirectory(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        pattern: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
+        pattern: *const ::core::ffi::c_char,
         flags: SDL_GlobFlags,
-        count: *mut libc::c_int,
-    ) -> *mut *mut libc::c_char;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut *mut ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7321,16 +7531,16 @@ pub struct _XEvent {
 }
 pub type XEvent = _XEvent;
 unsafe extern "C" {
-    pub fn SDL_SetX11EventHook(callback: SDL_X11EventHook, userdata: *mut libc::c_void);
+    pub fn SDL_SetX11EventHook(callback: SDL_X11EventHook, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
-    pub fn SDL_SetLinuxThreadPriority(threadID: Sint64, priority: libc::c_int) -> bool;
+    pub fn SDL_SetLinuxThreadPriority(threadID: Sint64, priority: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     pub fn SDL_SetLinuxThreadPriorityAndPolicy(
         threadID: Sint64,
-        sdlPriority: libc::c_int,
-        schedPolicy: libc::c_int,
+        sdlPriority: ::core::ffi::c_int,
+        schedPolicy: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7386,15 +7596,24 @@ unsafe extern "C" {
     pub fn SDL_TimeFromWindows(dwLowDateTime: Uint32, dwHighDateTime: Uint32) -> SDL_Time;
 }
 unsafe extern "C" {
-    pub fn SDL_GetDaysInMonth(year: libc::c_int, month: libc::c_int) -> libc::c_int;
+    pub fn SDL_GetDaysInMonth(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetDayOfYear(year: libc::c_int, month: libc::c_int, day: libc::c_int)
-        -> libc::c_int;
+    pub fn SDL_GetDayOfYear(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+        day: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetDayOfWeek(year: libc::c_int, month: libc::c_int, day: libc::c_int)
-        -> libc::c_int;
+    pub fn SDL_GetDayOfWeek(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+        day: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn SDL_GetTicks() -> Uint64;
@@ -7421,27 +7640,30 @@ unsafe extern "C" {
     pub fn SDL_AddTimer(
         interval: Uint32,
         callback: SDL_TimerCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> SDL_TimerID;
 }
 unsafe extern "C" {
     pub fn SDL_AddTimerNS(
         interval: Uint64,
         callback: SDL_NSTimerCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> SDL_TimerID;
 }
 unsafe extern "C" {
     pub fn SDL_RemoveTimer(id: SDL_TimerID) -> bool;
 }
 unsafe extern "C" {
-    pub fn SDL_CreateTray(icon: *mut SDL_Surface, tooltip: *const libc::c_char) -> *mut SDL_Tray;
+    pub fn SDL_CreateTray(
+        icon: *mut SDL_Surface,
+        tooltip: *const ::core::ffi::c_char,
+    ) -> *mut SDL_Tray;
 }
 unsafe extern "C" {
     pub fn SDL_SetTrayIcon(tray: *mut SDL_Tray, icon: *mut SDL_Surface);
 }
 unsafe extern "C" {
-    pub fn SDL_SetTrayTooltip(tray: *mut SDL_Tray, tooltip: *const libc::c_char);
+    pub fn SDL_SetTrayTooltip(tray: *mut SDL_Tray, tooltip: *const ::core::ffi::c_char);
 }
 unsafe extern "C" {
     pub fn SDL_CreateTrayMenu(tray: *mut SDL_Tray) -> *mut SDL_TrayMenu;
@@ -7458,7 +7680,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_GetTrayEntries(
         menu: *mut SDL_TrayMenu,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *const SDL_TrayEntry;
 }
 unsafe extern "C" {
@@ -7467,16 +7689,16 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn SDL_InsertTrayEntryAt(
         menu: *mut SDL_TrayMenu,
-        pos: libc::c_int,
-        label: *const libc::c_char,
+        pos: ::core::ffi::c_int,
+        label: *const ::core::ffi::c_char,
         flags: SDL_TrayEntryFlags,
     ) -> *mut SDL_TrayEntry;
 }
 unsafe extern "C" {
-    pub fn SDL_SetTrayEntryLabel(entry: *mut SDL_TrayEntry, label: *const libc::c_char);
+    pub fn SDL_SetTrayEntryLabel(entry: *mut SDL_TrayEntry, label: *const ::core::ffi::c_char);
 }
 unsafe extern "C" {
-    pub fn SDL_GetTrayEntryLabel(entry: *mut SDL_TrayEntry) -> *const libc::c_char;
+    pub fn SDL_GetTrayEntryLabel(entry: *mut SDL_TrayEntry) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn SDL_SetTrayEntryChecked(entry: *mut SDL_TrayEntry, checked: bool);
@@ -7494,7 +7716,7 @@ unsafe extern "C" {
     pub fn SDL_SetTrayEntryCallback(
         entry: *mut SDL_TrayEntry,
         callback: SDL_TrayCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
@@ -7516,26 +7738,26 @@ unsafe extern "C" {
     pub fn SDL_UpdateTrays();
 }
 unsafe extern "C" {
-    pub fn SDL_GetVersion() -> libc::c_int;
+    pub fn SDL_GetVersion() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn SDL_GetRevision() -> *const libc::c_char;
+    pub fn SDL_GetRevision() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " This function gets the version of the dynamically linked SDL_image library.\n\n \\returns SDL_image version.\n\n \\since This function is available since SDL_image 3.0.0."]
-    pub fn IMG_Version() -> libc::c_int;
+    pub fn IMG_Version() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Load an image from an SDL data source into a software surface.\n\n An SDL_Surface is a buffer of pixels in memory accessible by the CPU. Use\n this if you plan to hand the data to something else or manipulate it\n further in code.\n\n There are no guarantees about what format the new SDL_Surface data will be;\n in many cases, SDL_image will attempt to supply a surface that exactly\n matches the provided image, but in others it might have to convert (either\n because the image is in a format that SDL doesn't directly support or\n because it's compressed data that could reasonably uncompress to various\n formats and SDL_image had to pick one). You can inspect an SDL_Surface for\n its specifics, and use SDL_ConvertSurface to then migrate to any supported\n format.\n\n If the image format supports a transparent pixel, SDL will set the colorkey\n for the surface. You can enable RLE acceleration on the surface afterwards\n by calling: SDL_SetSurfaceColorKey(image, SDL_RLEACCEL,\n image->format->colorkey);\n\n If `closeio` is true, `src` will be closed before returning, whether this\n function succeeds or not. SDL_image reads everything it needs from `src`\n during this call in any case.\n\n Even though this function accepts a file type, SDL_image may still try\n other decoders that are capable of detecting file type from the contents of\n the image data, but may rely on the caller-provided type string for formats\n that it cannot autodetect. If `type` is NULL, SDL_image will rely solely on\n its ability to guess the format.\n\n There is a separate function to read files from disk without having to deal\n with SDL_IOStream: `IMG_Load(\"filename.jpg\")` will call this function and\n manage those details for you, determining the file type from the filename's\n extension.\n\n There is also IMG_Load_IO(), which is equivalent to this function except\n that it will rely on SDL_image to determine what type of data it is\n loading, much like passing a NULL for type.\n\n If you are using SDL's 2D rendering API, there is an equivalent call to\n load images directly into an SDL_Texture for use by the GPU without using a\n software surface: call IMG_LoadTextureTyped_IO() instead.\n\n When done with the returned surface, the app should dispose of it with a\n call to SDL_DestroySurface().\n\n \\param src an SDL_IOStream that data will be read from.\n \\param closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n \\param type a filename extension that represent this data (\"BMP\", \"GIF\",\n             \"PNG\", etc).\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_Load\n \\sa IMG_Load_IO\n \\sa SDL_DestroySurface"]
     pub fn IMG_LoadTyped_IO(
         src: *mut SDL_IOStream,
         closeio: bool,
-        type_: *const libc::c_char,
+        type_: *const ::core::ffi::c_char,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Load an image from a filesystem path into a software surface.\n\n An SDL_Surface is a buffer of pixels in memory accessible by the CPU. Use\n this if you plan to hand the data to something else or manipulate it\n further in code.\n\n There are no guarantees about what format the new SDL_Surface data will be;\n in many cases, SDL_image will attempt to supply a surface that exactly\n matches the provided image, but in others it might have to convert (either\n because the image is in a format that SDL doesn't directly support or\n because it's compressed data that could reasonably uncompress to various\n formats and SDL_image had to pick one). You can inspect an SDL_Surface for\n its specifics, and use SDL_ConvertSurface to then migrate to any supported\n format.\n\n If the image format supports a transparent pixel, SDL will set the colorkey\n for the surface. You can enable RLE acceleration on the surface afterwards\n by calling: SDL_SetSurfaceColorKey(image, SDL_RLEACCEL,\n image->format->colorkey);\n\n There is a separate function to read files from an SDL_IOStream, if you\n need an i/o abstraction to provide data from anywhere instead of a simple\n filesystem read; that function is IMG_Load_IO().\n\n If you are using SDL's 2D rendering API, there is an equivalent call to\n load images directly into an SDL_Texture for use by the GPU without using a\n software surface: call IMG_LoadTexture() instead.\n\n When done with the returned surface, the app should dispose of it with a\n call to\n [SDL_DestroySurface](https://wiki.libsdl.org/SDL3/SDL_DestroySurface)\n ().\n\n \\param file a path on the filesystem to load an image from.\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_LoadTyped_IO\n \\sa IMG_Load_IO\n \\sa SDL_DestroySurface"]
-    pub fn IMG_Load(file: *const libc::c_char) -> *mut SDL_Surface;
+    pub fn IMG_Load(file: *const ::core::ffi::c_char) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Load an image from an SDL data source into a software surface.\n\n An SDL_Surface is a buffer of pixels in memory accessible by the CPU. Use\n this if you plan to hand the data to something else or manipulate it\n further in code.\n\n There are no guarantees about what format the new SDL_Surface data will be;\n in many cases, SDL_image will attempt to supply a surface that exactly\n matches the provided image, but in others it might have to convert (either\n because the image is in a format that SDL doesn't directly support or\n because it's compressed data that could reasonably uncompress to various\n formats and SDL_image had to pick one). You can inspect an SDL_Surface for\n its specifics, and use SDL_ConvertSurface to then migrate to any supported\n format.\n\n If the image format supports a transparent pixel, SDL will set the colorkey\n for the surface. You can enable RLE acceleration on the surface afterwards\n by calling: SDL_SetSurfaceColorKey(image, SDL_RLEACCEL,\n image->format->colorkey);\n\n If `closeio` is true, `src` will be closed before returning, whether this\n function succeeds or not. SDL_image reads everything it needs from `src`\n during this call in any case.\n\n There is a separate function to read files from disk without having to deal\n with SDL_IOStream: `IMG_Load(\"filename.jpg\")` will call this function and\n manage those details for you, determining the file type from the filename's\n extension.\n\n There is also IMG_LoadTyped_IO(), which is equivalent to this function\n except a file extension (like \"BMP\", \"JPG\", etc) can be specified, in case\n SDL_image cannot autodetect the file format.\n\n If you are using SDL's 2D rendering API, there is an equivalent call to\n load images directly into an SDL_Texture for use by the GPU without using a\n software surface: call IMG_LoadTexture_IO() instead.\n\n When done with the returned surface, the app should dispose of it with a\n call to SDL_DestroySurface().\n\n \\param src an SDL_IOStream that data will be read from.\n \\param closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_Load\n \\sa IMG_LoadTyped_IO\n \\sa SDL_DestroySurface"]
@@ -7545,7 +7767,7 @@ unsafe extern "C" {
     #[doc = " Load an image from a filesystem path into a GPU texture.\n\n An SDL_Texture represents an image in GPU memory, usable by SDL's 2D Render\n API. This can be significantly more efficient than using a CPU-bound\n SDL_Surface if you don't need to manipulate the image directly after\n loading it.\n\n If the loaded image has transparency or a colorkey, a texture with an alpha\n channel will be created. Otherwise, SDL_image will attempt to create an\n SDL_Texture in the most format that most reasonably represents the image\n data (but in many cases, this will just end up being 32-bit RGB or 32-bit\n RGBA).\n\n There is a separate function to read files from an SDL_IOStream, if you\n need an i/o abstraction to provide data from anywhere instead of a simple\n filesystem read; that function is IMG_LoadTexture_IO().\n\n If you would rather decode an image to an SDL_Surface (a buffer of pixels\n in CPU memory), call IMG_Load() instead.\n\n When done with the returned texture, the app should dispose of it with a\n call to SDL_DestroyTexture().\n\n \\param renderer the SDL_Renderer to use to create the GPU texture.\n \\param file a path on the filesystem to load an image from.\n \\returns a new texture, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_LoadTextureTyped_IO\n \\sa IMG_LoadTexture_IO"]
     pub fn IMG_LoadTexture(
         renderer: *mut SDL_Renderer,
-        file: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
     ) -> *mut SDL_Texture;
 }
 unsafe extern "C" {
@@ -7562,7 +7784,7 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         src: *mut SDL_IOStream,
         closeio: bool,
-        type_: *const libc::c_char,
+        type_: *const ::core::ffi::c_char,
     ) -> *mut SDL_Texture;
 }
 unsafe extern "C" {
@@ -7717,24 +7939,24 @@ unsafe extern "C" {
     #[doc = " Load an SVG image, scaled to a specific size.\n\n Since SVG files are resolution-independent, you specify the size you would\n like the output image to be and it will be generated at those dimensions.\n\n Either width or height may be 0 and the image will be auto-sized to\n preserve aspect ratio.\n\n When done with the returned surface, the app should dispose of it with a\n call to SDL_DestroySurface().\n\n \\param src an SDL_IOStream to load SVG data from.\n \\param width desired width of the generated surface, in pixels.\n \\param height desired height of the generated surface, in pixels.\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0."]
     pub fn IMG_LoadSizedSVG_IO(
         src: *mut SDL_IOStream,
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Load an XPM image from a memory array.\n\n The returned surface will be an 8bpp indexed surface, if possible,\n otherwise it will be 32bpp. If you always want 32-bit data, use\n IMG_ReadXPMFromArrayToRGB888() instead.\n\n When done with the returned surface, the app should dispose of it with a\n call to SDL_DestroySurface().\n\n \\param xpm a null-terminated array of strings that comprise XPM data.\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_ReadXPMFromArrayToRGB888"]
-    pub fn IMG_ReadXPMFromArray(xpm: *mut *mut libc::c_char) -> *mut SDL_Surface;
+    pub fn IMG_ReadXPMFromArray(xpm: *mut *mut ::core::ffi::c_char) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Load an XPM image from a memory array.\n\n The returned surface will always be a 32-bit RGB surface. If you want 8-bit\n indexed colors (and the XPM data allows it), use IMG_ReadXPMFromArray()\n instead.\n\n When done with the returned surface, the app should dispose of it with a\n call to SDL_DestroySurface().\n\n \\param xpm a null-terminated array of strings that comprise XPM data.\n \\returns a new SDL surface, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_ReadXPMFromArray"]
-    pub fn IMG_ReadXPMFromArrayToRGB888(xpm: *mut *mut libc::c_char) -> *mut SDL_Surface;
+    pub fn IMG_ReadXPMFromArrayToRGB888(xpm: *mut *mut ::core::ffi::c_char) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a AVIF image file.\n\n If the file already exists, it will be overwritten.\n\n \\param surface the SDL surface to save.\n \\param file path on the filesystem to write new file to.\n \\param quality the desired quality, ranging between 0 (lowest) and 100\n                (highest).\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_SaveAVIF_IO"]
     pub fn IMG_SaveAVIF(
         surface: *mut SDL_Surface,
-        file: *const libc::c_char,
-        quality: libc::c_int,
+        file: *const ::core::ffi::c_char,
+        quality: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7743,12 +7965,12 @@ unsafe extern "C" {
         surface: *mut SDL_Surface,
         dst: *mut SDL_IOStream,
         closeio: bool,
-        quality: libc::c_int,
+        quality: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a PNG image file.\n\n If the file already exists, it will be overwritten.\n\n \\param surface the SDL surface to save.\n \\param file path on the filesystem to write new file to.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_SavePNG_IO"]
-    pub fn IMG_SavePNG(surface: *mut SDL_Surface, file: *const libc::c_char) -> bool;
+    pub fn IMG_SavePNG(surface: *mut SDL_Surface, file: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into PNG image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SavePNG() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n \\param surface the SDL surface to save.\n \\param dst the SDL_IOStream to save the image data to.\n \\param closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_SavePNG"]
@@ -7759,8 +7981,8 @@ unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a JPEG image file.\n\n If the file already exists, it will be overwritten.\n\n \\param surface the SDL surface to save.\n \\param file path on the filesystem to write new file to.\n \\param quality [0; 33] is Lowest quality, [34; 66] is Middle quality, [67;\n                100] is Highest quality.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_SaveJPG_IO"]
     pub fn IMG_SaveJPG(
         surface: *mut SDL_Surface,
-        file: *const libc::c_char,
-        quality: libc::c_int,
+        file: *const ::core::ffi::c_char,
+        quality: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7769,18 +7991,18 @@ unsafe extern "C" {
         surface: *mut SDL_Surface,
         dst: *mut SDL_IOStream,
         closeio: bool,
-        quality: libc::c_int,
+        quality: ::core::ffi::c_int,
     ) -> bool;
 }
 #[doc = " Animated image support\n\n Currently only animated GIFs and WEBP images are supported."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct IMG_Animation {
-    pub w: libc::c_int,
-    pub h: libc::c_int,
-    pub count: libc::c_int,
+    pub w: ::core::ffi::c_int,
+    pub h: ::core::ffi::c_int,
+    pub count: ::core::ffi::c_int,
     pub frames: *mut *mut SDL_Surface,
-    pub delays: *mut libc::c_int,
+    pub delays: *mut ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7797,7 +8019,7 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Load an animation from a file.\n\n When done with the returned animation, the app should dispose of it with a\n call to IMG_FreeAnimation().\n\n \\param file path on the filesystem containing an animated image.\n \\returns a new IMG_Animation, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_FreeAnimation"]
-    pub fn IMG_LoadAnimation(file: *const libc::c_char) -> *mut IMG_Animation;
+    pub fn IMG_LoadAnimation(file: *const ::core::ffi::c_char) -> *mut IMG_Animation;
 }
 unsafe extern "C" {
     #[doc = " Load an animation from an SDL_IOStream.\n\n If `closeio` is true, `src` will be closed before returning, whether this\n function succeeds or not. SDL_image reads everything it needs from `src`\n during this call in any case.\n\n When done with the returned animation, the app should dispose of it with a\n call to IMG_FreeAnimation().\n\n \\param src an SDL_IOStream that data will be read from.\n \\param closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n \\returns a new IMG_Animation, or NULL on error.\n\n \\since This function is available since SDL_image 3.0.0.\n\n \\sa IMG_FreeAnimation"]
@@ -7808,7 +8030,7 @@ unsafe extern "C" {
     pub fn IMG_LoadAnimationTyped_IO(
         src: *mut SDL_IOStream,
         closeio: bool,
-        type_: *const libc::c_char,
+        type_: *const ::core::ffi::c_char,
     ) -> *mut IMG_Animation;
 }
 unsafe extern "C" {
@@ -7827,10 +8049,10 @@ pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __va_list_tag {
-    pub gp_offset: libc::c_uint,
-    pub fp_offset: libc::c_uint,
-    pub overflow_arg_area: *mut libc::c_void,
-    pub reg_save_area: *mut libc::c_void,
+    pub gp_offset: ::core::ffi::c_uint,
+    pub fp_offset: ::core::ffi::c_uint,
+    pub overflow_arg_area: *mut ::core::ffi::c_void,
+    pub reg_save_area: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {

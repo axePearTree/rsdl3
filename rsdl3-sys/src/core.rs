@@ -1353,18 +1353,18 @@ pub const SDL_MINOR_VERSION: u32 = 2;
 pub const SDL_MICRO_VERSION: u32 = 4;
 pub type __gnuc_va_list = __builtin_va_list;
 pub type va_list = __builtin_va_list;
-pub type __u_char = libc::c_uchar;
-pub type __u_short = libc::c_ushort;
-pub type __u_int = libc::c_uint;
-pub type __u_long = libc::c_ulong;
-pub type __int8_t = libc::c_schar;
-pub type __uint8_t = libc::c_uchar;
-pub type __int16_t = libc::c_short;
-pub type __uint16_t = libc::c_ushort;
-pub type __int32_t = libc::c_int;
-pub type __uint32_t = libc::c_uint;
-pub type __int64_t = libc::c_long;
-pub type __uint64_t = libc::c_ulong;
+pub type __u_char = ::core::ffi::c_uchar;
+pub type __u_short = ::core::ffi::c_ushort;
+pub type __u_int = ::core::ffi::c_uint;
+pub type __u_long = ::core::ffi::c_ulong;
+pub type __int8_t = ::core::ffi::c_schar;
+pub type __uint8_t = ::core::ffi::c_uchar;
+pub type __int16_t = ::core::ffi::c_short;
+pub type __uint16_t = ::core::ffi::c_ushort;
+pub type __int32_t = ::core::ffi::c_int;
+pub type __uint32_t = ::core::ffi::c_uint;
+pub type __int64_t = ::core::ffi::c_long;
+pub type __uint64_t = ::core::ffi::c_ulong;
 pub type __int_least8_t = __int8_t;
 pub type __uint_least8_t = __uint8_t;
 pub type __int_least16_t = __int16_t;
@@ -1373,24 +1373,24 @@ pub type __int_least32_t = __int32_t;
 pub type __uint_least32_t = __uint32_t;
 pub type __int_least64_t = __int64_t;
 pub type __uint_least64_t = __uint64_t;
-pub type __quad_t = libc::c_long;
-pub type __u_quad_t = libc::c_ulong;
-pub type __intmax_t = libc::c_long;
-pub type __uintmax_t = libc::c_ulong;
-pub type __dev_t = libc::c_ulong;
-pub type __uid_t = libc::c_uint;
-pub type __gid_t = libc::c_uint;
-pub type __ino_t = libc::c_ulong;
-pub type __ino64_t = libc::c_ulong;
-pub type __mode_t = libc::c_uint;
-pub type __nlink_t = libc::c_ulong;
-pub type __off_t = libc::c_long;
-pub type __off64_t = libc::c_long;
-pub type __pid_t = libc::c_int;
+pub type __quad_t = ::core::ffi::c_long;
+pub type __u_quad_t = ::core::ffi::c_ulong;
+pub type __intmax_t = ::core::ffi::c_long;
+pub type __uintmax_t = ::core::ffi::c_ulong;
+pub type __dev_t = ::core::ffi::c_ulong;
+pub type __uid_t = ::core::ffi::c_uint;
+pub type __gid_t = ::core::ffi::c_uint;
+pub type __ino_t = ::core::ffi::c_ulong;
+pub type __ino64_t = ::core::ffi::c_ulong;
+pub type __mode_t = ::core::ffi::c_uint;
+pub type __nlink_t = ::core::ffi::c_ulong;
+pub type __off_t = ::core::ffi::c_long;
+pub type __off64_t = ::core::ffi::c_long;
+pub type __pid_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __fsid_t {
-    pub __val: [libc::c_int; 2usize],
+    pub __val: [::core::ffi::c_int; 2usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1398,34 +1398,34 @@ const _: () = {
     ["Alignment of __fsid_t"][::core::mem::align_of::<__fsid_t>() - 4usize];
     ["Offset of field: __fsid_t::__val"][::core::mem::offset_of!(__fsid_t, __val) - 0usize];
 };
-pub type __clock_t = libc::c_long;
-pub type __rlim_t = libc::c_ulong;
-pub type __rlim64_t = libc::c_ulong;
-pub type __id_t = libc::c_uint;
-pub type __time_t = libc::c_long;
-pub type __useconds_t = libc::c_uint;
-pub type __suseconds_t = libc::c_long;
-pub type __suseconds64_t = libc::c_long;
-pub type __daddr_t = libc::c_int;
-pub type __key_t = libc::c_int;
-pub type __clockid_t = libc::c_int;
-pub type __timer_t = *mut libc::c_void;
-pub type __blksize_t = libc::c_long;
-pub type __blkcnt_t = libc::c_long;
-pub type __blkcnt64_t = libc::c_long;
-pub type __fsblkcnt_t = libc::c_ulong;
-pub type __fsblkcnt64_t = libc::c_ulong;
-pub type __fsfilcnt_t = libc::c_ulong;
-pub type __fsfilcnt64_t = libc::c_ulong;
-pub type __fsword_t = libc::c_long;
-pub type __ssize_t = libc::c_long;
-pub type __syscall_slong_t = libc::c_long;
-pub type __syscall_ulong_t = libc::c_ulong;
+pub type __clock_t = ::core::ffi::c_long;
+pub type __rlim_t = ::core::ffi::c_ulong;
+pub type __rlim64_t = ::core::ffi::c_ulong;
+pub type __id_t = ::core::ffi::c_uint;
+pub type __time_t = ::core::ffi::c_long;
+pub type __useconds_t = ::core::ffi::c_uint;
+pub type __suseconds_t = ::core::ffi::c_long;
+pub type __suseconds64_t = ::core::ffi::c_long;
+pub type __daddr_t = ::core::ffi::c_int;
+pub type __key_t = ::core::ffi::c_int;
+pub type __clockid_t = ::core::ffi::c_int;
+pub type __timer_t = *mut ::core::ffi::c_void;
+pub type __blksize_t = ::core::ffi::c_long;
+pub type __blkcnt_t = ::core::ffi::c_long;
+pub type __blkcnt64_t = ::core::ffi::c_long;
+pub type __fsblkcnt_t = ::core::ffi::c_ulong;
+pub type __fsblkcnt64_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt64_t = ::core::ffi::c_ulong;
+pub type __fsword_t = ::core::ffi::c_long;
+pub type __ssize_t = ::core::ffi::c_long;
+pub type __syscall_slong_t = ::core::ffi::c_long;
+pub type __syscall_ulong_t = ::core::ffi::c_ulong;
 pub type __loff_t = __off64_t;
-pub type __caddr_t = *mut libc::c_char;
-pub type __intptr_t = libc::c_long;
-pub type __socklen_t = libc::c_uint;
-pub type __sig_atomic_t = libc::c_int;
+pub type __caddr_t = *mut ::core::ffi::c_char;
+pub type __intptr_t = ::core::ffi::c_long;
+pub type __socklen_t = ::core::ffi::c_uint;
+pub type __sig_atomic_t = ::core::ffi::c_int;
 pub type int_least8_t = __int_least8_t;
 pub type int_least16_t = __int_least16_t;
 pub type int_least32_t = __int_least32_t;
@@ -1434,114 +1434,126 @@ pub type uint_least8_t = __uint_least8_t;
 pub type uint_least16_t = __uint_least16_t;
 pub type uint_least32_t = __uint_least32_t;
 pub type uint_least64_t = __uint_least64_t;
-pub type int_fast8_t = libc::c_schar;
-pub type int_fast16_t = libc::c_long;
-pub type int_fast32_t = libc::c_long;
-pub type int_fast64_t = libc::c_long;
-pub type uint_fast8_t = libc::c_uchar;
-pub type uint_fast16_t = libc::c_ulong;
-pub type uint_fast32_t = libc::c_ulong;
-pub type uint_fast64_t = libc::c_ulong;
+pub type int_fast8_t = ::core::ffi::c_schar;
+pub type int_fast16_t = ::core::ffi::c_long;
+pub type int_fast32_t = ::core::ffi::c_long;
+pub type int_fast64_t = ::core::ffi::c_long;
+pub type uint_fast8_t = ::core::ffi::c_uchar;
+pub type uint_fast16_t = ::core::ffi::c_ulong;
+pub type uint_fast32_t = ::core::ffi::c_ulong;
+pub type uint_fast64_t = ::core::ffi::c_ulong;
 pub type intmax_t = __intmax_t;
 pub type uintmax_t = __uintmax_t;
 unsafe extern "C" {
     pub fn memcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memmove(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memccpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memset(
-        __s: *mut libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __s: *mut ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn memcmp(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn __memcmpeq(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
         __n: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn memchr(
-        __s: *const libc::c_void,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __s: *const ::core::ffi::c_void,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn strcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcat(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strcat(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strncat(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcmp(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcmp(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncmp(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strcoll(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcoll(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strxfrm(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __locale_struct {
     pub __locales: [*mut __locale_data; 13usize],
-    pub __ctype_b: *const libc::c_ushort,
-    pub __ctype_tolower: *const libc::c_int,
-    pub __ctype_toupper: *const libc::c_int,
-    pub __names: [*const libc::c_char; 13usize],
+    pub __ctype_b: *const ::core::ffi::c_ushort,
+    pub __ctype_tolower: *const ::core::ffi::c_int,
+    pub __ctype_toupper: *const ::core::ffi::c_int,
+    pub __names: [*const ::core::ffi::c_char; 13usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1562,230 +1574,273 @@ pub type __locale_t = *mut __locale_struct;
 pub type locale_t = __locale_t;
 unsafe extern "C" {
     pub fn strcoll_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __l: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strxfrm_l(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
         __n: usize,
         __l: locale_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    pub fn strdup(__s: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strdup(__s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strndup(__string: *const libc::c_char, __n: libc::c_ulong) -> *mut libc::c_char;
+    pub fn strndup(
+        __string: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strchr(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strchr(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strrchr(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strrchr(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strchrnul(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn strchrnul(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strcspn(__s: *const libc::c_char, __reject: *const libc::c_char) -> libc::c_ulong;
+    pub fn strcspn(
+        __s: *const ::core::ffi::c_char,
+        __reject: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strspn(__s: *const libc::c_char, __accept: *const libc::c_char) -> libc::c_ulong;
+    pub fn strspn(
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strpbrk(__s: *const libc::c_char, __accept: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strpbrk(
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strstr(
-        __haystack: *const libc::c_char,
-        __needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strtok(__s: *mut libc::c_char, __delim: *const libc::c_char) -> *mut libc::c_char;
+    pub fn strtok(
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn __strtok_r(
-        __s: *mut libc::c_char,
-        __delim: *const libc::c_char,
-        __save_ptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+        __save_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strtok_r(
-        __s: *mut libc::c_char,
-        __delim: *const libc::c_char,
-        __save_ptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+        __save_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strcasestr(
-        __haystack: *const libc::c_char,
-        __needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn memmem(
-        __haystack: *const libc::c_void,
+        __haystack: *const ::core::ffi::c_void,
         __haystacklen: usize,
-        __needle: *const libc::c_void,
+        __needle: *const ::core::ffi::c_void,
         __needlelen: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn __mempcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
         __n: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn mempcpy(
-        __dest: *mut libc::c_void,
-        __src: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_void;
+        __dest: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
-    pub fn strlen(__s: *const libc::c_char) -> libc::c_ulong;
+    pub fn strlen(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
-    pub fn strnlen(__string: *const libc::c_char, __maxlen: usize) -> usize;
+    pub fn strnlen(__string: *const ::core::ffi::c_char, __maxlen: usize) -> usize;
 }
 unsafe extern "C" {
-    pub fn strerror(__errnum: libc::c_int) -> *mut libc::c_char;
+    pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__xpg_strerror_r"]
     pub fn strerror_r(
-        __errnum: libc::c_int,
-        __buf: *mut libc::c_char,
+        __errnum: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_char,
         __buflen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strerror_l(__errnum: libc::c_int, __l: locale_t) -> *mut libc::c_char;
+    pub fn strerror_l(__errnum: ::core::ffi::c_int, __l: locale_t) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn bcmp(
-        __s1: *const libc::c_void,
-        __s2: *const libc::c_void,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_void,
+        __s2: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn bcopy(__src: *const libc::c_void, __dest: *mut libc::c_void, __n: libc::c_ulong);
+    pub fn bcopy(
+        __src: *const ::core::ffi::c_void,
+        __dest: *mut ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    );
 }
 unsafe extern "C" {
-    pub fn bzero(__s: *mut libc::c_void, __n: libc::c_ulong);
+    pub fn bzero(__s: *mut ::core::ffi::c_void, __n: ::core::ffi::c_ulong);
 }
 unsafe extern "C" {
-    pub fn index(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn index(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn rindex(__s: *const libc::c_char, __c: libc::c_int) -> *mut libc::c_char;
+    pub fn rindex(
+        __s: *const ::core::ffi::c_char,
+        __c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn ffs(__i: libc::c_int) -> libc::c_int;
+    pub fn ffs(__i: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn ffsl(__l: libc::c_long) -> libc::c_int;
+    pub fn ffsl(__l: ::core::ffi::c_long) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn ffsll(__ll: libc::c_longlong) -> libc::c_int;
+    pub fn ffsll(__ll: ::core::ffi::c_longlong) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn strcasecmp(__s1: *const libc::c_char, __s2: *const libc::c_char) -> libc::c_int;
+    pub fn strcasecmp(
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncasecmp(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strcasecmp_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn strncasecmp_l(
-        __s1: *const libc::c_char,
-        __s2: *const libc::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __n: usize,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn explicit_bzero(__s: *mut libc::c_void, __n: usize);
+    pub fn explicit_bzero(__s: *mut ::core::ffi::c_void, __n: usize);
 }
 unsafe extern "C" {
     pub fn strsep(
-        __stringp: *mut *mut libc::c_char,
-        __delim: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        __stringp: *mut *mut ::core::ffi::c_char,
+        __delim: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn strsignal(__sig: libc::c_int) -> *mut libc::c_char;
+    pub fn strsignal(__sig: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn __stpcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn __stpcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn stpcpy(__dest: *mut libc::c_char, __src: *const libc::c_char) -> *mut libc::c_char;
+    pub fn stpcpy(
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn __stpncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
         __n: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn stpncpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_char;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strlcpy(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn strlcat(
-        __dest: *mut libc::c_char,
-        __src: *const libc::c_char,
-        __n: libc::c_ulong,
-    ) -> libc::c_ulong;
+        __dest: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 pub type _Float32 = f32;
 pub type _Float64 = f64;
 pub type _Float32x = f64;
 pub type _Float64x = u128;
-pub type wchar_t = libc::c_int;
-pub type wint_t = libc::c_uint;
+pub type wchar_t = ::core::ffi::c_int;
+pub type wint_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct __mbstate_t {
-    pub __count: libc::c_int,
+    pub __count: ::core::ffi::c_int,
     pub __value: __mbstate_t__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union __mbstate_t__bindgen_ty_1 {
-    pub __wch: libc::c_uint,
-    pub __wchb: [libc::c_char; 4usize],
+    pub __wch: ::core::ffi::c_uint,
+    pub __wchb: [::core::ffi::c_char; 4usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -1839,24 +1894,34 @@ unsafe extern "C" {
     pub fn wcsncat(__dest: *mut wchar_t, __src: *const wchar_t, __n: usize) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcscmp(__s1: *const libc::c_int, __s2: *const libc::c_int) -> libc::c_int;
+    pub fn wcscmp(
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsncmp(
-        __s1: *const libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscasecmp(__s1: *const wchar_t, __s2: *const wchar_t) -> libc::c_int;
+    pub fn wcscasecmp(__s1: *const wchar_t, __s2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcsncasecmp(__s1: *const wchar_t, __s2: *const wchar_t, __n: usize) -> libc::c_int;
+    pub fn wcsncasecmp(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __n: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscasecmp_l(__s1: *const wchar_t, __s2: *const wchar_t, __loc: locale_t)
-        -> libc::c_int;
+    pub fn wcscasecmp_l(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __loc: locale_t,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsncasecmp_l(
@@ -1864,16 +1929,20 @@ unsafe extern "C" {
         __s2: *const wchar_t,
         __n: usize,
         __loc: locale_t,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wcscoll(__s1: *const wchar_t, __s2: *const wchar_t) -> libc::c_int;
+    pub fn wcscoll(__s1: *const wchar_t, __s2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsxfrm(__s1: *mut wchar_t, __s2: *const wchar_t, __n: usize) -> usize;
 }
 unsafe extern "C" {
-    pub fn wcscoll_l(__s1: *const wchar_t, __s2: *const wchar_t, __loc: locale_t) -> libc::c_int;
+    pub fn wcscoll_l(
+        __s1: *const wchar_t,
+        __s2: *const wchar_t,
+        __loc: locale_t,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsxfrm_l(
@@ -1887,7 +1956,10 @@ unsafe extern "C" {
     pub fn wcsdup(__s: *const wchar_t) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcschr(__wcs: *const libc::c_int, __wc: libc::c_int) -> *mut libc::c_int;
+    pub fn wcschr(
+        __wcs: *const ::core::ffi::c_int,
+        __wc: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wcsrchr(__wcs: *const wchar_t, __wc: wchar_t) -> *mut wchar_t;
@@ -1912,79 +1984,79 @@ unsafe extern "C" {
     ) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn wcslen(__s: *const libc::c_int) -> libc::c_ulong;
+    pub fn wcslen(__s: *const ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn wcsnlen(__s: *const wchar_t, __maxlen: usize) -> usize;
 }
 unsafe extern "C" {
     pub fn wmemchr(
-        __s: *const libc::c_int,
-        __c: libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s: *const ::core::ffi::c_int,
+        __c: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemcmp(
-        __s1: *const libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> libc::c_int;
+        __s1: *const ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemcpy(
-        __s1: *mut libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s1: *mut ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemmove(
-        __s1: *mut libc::c_int,
-        __s2: *const libc::c_int,
-        __n: libc::c_ulong,
-    ) -> *mut libc::c_int;
+        __s1: *mut ::core::ffi::c_int,
+        __s2: *const ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn wmemset(__s: *mut wchar_t, __c: wchar_t, __n: usize) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn btowc(__c: libc::c_int) -> wint_t;
+    pub fn btowc(__c: ::core::ffi::c_int) -> wint_t;
 }
 unsafe extern "C" {
-    pub fn wctob(__c: wint_t) -> libc::c_int;
+    pub fn wctob(__c: wint_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn mbsinit(__ps: *const mbstate_t) -> libc::c_int;
+    pub fn mbsinit(__ps: *const mbstate_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn mbrtowc(
         __pwc: *mut wchar_t,
-        __s: *const libc::c_char,
+        __s: *const ::core::ffi::c_char,
         __n: usize,
         __p: *mut mbstate_t,
     ) -> usize;
 }
 unsafe extern "C" {
-    pub fn wcrtomb(__s: *mut libc::c_char, __wc: wchar_t, __ps: *mut mbstate_t) -> usize;
+    pub fn wcrtomb(__s: *mut ::core::ffi::c_char, __wc: wchar_t, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
-    pub fn __mbrlen(__s: *const libc::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
+    pub fn __mbrlen(__s: *const ::core::ffi::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
-    pub fn mbrlen(__s: *const libc::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
+    pub fn mbrlen(__s: *const ::core::ffi::c_char, __n: usize, __ps: *mut mbstate_t) -> usize;
 }
 unsafe extern "C" {
     pub fn mbsrtowcs(
         __dst: *mut wchar_t,
-        __src: *mut *const libc::c_char,
+        __src: *mut *const ::core::ffi::c_char,
         __len: usize,
         __ps: *mut mbstate_t,
     ) -> usize;
 }
 unsafe extern "C" {
     pub fn wcsrtombs(
-        __dst: *mut libc::c_char,
+        __dst: *mut ::core::ffi::c_char,
         __src: *mut *const wchar_t,
         __len: usize,
         __ps: *mut mbstate_t,
@@ -1993,7 +2065,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn mbsnrtowcs(
         __dst: *mut wchar_t,
-        __src: *mut *const libc::c_char,
+        __src: *mut *const ::core::ffi::c_char,
         __nmc: usize,
         __len: usize,
         __ps: *mut mbstate_t,
@@ -2001,7 +2073,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn wcsnrtombs(
-        __dst: *mut libc::c_char,
+        __dst: *mut ::core::ffi::c_char,
         __src: *mut *const wchar_t,
         __nwc: usize,
         __len: usize,
@@ -2021,29 +2093,29 @@ unsafe extern "C" {
     pub fn wcstol(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_long;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     pub fn wcstoul(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_ulong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     pub fn wcstoll(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_longlong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_longlong;
 }
 unsafe extern "C" {
     pub fn wcstoull(
         __nptr: *const wchar_t,
         __endptr: *mut *mut wchar_t,
-        __base: libc::c_int,
-    ) -> libc::c_ulonglong;
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulonglong;
 }
 unsafe extern "C" {
     pub fn wcpcpy(__dest: *mut wchar_t, __src: *const wchar_t) -> *mut wchar_t;
@@ -2055,26 +2127,31 @@ unsafe extern "C" {
     pub fn open_wmemstream(__bufloc: *mut *mut wchar_t, __sizeloc: *mut usize) -> *mut __FILE;
 }
 unsafe extern "C" {
-    pub fn fwide(__fp: *mut __FILE, __mode: libc::c_int) -> libc::c_int;
+    pub fn fwide(__fp: *mut __FILE, __mode: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn fwprintf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwprintf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wprintf(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wprintf(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn swprintf(__s: *mut wchar_t, __n: usize, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swprintf(
+        __s: *mut wchar_t,
+        __n: usize,
+        __format: *const wchar_t,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vfwprintf(
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn vwprintf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwprintf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vswprintf(
@@ -2082,45 +2159,45 @@ unsafe extern "C" {
         __n: usize,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn fwscanf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwscanf(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn wscanf(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wscanf(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn swscanf(__s: *const wchar_t, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swscanf(__s: *const wchar_t, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_fwscanf"]
-    pub fn fwscanf1(__stream: *mut __FILE, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn fwscanf1(__stream: *mut __FILE, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_wscanf"]
-    pub fn wscanf1(__format: *const wchar_t, ...) -> libc::c_int;
+    pub fn wscanf1(__format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_swscanf"]
-    pub fn swscanf1(__s: *const wchar_t, __format: *const wchar_t, ...) -> libc::c_int;
+    pub fn swscanf1(__s: *const wchar_t, __format: *const wchar_t, ...) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vfwscanf(
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn vwscanf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwscanf(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn vswscanf(
         __s: *const wchar_t,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vfwscanf"]
@@ -2128,11 +2205,11 @@ unsafe extern "C" {
         __s: *mut __FILE,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vwscanf"]
-    pub fn vwscanf1(__format: *const wchar_t, __arg: *mut __va_list_tag) -> libc::c_int;
+    pub fn vwscanf1(__format: *const wchar_t, __arg: *mut __va_list_tag) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[link_name = "\u{1}__isoc99_vswscanf"]
@@ -2140,7 +2217,7 @@ unsafe extern "C" {
         __s: *const wchar_t,
         __format: *const wchar_t,
         __arg: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn fgetwc(__stream: *mut __FILE) -> wint_t;
@@ -2161,10 +2238,14 @@ unsafe extern "C" {
     pub fn putwchar(__wc: wchar_t) -> wint_t;
 }
 unsafe extern "C" {
-    pub fn fgetws(__ws: *mut wchar_t, __n: libc::c_int, __stream: *mut __FILE) -> *mut wchar_t;
+    pub fn fgetws(
+        __ws: *mut wchar_t,
+        __n: ::core::ffi::c_int,
+        __stream: *mut __FILE,
+    ) -> *mut wchar_t;
 }
 unsafe extern "C" {
-    pub fn fputws(__ws: *const wchar_t, __stream: *mut __FILE) -> libc::c_int;
+    pub fn fputws(__ws: *const wchar_t, __stream: *mut __FILE) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn ungetwc(__wc: wint_t, __stream: *mut __FILE) -> wint_t;
@@ -2177,12 +2258,12 @@ unsafe extern "C" {
         __tp: *const tm,
     ) -> usize;
 }
-pub type __gwchar_t = libc::c_int;
+pub type __gwchar_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct imaxdiv_t {
-    pub quot: libc::c_long,
-    pub rem: libc::c_long,
+    pub quot: ::core::ffi::c_long,
+    pub rem: ::core::ffi::c_long,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -2199,30 +2280,30 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn strtoimax(
-        __nptr: *const libc::c_char,
-        __endptr: *mut *mut libc::c_char,
-        __base: libc::c_int,
+        __nptr: *const ::core::ffi::c_char,
+        __endptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 unsafe extern "C" {
     pub fn strtoumax(
-        __nptr: *const libc::c_char,
-        __endptr: *mut *mut libc::c_char,
-        __base: libc::c_int,
+        __nptr: *const ::core::ffi::c_char,
+        __endptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 unsafe extern "C" {
     pub fn wcstoimax(
         __nptr: *const __gwchar_t,
         __endptr: *mut *mut __gwchar_t,
-        __base: libc::c_int,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 unsafe extern "C" {
     pub fn wcstoumax(
         __nptr: *const __gwchar_t,
         __endptr: *mut *mut __gwchar_t,
-        __base: libc::c_int,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 #[doc = " A signed 8-bit integer type.\n\n \\since This macro is available since SDL 3.2.0."]
@@ -2247,7 +2328,7 @@ pub type SDL_Time = Sint64;
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_alignment_test {
     pub a: Uint8,
-    pub b: *mut libc::c_void,
+    pub b: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -2259,35 +2340,37 @@ const _: () = {
         [::core::mem::offset_of!(SDL_alignment_test, b) - 8usize];
 };
 pub const SDL_DUMMY_ENUM_DUMMY_ENUM_VALUE: SDL_DUMMY_ENUM = 0;
-pub type SDL_DUMMY_ENUM = libc::c_uint;
+pub type SDL_DUMMY_ENUM = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Allocate uninitialized memory.\n\n The allocated memory returned by this function must be freed with\n SDL_free().\n\n If `size` is 0, it will be set to 1.\n\n If you want to allocate memory aligned to a specific alignment, consider\n using SDL_aligned_alloc().\n\n \\param size the size to allocate.\n \\returns a pointer to the allocated memory, or NULL if allocation failed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_free\n \\sa SDL_calloc\n \\sa SDL_realloc\n \\sa SDL_aligned_alloc"]
-    pub fn SDL_malloc(size: usize) -> *mut libc::c_void;
+    pub fn SDL_malloc(size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Allocate a zero-initialized array.\n\n The memory returned by this function must be freed with SDL_free().\n\n If either of `nmemb` or `size` is 0, they will both be set to 1.\n\n \\param nmemb the number of elements in the array.\n \\param size the size of each element of the array.\n \\returns a pointer to the allocated array, or NULL if allocation failed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_free\n \\sa SDL_malloc\n \\sa SDL_realloc"]
-    pub fn SDL_calloc(nmemb: usize, size: usize) -> *mut libc::c_void;
+    pub fn SDL_calloc(nmemb: usize, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Change the size of allocated memory.\n\n The memory returned by this function must be freed with SDL_free().\n\n If `size` is 0, it will be set to 1. Note that this is unlike some other C\n runtime `realloc` implementations, which may treat `realloc(mem, 0)` the\n same way as `free(mem)`.\n\n If `mem` is NULL, the behavior of this function is equivalent to\n SDL_malloc(). Otherwise, the function can have one of three possible\n outcomes:\n\n - If it returns the same pointer as `mem`, it means that `mem` was resized\n   in place without freeing.\n - If it returns a different non-NULL pointer, it means that `mem` was freed\n   and cannot be dereferenced anymore.\n - If it returns NULL (indicating failure), then `mem` will remain valid and\n   must still be freed with SDL_free().\n\n \\param mem a pointer to allocated memory to reallocate, or NULL.\n \\param size the new size of the memory.\n \\returns a pointer to the newly allocated memory, or NULL if allocation\n          failed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_free\n \\sa SDL_malloc\n \\sa SDL_calloc"]
-    pub fn SDL_realloc(mem: *mut libc::c_void, size: usize) -> *mut libc::c_void;
+    pub fn SDL_realloc(mem: *mut ::core::ffi::c_void, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Free allocated memory.\n\n The pointer is no longer valid after this call and cannot be dereferenced\n anymore.\n\n If `mem` is NULL, this function does nothing.\n\n \\param mem a pointer to allocated memory, or NULL.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_malloc\n \\sa SDL_calloc\n \\sa SDL_realloc"]
-    pub fn SDL_free(mem: *mut libc::c_void);
+    pub fn SDL_free(mem: *mut ::core::ffi::c_void);
 }
 #[doc = " A callback used to implement SDL_malloc().\n\n SDL will always ensure that the passed `size` is greater than 0.\n\n \\param size the size to allocate.\n \\returns a pointer to the allocated memory, or NULL if allocation failed.\n\n \\threadsafety It should be safe to call this callback from any thread.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_malloc\n \\sa SDL_GetOriginalMemoryFunctions\n \\sa SDL_GetMemoryFunctions\n \\sa SDL_SetMemoryFunctions"]
 pub type SDL_malloc_func =
-    ::core::option::Option<unsafe extern "C" fn(size: usize) -> *mut libc::c_void>;
+    ::core::option::Option<unsafe extern "C" fn(size: usize) -> *mut ::core::ffi::c_void>;
 #[doc = " A callback used to implement SDL_calloc().\n\n SDL will always ensure that the passed `nmemb` and `size` are both greater\n than 0.\n\n \\param nmemb the number of elements in the array.\n \\param size the size of each element of the array.\n \\returns a pointer to the allocated array, or NULL if allocation failed.\n\n \\threadsafety It should be safe to call this callback from any thread.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_calloc\n \\sa SDL_GetOriginalMemoryFunctions\n \\sa SDL_GetMemoryFunctions\n \\sa SDL_SetMemoryFunctions"]
-pub type SDL_calloc_func =
-    ::core::option::Option<unsafe extern "C" fn(nmemb: usize, size: usize) -> *mut libc::c_void>;
+pub type SDL_calloc_func = ::core::option::Option<
+    unsafe extern "C" fn(nmemb: usize, size: usize) -> *mut ::core::ffi::c_void,
+>;
 #[doc = " A callback used to implement SDL_realloc().\n\n SDL will always ensure that the passed `size` is greater than 0.\n\n \\param mem a pointer to allocated memory to reallocate, or NULL.\n \\param size the new size of the memory.\n \\returns a pointer to the newly allocated memory, or NULL if allocation\n          failed.\n\n \\threadsafety It should be safe to call this callback from any thread.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_realloc\n \\sa SDL_GetOriginalMemoryFunctions\n \\sa SDL_GetMemoryFunctions\n \\sa SDL_SetMemoryFunctions"]
 pub type SDL_realloc_func = ::core::option::Option<
-    unsafe extern "C" fn(mem: *mut libc::c_void, size: usize) -> *mut libc::c_void,
+    unsafe extern "C" fn(mem: *mut ::core::ffi::c_void, size: usize) -> *mut ::core::ffi::c_void,
 >;
 #[doc = " A callback used to implement SDL_free().\n\n SDL will always ensure that the passed `mem` is a non-NULL pointer.\n\n \\param mem a pointer to allocated memory.\n\n \\threadsafety It should be safe to call this callback from any thread.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_free\n \\sa SDL_GetOriginalMemoryFunctions\n \\sa SDL_GetMemoryFunctions\n \\sa SDL_SetMemoryFunctions"]
-pub type SDL_free_func = ::core::option::Option<unsafe extern "C" fn(mem: *mut libc::c_void)>;
+pub type SDL_free_func =
+    ::core::option::Option<unsafe extern "C" fn(mem: *mut ::core::ffi::c_void)>;
 unsafe extern "C" {
     #[doc = " Get the original set of SDL memory functions.\n\n This is what SDL_malloc and friends will use by default, if there has been\n no call to SDL_SetMemoryFunctions. This is not necessarily using the C\n runtime's `malloc` functions behind the scenes! Different platforms and\n build configurations might do any number of unexpected things.\n\n \\param malloc_func filled with malloc function.\n \\param calloc_func filled with calloc function.\n \\param realloc_func filled with realloc function.\n \\param free_func filled with free function.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetOriginalMemoryFunctions(
@@ -2317,15 +2400,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Allocate memory aligned to a specific alignment.\n\n The memory returned by this function must be freed with SDL_aligned_free(),\n _not_ SDL_free().\n\n If `alignment` is less than the size of `void *`, it will be increased to\n match that.\n\n The returned memory address will be a multiple of the alignment value, and\n the size of the memory allocated will be a multiple of the alignment value.\n\n \\param alignment the alignment of the memory.\n \\param size the size to allocate.\n \\returns a pointer to the aligned memory, or NULL if allocation failed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_aligned_free"]
-    pub fn SDL_aligned_alloc(alignment: usize, size: usize) -> *mut libc::c_void;
+    pub fn SDL_aligned_alloc(alignment: usize, size: usize) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Free memory allocated by SDL_aligned_alloc().\n\n The pointer is no longer valid after this call and cannot be dereferenced\n anymore.\n\n If `mem` is NULL, this function does nothing.\n\n \\param mem a pointer previously returned by SDL_aligned_alloc(), or NULL.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_aligned_alloc"]
-    pub fn SDL_aligned_free(mem: *mut libc::c_void);
+    pub fn SDL_aligned_free(mem: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     #[doc = " Get the number of outstanding (unfreed) allocations.\n\n \\returns the number of allocations or -1 if allocation counting is\n          disabled.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetNumAllocations() -> libc::c_int;
+    pub fn SDL_GetNumAllocations() -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2344,19 +2427,19 @@ unsafe extern "C" {
     #[doc = " Get the value of a variable in the environment.\n\n \\param env the environment to query.\n \\param name the name of the variable to get.\n \\returns a pointer to the value of the variable or NULL if it can't be\n          found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetEnvironment\n \\sa SDL_CreateEnvironment\n \\sa SDL_GetEnvironmentVariables\n \\sa SDL_SetEnvironmentVariable\n \\sa SDL_UnsetEnvironmentVariable"]
     pub fn SDL_GetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
-    ) -> *const libc::c_char;
+        name: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get all variables in the environment.\n\n \\param env the environment to query.\n \\returns a NULL terminated array of pointers to environment variables in\n          the form \"variable=value\" or NULL on failure; call SDL_GetError()\n          for more information. This is a single allocation that should be\n          freed with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetEnvironment\n \\sa SDL_CreateEnvironment\n \\sa SDL_GetEnvironmentVariables\n \\sa SDL_SetEnvironmentVariable\n \\sa SDL_UnsetEnvironmentVariable"]
-    pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut libc::c_char;
+    pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Set the value of a variable in the environment.\n\n \\param env the environment to modify.\n \\param name the name of the variable to set.\n \\param value the value of the variable to set.\n \\param overwrite true to overwrite the variable if it exists, false to\n                  return success without setting the variable if it already\n                  exists.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetEnvironment\n \\sa SDL_CreateEnvironment\n \\sa SDL_GetEnvironmentVariable\n \\sa SDL_GetEnvironmentVariables\n \\sa SDL_UnsetEnvironmentVariable"]
     pub fn SDL_SetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
         overwrite: bool,
     ) -> bool;
 }
@@ -2364,7 +2447,7 @@ unsafe extern "C" {
     #[doc = " Clear a variable from the environment.\n\n \\param env the environment to modify.\n \\param name the name of the variable to unset.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetEnvironment\n \\sa SDL_CreateEnvironment\n \\sa SDL_GetEnvironmentVariable\n \\sa SDL_GetEnvironmentVariables\n \\sa SDL_SetEnvironmentVariable\n \\sa SDL_UnsetEnvironmentVariable"]
     pub fn SDL_UnsetEnvironmentVariable(
         env: *mut SDL_Environment,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -2373,32 +2456,35 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the value of a variable in the environment.\n\n This function uses SDL's cached copy of the environment and is thread-safe.\n\n \\param name the name of the variable to get.\n \\returns a pointer to the value of the variable or NULL if it can't be\n          found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_getenv(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_getenv(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the value of a variable in the environment.\n\n This function bypasses SDL's cached copy of the environment and is not\n thread-safe.\n\n \\param name the name of the variable to get.\n \\returns a pointer to the value of the variable or NULL if it can't be\n          found.\n\n \\threadsafety This function is not thread safe, consider using SDL_getenv()\n               instead.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_getenv"]
-    pub fn SDL_getenv_unsafe(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_getenv_unsafe(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Set the value of a variable in the environment.\n\n \\param name the name of the variable to set.\n \\param value the value of the variable to set.\n \\param overwrite 1 to overwrite the variable if it exists, 0 to return\n                  success without setting the variable if it already exists.\n \\returns 0 on success, -1 on error.\n\n \\threadsafety This function is not thread safe, consider using\n               SDL_SetEnvironmentVariable() instead.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetEnvironmentVariable"]
     pub fn SDL_setenv_unsafe(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
-        overwrite: libc::c_int,
-    ) -> libc::c_int;
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
+        overwrite: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Clear a variable from the environment.\n\n \\param name the name of the variable to unset.\n \\returns 0 on success, -1 on error.\n\n \\threadsafety This function is not thread safe, consider using\n               SDL_UnsetEnvironmentVariable() instead.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_UnsetEnvironmentVariable"]
-    pub fn SDL_unsetenv_unsafe(name: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_unsetenv_unsafe(name: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 #[doc = " A callback used with SDL sorting and binary search functions.\n\n \\param a a pointer to the first element being compared.\n \\param b a pointer to the second element being compared.\n \\returns -1 if `a` should be sorted before `b`, 1 if `b` should be sorted\n          before `a`, 0 if they are equal. If two elements are equal, their\n          order in the sorted array is undefined.\n\n \\since This callback is available since SDL 3.2.0.\n\n \\sa SDL_bsearch\n \\sa SDL_qsort"]
 pub type SDL_CompareCallback = ::core::option::Option<
-    unsafe extern "C" fn(a: *const libc::c_void, b: *const libc::c_void) -> libc::c_int,
+    unsafe extern "C" fn(
+        a: *const ::core::ffi::c_void,
+        b: *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int,
 >;
 unsafe extern "C" {
     #[doc = " Sort an array.\n\n For example:\n\n ```c\n typedef struct {\n     int key;\n     const char *string;\n } data;\n\n int SDLCALL compare(const void *a, const void *b)\n {\n     const data *A = (const data *)a;\n     const data *B = (const data *)b;\n\n     if (A->n < B->n) {\n         return -1;\n     } else if (B->n < A->n) {\n         return 1;\n     } else {\n         return 0;\n     }\n }\n\n data values[] = {\n     { 3, \"third\" }, { 1, \"first\" }, { 2, \"second\" }\n };\n\n SDL_qsort(values, SDL_arraysize(values), sizeof(values[0]), compare);\n ```\n\n \\param base a pointer to the start of the array.\n \\param nmemb the number of elements in the array.\n \\param size the size of the elements in the array.\n \\param compare a function used to compare elements in the array.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_bsearch\n \\sa SDL_qsort_r"]
     pub fn SDL_qsort(
-        base: *mut libc::c_void,
+        base: *mut ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback,
@@ -2407,141 +2493,153 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Perform a binary search on a previously sorted array.\n\n For example:\n\n ```c\n typedef struct {\n     int key;\n     const char *string;\n } data;\n\n int SDLCALL compare(const void *a, const void *b)\n {\n     const data *A = (const data *)a;\n     const data *B = (const data *)b;\n\n     if (A->n < B->n) {\n         return -1;\n     } else if (B->n < A->n) {\n         return 1;\n     } else {\n         return 0;\n     }\n }\n\n data values[] = {\n     { 1, \"first\" }, { 2, \"second\" }, { 3, \"third\" }\n };\n data key = { 2, NULL };\n\n data *result = SDL_bsearch(&key, values, SDL_arraysize(values), sizeof(values[0]), compare);\n ```\n\n \\param key a pointer to a key equal to the element being searched for.\n \\param base a pointer to the start of the array.\n \\param nmemb the number of elements in the array.\n \\param size the size of the elements in the array.\n \\param compare a function used to compare elements in the array.\n \\returns a pointer to the matching element in the array, or NULL if not\n          found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_bsearch_r\n \\sa SDL_qsort"]
     pub fn SDL_bsearch(
-        key: *const libc::c_void,
-        base: *const libc::c_void,
+        key: *const ::core::ffi::c_void,
+        base: *const ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 #[doc = " A callback used with SDL sorting and binary search functions.\n\n \\param userdata the `userdata` pointer passed to the sort function.\n \\param a a pointer to the first element being compared.\n \\param b a pointer to the second element being compared.\n \\returns -1 if `a` should be sorted before `b`, 1 if `b` should be sorted\n          before `a`, 0 if they are equal. If two elements are equal, their\n          order in the sorted array is undefined.\n\n \\since This callback is available since SDL 3.2.0.\n\n \\sa SDL_qsort_r\n \\sa SDL_bsearch_r"]
 pub type SDL_CompareCallback_r = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        a: *const libc::c_void,
-        b: *const libc::c_void,
-    ) -> libc::c_int,
+        userdata: *mut ::core::ffi::c_void,
+        a: *const ::core::ffi::c_void,
+        b: *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int,
 >;
 unsafe extern "C" {
     #[doc = " Sort an array, passing a userdata pointer to the compare function.\n\n For example:\n\n ```c\n typedef enum {\n     sort_increasing,\n     sort_decreasing,\n } sort_method;\n\n typedef struct {\n     int key;\n     const char *string;\n } data;\n\n int SDLCALL compare(const void *userdata, const void *a, const void *b)\n {\n     sort_method method = (sort_method)(uintptr_t)userdata;\n     const data *A = (const data *)a;\n     const data *B = (const data *)b;\n\n     if (A->key < B->key) {\n         return (method == sort_increasing) ? -1 : 1;\n     } else if (B->key < A->key) {\n         return (method == sort_increasing) ? 1 : -1;\n     } else {\n         return 0;\n     }\n }\n\n data values[] = {\n     { 3, \"third\" }, { 1, \"first\" }, { 2, \"second\" }\n };\n\n SDL_qsort_r(values, SDL_arraysize(values), sizeof(values[0]), compare, (const void *)(uintptr_t)sort_increasing);\n ```\n\n \\param base a pointer to the start of the array.\n \\param nmemb the number of elements in the array.\n \\param size the size of the elements in the array.\n \\param compare a function used to compare elements in the array.\n \\param userdata a pointer to pass to the compare function.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_bsearch_r\n \\sa SDL_qsort"]
     pub fn SDL_qsort_r(
-        base: *mut libc::c_void,
+        base: *mut ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback_r,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
     #[doc = " Perform a binary search on a previously sorted array, passing a userdata\n pointer to the compare function.\n\n For example:\n\n ```c\n typedef enum {\n     sort_increasing,\n     sort_decreasing,\n } sort_method;\n\n typedef struct {\n     int key;\n     const char *string;\n } data;\n\n int SDLCALL compare(const void *userdata, const void *a, const void *b)\n {\n     sort_method method = (sort_method)(uintptr_t)userdata;\n     const data *A = (const data *)a;\n     const data *B = (const data *)b;\n\n     if (A->key < B->key) {\n         return (method == sort_increasing) ? -1 : 1;\n     } else if (B->key < A->key) {\n         return (method == sort_increasing) ? 1 : -1;\n     } else {\n         return 0;\n     }\n }\n\n data values[] = {\n     { 1, \"first\" }, { 2, \"second\" }, { 3, \"third\" }\n };\n data key = { 2, NULL };\n\n data *result = SDL_bsearch_r(&key, values, SDL_arraysize(values), sizeof(values[0]), compare, (const void *)(uintptr_t)sort_increasing);\n ```\n\n \\param key a pointer to a key equal to the element being searched for.\n \\param base a pointer to the start of the array.\n \\param nmemb the number of elements in the array.\n \\param size the size of the elements in the array.\n \\param compare a function used to compare elements in the array.\n \\param userdata a pointer to pass to the compare function.\n \\returns a pointer to the matching element in the array, or NULL if not\n          found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_bsearch\n \\sa SDL_qsort_r"]
     pub fn SDL_bsearch_r(
-        key: *const libc::c_void,
-        base: *const libc::c_void,
+        key: *const ::core::ffi::c_void,
+        base: *const ::core::ffi::c_void,
         nmemb: usize,
         size: usize,
         compare: SDL_CompareCallback_r,
-        userdata: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        userdata: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Compute the absolute value of `x`.\n\n \\param x an integer value.\n \\returns the absolute value of x.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_abs(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_abs(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Query if a character is alphabetic (a letter).\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n for English 'a-z' and 'A-Z' as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isalpha(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isalpha(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Query if a character is alphabetic (a letter) or a number.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n for English 'a-z', 'A-Z', and '0-9' as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isalnum(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isalnum(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is blank (a space or tab).\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n 0x20 (space) or 0x9 (tab) as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isblank(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isblank(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is a control character.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n 0 through 0x1F, and 0x7F, as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_iscntrl(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_iscntrl(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is a numeric digit.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n '0' (0x30) through '9' (0x39), as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isdigit(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isdigit(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is a hexadecimal digit.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n 'A' through 'F', 'a' through 'f', and '0' through '9', as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isxdigit(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isxdigit(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is a punctuation mark.\n\n **WARNING**: Regardless of system locale, this is equivalent to\n `((SDL_isgraph(x)) && (!SDL_isalnum(x)))`.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isgraph\n \\sa SDL_isalnum"]
-    pub fn SDL_ispunct(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_ispunct(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is whitespace.\n\n **WARNING**: Regardless of system locale, this will only treat the\n following ASCII values as true:\n\n - space (0x20)\n - tab (0x09)\n - newline (0x0A)\n - vertical tab (0x0B)\n - form feed (0x0C)\n - return (0x0D)\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isspace(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isspace(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is upper case.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n 'A' through 'Z' as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isupper(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isupper(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is lower case.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n 'a' through 'z' as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_islower(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_islower(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is \"printable\".\n\n Be advised that \"printable\" has a definition that goes back to text\n terminals from the dawn of computing, making this a sort of special case\n function that is not suitable for Unicode (or most any) text management.\n\n **WARNING**: Regardless of system locale, this will only treat ASCII values\n ' ' (0x20) through '~' (0x7E) as true.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_isprint(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isprint(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report if a character is any \"printable\" except space.\n\n Be advised that \"printable\" has a definition that goes back to text\n terminals from the dawn of computing, making this a sort of special case\n function that is not suitable for Unicode (or most any) text management.\n\n **WARNING**: Regardless of system locale, this is equivalent to\n `(SDL_isprint(x)) && ((x) != ' ')`.\n\n \\param x character value to check.\n \\returns non-zero if x falls within the character class, zero otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isprint"]
-    pub fn SDL_isgraph(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_isgraph(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Convert low-ASCII English letters to uppercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'a' through 'z' to uppercase.\n\n This function returns the uppercase equivalent of `x`. If a character\n cannot be converted, or is already uppercase, this function returns `x`.\n\n \\param x character value to check.\n \\returns capitalized version of x, or x if no conversion available.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_toupper(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_toupper(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Convert low-ASCII English letters to lowercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'A' through 'Z' to lowercase.\n\n This function returns the lowercase equivalent of `x`. If a character\n cannot be converted, or is already lowercase, this function returns `x`.\n\n \\param x character value to check.\n \\returns lowercase version of x, or x if no conversion available.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_tolower(x: libc::c_int) -> libc::c_int;
+    pub fn SDL_tolower(x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Calculate a CRC-16 value.\n\n https://en.wikipedia.org/wiki/Cyclic_redundancy_check\n\n This function can be called multiple times, to stream data to be\n checksummed in blocks. Each call must provide the previous CRC-16 return\n value to be updated with the next block. The first call to this function\n for a set of blocks should pass in a zero CRC value.\n\n \\param crc the current checksum for this data set, or 0 for a new data set.\n \\param data a new block of data to add to the checksum.\n \\param len the size, in bytes, of the new block of data.\n \\returns a CRC-16 checksum value of all blocks in the data set.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_crc16(crc: Uint16, data: *const libc::c_void, len: usize) -> Uint16;
+    pub fn SDL_crc16(crc: Uint16, data: *const ::core::ffi::c_void, len: usize) -> Uint16;
 }
 unsafe extern "C" {
     #[doc = " Calculate a CRC-32 value.\n\n https://en.wikipedia.org/wiki/Cyclic_redundancy_check\n\n This function can be called multiple times, to stream data to be\n checksummed in blocks. Each call must provide the previous CRC-32 return\n value to be updated with the next block. The first call to this function\n for a set of blocks should pass in a zero CRC value.\n\n \\param crc the current checksum for this data set, or 0 for a new data set.\n \\param data a new block of data to add to the checksum.\n \\param len the size, in bytes, of the new block of data.\n \\returns a CRC-32 checksum value of all blocks in the data set.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_crc32(crc: Uint32, data: *const libc::c_void, len: usize) -> Uint32;
+    pub fn SDL_crc32(crc: Uint32, data: *const ::core::ffi::c_void, len: usize) -> Uint32;
 }
 unsafe extern "C" {
     #[doc = " Calculate a 32-bit MurmurHash3 value for a block of data.\n\n https://en.wikipedia.org/wiki/MurmurHash\n\n A seed may be specified, which changes the final results consistently, but\n this does not work like SDL_crc16 and SDL_crc32: you can't feed a previous\n result from this function back into itself as the next seed value to\n calculate a hash in chunks; it won't produce the same hash as it would if\n the same data was provided in a single call.\n\n If you aren't sure what to provide for a seed, zero is fine. Murmur3 is not\n cryptographically secure, so it shouldn't be used for hashing top-secret\n data.\n\n \\param data the data to be hashed.\n \\param len the size of data, in bytes.\n \\param seed a value that alters the final hash value.\n \\returns a Murmur3 32-bit hash value.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_murmur3_32(data: *const libc::c_void, len: usize, seed: Uint32) -> Uint32;
+    pub fn SDL_murmur3_32(data: *const ::core::ffi::c_void, len: usize, seed: Uint32) -> Uint32;
 }
 unsafe extern "C" {
     #[doc = " Copy non-overlapping memory.\n\n The memory regions must not overlap. If they do, use SDL_memmove() instead.\n\n \\param dst The destination memory region. Must not be NULL, and must not\n            overlap with `src`.\n \\param src The source memory region. Must not be NULL, and must not overlap\n            with `dst`.\n \\param len The length in bytes of both `dst` and `src`.\n \\returns `dst`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_memmove"]
     pub fn SDL_memcpy(
-        dst: *mut libc::c_void,
-        src: *const libc::c_void,
+        dst: *mut ::core::ffi::c_void,
+        src: *const ::core::ffi::c_void,
         len: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Copy memory ranges that might overlap.\n\n It is okay for the memory regions to overlap. If you are confident that the\n regions never overlap, using SDL_memcpy() may improve performance.\n\n \\param dst The destination memory region. Must not be NULL.\n \\param src The source memory region. Must not be NULL.\n \\param len The length in bytes of both `dst` and `src`.\n \\returns `dst`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_memcpy"]
     pub fn SDL_memmove(
-        dst: *mut libc::c_void,
-        src: *const libc::c_void,
+        dst: *mut ::core::ffi::c_void,
+        src: *const ::core::ffi::c_void,
         len: usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Initialize all bytes of buffer of memory to a specific value.\n\n This function will set `len` bytes, pointed to by `dst`, to the value\n specified in `c`.\n\n Despite `c` being an `int` instead of a `char`, this only operates on\n bytes; `c` must be a value between 0 and 255, inclusive.\n\n \\param dst the destination memory region. Must not be NULL.\n \\param c the byte value to set.\n \\param len the length, in bytes, to set in `dst`.\n \\returns `dst`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_memset(dst: *mut libc::c_void, c: libc::c_int, len: usize) -> *mut libc::c_void;
+    pub fn SDL_memset(
+        dst: *mut ::core::ffi::c_void,
+        c: ::core::ffi::c_int,
+        len: usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Initialize all 32-bit words of buffer of memory to a specific value.\n\n This function will set a buffer of `dwords` Uint32 values, pointed to by\n `dst`, to the value specified in `val`.\n\n Unlike SDL_memset, this sets 32-bit values, not bytes, so it's not limited\n to a range of 0-255.\n\n \\param dst the destination memory region. Must not be NULL.\n \\param val the Uint32 value to set.\n \\param dwords the number of Uint32 values to set in `dst`.\n \\returns `dst`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_memset4(dst: *mut libc::c_void, val: Uint32, dwords: usize) -> *mut libc::c_void;
+    pub fn SDL_memset4(
+        dst: *mut ::core::ffi::c_void,
+        val: Uint32,
+        dwords: usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Compare two buffers of memory.\n\n \\param s1 the first buffer to compare. NULL is not permitted!\n \\param s2 the second buffer to compare. NULL is not permitted!\n \\param len the number of bytes to compare between the buffers.\n \\returns less than zero if s1 is \"less than\" s2, greater than zero if s1 is\n          \"greater than\" s2, and zero if the buffers match exactly for `len`\n          bytes.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_memcmp(s1: *const libc::c_void, s2: *const libc::c_void, len: usize) -> libc::c_int;
+    pub fn SDL_memcmp(
+        s1: *const ::core::ffi::c_void,
+        s2: *const ::core::ffi::c_void,
+        len: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like wcslen() but doesn't require access to a C runtime.\n\n Counts the number of wchar_t values in `wstr`, excluding the null\n terminator.\n\n Like SDL_strlen only counts bytes and not codepoints in a UTF-8 string,\n this counts wchar_t values in a string, even if the string's encoding is of\n variable width, like UTF-16.\n\n Also be aware that wchar_t is different sizes on different platforms (4\n bytes on Linux, 2 on Windows, etc).\n\n \\param wstr The null-terminated wide string to read. Must not be NULL.\n \\returns the length (in wchar_t values, excluding the null terminator) of\n          `wstr`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_wcsnlen\n \\sa SDL_utf8strlen\n \\sa SDL_utf8strnlen"]
@@ -2577,15 +2675,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Compare two null-terminated wide strings.\n\n This only compares wchar_t values until it hits a null-terminating\n character; it does not care if the string is well-formed UTF-16 (or UTF-32,\n depending on your platform's wchar_t size), or uses valid Unicode values.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_wcscmp(str1: *const wchar_t, str2: *const wchar_t) -> libc::c_int;
+    pub fn SDL_wcscmp(str1: *const wchar_t, str2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two wide strings up to a number of wchar_t values.\n\n This only compares wchar_t values; it does not care if the string is\n well-formed UTF-16 (or UTF-32, depending on your platform's wchar_t size),\n or uses valid Unicode values.\n\n Note that while this function is intended to be used with UTF-16 (or\n UTF-32, depending on your platform's definition of wchar_t), it is\n comparing raw wchar_t values and not Unicode codepoints: `maxlen` specifies\n a wchar_t limit! If the limit lands in the middle of a multi-wchar UTF-16\n sequence, it will only compare a portion of the final character.\n\n `maxlen` specifies a maximum number of wchar_t to compare; if the strings\n match to this number of wide chars (or both have matched to a\n null-terminator character before this count), they will be considered\n equal.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\param maxlen the maximum number of wchar_t to compare.\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_wcsncmp(str1: *const wchar_t, str2: *const wchar_t, maxlen: usize) -> libc::c_int;
+    pub fn SDL_wcsncmp(
+        str1: *const wchar_t,
+        str2: *const wchar_t,
+        maxlen: usize,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two null-terminated wide strings, case-insensitively.\n\n This will work with Unicode strings, using a technique called\n \"case-folding\" to handle the vast majority of case-sensitive human\n languages regardless of system locale. It can deal with expanding values: a\n German Eszett character can compare against two ASCII 's' chars and be\n considered a match, for example. A notable exception: it does not handle\n the Turkish 'i' character; human language is complicated!\n\n Depending on your platform, \"wchar_t\" might be 2 bytes, and expected to be\n UTF-16 encoded (like Windows), or 4 bytes in UTF-32 format. Since this\n handles Unicode, it expects the string to be well-formed and not a\n null-terminated string of arbitrary bytes. Characters that are not valid\n UTF-16 (or UTF-32) are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), which is to say two strings of random bits may turn out to\n match if they convert to the same amount of replacement characters.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_wcscasecmp(str1: *const wchar_t, str2: *const wchar_t) -> libc::c_int;
+    pub fn SDL_wcscasecmp(str1: *const wchar_t, str2: *const wchar_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two wide strings, case-insensitively, up to a number of wchar_t.\n\n This will work with Unicode strings, using a technique called\n \"case-folding\" to handle the vast majority of case-sensitive human\n languages regardless of system locale. It can deal with expanding values: a\n German Eszett character can compare against two ASCII 's' chars and be\n considered a match, for example. A notable exception: it does not handle\n the Turkish 'i' character; human language is complicated!\n\n Depending on your platform, \"wchar_t\" might be 2 bytes, and expected to be\n UTF-16 encoded (like Windows), or 4 bytes in UTF-32 format. Since this\n handles Unicode, it expects the string to be well-formed and not a\n null-terminated string of arbitrary bytes. Characters that are not valid\n UTF-16 (or UTF-32) are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), which is to say two strings of random bits may turn out to\n match if they convert to the same amount of replacement characters.\n\n Note that while this function might deal with variable-sized characters,\n `maxlen` specifies a _wchar_ limit! If the limit lands in the middle of a\n multi-byte UTF-16 sequence, it may convert a portion of the final character\n to one or more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not\n to overflow a buffer.\n\n `maxlen` specifies a maximum number of wchar_t values to compare; if the\n strings match to this number of wchar_t (or both have matched to a\n null-terminator character before this number of bytes), they will be\n considered equal.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\param maxlen the maximum number of wchar_t values to compare.\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -2593,275 +2695,311 @@ unsafe extern "C" {
         str1: *const wchar_t,
         str2: *const wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Parse a `long` from a wide string.\n\n If `str` starts with whitespace, then those whitespace characters are\n skipped before attempting to parse the number.\n\n If the parsed number does not fit inside a `long`, the result is clamped to\n the minimum and maximum representable `long` values.\n\n \\param str The null-terminated wide string to read. Must not be NULL.\n \\param endp If not NULL, the address of the first invalid wide character\n             (i.e. the next character after the parsed number) will be\n             written to this pointer.\n \\param base The base of the integer to read. Supported values are 0 and 2\n             to 36 inclusive. If 0, the base will be inferred from the\n             number's prefix (0x for hexadecimal, 0 for octal, decimal\n             otherwise).\n \\returns the parsed `long`, or 0 if no number could be parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strtol"]
     pub fn SDL_wcstol(
         str_: *const wchar_t,
         endp: *mut *mut wchar_t,
-        base: libc::c_int,
-    ) -> libc::c_long;
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like strlen() but doesn't require access to a C runtime.\n\n Counts the bytes in `str`, excluding the null terminator.\n\n If you need the length of a UTF-8 string, consider using SDL_utf8strlen().\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\returns the length (in bytes, excluding the null terminator) of `src`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strnlen\n \\sa SDL_utf8strlen\n \\sa SDL_utf8strnlen"]
-    pub fn SDL_strlen(str_: *const libc::c_char) -> usize;
+    pub fn SDL_strlen(str_: *const ::core::ffi::c_char) -> usize;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like strnlen() but doesn't require access to a C\n runtime.\n\n Counts up to a maximum of `maxlen` bytes in `str`, excluding the null\n terminator.\n\n If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\param maxlen The maximum amount of bytes to count.\n \\returns the length (in bytes, excluding the null terminator) of `src` but\n          never more than `maxlen`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strlen\n \\sa SDL_utf8strlen\n \\sa SDL_utf8strnlen"]
-    pub fn SDL_strnlen(str_: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strnlen(str_: *const ::core::ffi::c_char, maxlen: usize) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Copy a string.\n\n This function copies up to `maxlen` - 1 characters from `src` to `dst`,\n then appends a null terminator.\n\n If `maxlen` is 0, no characters are copied and no null terminator is\n written.\n\n If you want to copy an UTF-8 string but need to ensure that multi-byte\n sequences are not truncated, consider using SDL_utf8strlcpy().\n\n \\param dst The destination buffer. Must not be NULL, and must not overlap\n            with `src`.\n \\param src The null-terminated string to copy. Must not be NULL, and must\n            not overlap with `dst`.\n \\param maxlen The length (in characters) of the destination buffer.\n \\returns the length (in characters, excluding the null terminator) of\n          `src`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strlcat\n \\sa SDL_utf8strlcpy"]
-    pub fn SDL_strlcpy(dst: *mut libc::c_char, src: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strlcpy(
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
+        maxlen: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Copy an UTF-8 string.\n\n This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while\n also ensuring that the string written to `dst` does not end in a truncated\n multi-byte sequence. Finally, it appends a null terminator.\n\n `src` and `dst` must not overlap.\n\n Note that unlike SDL_strlcpy(), this function returns the number of bytes\n written, not the length of `src`.\n\n \\param dst The destination buffer. Must not be NULL, and must not overlap\n            with `src`.\n \\param src The null-terminated UTF-8 string to copy. Must not be NULL, and\n            must not overlap with `dst`.\n \\param dst_bytes The length (in bytes) of the destination buffer. Must not\n                  be 0.\n \\returns the number of bytes written, excluding the null terminator.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strlcpy"]
     pub fn SDL_utf8strlcpy(
-        dst: *mut libc::c_char,
-        src: *const libc::c_char,
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
         dst_bytes: usize,
     ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Concatenate strings.\n\n This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from\n `src` to the end of the string in `dst`, then appends a null terminator.\n\n `src` and `dst` must not overlap.\n\n If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is\n unmodified.\n\n \\param dst The destination buffer already containing the first\n            null-terminated string. Must not be NULL and must not overlap\n            with `src`.\n \\param src The second null-terminated string. Must not be NULL, and must\n            not overlap with `dst`.\n \\param maxlen The length (in characters) of the destination buffer.\n \\returns the length (in characters, excluding the null terminator) of the\n          string in `dst` plus the length of `src`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strlcpy"]
-    pub fn SDL_strlcat(dst: *mut libc::c_char, src: *const libc::c_char, maxlen: usize) -> usize;
+    pub fn SDL_strlcat(
+        dst: *mut ::core::ffi::c_char,
+        src: *const ::core::ffi::c_char,
+        maxlen: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Allocate a copy of a string.\n\n This allocates enough space for a null-terminated copy of `str`, using\n SDL_malloc, and then makes a copy of the string into this space.\n\n The returned string is owned by the caller, and should be passed to\n SDL_free when no longer needed.\n\n \\param str the string to copy.\n \\returns a pointer to the newly-allocated string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strdup(str_: *const libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strdup(str_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Allocate a copy of a string, up to n characters.\n\n This allocates enough space for a null-terminated copy of `str`, up to\n `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into\n this space.\n\n If the string is longer than `maxlen` bytes, the returned string will be\n `maxlen` bytes long, plus a null-terminator character that isn't included\n in the count.\n\n The returned string is owned by the caller, and should be passed to\n SDL_free when no longer needed.\n\n \\param str the string to copy.\n \\param maxlen the maximum length of the copied string, not counting the\n               null-terminator character.\n \\returns a pointer to the newly-allocated string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strndup(str_: *const libc::c_char, maxlen: usize) -> *mut libc::c_char;
+    pub fn SDL_strndup(str_: *const ::core::ffi::c_char, maxlen: usize)
+        -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Reverse a string's contents.\n\n This reverses a null-terminated string in-place. Only the content of the\n string is reversed; the null-terminator character remains at the end of the\n reversed string.\n\n **WARNING**: This function reverses the _bytes_ of the string, not the\n codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this\n will ruin the string data. You should only use this function on strings\n that are completely comprised of low ASCII characters.\n\n \\param str the string to reverse.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strrev(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strrev(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert a string to uppercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'A' through 'Z' to uppercase.\n\n This function operates on a null-terminated string of bytes--even if it is\n malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their\n uppercase equivalents in-place, returning the original `str` pointer.\n\n \\param str the string to convert in-place. Can not be NULL.\n \\returns the `str` pointer passed into this function.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strlwr"]
-    pub fn SDL_strupr(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strupr(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert a string to lowercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'A' through 'Z' to lowercase.\n\n This function operates on a null-terminated string of bytes--even if it is\n malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their\n lowercase equivalents in-place, returning the original `str` pointer.\n\n \\param str the string to convert in-place. Can not be NULL.\n \\returns the `str` pointer passed into this function.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_strupr"]
-    pub fn SDL_strlwr(str_: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_strlwr(str_: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Search a string for the first instance of a specific byte.\n\n The search ends once it finds the requested byte value, or a null\n terminator byte to end the string.\n\n Note that this looks for _bytes_, not _characters_, so you cannot match\n against a Unicode codepoint > 255, regardless of character encoding.\n\n \\param str the string to search. Must not be NULL.\n \\param c the byte value to search for.\n \\returns a pointer to the first instance of `c` in the string, or NULL if\n          not found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strchr(str_: *const libc::c_char, c: libc::c_int) -> *mut libc::c_char;
+    pub fn SDL_strchr(
+        str_: *const ::core::ffi::c_char,
+        c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Search a string for the last instance of a specific byte.\n\n The search must go until it finds a null terminator byte to end the string.\n\n Note that this looks for _bytes_, not _characters_, so you cannot match\n against a Unicode codepoint > 255, regardless of character encoding.\n\n \\param str the string to search. Must not be NULL.\n \\param c the byte value to search for.\n \\returns a pointer to the last instance of `c` in the string, or NULL if\n          not found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strrchr(str_: *const libc::c_char, c: libc::c_int) -> *mut libc::c_char;
+    pub fn SDL_strrchr(
+        str_: *const ::core::ffi::c_char,
+        c: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Search a string for the first instance of a specific substring.\n\n The search ends once it finds the requested substring, or a null terminator\n byte to end the string.\n\n Note that this looks for strings of _bytes_, not _characters_, so it's\n legal to search for malformed and incomplete UTF-8 sequences.\n\n \\param haystack the string to search. Must not be NULL.\n \\param needle the string to search for. Must not be NULL.\n \\returns a pointer to the first instance of `needle` in the string, or NULL\n          if not found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strstr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Search a string, up to n bytes, for the first instance of a specific\n substring.\n\n The search ends once it finds the requested substring, or a null terminator\n byte to end the string, or `maxlen` bytes have been examined. It is\n possible to use this function on a string without a null terminator.\n\n Note that this looks for strings of _bytes_, not _characters_, so it's\n legal to search for malformed and incomplete UTF-8 sequences.\n\n \\param haystack the string to search. Must not be NULL.\n \\param needle the string to search for. Must not be NULL.\n \\param maxlen the maximum number of bytes to search in `haystack`.\n \\returns a pointer to the first instance of `needle` in the string, or NULL\n          if not found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strnstr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Search a UTF-8 string for the first instance of a specific substring,\n case-insensitively.\n\n This will work with Unicode strings, using a technique called\n \"case-folding\" to handle the vast majority of case-sensitive human\n languages regardless of system locale. It can deal with expanding values: a\n German Eszett character can compare against two ASCII 's' chars and be\n considered a match, for example. A notable exception: it does not handle\n the Turkish 'i' character; human language is complicated!\n\n Since this handles Unicode, it expects the strings to be well-formed UTF-8\n and not a null-terminated string of arbitrary bytes. Bytes that are not\n valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), which is to say two strings of random bits may turn out to\n match if they convert to the same amount of replacement characters.\n\n \\param haystack the string to search. Must not be NULL.\n \\param needle the string to search for. Must not be NULL.\n \\returns a pointer to the first instance of `needle` in the string, or NULL\n          if not found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strcasestr(
-        haystack: *const libc::c_char,
-        needle: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        haystack: *const ::core::ffi::c_char,
+        needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like strtok_r() but doesn't require access to a C\n runtime.\n\n Break a string up into a series of tokens.\n\n To start tokenizing a new string, `str` should be the non-NULL address of\n the string to start tokenizing. Future calls to get the next token from the\n same string should specify a NULL.\n\n Note that this function will overwrite pieces of `str` with null chars to\n split it into tokens. This function cannot be used with const/read-only\n strings!\n\n `saveptr` just needs to point to a `char *` that can be overwritten; SDL\n will use this to save tokenizing state between calls. It is initialized if\n `str` is non-NULL, and used to resume tokenizing when `str` is NULL.\n\n \\param str the string to tokenize, or NULL to continue tokenizing.\n \\param delim the delimiter string that separates tokens.\n \\param saveptr pointer to a char *, used for ongoing state.\n \\returns A pointer to the next token, or NULL if no tokens remain.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strtok_r(
-        str_: *mut libc::c_char,
-        delim: *const libc::c_char,
-        saveptr: *mut *mut libc::c_char,
-    ) -> *mut libc::c_char;
+        str_: *mut ::core::ffi::c_char,
+        delim: *const ::core::ffi::c_char,
+        saveptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Count the number of codepoints in a UTF-8 string.\n\n Counts the _codepoints_, not _bytes_, in `str`, excluding the null\n terminator.\n\n If you need to count the bytes in a string instead, consider using\n SDL_strlen().\n\n Since this handles Unicode, it expects the strings to be well-formed UTF-8\n and not a null-terminated string of arbitrary bytes. Bytes that are not\n valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the\n count by several replacement characters.\n\n \\param str The null-terminated UTF-8 string to read. Must not be NULL.\n \\returns The length (in codepoints, excluding the null terminator) of\n          `src`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_utf8strnlen\n \\sa SDL_strlen"]
-    pub fn SDL_utf8strlen(str_: *const libc::c_char) -> usize;
+    pub fn SDL_utf8strlen(str_: *const ::core::ffi::c_char) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Count the number of codepoints in a UTF-8 string, up to n bytes.\n\n Counts the _codepoints_, not _bytes_, in `str`, excluding the null\n terminator.\n\n If you need to count the bytes in a string instead, consider using\n SDL_strnlen().\n\n The counting stops at `bytes` bytes (not codepoints!). This seems\n counterintuitive, but makes it easy to express the total size of the\n string's buffer.\n\n Since this handles Unicode, it expects the strings to be well-formed UTF-8\n and not a null-terminated string of arbitrary bytes. Bytes that are not\n valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the\n count by several replacement characters.\n\n \\param str The null-terminated UTF-8 string to read. Must not be NULL.\n \\param bytes The maximum amount of bytes to count.\n \\returns The length (in codepoints, excluding the null terminator) of `src`\n          but never more than `maxlen`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_utf8strlen\n \\sa SDL_strnlen"]
-    pub fn SDL_utf8strnlen(str_: *const libc::c_char, bytes: usize) -> usize;
+    pub fn SDL_utf8strnlen(str_: *const ::core::ffi::c_char, bytes: usize) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Convert an integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget possible negative\n signs, null terminator bytes, etc).\n\n \\param value the integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_uitoa\n \\sa SDL_ltoa\n \\sa SDL_lltoa"]
     pub fn SDL_itoa(
-        value: libc::c_int,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_int,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert an unsigned integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget null terminator\n bytes, etc).\n\n \\param value the unsigned integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_itoa\n \\sa SDL_ultoa\n \\sa SDL_ulltoa"]
     pub fn SDL_uitoa(
-        value: libc::c_uint,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_uint,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert a long integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget possible negative\n signs, null terminator bytes, etc).\n\n \\param value the long integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ultoa\n \\sa SDL_itoa\n \\sa SDL_lltoa"]
     pub fn SDL_ltoa(
-        value: libc::c_long,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_long,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert an unsigned long integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget null terminator\n bytes, etc).\n\n \\param value the unsigned long integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ltoa\n \\sa SDL_uitoa\n \\sa SDL_ulltoa"]
     pub fn SDL_ultoa(
-        value: libc::c_ulong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_ulong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert a long long integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget possible negative\n signs, null terminator bytes, etc).\n\n \\param value the long long integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ulltoa\n \\sa SDL_itoa\n \\sa SDL_ltoa"]
     pub fn SDL_lltoa(
-        value: libc::c_longlong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_longlong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert an unsigned long long integer into a string.\n\n This requires a radix to specified for string format. Specifying 10\n produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2\n to 36.\n\n Note that this function will overflow a buffer if `str` is not large enough\n to hold the output! It may be safer to use SDL_snprintf to clamp output, or\n SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate\n much more space than you expect to use (and don't forget null terminator\n bytes, etc).\n\n \\param value the unsigned long long integer to convert.\n \\param str the buffer to write the string into.\n \\param radix the radix to use for string generation.\n \\returns `str`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_lltoa\n \\sa SDL_uitoa\n \\sa SDL_ultoa"]
     pub fn SDL_ulltoa(
-        value: libc::c_ulonglong,
-        str_: *mut libc::c_char,
-        radix: libc::c_int,
-    ) -> *mut libc::c_char;
+        value: ::core::ffi::c_ulonglong,
+        str_: *mut ::core::ffi::c_char,
+        radix: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Parse an `int` from a string.\n\n The result of calling `SDL_atoi(str)` is equivalent to\n `(int)SDL_strtol(str, NULL, 10)`.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\returns the parsed `int`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atof\n \\sa SDL_strtol\n \\sa SDL_strtoul\n \\sa SDL_strtoll\n \\sa SDL_strtoull\n \\sa SDL_strtod\n \\sa SDL_itoa"]
-    pub fn SDL_atoi(str_: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_atoi(str_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Parse a `double` from a string.\n\n The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,\n NULL)`.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\returns the parsed `double`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_strtol\n \\sa SDL_strtoul\n \\sa SDL_strtoll\n \\sa SDL_strtoull\n \\sa SDL_strtod"]
-    pub fn SDL_atof(str_: *const libc::c_char) -> f64;
+    pub fn SDL_atof(str_: *const ::core::ffi::c_char) -> f64;
 }
 unsafe extern "C" {
     #[doc = " Parse a `long` from a string.\n\n If `str` starts with whitespace, then those whitespace characters are\n skipped before attempting to parse the number.\n\n If the parsed number does not fit inside a `long`, the result is clamped to\n the minimum and maximum representable `long` values.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\param endp If not NULL, the address of the first invalid character (i.e.\n             the next character after the parsed number) will be written to\n             this pointer.\n \\param base The base of the integer to read. Supported values are 0 and 2\n             to 36 inclusive. If 0, the base will be inferred from the\n             number's prefix (0x for hexadecimal, 0 for octal, decimal\n             otherwise).\n \\returns the parsed `long`, or 0 if no number could be parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_atof\n \\sa SDL_strtoul\n \\sa SDL_strtoll\n \\sa SDL_strtoull\n \\sa SDL_strtod\n \\sa SDL_ltoa\n \\sa SDL_wcstol"]
     pub fn SDL_strtol(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_long;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     #[doc = " Parse an `unsigned long` from a string.\n\n If `str` starts with whitespace, then those whitespace characters are\n skipped before attempting to parse the number.\n\n If the parsed number does not fit inside an `unsigned long`, the result is\n clamped to the maximum representable `unsigned long` value.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\param endp If not NULL, the address of the first invalid character (i.e.\n             the next character after the parsed number) will be written to\n             this pointer.\n \\param base The base of the integer to read. Supported values are 0 and 2\n             to 36 inclusive. If 0, the base will be inferred from the\n             number's prefix (0x for hexadecimal, 0 for octal, decimal\n             otherwise).\n \\returns the parsed `unsigned long`, or 0 if no number could be parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_atof\n \\sa SDL_strtol\n \\sa SDL_strtoll\n \\sa SDL_strtoull\n \\sa SDL_strtod\n \\sa SDL_ultoa"]
     pub fn SDL_strtoul(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_ulong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulong;
 }
 unsafe extern "C" {
     #[doc = " Parse a `long long` from a string.\n\n If `str` starts with whitespace, then those whitespace characters are\n skipped before attempting to parse the number.\n\n If the parsed number does not fit inside a `long long`, the result is\n clamped to the minimum and maximum representable `long long` values.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\param endp If not NULL, the address of the first invalid character (i.e.\n             the next character after the parsed number) will be written to\n             this pointer.\n \\param base The base of the integer to read. Supported values are 0 and 2\n             to 36 inclusive. If 0, the base will be inferred from the\n             number's prefix (0x for hexadecimal, 0 for octal, decimal\n             otherwise).\n \\returns the parsed `long long`, or 0 if no number could be parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_atof\n \\sa SDL_strtol\n \\sa SDL_strtoul\n \\sa SDL_strtoull\n \\sa SDL_strtod\n \\sa SDL_lltoa"]
     pub fn SDL_strtoll(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_longlong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_longlong;
 }
 unsafe extern "C" {
     #[doc = " Parse an `unsigned long long` from a string.\n\n If `str` starts with whitespace, then those whitespace characters are\n skipped before attempting to parse the number.\n\n If the parsed number does not fit inside an `unsigned long long`, the\n result is clamped to the maximum representable `unsigned long long` value.\n\n \\param str The null-terminated string to read. Must not be NULL.\n \\param endp If not NULL, the address of the first invalid character (i.e.\n             the next character after the parsed number) will be written to\n             this pointer.\n \\param base The base of the integer to read. Supported values are 0 and 2\n             to 36 inclusive. If 0, the base will be inferred from the\n             number's prefix (0x for hexadecimal, 0 for octal, decimal\n             otherwise).\n \\returns the parsed `unsigned long long`, or 0 if no number could be\n          parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_atof\n \\sa SDL_strtol\n \\sa SDL_strtoll\n \\sa SDL_strtoul\n \\sa SDL_strtod\n \\sa SDL_ulltoa"]
     pub fn SDL_strtoull(
-        str_: *const libc::c_char,
-        endp: *mut *mut libc::c_char,
-        base: libc::c_int,
-    ) -> libc::c_ulonglong;
+        str_: *const ::core::ffi::c_char,
+        endp: *mut *mut ::core::ffi::c_char,
+        base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulonglong;
 }
 unsafe extern "C" {
     #[doc = " Parse a `double` from a string.\n\n This function makes fewer guarantees than the C runtime `strtod`:\n\n - Only decimal notation is guaranteed to be supported. The handling of\n   scientific and hexadecimal notation is unspecified.\n - Whether or not INF and NAN can be parsed is unspecified.\n - The precision of the result is unspecified.\n\n \\param str the null-terminated string to read. Must not be NULL.\n \\param endp if not NULL, the address of the first invalid character (i.e.\n             the next character after the parsed number) will be written to\n             this pointer.\n \\returns the parsed `double`, or 0 if no number could be parsed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_atoi\n \\sa SDL_atof\n \\sa SDL_strtol\n \\sa SDL_strtoll\n \\sa SDL_strtoul\n \\sa SDL_strtoull"]
-    pub fn SDL_strtod(str_: *const libc::c_char, endp: *mut *mut libc::c_char) -> f64;
+    pub fn SDL_strtod(str_: *const ::core::ffi::c_char, endp: *mut *mut ::core::ffi::c_char)
+        -> f64;
 }
 unsafe extern "C" {
     #[doc = " Compare two null-terminated UTF-8 strings.\n\n Due to the nature of UTF-8 encoding, this will work with Unicode strings,\n since effectively this function just compares bytes until it hits a\n null-terminating character. Also due to the nature of UTF-8, this can be\n used with SDL_qsort() to put strings in (roughly) alphabetical order.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strcmp(str1: *const libc::c_char, str2: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_strcmp(
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two UTF-8 strings up to a number of bytes.\n\n Due to the nature of UTF-8 encoding, this will work with Unicode strings,\n since effectively this function just compares bytes until it hits a\n null-terminating character. Also due to the nature of UTF-8, this can be\n used with SDL_qsort() to put strings in (roughly) alphabetical order.\n\n Note that while this function is intended to be used with UTF-8, it is\n doing a bytewise comparison, and `maxlen` specifies a _byte_ limit! If the\n limit lands in the middle of a multi-byte UTF-8 sequence, it will only\n compare a portion of the final character.\n\n `maxlen` specifies a maximum number of bytes to compare; if the strings\n match to this number of bytes (or both have matched to a null-terminator\n character before this number of bytes), they will be considered equal.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\param maxlen the maximum number of _bytes_ to compare.\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strncmp(
-        str1: *const libc::c_char,
-        str2: *const libc::c_char,
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two null-terminated UTF-8 strings, case-insensitively.\n\n This will work with Unicode strings, using a technique called\n \"case-folding\" to handle the vast majority of case-sensitive human\n languages regardless of system locale. It can deal with expanding values: a\n German Eszett character can compare against two ASCII 's' chars and be\n considered a match, for example. A notable exception: it does not handle\n the Turkish 'i' character; human language is complicated!\n\n Since this handles Unicode, it expects the string to be well-formed UTF-8\n and not a null-terminated string of arbitrary bytes. Bytes that are not\n valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), which is to say two strings of random bits may turn out to\n match if they convert to the same amount of replacement characters.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_strcasecmp(str1: *const libc::c_char, str2: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_strcasecmp(
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compare two UTF-8 strings, case-insensitively, up to a number of bytes.\n\n This will work with Unicode strings, using a technique called\n \"case-folding\" to handle the vast majority of case-sensitive human\n languages regardless of system locale. It can deal with expanding values: a\n German Eszett character can compare against two ASCII 's' chars and be\n considered a match, for example. A notable exception: it does not handle\n the Turkish 'i' character; human language is complicated!\n\n Since this handles Unicode, it expects the string to be well-formed UTF-8\n and not a null-terminated string of arbitrary bytes. Bytes that are not\n valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT\n CHARACTER), which is to say two strings of random bits may turn out to\n match if they convert to the same amount of replacement characters.\n\n Note that while this function is intended to be used with UTF-8, `maxlen`\n specifies a _byte_ limit! If the limit lands in the middle of a multi-byte\n UTF-8 sequence, it may convert a portion of the final character to one or\n more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow\n a buffer.\n\n `maxlen` specifies a maximum number of bytes to compare; if the strings\n match to this number of bytes (or both have matched to a null-terminator\n character before this number of bytes), they will be considered equal.\n\n \\param str1 the first string to compare. NULL is not permitted!\n \\param str2 the second string to compare. NULL is not permitted!\n \\param maxlen the maximum number of bytes to compare.\n \\returns less than zero if str1 is \"less than\" str2, greater than zero if\n          str1 is \"greater than\" str2, and zero if the strings match\n          exactly.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strncasecmp(
-        str1: *const libc::c_char,
-        str2: *const libc::c_char,
+        str1: *const ::core::ffi::c_char,
+        str2: *const ::core::ffi::c_char,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Searches a string for the first occurence of any character contained in a\n breakset, and returns a pointer from the string to that character.\n\n \\param str The null-terminated string to be searched. Must not be NULL, and\n            must not overlap with `breakset`.\n \\param breakset A null-terminated string containing the list of characters\n                 to look for. Must not be NULL, and must not overlap with\n                 `str`.\n \\returns A pointer to the location, in str, of the first occurence of a\n          character present in the breakset, or NULL if none is found.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_strpbrk(
-        str_: *const libc::c_char,
-        breakset: *const libc::c_char,
-    ) -> *mut libc::c_char;
+        str_: *const ::core::ffi::c_char,
+        breakset: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Decode a UTF-8 string, one Unicode codepoint at a time.\n\n This will return the first Unicode codepoint in the UTF-8 encoded string in\n `*pstr`, and then advance `*pstr` past any consumed bytes before returning.\n\n It will not access more than `*pslen` bytes from the string. `*pslen` will\n be adjusted, as well, subtracting the number of bytes consumed.\n\n `pslen` is allowed to be NULL, in which case the string _must_ be\n NULL-terminated, as the function will blindly read until it sees the NULL\n char.\n\n if `*pslen` is zero, it assumes the end of string is reached and returns a\n zero codepoint regardless of the contents of the string buffer.\n\n If the resulting codepoint is zero (a NULL terminator), or `*pslen` is\n zero, it will not advance `*pstr` or `*pslen` at all.\n\n Generally this function is called in a loop until it returns zero,\n adjusting its parameters each iteration.\n\n If an invalid UTF-8 sequence is encountered, this function returns\n SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte\n (which is to say, a multibyte sequence might produce several\n SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid\n UTF-8 sequence).\n\n Several things can generate invalid UTF-8 sequences, including overlong\n encodings, the use of UTF-16 surrogate values, and truncated data. Please\n refer to\n [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)\n for details.\n\n \\param pstr a pointer to a UTF-8 string pointer to be read and adjusted.\n \\param pslen a pointer to the number of bytes in the string, to be read and\n              adjusted. NULL is allowed.\n \\returns the first Unicode codepoint in the string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_StepUTF8(pstr: *mut *const libc::c_char, pslen: *mut usize) -> Uint32;
+    pub fn SDL_StepUTF8(pstr: *mut *const ::core::ffi::c_char, pslen: *mut usize) -> Uint32;
 }
 unsafe extern "C" {
     #[doc = " Decode a UTF-8 string in reverse, one Unicode codepoint at a time.\n\n This will go to the start of the previous Unicode codepoint in the string,\n move `*pstr` to that location and return that codepoint.\n\n If `*pstr` is already at the start of the string), it will not advance\n `*pstr` at all.\n\n Generally this function is called in a loop until it returns zero,\n adjusting its parameter each iteration.\n\n If an invalid UTF-8 sequence is encountered, this function returns\n SDL_INVALID_UNICODE_CODEPOINT.\n\n Several things can generate invalid UTF-8 sequences, including overlong\n encodings, the use of UTF-16 surrogate values, and truncated data. Please\n refer to\n [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)\n for details.\n\n \\param start a pointer to the beginning of the UTF-8 string.\n \\param pstr a pointer to a UTF-8 string pointer to be read and adjusted.\n \\returns the previous Unicode codepoint in the string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_StepBackUTF8(start: *const libc::c_char, pstr: *mut *const libc::c_char) -> Uint32;
+    pub fn SDL_StepBackUTF8(
+        start: *const ::core::ffi::c_char,
+        pstr: *mut *const ::core::ffi::c_char,
+    ) -> Uint32;
 }
 unsafe extern "C" {
     #[doc = " Convert a single Unicode codepoint to UTF-8.\n\n The buffer pointed to by `dst` must be at least 4 bytes long, as this\n function may generate between 1 and 4 bytes of output.\n\n This function returns the first byte _after_ the newly-written UTF-8\n sequence, which is useful for encoding multiple codepoints in a loop, or\n knowing where to write a NULL-terminator character to end the string (in\n either case, plan to have a buffer of _more_ than 4 bytes!).\n\n If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16\n surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the\n codepoint instead, and not set an error.\n\n If `dst` is NULL, this returns NULL immediately without writing to the\n pointer and without setting an error.\n\n \\param codepoint a Unicode codepoint to convert to UTF-8.\n \\param dst the location to write the encoded UTF-8. Must point to at least\n            4 bytes!\n \\returns the first byte past the newly-written UTF-8 sequence.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_UCS4ToUTF8(codepoint: Uint32, dst: *mut libc::c_char) -> *mut libc::c_char;
+    pub fn SDL_UCS4ToUTF8(
+        codepoint: Uint32,
+        dst: *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like sscanf() but doesn't require access to a C runtime.\n\n Scan a string, matching a format string, converting each '%' item and\n storing it to pointers provided through variable arguments.\n\n \\param text the string to scan. Must not be NULL.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ... a list of pointers to values to be filled in with scanned items.\n \\returns the number of items that matched the format string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_sscanf(text: *const libc::c_char, fmt: *const libc::c_char, ...) -> libc::c_int;
+    pub fn SDL_sscanf(
+        text: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like vsscanf() but doesn't require access to a C\n runtime.\n\n Functions identically to SDL_sscanf(), except it takes a `va_list` instead\n of using `...` variable arguments.\n\n \\param text the string to scan. Must not be NULL.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ap a `va_list` of pointers to values to be filled in with scanned\n           items.\n \\returns the number of items that matched the format string.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_vsscanf(
-        text: *const libc::c_char,
-        fmt: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like snprintf() but doesn't require access to a C\n runtime.\n\n Format a string of up to `maxlen`-1 bytes, converting each '%' item with\n values provided through variable arguments.\n\n While some C runtimes differ on how to deal with too-large strings, this\n function null-terminates the output, by treating the null-terminator as\n part of the `maxlen` count. Note that if `maxlen` is zero, however, no\n bytes will be written at all.\n\n This function returns the number of _bytes_ (not _characters_) that should\n be written, excluding the null-terminator character. If this returns a\n number >= `maxlen`, it means the output string was truncated. A negative\n return value means an error occurred.\n\n Referencing the output string's pointer with a format item is undefined\n behavior.\n\n \\param text the buffer to write the string into. Must not be NULL.\n \\param maxlen the maximum bytes to write, including the null-terminator.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ... a list of values to be used with the format string.\n \\returns the number of bytes that should be written, not counting the\n          null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_snprintf(
-        text: *mut libc::c_char,
+        text: *mut ::core::ffi::c_char,
         maxlen: usize,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like swprintf() but doesn't require access to a C\n runtime.\n\n Format a wide string of up to `maxlen`-1 wchar_t values, converting each\n '%' item with values provided through variable arguments.\n\n While some C runtimes differ on how to deal with too-large strings, this\n function null-terminates the output, by treating the null-terminator as\n part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide\n characters will be written at all.\n\n This function returns the number of _wide characters_ (not _codepoints_)\n that should be written, excluding the null-terminator character. If this\n returns a number >= `maxlen`, it means the output string was truncated. A\n negative return value means an error occurred.\n\n Referencing the output string's pointer with a format item is undefined\n behavior.\n\n \\param text the buffer to write the wide string into. Must not be NULL.\n \\param maxlen the maximum wchar_t values to write, including the\n               null-terminator.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ... a list of values to be used with the format string.\n \\returns the number of wide characters that should be written, not counting\n          the null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_swprintf(text: *mut wchar_t, maxlen: usize, fmt: *const wchar_t, ...)
-        -> libc::c_int;
+    pub fn SDL_swprintf(
+        text: *mut wchar_t,
+        maxlen: usize,
+        fmt: *const wchar_t,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like vsnprintf() but doesn't require access to a C\n runtime.\n\n Functions identically to SDL_snprintf(), except it takes a `va_list`\n instead of using `...` variable arguments.\n\n \\param text the buffer to write the string into. Must not be NULL.\n \\param maxlen the maximum bytes to write, including the null-terminator.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ap a `va_list` values to be used with the format string.\n \\returns the number of bytes that should be written, not counting the\n          null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_vsnprintf(
-        text: *mut libc::c_char,
+        text: *mut ::core::ffi::c_char,
         maxlen: usize,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like vswprintf() but doesn't require access to a C\n runtime.\n\n Functions identically to SDL_swprintf(), except it takes a `va_list`\n instead of using `...` variable arguments.\n\n \\param text the buffer to write the string into. Must not be NULL.\n \\param maxlen the maximum wide characters to write, including the\n               null-terminator.\n \\param fmt a printf-style format wide string. Must not be NULL.\n \\param ap a `va_list` values to be used with the format string.\n \\returns the number of wide characters that should be written, not counting\n          the null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -2870,20 +3008,23 @@ unsafe extern "C" {
         maxlen: usize,
         fmt: *const wchar_t,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like asprintf() but doesn't require access to a C\n runtime.\n\n Functions identically to SDL_snprintf(), except it allocates a buffer large\n enough to hold the output string on behalf of the caller.\n\n On success, this function returns the number of bytes (not characters)\n comprising the output string, not counting the null-terminator character,\n and sets `*strp` to the newly-allocated string.\n\n On error, this function returns a negative number, and the value of `*strp`\n is undefined.\n\n The returned string is owned by the caller, and should be passed to\n SDL_free when no longer needed.\n\n \\param strp on output, is set to the new string. Must not be NULL.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ... a list of values to be used with the format string.\n \\returns the number of bytes in the newly-allocated string, not counting\n          the null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_asprintf(strp: *mut *mut libc::c_char, fmt: *const libc::c_char, ...)
-        -> libc::c_int;
+    pub fn SDL_asprintf(
+        strp: *mut *mut ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like vasprintf() but doesn't require access to a C\n runtime.\n\n Functions identically to SDL_asprintf(), except it takes a `va_list`\n instead of using `...` variable arguments.\n\n \\param strp on output, is set to the new string. Must not be NULL.\n \\param fmt a printf-style format string. Must not be NULL.\n \\param ap a `va_list` values to be used with the format string.\n \\returns the number of bytes in the newly-allocated string, not counting\n          the null-terminator char, or a negative value on error.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_vasprintf(
-        strp: *mut *mut libc::c_char,
-        fmt: *const libc::c_char,
+        strp: *mut *mut ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Seeds the pseudo-random number generator.\n\n Reusing the seed number will cause SDL_rand_*() to repeat the same stream\n of 'random' numbers.\n\n \\param seed the value to use as a random number seed, or 0 to use\n             SDL_GetPerformanceCounter().\n\n \\threadsafety This should be called on the same thread that calls\n               SDL_rand*()\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_rand\n \\sa SDL_rand_bits\n \\sa SDL_randf"]
@@ -3011,19 +3152,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Return whether the value is infinity.\n\n \\param x double-precision floating point value.\n \\returns non-zero if the value is infinity, 0 otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isinff"]
-    pub fn SDL_isinf(x: f64) -> libc::c_int;
+    pub fn SDL_isinf(x: f64) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Return whether the value is infinity.\n\n \\param x floating point value.\n \\returns non-zero if the value is infinity, 0 otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isinf"]
-    pub fn SDL_isinff(x: f32) -> libc::c_int;
+    pub fn SDL_isinff(x: f32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Return whether the value is NaN.\n\n \\param x double-precision floating point value.\n \\returns non-zero if the value is NaN, 0 otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isnanf"]
-    pub fn SDL_isnan(x: f64) -> libc::c_int;
+    pub fn SDL_isnan(x: f64) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Return whether the value is NaN.\n\n \\param x floating point value.\n \\returns non-zero if the value is NaN, 0 otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_isnan"]
-    pub fn SDL_isnanf(x: f32) -> libc::c_int;
+    pub fn SDL_isnanf(x: f32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Compute the natural logarithm of `x`.\n\n Domain: `0 < x <= INF`\n\n Range: `-INF <= y <= INF`\n\n It is an error for `x` to be less than or equal to 0.\n\n This function operates on double-precision floating point values, use\n SDL_logf for single-precision floats.\n\n This function may use a different approximation across different versions,\n platforms and configurations. i.e, it can return a different value given\n the same input on different machines or operating systems, or if SDL is\n updated.\n\n \\param x floating point value. Must be greater than 0.\n \\returns the natural logarithm of `x`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_logf\n \\sa SDL_log10\n \\sa SDL_exp"]
@@ -3067,19 +3208,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Round `x` to the nearest integer representable as a long\n\n Rounds `x` to the nearest integer. Values halfway between integers will be\n rounded away from zero.\n\n Domain: `-INF <= x <= INF`\n\n Range: `MIN_LONG <= y <= MAX_LONG`\n\n This function operates on double-precision floating point values, use\n SDL_lroundf for single-precision floats. To get the result as a\n floating-point type, use SDL_round.\n\n \\param x floating point value.\n \\returns the nearest integer to `x`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_lroundf\n \\sa SDL_round\n \\sa SDL_floor\n \\sa SDL_ceil\n \\sa SDL_trunc"]
-    pub fn SDL_lround(x: f64) -> libc::c_long;
+    pub fn SDL_lround(x: f64) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     #[doc = " Round `x` to the nearest integer representable as a long\n\n Rounds `x` to the nearest integer. Values halfway between integers will be\n rounded away from zero.\n\n Domain: `-INF <= x <= INF`\n\n Range: `MIN_LONG <= y <= MAX_LONG`\n\n This function operates on single-precision floating point values, use\n SDL_lround for double-precision floats. To get the result as a\n floating-point type, use SDL_roundf.\n\n \\param x floating point value.\n \\returns the nearest integer to `x`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_lround\n \\sa SDL_roundf\n \\sa SDL_floorf\n \\sa SDL_ceilf\n \\sa SDL_truncf"]
-    pub fn SDL_lroundf(x: f32) -> libc::c_long;
+    pub fn SDL_lroundf(x: f32) -> ::core::ffi::c_long;
 }
 unsafe extern "C" {
     #[doc = " Scale `x` by an integer power of two.\n\n Multiplies `x` by the `n`th power of the floating point radix (always 2).\n\n Domain: `-INF <= x <= INF`, `n` integer\n\n Range: `-INF <= y <= INF`\n\n This function operates on double-precision floating point values, use\n SDL_scalbnf for single-precision floats.\n\n \\param x floating point value to be scaled.\n \\param n integer exponent.\n \\returns `x * 2^n`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_scalbnf\n \\sa SDL_pow"]
-    pub fn SDL_scalbn(x: f64, n: libc::c_int) -> f64;
+    pub fn SDL_scalbn(x: f64, n: ::core::ffi::c_int) -> f64;
 }
 unsafe extern "C" {
     #[doc = " Scale `x` by an integer power of two.\n\n Multiplies `x` by the `n`th power of the floating point radix (always 2).\n\n Domain: `-INF <= x <= INF`, `n` integer\n\n Range: `-INF <= y <= INF`\n\n This function operates on single-precision floating point values, use\n SDL_scalbn for double-precision floats.\n\n \\param x floating point value to be scaled.\n \\param n integer exponent.\n \\returns `x * 2^n`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_scalbn\n \\sa SDL_powf"]
-    pub fn SDL_scalbnf(x: f32, n: libc::c_int) -> f32;
+    pub fn SDL_scalbnf(x: f32, n: ::core::ffi::c_int) -> f32;
 }
 unsafe extern "C" {
     #[doc = " Compute the sine of `x`.\n\n Domain: `-INF <= x <= INF`\n\n Range: `-1 <= y <= 1`\n\n This function operates on double-precision floating point values, use\n SDL_sinf for single-precision floats.\n\n This function may use a different approximation across different versions,\n platforms and configurations. i.e, it can return a different value given\n the same input on different machines or operating systems, or if SDL is\n updated.\n\n \\param x floating point value, in radians.\n \\returns sine of `x`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_sinf\n \\sa SDL_asin\n \\sa SDL_cos"]
@@ -3115,32 +3256,32 @@ pub type SDL_iconv_t = *mut SDL_iconv_data_t;
 unsafe extern "C" {
     #[doc = " This function allocates a context for the specified character set\n conversion.\n\n \\param tocode The target character encoding, must not be NULL.\n \\param fromcode The source character encoding, must not be NULL.\n \\returns a handle that must be freed with SDL_iconv_close, or\n          SDL_ICONV_ERROR on failure.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_iconv\n \\sa SDL_iconv_close\n \\sa SDL_iconv_string"]
     pub fn SDL_iconv_open(
-        tocode: *const libc::c_char,
-        fromcode: *const libc::c_char,
+        tocode: *const ::core::ffi::c_char,
+        fromcode: *const ::core::ffi::c_char,
     ) -> SDL_iconv_t;
 }
 unsafe extern "C" {
     #[doc = " This function frees a context used for character set conversion.\n\n \\param cd The character set conversion handle.\n \\returns 0 on success, or -1 on failure.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_iconv\n \\sa SDL_iconv_open\n \\sa SDL_iconv_string"]
-    pub fn SDL_iconv_close(cd: SDL_iconv_t) -> libc::c_int;
+    pub fn SDL_iconv_close(cd: SDL_iconv_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " This function converts text between encodings, reading from and writing to\n a buffer.\n\n It returns the number of succesful conversions on success. On error,\n SDL_ICONV_E2BIG is returned when the output buffer is too small, or\n SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,\n or SDL_ICONV_EINVAL is returned when an incomplete input sequence is\n encountered.\n\n On exit:\n\n - inbuf will point to the beginning of the next multibyte sequence. On\n   error, this is the location of the problematic input sequence. On\n   success, this is the end of the input sequence.\n - inbytesleft will be set to the number of bytes left to convert, which\n   will be 0 on success.\n - outbuf will point to the location where to store the next output byte.\n - outbytesleft will be set to the number of bytes left in the output\n   buffer.\n\n \\param cd The character set conversion context, created in\n           SDL_iconv_open().\n \\param inbuf Address of variable that points to the first character of the\n              input sequence.\n \\param inbytesleft The number of bytes in the input buffer.\n \\param outbuf Address of variable that points to the output buffer.\n \\param outbytesleft The number of bytes in the output buffer.\n \\returns the number of conversions on success, or a negative error code.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_iconv_open\n \\sa SDL_iconv_close\n \\sa SDL_iconv_string"]
     pub fn SDL_iconv(
         cd: SDL_iconv_t,
-        inbuf: *mut *const libc::c_char,
+        inbuf: *mut *const ::core::ffi::c_char,
         inbytesleft: *mut usize,
-        outbuf: *mut *mut libc::c_char,
+        outbuf: *mut *mut ::core::ffi::c_char,
         outbytesleft: *mut usize,
     ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Helper function to convert a string's encoding in one call.\n\n This function converts a buffer or string between encodings in one pass.\n\n The string does not need to be NULL-terminated; this function operates on\n the number of bytes specified in `inbytesleft` whether there is a NULL\n character anywhere in the buffer.\n\n The returned string is owned by the caller, and should be passed to\n SDL_free when no longer needed.\n\n \\param tocode the character encoding of the output string. Examples are\n               \"UTF-8\", \"UCS-4\", etc.\n \\param fromcode the character encoding of data in `inbuf`.\n \\param inbuf the string to convert to a different encoding.\n \\param inbytesleft the size of the input string _in bytes_.\n \\returns a new string, converted to the new encoding, or NULL on error.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_iconv_open\n \\sa SDL_iconv_close\n \\sa SDL_iconv"]
     pub fn SDL_iconv_string(
-        tocode: *const libc::c_char,
-        fromcode: *const libc::c_char,
-        inbuf: *const libc::c_char,
+        tocode: *const ::core::ffi::c_char,
+        fromcode: *const ::core::ffi::c_char,
+        inbuf: *const ::core::ffi::c_char,
         inbytesleft: usize,
-    ) -> *mut libc::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 pub type SDL_FunctionPointer = ::core::option::Option<unsafe extern "C" fn()>;
 #[doc = "< Retry the assert immediately."]
@@ -3154,7 +3295,7 @@ pub const SDL_AssertState_SDL_ASSERTION_IGNORE: SDL_AssertState = 3;
 #[doc = "< Ignore the assert from now on."]
 pub const SDL_AssertState_SDL_ASSERTION_ALWAYS_IGNORE: SDL_AssertState = 4;
 #[doc = " Possible outcomes from a triggered assertion.\n\n When an enabled assertion triggers, it may call the assertion handler\n (possibly one provided by the app via SDL_SetAssertionHandler), which will\n return one of these values, possibly after asking the user.\n\n Then SDL will respond based on this outcome (loop around to retry the\n condition, try to break in a debugger, kill the program, or ignore the\n problem).\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_AssertState = libc::c_uint;
+pub type SDL_AssertState = ::core::ffi::c_uint;
 #[doc = " Information about an assertion failure.\n\n This structure is filled in with information about a triggered assertion,\n used by the assertion handler, then added to the assertion report. This is\n returned as a linked list from SDL_GetAssertionReport().\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3162,15 +3303,15 @@ pub struct SDL_AssertData {
     #[doc = "< true if app should always continue when assertion is triggered."]
     pub always_ignore: bool,
     #[doc = "< Number of times this assertion has been triggered."]
-    pub trigger_count: libc::c_uint,
+    pub trigger_count: ::core::ffi::c_uint,
     #[doc = "< A string of this assert's test code."]
-    pub condition: *const libc::c_char,
+    pub condition: *const ::core::ffi::c_char,
     #[doc = "< The source file where this assert lives."]
-    pub filename: *const libc::c_char,
+    pub filename: *const ::core::ffi::c_char,
     #[doc = "< The line in `filename` where this assert lives."]
-    pub linenum: libc::c_int,
+    pub linenum: ::core::ffi::c_int,
     #[doc = "< The name of the function where this assert lives."]
-    pub function: *const libc::c_char,
+    pub function: *const ::core::ffi::c_char,
     #[doc = "< next item in the linked list."]
     pub next: *const SDL_AssertData,
 }
@@ -3197,21 +3338,24 @@ unsafe extern "C" {
     #[doc = " Never call this directly.\n\n Use the SDL_assert macros instead.\n\n \\param data assert data structure.\n \\param func function name.\n \\param file file name.\n \\param line line number.\n \\returns assert state.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_ReportAssertion(
         data: *mut SDL_AssertData,
-        func: *const libc::c_char,
-        file: *const libc::c_char,
-        line: libc::c_int,
+        func: *const ::core::ffi::c_char,
+        file: *const ::core::ffi::c_char,
+        line: ::core::ffi::c_int,
     ) -> SDL_AssertState;
 }
 #[doc = " A callback that fires when an SDL assertion fails.\n\n \\param data a pointer to the SDL_AssertData structure corresponding to the\n             current assertion.\n \\param userdata what was passed as `userdata` to SDL_SetAssertionHandler().\n \\returns an SDL_AssertState value indicating how to handle the failure.\n\n \\threadsafety This callback may be called from any thread that triggers an\n               assert at any time.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_AssertionHandler = ::core::option::Option<
     unsafe extern "C" fn(
         data: *const SDL_AssertData,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> SDL_AssertState,
 >;
 unsafe extern "C" {
     #[doc = " Set an application-defined assertion handler.\n\n This function allows an application to show its own assertion UI and/or\n force the response to an assertion failure. If the application doesn't\n provide this, SDL will try to do the right thing, popping up a\n system-specific GUI dialog, and probably minimizing any fullscreen windows.\n\n This callback may fire from any thread, but it runs wrapped in a mutex, so\n it will only fire from one thread at a time.\n\n This callback is NOT reset to SDL's internal handler upon SDL_Quit()!\n\n \\param handler the SDL_AssertionHandler function to call when an assertion\n                fails or NULL for the default handler.\n \\param userdata a pointer that is passed to `handler`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAssertionHandler"]
-    pub fn SDL_SetAssertionHandler(handler: SDL_AssertionHandler, userdata: *mut libc::c_void);
+    pub fn SDL_SetAssertionHandler(
+        handler: SDL_AssertionHandler,
+        userdata: *mut ::core::ffi::c_void,
+    );
 }
 unsafe extern "C" {
     #[doc = " Get the default assertion handler.\n\n This returns the function pointer that is called by default when an\n assertion is triggered. This is an internal function provided by SDL, that\n is used for assertions when SDL_SetAssertionHandler() hasn't been used to\n provide a different function.\n\n \\returns the default SDL_AssertionHandler that is called when an assert\n          triggers.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAssertionHandler"]
@@ -3219,7 +3363,9 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the current assertion handler.\n\n This returns the function pointer that is called when an assertion is\n triggered. This is either the value last passed to\n SDL_SetAssertionHandler(), or if no application-specified function is set,\n is equivalent to calling SDL_GetDefaultAssertionHandler().\n\n The parameter `puserdata` is a pointer to a void*, which will store the\n \"userdata\" pointer that was passed to SDL_SetAssertionHandler(). This value\n will always be NULL for the default handler. If you don't care about this\n data, it is safe to pass a NULL pointer to this function to ignore it.\n\n \\param puserdata pointer which is filled with the \"userdata\" pointer that\n                  was passed to SDL_SetAssertionHandler().\n \\returns the SDL_AssertionHandler that is called when an assert triggers.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAssertionHandler"]
-    pub fn SDL_GetAssertionHandler(puserdata: *mut *mut libc::c_void) -> SDL_AssertionHandler;
+    pub fn SDL_GetAssertionHandler(
+        puserdata: *mut *mut ::core::ffi::c_void,
+    ) -> SDL_AssertionHandler;
 }
 unsafe extern "C" {
     #[doc = " Get a list of all assertion failures.\n\n This function gets all assertions triggered since the last call to\n SDL_ResetAssertionReport(), or the start of the program.\n\n The proper way to examine this data looks something like this:\n\n ```c\n const SDL_AssertData *item = SDL_GetAssertionReport();\n while (item) {\n    printf(\"'%s', %s (%s:%d), triggered %u times, always ignore: %s.\\\\n\",\n           item->condition, item->function, item->filename,\n           item->linenum, item->trigger_count,\n           item->always_ignore ? \"yes\" : \"no\");\n    item = item->next;\n }\n ```\n\n \\returns a list of all failed assertions or NULL if the list is empty. This\n          memory should not be modified or freed by the application. This\n          pointer remains valid until the next call to SDL_Quit() or\n          SDL_ResetAssertionReport().\n\n \\threadsafety This function is not thread safe. Other threads calling\n               SDL_ResetAssertionReport() simultaneously, may render the\n               returned pointer invalid.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ResetAssertionReport"]
@@ -3241,7 +3387,7 @@ pub const SDL_AsyncIOTaskType_SDL_ASYNCIO_TASK_WRITE: SDL_AsyncIOTaskType = 1;
 #[doc = "< A close operation."]
 pub const SDL_AsyncIOTaskType_SDL_ASYNCIO_TASK_CLOSE: SDL_AsyncIOTaskType = 2;
 #[doc = " Types of asynchronous I/O tasks.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_AsyncIOTaskType = libc::c_uint;
+pub type SDL_AsyncIOTaskType = ::core::ffi::c_uint;
 #[doc = "< request was completed without error"]
 pub const SDL_AsyncIOResult_SDL_ASYNCIO_COMPLETE: SDL_AsyncIOResult = 0;
 #[doc = "< request failed for some reason; check SDL_GetError()!"]
@@ -3249,7 +3395,7 @@ pub const SDL_AsyncIOResult_SDL_ASYNCIO_FAILURE: SDL_AsyncIOResult = 1;
 #[doc = "< request was canceled before completing."]
 pub const SDL_AsyncIOResult_SDL_ASYNCIO_CANCELED: SDL_AsyncIOResult = 2;
 #[doc = " Possible outcomes of an asynchronous I/O task.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_AsyncIOResult = libc::c_uint;
+pub type SDL_AsyncIOResult = ::core::ffi::c_uint;
 #[doc = " Information about a completed asynchronous I/O request.\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3261,7 +3407,7 @@ pub struct SDL_AsyncIOOutcome {
     #[doc = "< the result of the work (success, failure, cancellation)."]
     pub result: SDL_AsyncIOResult,
     #[doc = "< buffer where data was read/written."]
-    pub buffer: *mut libc::c_void,
+    pub buffer: *mut ::core::ffi::c_void,
     #[doc = "< offset in the SDL_AsyncIO where data was read/written."]
     pub offset: Uint64,
     #[doc = "< number of bytes the task was to read/write."]
@@ -3269,7 +3415,7 @@ pub struct SDL_AsyncIOOutcome {
     #[doc = "< actual number of bytes that were read/written."]
     pub bytes_transferred: Uint64,
     #[doc = "< pointer provided by the app when starting the task"]
-    pub userdata: *mut libc::c_void,
+    pub userdata: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -3300,8 +3446,8 @@ pub struct SDL_AsyncIOQueue {
 unsafe extern "C" {
     #[doc = " Use this function to create a new SDL_AsyncIO object for reading from\n and/or writing to a named file.\n\n The `mode` string understands the following values:\n\n - \"r\": Open a file for reading only. It must exist.\n - \"w\": Open a file for writing only. It will create missing files or\n   truncate existing ones.\n - \"r+\": Open a file for update both reading and writing. The file must\n   exist.\n - \"w+\": Create an empty file for both reading and writing. If a file with\n   the same name already exists its content is erased and the file is\n   treated as a new empty file.\n\n There is no \"b\" mode, as there is only \"binary\" style I/O, and no \"a\" mode\n for appending, since you specify the position when starting a task.\n\n This function supports Unicode filenames, but they must be encoded in UTF-8\n format, regardless of the underlying operating system.\n\n This call is _not_ asynchronous; it will open the file before returning,\n under the assumption that doing so is generally a fast operation. Future\n reads and writes to the opened file will be async, however.\n\n \\param file a UTF-8 string representing the filename to open.\n \\param mode an ASCII string representing the mode to be used for opening\n             the file.\n \\returns a pointer to the SDL_AsyncIO structure that is created or NULL on\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseAsyncIO\n \\sa SDL_ReadAsyncIO\n \\sa SDL_WriteAsyncIO"]
     pub fn SDL_AsyncIOFromFile(
-        file: *const libc::c_char,
-        mode: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
+        mode: *const ::core::ffi::c_char,
     ) -> *mut SDL_AsyncIO;
 }
 unsafe extern "C" {
@@ -3312,22 +3458,22 @@ unsafe extern "C" {
     #[doc = " Start an async read.\n\n This function reads up to `size` bytes from `offset` position in the data\n source to the area pointed at by `ptr`. This function may read less bytes\n than requested.\n\n This function returns as quickly as possible; it does not wait for the read\n to complete. On a successful return, this work will continue in the\n background. If the work begins, even failure is asynchronous: a failing\n return value from this function only means the work couldn't start at all.\n\n `ptr` must remain available until the work is done, and may be accessed by\n the system at any time until then. Do not allocate it on the stack, as this\n might take longer than the life of the calling function to complete!\n\n An SDL_AsyncIOQueue must be specified. The newly-created task will be added\n to it when it completes its work.\n\n \\param asyncio a pointer to an SDL_AsyncIO structure.\n \\param ptr a pointer to a buffer to read data into.\n \\param offset the position to start reading in the data source.\n \\param size the number of bytes to read from the data source.\n \\param queue a queue to add the new SDL_AsyncIO to.\n \\param userdata an app-defined pointer that will be provided with the task\n                 results.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_WriteAsyncIO\n \\sa SDL_CreateAsyncIOQueue"]
     pub fn SDL_ReadAsyncIO(
         asyncio: *mut SDL_AsyncIO,
-        ptr: *mut libc::c_void,
+        ptr: *mut ::core::ffi::c_void,
         offset: Uint64,
         size: Uint64,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Start an async write.\n\n This function writes `size` bytes from `offset` position in the data source\n to the area pointed at by `ptr`.\n\n This function returns as quickly as possible; it does not wait for the\n write to complete. On a successful return, this work will continue in the\n background. If the work begins, even failure is asynchronous: a failing\n return value from this function only means the work couldn't start at all.\n\n `ptr` must remain available until the work is done, and may be accessed by\n the system at any time until then. Do not allocate it on the stack, as this\n might take longer than the life of the calling function to complete!\n\n An SDL_AsyncIOQueue must be specified. The newly-created task will be added\n to it when it completes its work.\n\n \\param asyncio a pointer to an SDL_AsyncIO structure.\n \\param ptr a pointer to a buffer to write data from.\n \\param offset the position to start writing to the data source.\n \\param size the number of bytes to write to the data source.\n \\param queue a queue to add the new SDL_AsyncIO to.\n \\param userdata an app-defined pointer that will be provided with the task\n                 results.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ReadAsyncIO\n \\sa SDL_CreateAsyncIOQueue"]
     pub fn SDL_WriteAsyncIO(
         asyncio: *mut SDL_AsyncIO,
-        ptr: *mut libc::c_void,
+        ptr: *mut ::core::ffi::c_void,
         offset: Uint64,
         size: Uint64,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3336,7 +3482,7 @@ unsafe extern "C" {
         asyncio: *mut SDL_AsyncIO,
         flush: bool,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3369,13 +3515,13 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Load all the data from a file path, asynchronously.\n\n This function returns as quickly as possible; it does not wait for the read\n to complete. On a successful return, this work will continue in the\n background. If the work begins, even failure is asynchronous: a failing\n return value from this function only means the work couldn't start at all.\n\n The data is allocated with a zero byte at the end (null terminated) for\n convenience. This extra byte is not included in SDL_AsyncIOOutcome's\n bytes_transferred value.\n\n This function will allocate the buffer to contain the file. It must be\n deallocated by calling SDL_free() on SDL_AsyncIOOutcome's buffer field\n after completion.\n\n An SDL_AsyncIOQueue must be specified. The newly-created task will be added\n to it when it completes its work.\n\n \\param file the path to read all available data from.\n \\param queue a queue to add the new SDL_AsyncIO to.\n \\param userdata an app-defined pointer that will be provided with the task\n                 results.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadFile_IO"]
     pub fn SDL_LoadFileAsync(
-        file: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
         queue: *mut SDL_AsyncIOQueue,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 #[doc = " An atomic spinlock.\n\n The atomic locks are efficient spinlocks using CPU instructions, but are\n vulnerable to starvation and can spin forever if a thread holding a lock\n has been terminated. For this reason you should minimize the code executed\n inside an atomic lock and never do expensive things like API or system\n calls while holding them.\n\n They are also vulnerable to starvation if the thread holding the lock is\n lower priority than other threads and doesn't get scheduled. In general you\n should use mutexes instead, since they have better performance and\n contention behavior.\n\n The atomic locks are not safe to lock recursively.\n\n Porting Note: The spin lock functions and type are required and can not be\n emulated because they are used in the atomic emulation code."]
-pub type SDL_SpinLock = libc::c_int;
+pub type SDL_SpinLock = ::core::ffi::c_int;
 unsafe extern "C" {
     #[doc = " Try to lock a spin lock by setting it to a non-zero value.\n\n ***Please note that spinlocks are dangerous if you don't know what you're\n doing. Please be careful using any sort of spinlock!***\n\n \\param lock a pointer to a lock variable.\n \\returns true if the lock succeeded, false if the lock is already held.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LockSpinlock\n \\sa SDL_UnlockSpinlock"]
     pub fn SDL_TryLockSpinlock(lock: *mut SDL_SpinLock) -> bool;
@@ -3400,7 +3546,7 @@ unsafe extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_AtomicInt {
-    pub value: libc::c_int,
+    pub value: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -3413,21 +3559,21 @@ unsafe extern "C" {
     #[doc = " Set an atomic variable to a new value if it is currently an old value.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to an SDL_AtomicInt variable to be modified.\n \\param oldval the old value.\n \\param newval the new value.\n \\returns true if the atomic variable was set, false otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAtomicInt\n \\sa SDL_SetAtomicInt"]
     pub fn SDL_CompareAndSwapAtomicInt(
         a: *mut SDL_AtomicInt,
-        oldval: libc::c_int,
-        newval: libc::c_int,
+        oldval: ::core::ffi::c_int,
+        newval: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set an atomic variable to a value.\n\n This function also acts as a full memory barrier.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to an SDL_AtomicInt variable to be modified.\n \\param v the desired value.\n \\returns the previous value of the atomic variable.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAtomicInt"]
-    pub fn SDL_SetAtomicInt(a: *mut SDL_AtomicInt, v: libc::c_int) -> libc::c_int;
+    pub fn SDL_SetAtomicInt(a: *mut SDL_AtomicInt, v: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the value of an atomic variable.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to an SDL_AtomicInt variable.\n \\returns the current value of an atomic variable.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAtomicInt"]
-    pub fn SDL_GetAtomicInt(a: *mut SDL_AtomicInt) -> libc::c_int;
+    pub fn SDL_GetAtomicInt(a: *mut SDL_AtomicInt) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Add to an atomic variable.\n\n This function also acts as a full memory barrier.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to an SDL_AtomicInt variable to be modified.\n \\param v the desired value to add.\n \\returns the previous value of the atomic variable.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AtomicDecRef\n \\sa SDL_AtomicIncRef"]
-    pub fn SDL_AddAtomicInt(a: *mut SDL_AtomicInt, v: libc::c_int) -> libc::c_int;
+    pub fn SDL_AddAtomicInt(a: *mut SDL_AtomicInt, v: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 #[doc = " A type representing an atomic unsigned 32-bit value.\n\n This can be used to manage a value that is synchronized across multiple\n CPUs without a race condition; when an app sets a value with\n SDL_SetAtomicU32 all other threads, regardless of the CPU it is running on,\n will see that value when retrieved with SDL_GetAtomicU32, regardless of CPU\n caches, etc.\n\n This is also useful for atomic compare-and-swap operations: a thread can\n change the value as long as its current value matches expectations. When\n done in a loop, one can guarantee data consistency across threads without a\n lock (but the usual warnings apply: if you don't know what you're doing, or\n you don't do it carefully, you can confidently cause any number of\n disasters with this, so in most cases, you _should_ use a mutex instead of\n this!).\n\n This is a struct so people don't accidentally use numeric operations on it\n directly. You have to use SDL atomic functions.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_CompareAndSwapAtomicU32\n \\sa SDL_GetAtomicU32\n \\sa SDL_SetAtomicU32"]
 #[repr(C)]
@@ -3461,29 +3607,29 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Set a pointer to a new value if it is currently an old value.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to a pointer.\n \\param oldval the old pointer value.\n \\param newval the new pointer value.\n \\returns true if the pointer was set, false otherwise.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CompareAndSwapAtomicInt\n \\sa SDL_GetAtomicPointer\n \\sa SDL_SetAtomicPointer"]
     pub fn SDL_CompareAndSwapAtomicPointer(
-        a: *mut *mut libc::c_void,
-        oldval: *mut libc::c_void,
-        newval: *mut libc::c_void,
+        a: *mut *mut ::core::ffi::c_void,
+        oldval: *mut ::core::ffi::c_void,
+        newval: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set a pointer to a value atomically.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to a pointer.\n \\param v the desired pointer value.\n \\returns the previous value of the pointer.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CompareAndSwapAtomicPointer\n \\sa SDL_GetAtomicPointer"]
     pub fn SDL_SetAtomicPointer(
-        a: *mut *mut libc::c_void,
-        v: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        a: *mut *mut ::core::ffi::c_void,
+        v: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Get the value of a pointer atomically.\n\n ***Note: If you don't know what this function is for, you shouldn't use\n it!***\n\n \\param a a pointer to a pointer.\n \\returns the current value of a pointer.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CompareAndSwapAtomicPointer\n \\sa SDL_SetAtomicPointer"]
-    pub fn SDL_GetAtomicPointer(a: *mut *mut libc::c_void) -> *mut libc::c_void;
+    pub fn SDL_GetAtomicPointer(a: *mut *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Set the SDL error message for the current thread.\n\n Calling this function will replace any previous error message that was set.\n\n This function always returns false, since SDL frequently uses false to\n signify a failing result, leading to this idiom:\n\n ```c\n if (error_code) {\n     return SDL_SetError(\"This operation has failed: %d\", error_code);\n }\n ```\n\n \\param fmt a printf()-style message format string.\n \\param ... additional parameters matching % tokens in the `fmt` string, if\n            any.\n \\returns false.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearError\n \\sa SDL_GetError\n \\sa SDL_SetErrorV"]
-    pub fn SDL_SetError(fmt: *const libc::c_char, ...) -> bool;
+    pub fn SDL_SetError(fmt: *const ::core::ffi::c_char, ...) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the SDL error message for the current thread.\n\n Calling this function will replace any previous error message that was set.\n\n \\param fmt a printf()-style message format string.\n \\param ap a variable argument list.\n \\returns false.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearError\n \\sa SDL_GetError\n \\sa SDL_SetError"]
-    pub fn SDL_SetErrorV(fmt: *const libc::c_char, ap: *mut __va_list_tag) -> bool;
+    pub fn SDL_SetErrorV(fmt: *const ::core::ffi::c_char, ap: *mut __va_list_tag) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set an error indicating that memory allocation failed.\n\n This function does not do any memory allocation.\n\n \\returns false.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -3491,7 +3637,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Retrieve a message about the last error that occurred on the current\n thread.\n\n It is possible for multiple errors to occur before calling SDL_GetError().\n Only the last error is returned.\n\n The message is only applicable when an SDL function has signaled an error.\n You must check the return values of SDL function calls to determine when to\n appropriately call SDL_GetError(). You should *not* use the results of\n SDL_GetError() to decide if an error has occurred! Sometimes SDL will set\n an error string even when reporting success.\n\n SDL will *not* clear the error string for successful API calls. You *must*\n check return values for failure cases before you can assume the error\n string applies.\n\n Error strings are set per-thread, so an error set in a different thread\n will not interfere with the current thread's operation.\n\n The returned value is a thread-local string which will remain valid until\n the current thread's error string is changed. The caller should make a copy\n if the value is needed after the next SDL API call.\n\n \\returns a message with information about the specific error that occurred,\n          or an empty string if there hasn't been an error message set since\n          the last call to SDL_ClearError().\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearError\n \\sa SDL_SetError"]
-    pub fn SDL_GetError() -> *const libc::c_char;
+    pub fn SDL_GetError() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Clear any previous error message for this thread.\n\n \\returns true.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetError\n \\sa SDL_SetError"]
@@ -3506,7 +3652,7 @@ pub const SDL_PropertyType_SDL_PROPERTY_TYPE_NUMBER: SDL_PropertyType = 3;
 pub const SDL_PropertyType_SDL_PROPERTY_TYPE_FLOAT: SDL_PropertyType = 4;
 pub const SDL_PropertyType_SDL_PROPERTY_TYPE_BOOLEAN: SDL_PropertyType = 5;
 #[doc = " SDL property type\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PropertyType = libc::c_uint;
+pub type SDL_PropertyType = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Get the global SDL properties.\n\n \\returns a valid property ID on success or 0 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetGlobalProperties() -> SDL_PropertiesID;
@@ -3529,39 +3675,39 @@ unsafe extern "C" {
 }
 #[doc = " A callback used to free resources when a property is deleted.\n\n This should release any resources associated with `value` that are no\n longer needed.\n\n This callback is set per-property. Different properties in the same group\n can have different cleanup callbacks.\n\n This callback will be called _during_ SDL_SetPointerPropertyWithCleanup if\n the function fails for any reason.\n\n \\param userdata an app-defined pointer passed to the callback.\n \\param value the pointer assigned to the property to clean up.\n\n \\threadsafety This callback may fire without any locks held; if this is a\n               concern, the app should provide its own locking.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetPointerPropertyWithCleanup"]
 pub type SDL_CleanupPropertyCallback = ::core::option::Option<
-    unsafe extern "C" fn(userdata: *mut libc::c_void, value: *mut libc::c_void),
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, value: *mut ::core::ffi::c_void),
 >;
 unsafe extern "C" {
     #[doc = " Set a pointer property in a group of properties with a cleanup function\n that is called when the property is deleted.\n\n The cleanup function is also called if setting the property fails for any\n reason.\n\n For simply setting basic data types, like numbers, bools, or strings, use\n SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty\n instead, as those functions will handle cleanup on your behalf. This\n function is only for more complex, custom data.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property, or NULL to delete the property.\n \\param cleanup the function to call when this property is deleted, or NULL\n                if no cleanup is necessary.\n \\param userdata a pointer that is passed to the cleanup function.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPointerProperty\n \\sa SDL_SetPointerProperty\n \\sa SDL_CleanupPropertyCallback"]
     pub fn SDL_SetPointerPropertyWithCleanup(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        value: *mut ::core::ffi::c_void,
         cleanup: SDL_CleanupPropertyCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set a pointer property in a group of properties.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property, or NULL to delete the property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPointerProperty\n \\sa SDL_HasProperty\n \\sa SDL_SetBooleanProperty\n \\sa SDL_SetFloatProperty\n \\sa SDL_SetNumberProperty\n \\sa SDL_SetPointerPropertyWithCleanup\n \\sa SDL_SetStringProperty"]
     pub fn SDL_SetPointerProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        value: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set a string property in a group of properties.\n\n This function makes a copy of the string; the caller does not have to\n preserve the data after this call completes.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property, or NULL to delete the property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetStringProperty"]
     pub fn SDL_SetStringProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set an integer property in a group of properties.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumberProperty"]
     pub fn SDL_SetNumberProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: Sint64,
     ) -> bool;
 }
@@ -3569,7 +3715,7 @@ unsafe extern "C" {
     #[doc = " Set a floating point property in a group of properties.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetFloatProperty"]
     pub fn SDL_SetFloatProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: f32,
     ) -> bool;
 }
@@ -3577,42 +3723,42 @@ unsafe extern "C" {
     #[doc = " Set a boolean property in a group of properties.\n\n \\param props the properties to modify.\n \\param name the name of the property to modify.\n \\param value the new value of the property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetBooleanProperty"]
     pub fn SDL_SetBooleanProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         value: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Return whether a property exists in a group of properties.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\returns true if the property exists, or false if it doesn't.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPropertyType"]
-    pub fn SDL_HasProperty(props: SDL_PropertiesID, name: *const libc::c_char) -> bool;
+    pub fn SDL_HasProperty(props: SDL_PropertiesID, name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the type of a property in a group of properties.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\returns the type of the property, or SDL_PROPERTY_TYPE_INVALID if it is\n          not set.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasProperty"]
     pub fn SDL_GetPropertyType(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> SDL_PropertyType;
 }
 unsafe extern "C" {
     #[doc = " Get a pointer property from a group of properties.\n\n By convention, the names of properties that SDL exposes on objects will\n start with \"SDL.\", and properties that SDL uses internally will start with\n \"SDL.internal.\". These should be considered read-only and should not be\n modified by applications.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\param default_value the default value of the property.\n \\returns the value of the property, or `default_value` if it is not set or\n          not a pointer property.\n\n \\threadsafety It is safe to call this function from any thread, although\n               the data returned is not protected and could potentially be\n               freed if you call SDL_SetPointerProperty() or\n               SDL_ClearProperty() on these properties from another thread.\n               If you need to avoid this, use SDL_LockProperties() and\n               SDL_UnlockProperties().\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetBooleanProperty\n \\sa SDL_GetFloatProperty\n \\sa SDL_GetNumberProperty\n \\sa SDL_GetPropertyType\n \\sa SDL_GetStringProperty\n \\sa SDL_HasProperty\n \\sa SDL_SetPointerProperty"]
     pub fn SDL_GetPointerProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        default_value: *mut libc::c_void,
-    ) -> *mut libc::c_void;
+        name: *const ::core::ffi::c_char,
+        default_value: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Get a string property from a group of properties.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\param default_value the default value of the property.\n \\returns the value of the property, or `default_value` if it is not set or\n          not a string property.\n\n \\threadsafety It is safe to call this function from any thread, although\n               the data returned is not protected and could potentially be\n               freed if you call SDL_SetStringProperty() or\n               SDL_ClearProperty() on these properties from another thread.\n               If you need to avoid this, use SDL_LockProperties() and\n               SDL_UnlockProperties().\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPropertyType\n \\sa SDL_HasProperty\n \\sa SDL_SetStringProperty"]
     pub fn SDL_GetStringProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
-        default_value: *const libc::c_char,
-    ) -> *const libc::c_char;
+        name: *const ::core::ffi::c_char,
+        default_value: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get a number property from a group of properties.\n\n You can use SDL_GetPropertyType() to query whether the property exists and\n is a number property.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\param default_value the default value of the property.\n \\returns the value of the property, or `default_value` if it is not set or\n          not a number property.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPropertyType\n \\sa SDL_HasProperty\n \\sa SDL_SetNumberProperty"]
     pub fn SDL_GetNumberProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: Sint64,
     ) -> Sint64;
 }
@@ -3620,7 +3766,7 @@ unsafe extern "C" {
     #[doc = " Get a floating point property from a group of properties.\n\n You can use SDL_GetPropertyType() to query whether the property exists and\n is a floating point property.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\param default_value the default value of the property.\n \\returns the value of the property, or `default_value` if it is not set or\n          not a float property.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPropertyType\n \\sa SDL_HasProperty\n \\sa SDL_SetFloatProperty"]
     pub fn SDL_GetFloatProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: f32,
     ) -> f32;
 }
@@ -3628,20 +3774,20 @@ unsafe extern "C" {
     #[doc = " Get a boolean property from a group of properties.\n\n You can use SDL_GetPropertyType() to query whether the property exists and\n is a boolean property.\n\n \\param props the properties to query.\n \\param name the name of the property to query.\n \\param default_value the default value of the property.\n \\returns the value of the property, or `default_value` if it is not set or\n          not a boolean property.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPropertyType\n \\sa SDL_HasProperty\n \\sa SDL_SetBooleanProperty"]
     pub fn SDL_GetBooleanProperty(
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         default_value: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Clear a property from a group of properties.\n\n \\param props the properties to modify.\n \\param name the name of the property to clear.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_ClearProperty(props: SDL_PropertiesID, name: *const libc::c_char) -> bool;
+    pub fn SDL_ClearProperty(props: SDL_PropertiesID, name: *const ::core::ffi::c_char) -> bool;
 }
 #[doc = " A callback used to enumerate all the properties in a group of properties.\n\n This callback is called from SDL_EnumerateProperties(), and is called once\n per property in the set.\n\n \\param userdata an app-defined pointer passed to the callback.\n \\param props the SDL_PropertiesID that is being enumerated.\n \\param name the next property name in the enumeration.\n\n \\threadsafety SDL_EnumerateProperties holds a lock on `props` during this\n               callback.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_EnumerateProperties"]
 pub type SDL_EnumeratePropertiesCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         props: SDL_PropertiesID,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ),
 >;
 unsafe extern "C" {
@@ -3649,7 +3795,7 @@ unsafe extern "C" {
     pub fn SDL_EnumerateProperties(
         props: SDL_PropertiesID,
         callback: SDL_EnumeratePropertiesCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -3670,7 +3816,7 @@ pub const SDL_ThreadPriority_SDL_THREAD_PRIORITY_NORMAL: SDL_ThreadPriority = 1;
 pub const SDL_ThreadPriority_SDL_THREAD_PRIORITY_HIGH: SDL_ThreadPriority = 2;
 pub const SDL_ThreadPriority_SDL_THREAD_PRIORITY_TIME_CRITICAL: SDL_ThreadPriority = 3;
 #[doc = " The SDL thread priority.\n\n SDL will make system changes as necessary in order to apply the thread\n priority. Code which attempts to control thread state related to priority\n should be aware that calling SDL_SetCurrentThreadPriority may alter such\n state. SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of\n this behavior.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ThreadPriority = libc::c_uint;
+pub type SDL_ThreadPriority = ::core::ffi::c_uint;
 #[doc = "< The thread is not valid"]
 pub const SDL_ThreadState_SDL_THREAD_UNKNOWN: SDL_ThreadState = 0;
 #[doc = "< The thread is currently running"]
@@ -3680,16 +3826,17 @@ pub const SDL_ThreadState_SDL_THREAD_DETACHED: SDL_ThreadState = 2;
 #[doc = "< The thread has finished and should be cleaned up with SDL_WaitThread()"]
 pub const SDL_ThreadState_SDL_THREAD_COMPLETE: SDL_ThreadState = 3;
 #[doc = " The SDL thread state.\n\n The current state of a thread can be checked by calling SDL_GetThreadState.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetThreadState"]
-pub type SDL_ThreadState = libc::c_uint;
+pub type SDL_ThreadState = ::core::ffi::c_uint;
 #[doc = " The function passed to SDL_CreateThread() as the new thread's entry point.\n\n \\param data what was passed as `data` to SDL_CreateThread().\n \\returns a value that can be reported through SDL_WaitThread().\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_ThreadFunction =
-    ::core::option::Option<unsafe extern "C" fn(data: *mut libc::c_void) -> libc::c_int>;
+pub type SDL_ThreadFunction = ::core::option::Option<
+    unsafe extern "C" fn(data: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
+>;
 unsafe extern "C" {
     #[doc = " The actual entry point for SDL_CreateThread.\n\n \\param fn the SDL_ThreadFunction function to call in the new thread\n \\param name the name of the thread\n \\param data a pointer that is passed to `fn`\n \\param pfnBeginThread the C runtime's _beginthreadex (or whatnot). Can be NULL.\n \\param pfnEndThread the C runtime's _endthreadex (or whatnot). Can be NULL.\n \\returns an opaque pointer to the new thread object on success, NULL if the\n          new thread could not be created; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_CreateThreadRuntime(
         fn_: SDL_ThreadFunction,
-        name: *const libc::c_char,
-        data: *mut libc::c_void,
+        name: *const ::core::ffi::c_char,
+        data: *mut ::core::ffi::c_void,
         pfnBeginThread: SDL_FunctionPointer,
         pfnEndThread: SDL_FunctionPointer,
     ) -> *mut SDL_Thread;
@@ -3704,7 +3851,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the thread name as it was specified in SDL_CreateThread().\n\n \\param thread the thread to query.\n \\returns a pointer to a UTF-8 string that names the specified thread, or\n          NULL if it doesn't have a name.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetThreadName(thread: *mut SDL_Thread) -> *const libc::c_char;
+    pub fn SDL_GetThreadName(thread: *mut SDL_Thread) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the thread identifier for the current thread.\n\n This thread identifier is as reported by the underlying operating system.\n If SDL is running on a platform that does not support threads the return\n value will always be zero.\n\n This function also returns a valid thread ID when called from the main\n thread.\n\n \\returns the ID of the current thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetThreadID"]
@@ -3720,7 +3867,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Wait for a thread to finish.\n\n Threads that haven't been detached will remain until this function cleans\n them up. Not doing so is a resource leak.\n\n Once a thread has been cleaned up through this function, the SDL_Thread\n that references it becomes invalid and should not be referenced again. As\n such, only one thread may call SDL_WaitThread() on another.\n\n The return code from the thread function is placed in the area pointed to\n by `status`, if `status` is not NULL.\n\n You may not wait on a thread that has been used in a call to\n SDL_DetachThread(). Use either that function or this one, but not both, or\n behavior is undefined.\n\n It is safe to pass a NULL thread to this function; it is a no-op.\n\n Note that the thread pointer is freed by this function and is not valid\n afterward.\n\n \\param thread the SDL_Thread pointer that was returned from the\n               SDL_CreateThread() call that started this thread.\n \\param status a pointer filled in with the value returned from the thread\n               function by its 'return', or -1 if the thread has been\n               detached or isn't valid, may be NULL.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateThread\n \\sa SDL_DetachThread"]
-    pub fn SDL_WaitThread(thread: *mut SDL_Thread, status: *mut libc::c_int);
+    pub fn SDL_WaitThread(thread: *mut SDL_Thread, status: *mut ::core::ffi::c_int);
 }
 unsafe extern "C" {
     #[doc = " Get the current state of a thread.\n\n \\param thread the thread to query.\n \\returns the current state of a thread, or SDL_THREAD_UNKNOWN if the thread\n          isn't valid.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ThreadState"]
@@ -3732,16 +3879,16 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the current thread's value associated with a thread local storage ID.\n\n \\param id a pointer to the thread local storage ID, may not be NULL.\n \\returns the value associated with the ID for the current thread or NULL if\n          no value has been set; call SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetTLS"]
-    pub fn SDL_GetTLS(id: *mut SDL_TLSID) -> *mut libc::c_void;
+    pub fn SDL_GetTLS(id: *mut SDL_TLSID) -> *mut ::core::ffi::c_void;
 }
 #[doc = " The callback used to cleanup data passed to SDL_SetTLS.\n\n This is called when a thread exits, to allow an app to free any resources.\n\n \\param value a pointer previously handed to SDL_SetTLS.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetTLS"]
 pub type SDL_TLSDestructorCallback =
-    ::core::option::Option<unsafe extern "C" fn(value: *mut libc::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(value: *mut ::core::ffi::c_void)>;
 unsafe extern "C" {
     #[doc = " Set the current thread's value associated with a thread local storage ID.\n\n If the thread local storage ID is not initialized (the value is 0), a new\n ID will be created in a thread-safe way, so all calls using a pointer to\n the same ID will refer to the same local storage.\n\n Note that replacing a value from a previous call to this function on the\n same thread does _not_ call the previous value's destructor!\n\n `destructor` can be NULL; it is assumed that `value` does not need to be\n cleaned up if so.\n\n \\param id a pointer to the thread local storage ID, may not be NULL.\n \\param value the value to associate with the ID for the current thread.\n \\param destructor a function called when the thread exits, to free the\n                   value, may be NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetTLS"]
     pub fn SDL_SetTLS(
         id: *mut SDL_TLSID,
-        value: *const libc::c_void,
+        value: *const ::core::ffi::c_void,
         destructor: SDL_TLSDestructorCallback,
     ) -> bool;
 }
@@ -3878,14 +4025,14 @@ pub const SDL_InitStatus_SDL_INIT_STATUS_INITIALIZING: SDL_InitStatus = 1;
 pub const SDL_InitStatus_SDL_INIT_STATUS_INITIALIZED: SDL_InitStatus = 2;
 pub const SDL_InitStatus_SDL_INIT_STATUS_UNINITIALIZING: SDL_InitStatus = 3;
 #[doc = " The current status of an SDL_InitState structure.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_InitStatus = libc::c_uint;
+pub type SDL_InitStatus = ::core::ffi::c_uint;
 #[doc = " A structure used for thread-safe initialization and shutdown.\n\n Here is an example of using this:\n\n ```c\n    static SDL_AtomicInitState init;\n\n    bool InitSystem(void)\n    {\n        if (!SDL_ShouldInit(&init)) {\n            // The system is initialized\n            return true;\n        }\n\n        // At this point, you should not leave this function without calling SDL_SetInitialized()\n\n        bool initialized = DoInitTasks();\n        SDL_SetInitialized(&init, initialized);\n        return initialized;\n    }\n\n    bool UseSubsystem(void)\n    {\n        if (SDL_ShouldInit(&init)) {\n            // Error, the subsystem isn't initialized\n            SDL_SetInitialized(&init, false);\n            return false;\n        }\n\n        // Do work using the initialized subsystem\n\n        return true;\n    }\n\n    void QuitSystem(void)\n    {\n        if (!SDL_ShouldQuit(&init)) {\n            // The system is not initialized\n            return;\n        }\n\n        // At this point, you should not leave this function without calling SDL_SetInitialized()\n\n        DoQuitTasks();\n        SDL_SetInitialized(&init, false);\n    }\n ```\n\n Note that this doesn't protect any resources created during initialization,\n or guarantee that nobody is using those resources during cleanup. You\n should use other mechanisms to protect those, if that's a concern for your\n code.\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_InitState {
     pub status: SDL_AtomicInt,
     pub thread: SDL_ThreadID,
-    pub reserved: *mut libc::c_void,
+    pub reserved: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -3923,7 +4070,7 @@ pub const SDL_IOStatus_SDL_IO_STATUS_READONLY: SDL_IOStatus = 4;
 #[doc = "< Tried to read a write-only buffer"]
 pub const SDL_IOStatus_SDL_IO_STATUS_WRITEONLY: SDL_IOStatus = 5;
 #[doc = " SDL_IOStream status, set by a read or write operation.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_IOStatus = libc::c_uint;
+pub type SDL_IOStatus = ::core::ffi::c_uint;
 #[doc = "< Seek from the beginning of data"]
 pub const SDL_IOWhence_SDL_IO_SEEK_SET: SDL_IOWhence = 0;
 #[doc = "< Seek relative to current read point"]
@@ -3931,18 +4078,19 @@ pub const SDL_IOWhence_SDL_IO_SEEK_CUR: SDL_IOWhence = 1;
 #[doc = "< Seek relative to the end of data"]
 pub const SDL_IOWhence_SDL_IO_SEEK_END: SDL_IOWhence = 2;
 #[doc = " Possible `whence` values for SDL_IOStream seeking.\n\n These map to the same \"whence\" concept that `fseek` or `lseek` use in the\n standard C runtime.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_IOWhence = libc::c_uint;
+pub type SDL_IOWhence = ::core::ffi::c_uint;
 #[doc = " The function pointers that drive an SDL_IOStream.\n\n Applications can provide this struct to SDL_OpenIO() to create their own\n implementation of SDL_IOStream. This is not necessarily required, as SDL\n already offers several common types of I/O streams, via functions like\n SDL_IOFromFile() and SDL_IOFromMem().\n\n This structure should be initialized using SDL_INIT_INTERFACE()\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_INIT_INTERFACE"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_IOStreamInterface {
     pub version: Uint32,
     #[doc = "  Return the number of bytes in this SDL_IOStream\n\n  \\return the total size of the data stream, or -1 on error."]
-    pub size: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> Sint64>,
+    pub size:
+        ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> Sint64>,
     #[doc = "  Seek to `offset` relative to `whence`, one of stdio's whence values:\n  SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END\n\n  \\return the final offset in the data stream, or -1 on error."]
     pub seek: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
             offset: Sint64,
             whence: SDL_IOWhence,
         ) -> Sint64,
@@ -3950,8 +4098,8 @@ pub struct SDL_IOStreamInterface {
     #[doc = "  Read up to `size` bytes from the data stream to the area pointed\n  at by `ptr`.\n\n  On an incomplete read, you should set `*status` to a value from the\n  SDL_IOStatus enum. You do not have to explicitly set this on\n  a complete, successful read.\n\n  \\return the number of bytes read"]
     pub read: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            ptr: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
+            ptr: *mut ::core::ffi::c_void,
             size: usize,
             status: *mut SDL_IOStatus,
         ) -> usize,
@@ -3959,18 +4107,19 @@ pub struct SDL_IOStreamInterface {
     #[doc = "  Write exactly `size` bytes from the area pointed at by `ptr`\n  to data stream.\n\n  On an incomplete write, you should set `*status` to a value from the\n  SDL_IOStatus enum. You do not have to explicitly set this on\n  a complete, successful write.\n\n  \\return the number of bytes written"]
     pub write: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            ptr: *const libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
+            ptr: *const ::core::ffi::c_void,
             size: usize,
             status: *mut SDL_IOStatus,
         ) -> usize,
     >,
     #[doc = "  If the stream is buffering, make sure the data is written out.\n\n  On failure, you should set `*status` to a value from the\n  SDL_IOStatus enum. You do not have to explicitly set this on\n  a successful flush.\n\n  \\return true if successful or false on write error when flushing data."]
     pub flush: ::core::option::Option<
-        unsafe extern "C" fn(userdata: *mut libc::c_void, status: *mut SDL_IOStatus) -> bool,
+        unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, status: *mut SDL_IOStatus) -> bool,
     >,
     #[doc = "  Close and free any allocated resources.\n\n  This does not guarantee file writes will sync to physical media; they\n  can be in the system's file cache, waiting to go to disk.\n\n  The SDL_IOStream is still destroyed even if this fails, so clean up anything\n  even if flushing buffers, etc, returns an error.\n\n  \\return true if successful or false on write error when flushing data."]
-    pub close: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> bool>,
+    pub close:
+        ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> bool>,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -4000,17 +4149,17 @@ pub struct SDL_IOStream {
 unsafe extern "C" {
     #[doc = " Use this function to create a new SDL_IOStream structure for reading from\n and/or writing to a named file.\n\n The `mode` string is treated roughly the same as in a call to the C\n library's fopen(), even if SDL doesn't happen to use fopen() behind the\n scenes.\n\n Available `mode` strings:\n\n - \"r\": Open a file for reading. The file must exist.\n - \"w\": Create an empty file for writing. If a file with the same name\n   already exists its content is erased and the file is treated as a new\n   empty file.\n - \"a\": Append to a file. Writing operations append data at the end of the\n   file. The file is created if it does not exist.\n - \"r+\": Open a file for update both reading and writing. The file must\n   exist.\n - \"w+\": Create an empty file for both reading and writing. If a file with\n   the same name already exists its content is erased and the file is\n   treated as a new empty file.\n - \"a+\": Open a file for reading and appending. All writing operations are\n   performed at the end of the file, protecting the previous content to be\n   overwritten. You can reposition (fseek, rewind) the internal pointer to\n   anywhere in the file for reading, but writing operations will move it\n   back to the end of file. The file is created if it does not exist.\n\n **NOTE**: In order to open a file as a binary file, a \"b\" character has to\n be included in the `mode` string. This additional \"b\" character can either\n be appended at the end of the string (thus making the following compound\n modes: \"rb\", \"wb\", \"ab\", \"r+b\", \"w+b\", \"a+b\") or be inserted between the\n letter and the \"+\" sign for the mixed modes (\"rb+\", \"wb+\", \"ab+\").\n Additional characters may follow the sequence, although they should have no\n effect. For example, \"t\" is sometimes appended to make explicit the file is\n a text file.\n\n This function supports Unicode filenames, but they must be encoded in UTF-8\n format, regardless of the underlying operating system.\n\n In Android, SDL_IOFromFile() can be used to open content:// URIs. As a\n fallback, SDL_IOFromFile() will transparently open a matching filename in\n the app's `assets`.\n\n Closing the SDL_IOStream will close SDL's internal file handle.\n\n The following properties may be set at creation time by SDL:\n\n - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast\n   to a win32 `HANDLE`, that this SDL_IOStream is using to access the\n   filesystem. If the program isn't running on Windows, or SDL used some\n   other method to access the filesystem, this property will not be set.\n - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a\n   stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.\n   If SDL used some other method to access the filesystem, this property\n   will not be set. PLEASE NOTE that if SDL is using a different C runtime\n   than your app, trying to use this pointer will almost certainly result in\n   a crash! This is mostly a problem on Windows; make sure you build SDL and\n   your app with the same compiler and settings to avoid it.\n - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this\n   SDL_IOStream is using to access the filesystem.\n - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast\n   to an Android NDK `AAsset *`, that this SDL_IOStream is using to access\n   the filesystem. If SDL used some other method to access the filesystem,\n   this property will not be set.\n\n \\param file a UTF-8 string representing the filename to open.\n \\param mode an ASCII string representing the mode to be used for opening\n             the file.\n \\returns a pointer to the SDL_IOStream structure that is created or NULL on\n          failure; call SDL_GetError() for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseIO\n \\sa SDL_FlushIO\n \\sa SDL_ReadIO\n \\sa SDL_SeekIO\n \\sa SDL_TellIO\n \\sa SDL_WriteIO"]
     pub fn SDL_IOFromFile(
-        file: *const libc::c_char,
-        mode: *const libc::c_char,
+        file: *const ::core::ffi::c_char,
+        mode: *const ::core::ffi::c_char,
     ) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
     #[doc = " Use this function to prepare a read-write memory buffer for use with\n SDL_IOStream.\n\n This function sets up an SDL_IOStream struct based on a memory area of a\n certain size, for both read and write access.\n\n This memory buffer is not copied by the SDL_IOStream; the pointer you\n provide must remain valid until you close the stream. Closing the stream\n will not free the original buffer.\n\n If you need to make sure the SDL_IOStream never writes to the memory\n buffer, you should use SDL_IOFromConstMem() with a read-only buffer of\n memory instead.\n\n The following properties will be set at creation time by SDL:\n\n - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that\n   was passed to this function.\n - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter\n   that was passed to this function.\n\n \\param mem a pointer to a buffer to feed an SDL_IOStream stream.\n \\param size the buffer size, in bytes.\n \\returns a pointer to a new SDL_IOStream structure or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IOFromConstMem\n \\sa SDL_CloseIO\n \\sa SDL_FlushIO\n \\sa SDL_ReadIO\n \\sa SDL_SeekIO\n \\sa SDL_TellIO\n \\sa SDL_WriteIO"]
-    pub fn SDL_IOFromMem(mem: *mut libc::c_void, size: usize) -> *mut SDL_IOStream;
+    pub fn SDL_IOFromMem(mem: *mut ::core::ffi::c_void, size: usize) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
     #[doc = " Use this function to prepare a read-only memory buffer for use with\n SDL_IOStream.\n\n This function sets up an SDL_IOStream struct based on a memory area of a\n certain size. It assumes the memory area is not writable.\n\n Attempting to write to this SDL_IOStream stream will report an error\n without writing to the memory buffer.\n\n This memory buffer is not copied by the SDL_IOStream; the pointer you\n provide must remain valid until you close the stream. Closing the stream\n will not free the original buffer.\n\n If you need to write to a memory buffer, you should use SDL_IOFromMem()\n with a writable buffer of memory instead.\n\n The following properties will be set at creation time by SDL:\n\n - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that\n   was passed to this function.\n - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter\n   that was passed to this function.\n\n \\param mem a pointer to a read-only buffer to feed an SDL_IOStream stream.\n \\param size the buffer size, in bytes.\n \\returns a pointer to a new SDL_IOStream structure or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IOFromMem\n \\sa SDL_CloseIO\n \\sa SDL_ReadIO\n \\sa SDL_SeekIO\n \\sa SDL_TellIO"]
-    pub fn SDL_IOFromConstMem(mem: *const libc::c_void, size: usize) -> *mut SDL_IOStream;
+    pub fn SDL_IOFromConstMem(mem: *const ::core::ffi::c_void, size: usize) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
     #[doc = " Use this function to create an SDL_IOStream that is backed by dynamically\n allocated memory.\n\n This supports the following properties to provide access to the memory and\n control over allocations:\n\n - `SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER`: a pointer to the internal\n   memory of the stream. This can be set to NULL to transfer ownership of\n   the memory to the application, which should free the memory with\n   SDL_free(). If this is done, the next operation on the stream must be\n   SDL_CloseIO().\n - `SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER`: memory will be allocated in\n   multiples of this size, defaulting to 1024.\n\n \\returns a pointer to a new SDL_IOStream structure or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseIO\n \\sa SDL_ReadIO\n \\sa SDL_SeekIO\n \\sa SDL_TellIO\n \\sa SDL_WriteIO"]
@@ -4020,7 +4169,7 @@ unsafe extern "C" {
     #[doc = " Create a custom SDL_IOStream.\n\n Applications do not need to use this function unless they are providing\n their own SDL_IOStream implementation. If you just need an SDL_IOStream to\n read/write a common data source, you should use the built-in\n implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.\n\n This function makes a copy of `iface` and the caller does not need to keep\n it around after this call.\n\n \\param iface the interface that implements this SDL_IOStream, initialized\n              using SDL_INIT_INTERFACE().\n \\param userdata the pointer that will be passed to the interface functions.\n \\returns a pointer to the allocated memory on success or NULL on failure;\n          call SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseIO\n \\sa SDL_INIT_INTERFACE\n \\sa SDL_IOFromConstMem\n \\sa SDL_IOFromFile\n \\sa SDL_IOFromMem"]
     pub fn SDL_OpenIO(
         iface: *const SDL_IOStreamInterface,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_IOStream;
 }
 unsafe extern "C" {
@@ -4049,21 +4198,29 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Read from a data source.\n\n This function reads up `size` bytes from the data source to the area\n pointed at by `ptr`. This function may read less bytes than requested.\n\n This function will return zero when the data stream is completely read, and\n SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and\n the stream is not at EOF, SDL_GetIOStatus() will return a different error\n value and SDL_GetError() will offer a human-readable message.\n\n \\param context a pointer to an SDL_IOStream structure.\n \\param ptr a pointer to a buffer to read data into.\n \\param size the number of bytes to read from the data source.\n \\returns the number of bytes read, or 0 on end of file or other failure;\n          call SDL_GetError() for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_WriteIO\n \\sa SDL_GetIOStatus"]
-    pub fn SDL_ReadIO(context: *mut SDL_IOStream, ptr: *mut libc::c_void, size: usize) -> usize;
+    pub fn SDL_ReadIO(
+        context: *mut SDL_IOStream,
+        ptr: *mut ::core::ffi::c_void,
+        size: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Write to an SDL_IOStream data stream.\n\n This function writes exactly `size` bytes from the area pointed at by `ptr`\n to the stream. If this fails for any reason, it'll return less than `size`\n to demonstrate how far the write progressed. On success, it returns `size`.\n\n On error, this function still attempts to write as much as possible, so it\n might return a positive value less than the requested write size.\n\n The caller can use SDL_GetIOStatus() to determine if the problem is\n recoverable, such as a non-blocking write that can simply be retried later,\n or a fatal error.\n\n \\param context a pointer to an SDL_IOStream structure.\n \\param ptr a pointer to a buffer containing data to write.\n \\param size the number of bytes to write.\n \\returns the number of bytes written, which will be less than `size` on\n          failure; call SDL_GetError() for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IOprintf\n \\sa SDL_ReadIO\n \\sa SDL_SeekIO\n \\sa SDL_FlushIO\n \\sa SDL_GetIOStatus"]
-    pub fn SDL_WriteIO(context: *mut SDL_IOStream, ptr: *const libc::c_void, size: usize) -> usize;
+    pub fn SDL_WriteIO(
+        context: *mut SDL_IOStream,
+        ptr: *const ::core::ffi::c_void,
+        size: usize,
+    ) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Print to an SDL_IOStream data stream.\n\n This function does formatted printing to the stream.\n\n \\param context a pointer to an SDL_IOStream structure.\n \\param fmt a printf() style format string.\n \\param ... additional parameters matching % tokens in the `fmt` string, if\n            any.\n \\returns the number of bytes written or 0 on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IOvprintf\n \\sa SDL_WriteIO"]
-    pub fn SDL_IOprintf(context: *mut SDL_IOStream, fmt: *const libc::c_char, ...) -> usize;
+    pub fn SDL_IOprintf(context: *mut SDL_IOStream, fmt: *const ::core::ffi::c_char, ...) -> usize;
 }
 unsafe extern "C" {
     #[doc = " Print to an SDL_IOStream data stream.\n\n This function does formatted printing to the stream.\n\n \\param context a pointer to an SDL_IOStream structure.\n \\param fmt a printf() style format string.\n \\param ap a variable argument list.\n \\returns the number of bytes written or 0 on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IOprintf\n \\sa SDL_WriteIO"]
     pub fn SDL_IOvprintf(
         context: *mut SDL_IOStream,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
     ) -> usize;
 }
@@ -4077,17 +4234,20 @@ unsafe extern "C" {
         src: *mut SDL_IOStream,
         datasize: *mut usize,
         closeio: bool,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Load all the data from a file path.\n\n The data is allocated with a zero byte at the end (null terminated) for\n convenience. This extra byte is not included in the value reported via\n `datasize`.\n\n The data should be freed with SDL_free().\n\n \\param file the path to read all available data from.\n \\param datasize if not NULL, will store the number of bytes read.\n \\returns the data or NULL on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadFile_IO\n \\sa SDL_SaveFile"]
-    pub fn SDL_LoadFile(file: *const libc::c_char, datasize: *mut usize) -> *mut libc::c_void;
+    pub fn SDL_LoadFile(
+        file: *const ::core::ffi::c_char,
+        datasize: *mut usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Save all the data into an SDL data stream.\n\n \\param src the SDL_IOStream to write all data to.\n \\param data the data to be written. If datasize is 0, may be NULL or a\n             invalid pointer.\n \\param datasize the number of bytes to be written.\n \\param closeio if true, calls SDL_CloseIO() on `src` before returning, even\n                in the case of an error.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SaveFile\n \\sa SDL_LoadFile_IO"]
     pub fn SDL_SaveFile_IO(
         src: *mut SDL_IOStream,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         datasize: usize,
         closeio: bool,
     ) -> bool;
@@ -4095,8 +4255,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save all the data into a file path.\n\n \\param file the path to write all available data into.\n \\param data the data to be written. If datasize is 0, may be NULL or a\n             invalid pointer.\n \\param datasize the number of bytes to be written.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SaveFile_IO\n \\sa SDL_LoadFile"]
     pub fn SDL_SaveFile(
-        file: *const libc::c_char,
-        data: *const libc::c_void,
+        file: *const ::core::ffi::c_char,
+        data: *const ::core::ffi::c_void,
         datasize: usize,
     ) -> bool;
 }
@@ -4234,7 +4394,7 @@ pub const SDL_AudioFormat_SDL_AUDIO_S16: SDL_AudioFormat = 32784;
 pub const SDL_AudioFormat_SDL_AUDIO_S32: SDL_AudioFormat = 32800;
 pub const SDL_AudioFormat_SDL_AUDIO_F32: SDL_AudioFormat = 33056;
 #[doc = " Audio format.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_AUDIO_BITSIZE\n \\sa SDL_AUDIO_BYTESIZE\n \\sa SDL_AUDIO_ISINT\n \\sa SDL_AUDIO_ISFLOAT\n \\sa SDL_AUDIO_ISBIGENDIAN\n \\sa SDL_AUDIO_ISLITTLEENDIAN\n \\sa SDL_AUDIO_ISSIGNED\n \\sa SDL_AUDIO_ISUNSIGNED"]
-pub type SDL_AudioFormat = libc::c_uint;
+pub type SDL_AudioFormat = ::core::ffi::c_uint;
 #[doc = " SDL Audio Device instance IDs.\n\n Zero is used to signify an invalid/null device.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_AudioDeviceID = Uint32;
 #[doc = " Format specifier for audio data.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_AudioFormat"]
@@ -4244,9 +4404,9 @@ pub struct SDL_AudioSpec {
     #[doc = "< Audio data format"]
     pub format: SDL_AudioFormat,
     #[doc = "< Number of channels: 1 mono, 2 stereo, etc"]
-    pub channels: libc::c_int,
+    pub channels: ::core::ffi::c_int,
     #[doc = "< sample rate: sample frames per second"]
-    pub freq: libc::c_int,
+    pub freq: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -4265,42 +4425,42 @@ pub struct SDL_AudioStream {
 }
 unsafe extern "C" {
     #[doc = " Use this function to get the number of built-in audio drivers.\n\n This function returns a hardcoded number. This never returns a negative\n value; if there are no drivers compiled into this build of SDL, this\n function returns zero. The presence of a driver in this list does not mean\n it will function, it just means SDL is capable of interacting with that\n interface. For example, a build of SDL might have esound support, but if\n there's no esound server available, SDL's esound driver would fail if used.\n\n By default, SDL tries all drivers, in its preferred order, until one is\n found to be usable.\n\n \\returns the number of built-in audio drivers.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAudioDriver"]
-    pub fn SDL_GetNumAudioDrivers() -> libc::c_int;
+    pub fn SDL_GetNumAudioDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Use this function to get the name of a built in audio driver.\n\n The list of audio drivers is given in the order that they are normally\n initialized by default; the drivers that seem more reasonable to choose\n first (as far as the SDL developers believe) are earlier in the list.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"alsa\",\n \"coreaudio\" or \"wasapi\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\param index the index of the audio driver; the value ranges from 0 to\n              SDL_GetNumAudioDrivers() - 1.\n \\returns the name of the audio driver at the requested index, or NULL if an\n          invalid index was specified.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumAudioDrivers"]
-    pub fn SDL_GetAudioDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetAudioDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the name of the current audio driver.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"alsa\",\n \"coreaudio\" or \"wasapi\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\returns the name of the current audio driver or NULL if no driver has been\n          initialized.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetCurrentAudioDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentAudioDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently-connected audio playback devices.\n\n This returns of list of available devices that play sound, perhaps to\n speakers or headphones (\"playback\" devices). If you want devices that\n record audio, like a microphone (\"recording\" devices), use\n SDL_GetAudioRecordingDevices() instead.\n\n This only returns a list of physical devices; it will not have any device\n IDs returned by SDL_OpenAudioDevice().\n\n If this function returns NULL, to signify an error, `*count` will be set to\n zero.\n\n \\param count a pointer filled in with the number of devices returned, may\n              be NULL.\n \\returns a 0 terminated array of device instance IDs or NULL on error; call\n          SDL_GetError() for more information. This should be freed with\n          SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenAudioDevice\n \\sa SDL_GetAudioRecordingDevices"]
-    pub fn SDL_GetAudioPlaybackDevices(count: *mut libc::c_int) -> *mut SDL_AudioDeviceID;
+    pub fn SDL_GetAudioPlaybackDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_AudioDeviceID;
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently-connected audio recording devices.\n\n This returns of list of available devices that record audio, like a\n microphone (\"recording\" devices). If you want devices that play sound,\n perhaps to speakers or headphones (\"playback\" devices), use\n SDL_GetAudioPlaybackDevices() instead.\n\n This only returns a list of physical devices; it will not have any device\n IDs returned by SDL_OpenAudioDevice().\n\n If this function returns NULL, to signify an error, `*count` will be set to\n zero.\n\n \\param count a pointer filled in with the number of devices returned, may\n              be NULL.\n \\returns a 0 terminated array of device instance IDs, or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenAudioDevice\n \\sa SDL_GetAudioPlaybackDevices"]
-    pub fn SDL_GetAudioRecordingDevices(count: *mut libc::c_int) -> *mut SDL_AudioDeviceID;
+    pub fn SDL_GetAudioRecordingDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_AudioDeviceID;
 }
 unsafe extern "C" {
     #[doc = " Get the human-readable name of a specific audio device.\n\n \\param devid the instance ID of the device to query.\n \\returns the name of the audio device, or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAudioPlaybackDevices\n \\sa SDL_GetAudioRecordingDevices"]
-    pub fn SDL_GetAudioDeviceName(devid: SDL_AudioDeviceID) -> *const libc::c_char;
+    pub fn SDL_GetAudioDeviceName(devid: SDL_AudioDeviceID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the current audio format of a specific audio device.\n\n For an opened device, this will report the format the device is currently\n using. If the device isn't yet opened, this will report the device's\n preferred format (or a reasonable default if this can't be determined).\n\n You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or\n SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a\n reasonable recommendation before opening the system-recommended default\n device.\n\n You can also use this to request the current device buffer size. This is\n specified in sample frames and represents the amount of data SDL will feed\n to the physical hardware in each chunk. This can be converted to\n milliseconds of audio with the following equation:\n\n `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`\n\n Buffer size is only important if you need low-level control over the audio\n playback timing. Most apps do not need this.\n\n \\param devid the instance ID of the device to query.\n \\param spec on return, will be filled with device details.\n \\param sample_frames pointer to store device buffer size, in sample frames.\n                      Can be NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetAudioDeviceFormat(
         devid: SDL_AudioDeviceID,
         spec: *mut SDL_AudioSpec,
-        sample_frames: *mut libc::c_int,
+        sample_frames: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the current channel map of an audio device.\n\n Channel maps are optional; most things do not need them, instead passing\n data in the [order that SDL expects](CategoryAudio#channel-layouts).\n\n Audio devices usually have no remapping applied. This is represented by\n returning NULL, and does not signify an error.\n\n \\param devid the instance ID of the device to query.\n \\param count On output, set to number of channels in the map. Can be NULL.\n \\returns an array of the current channel mapping, with as many elements as\n          the current output spec's channels, or NULL if default. This\n          should be freed with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamInputChannelMap"]
     pub fn SDL_GetAudioDeviceChannelMap(
         devid: SDL_AudioDeviceID,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Open a specific audio device.\n\n You can open both playback and recording devices through this function.\n Playback devices will take data from bound audio streams, mix it, and send\n it to the hardware. Recording devices will feed any bound audio streams\n with a copy of any incoming data.\n\n An opened audio device starts out with no audio streams bound. To start\n audio playing, bind a stream and supply audio data to it. Unlike SDL2,\n there is no audio callback; you only bind audio streams and make sure they\n have data flowing into them (however, you can simulate SDL2's semantics\n fairly closely by using SDL_OpenAudioDeviceStream instead of this\n function).\n\n If you don't care about opening a specific device, pass a `devid` of either\n `SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK` or\n `SDL_AUDIO_DEVICE_DEFAULT_RECORDING`. In this case, SDL will try to pick\n the most reasonable default, and may also switch between physical devices\n seamlessly later, if the most reasonable default changes during the\n lifetime of this opened device (user changed the default in the OS's system\n preferences, the default got unplugged so the system jumped to a new\n default, the user plugged in headphones on a mobile device, etc). Unless\n you have a good reason to choose a specific device, this is probably what\n you want.\n\n You may request a specific format for the audio device, but there is no\n promise the device will honor that request for several reasons. As such,\n it's only meant to be a hint as to what data your app will provide. Audio\n streams will accept data in whatever format you specify and manage\n conversion for you as appropriate. SDL_GetAudioDeviceFormat can tell you\n the preferred format for the device before opening and the actual format\n the device is using after opening.\n\n It's legal to open the same device ID more than once; each successful open\n will generate a new logical SDL_AudioDeviceID that is managed separately\n from others on the same physical device. This allows libraries to open a\n device separately from the main app and bind its own streams without\n conflicting.\n\n It is also legal to open a device ID returned by a previous call to this\n function; doing so just creates another logical device on the same physical\n device. This may be useful for making logical groupings of audio streams.\n\n This function returns the opened device ID on success. This is a new,\n unique SDL_AudioDeviceID that represents a logical device.\n\n Some backends might offer arbitrary devices (for example, a networked audio\n protocol that can connect to an arbitrary server). For these, as a change\n from SDL2, you should open a default device ID and use an SDL hint to\n specify the target if you care, or otherwise let the backend figure out a\n reasonable default. Most backends don't offer anything like this, and often\n this would be an end user setting an environment variable for their custom\n need, and not something an application should specifically manage.\n\n When done with an audio device, possibly at the end of the app's life, one\n should call SDL_CloseAudioDevice() on the returned device id.\n\n \\param devid the device instance id to open, or\n              SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or\n              SDL_AUDIO_DEVICE_DEFAULT_RECORDING for the most reasonable\n              default device.\n \\param spec the requested device configuration. Can be NULL to use\n             reasonable defaults.\n \\returns the device ID on success or 0 on failure; call SDL_GetError() for\n          more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseAudioDevice\n \\sa SDL_GetAudioDeviceFormat"]
@@ -4346,7 +4506,7 @@ unsafe extern "C" {
     pub fn SDL_BindAudioStreams(
         devid: SDL_AudioDeviceID,
         streams: *const *mut SDL_AudioStream,
-        num_streams: libc::c_int,
+        num_streams: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4355,7 +4515,10 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Unbind a list of audio streams from their audio devices.\n\n The streams being unbound do not all have to be on the same device. All\n streams on the same device will be unbound atomically (data will stop\n flowing through all unbound streams on the same device at the same time).\n\n Unbinding a stream that isn't bound to a device is a legal no-op.\n\n \\param streams an array of audio streams to unbind. Can be NULL or contain\n                NULL.\n \\param num_streams number streams listed in the `streams` array.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_BindAudioStreams"]
-    pub fn SDL_UnbindAudioStreams(streams: *const *mut SDL_AudioStream, num_streams: libc::c_int);
+    pub fn SDL_UnbindAudioStreams(
+        streams: *const *mut SDL_AudioStream,
+        num_streams: ::core::ffi::c_int,
+    );
 }
 unsafe extern "C" {
     #[doc = " Unbind a single audio stream from its audio device.\n\n This is a convenience function, equivalent to calling\n `SDL_UnbindAudioStreams(&stream, 1)`.\n\n \\param stream an audio stream to unbind from a device. Can be NULL.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_BindAudioStream"]
@@ -4412,55 +4575,55 @@ unsafe extern "C" {
     #[doc = " Get the current input channel map of an audio stream.\n\n Channel maps are optional; most things do not need them, instead passing\n data in the [order that SDL expects](CategoryAudio#channel-layouts).\n\n Audio streams default to no remapping applied. This is represented by\n returning NULL, and does not signify an error.\n\n \\param stream the SDL_AudioStream to query.\n \\param count On output, set to number of channels in the map. Can be NULL.\n \\returns an array of the current channel mapping, with as many elements as\n          the current output spec's channels, or NULL if default. This\n          should be freed with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread, as it holds\n               a stream-specific mutex while running.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamInputChannelMap"]
     pub fn SDL_GetAudioStreamInputChannelMap(
         stream: *mut SDL_AudioStream,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the current output channel map of an audio stream.\n\n Channel maps are optional; most things do not need them, instead passing\n data in the [order that SDL expects](CategoryAudio#channel-layouts).\n\n Audio streams default to no remapping applied. This is represented by\n returning NULL, and does not signify an error.\n\n \\param stream the SDL_AudioStream to query.\n \\param count On output, set to number of channels in the map. Can be NULL.\n \\returns an array of the current channel mapping, with as many elements as\n          the current output spec's channels, or NULL if default. This\n          should be freed with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread, as it holds\n               a stream-specific mutex while running.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamInputChannelMap"]
     pub fn SDL_GetAudioStreamOutputChannelMap(
         stream: *mut SDL_AudioStream,
-        count: *mut libc::c_int,
-    ) -> *mut libc::c_int;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Set the current input channel map of an audio stream.\n\n Channel maps are optional; most things do not need them, instead passing\n data in the [order that SDL expects](CategoryAudio#channel-layouts).\n\n The input channel map reorders data that is added to a stream via\n SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide\n data in the new channel order.\n\n Each item in the array represents an input channel, and its value is the\n channel that it should be remapped to. To reverse a stereo signal's left\n and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap\n multiple channels to the same thing, so `{ 1, 1 }` would duplicate the\n right channel to both channels of a stereo signal. An element in the\n channel map set to -1 instead of a valid channel will mute that channel,\n setting it to a silence value.\n\n You cannot change the number of channels through a channel map, just\n reorder/mute them.\n\n Data that was previously queued in the stream will still be operated on in\n the order that was current when it was added, which is to say you can put\n the end of a sound file in one order to a stream, change orders for the\n next sound file, and start putting that new data while the previous sound\n file is still queued, and everything will still play back correctly.\n\n Audio streams default to no remapping applied. Passing a NULL channel map\n is legal, and turns off remapping.\n\n SDL will copy the channel map; the caller does not have to save this array\n after this call.\n\n If `count` is not equal to the current number of channels in the audio\n stream's format, this will fail. This is a safety measure to make sure a\n race condition hasn't changed the format while this call is setting the\n channel map.\n\n Unlike attempting to change the stream's format, the input channel map on a\n stream bound to a recording device is permitted to change at any time; any\n data added to the stream from the device after this call will have the new\n mapping, but previously-added data will still have the prior mapping.\n\n \\param stream the SDL_AudioStream to change.\n \\param chmap the new channel map, NULL to reset to default.\n \\param count The number of channels in the map.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread, as it holds\n               a stream-specific mutex while running. Don't change the\n               stream's format to have a different number of channels from a\n               a different thread at the same time, though!\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamInputChannelMap"]
     pub fn SDL_SetAudioStreamInputChannelMap(
         stream: *mut SDL_AudioStream,
-        chmap: *const libc::c_int,
-        count: libc::c_int,
+        chmap: *const ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the current output channel map of an audio stream.\n\n Channel maps are optional; most things do not need them, instead passing\n data in the [order that SDL expects](CategoryAudio#channel-layouts).\n\n The output channel map reorders data that leaving a stream via\n SDL_GetAudioStreamData.\n\n Each item in the array represents an input channel, and its value is the\n channel that it should be remapped to. To reverse a stereo signal's left\n and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap\n multiple channels to the same thing, so `{ 1, 1 }` would duplicate the\n right channel to both channels of a stereo signal. An element in the\n channel map set to -1 instead of a valid channel will mute that channel,\n setting it to a silence value.\n\n You cannot change the number of channels through a channel map, just\n reorder/mute them.\n\n The output channel map can be changed at any time, as output remapping is\n applied during SDL_GetAudioStreamData.\n\n Audio streams default to no remapping applied. Passing a NULL channel map\n is legal, and turns off remapping.\n\n SDL will copy the channel map; the caller does not have to save this array\n after this call.\n\n If `count` is not equal to the current number of channels in the audio\n stream's format, this will fail. This is a safety measure to make sure a\n race condition hasn't changed the format while this call is setting the\n channel map.\n\n Unlike attempting to change the stream's format, the output channel map on\n a stream bound to a recording device is permitted to change at any time;\n any data added to the stream after this call will have the new mapping, but\n previously-added data will still have the prior mapping. When the channel\n map doesn't match the hardware's channel layout, SDL will convert the data\n before feeding it to the device for playback.\n\n \\param stream the SDL_AudioStream to change.\n \\param chmap the new channel map, NULL to reset to default.\n \\param count The number of channels in the map.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread, as it holds\n               a stream-specific mutex while running. Don't change the\n               stream's format to have a different number of channels from a\n               a different thread at the same time, though!\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamInputChannelMap"]
     pub fn SDL_SetAudioStreamOutputChannelMap(
         stream: *mut SDL_AudioStream,
-        chmap: *const libc::c_int,
-        count: libc::c_int,
+        chmap: *const ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Add data to the stream.\n\n This data must match the format/channels/samplerate specified in the latest\n call to SDL_SetAudioStreamFormat, or the format specified when creating the\n stream if it hasn't been changed.\n\n Note that this call simply copies the unconverted data for later. This is\n different than SDL2, where data was converted during the Put call and the\n Get call would just dequeue the previously-converted data.\n\n \\param stream the stream the audio data is being added to.\n \\param buf a pointer to the audio data to add.\n \\param len the number of bytes to write to the stream.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread, but if the\n               stream has a callback set, the caller might need to manage\n               extra locking.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearAudioStream\n \\sa SDL_FlushAudioStream\n \\sa SDL_GetAudioStreamData\n \\sa SDL_GetAudioStreamQueued"]
     pub fn SDL_PutAudioStreamData(
         stream: *mut SDL_AudioStream,
-        buf: *const libc::c_void,
-        len: libc::c_int,
+        buf: *const ::core::ffi::c_void,
+        len: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get converted/resampled data from the stream.\n\n The input/output data format/channels/samplerate is specified when creating\n the stream, and can be changed after creation by calling\n SDL_SetAudioStreamFormat.\n\n Note that any conversion and resampling necessary is done during this call,\n and SDL_PutAudioStreamData simply queues unconverted data for later. This\n is different than SDL2, where that work was done while inputting new data\n to the stream and requesting the output just copied the converted data.\n\n \\param stream the stream the audio is being requested from.\n \\param buf a buffer to fill with audio data.\n \\param len the maximum number of bytes to fill.\n \\returns the number of bytes read from the stream or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread, but if the\n               stream has a callback set, the caller might need to manage\n               extra locking.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearAudioStream\n \\sa SDL_GetAudioStreamAvailable\n \\sa SDL_PutAudioStreamData"]
     pub fn SDL_GetAudioStreamData(
         stream: *mut SDL_AudioStream,
-        buf: *mut libc::c_void,
-        len: libc::c_int,
-    ) -> libc::c_int;
+        buf: *mut ::core::ffi::c_void,
+        len: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of converted/resampled bytes available.\n\n The stream may be buffering data behind the scenes until it has enough to\n resample correctly, so this number might be lower than what you expect, or\n even be zero. Add more data or flush the stream if you need the data now.\n\n If the stream has so much data that it would overflow an int, the return\n value is clamped to a maximum value, but no queued data is lost; if there\n are gigabytes of data queued, the app might need to read some of it with\n SDL_GetAudioStreamData before this function's return value is no longer\n clamped.\n\n \\param stream the audio stream to query.\n \\returns the number of converted/resampled bytes available or -1 on\n          failure; call SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAudioStreamData\n \\sa SDL_PutAudioStreamData"]
-    pub fn SDL_GetAudioStreamAvailable(stream: *mut SDL_AudioStream) -> libc::c_int;
+    pub fn SDL_GetAudioStreamAvailable(stream: *mut SDL_AudioStream) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of bytes currently queued.\n\n This is the number of bytes put into a stream as input, not the number that\n can be retrieved as output. Because of several details, it's not possible\n to calculate one number directly from the other. If you need to know how\n much usable data can be retrieved right now, you should use\n SDL_GetAudioStreamAvailable() and not this function.\n\n Note that audio streams can change their input format at any time, even if\n there is still data queued in a different format, so the returned byte\n count will not necessarily match the number of _sample frames_ available.\n Users of this API should be aware of format changes they make when feeding\n a stream and plan accordingly.\n\n Queued data is not converted until it is consumed by\n SDL_GetAudioStreamData, so this value should be representative of the exact\n data that was put into the stream.\n\n If the stream has so much data that it would overflow an int, the return\n value is clamped to a maximum value, but no queued data is lost; if there\n are gigabytes of data queued, the app might need to read some of it with\n SDL_GetAudioStreamData before this function's return value is no longer\n clamped.\n\n \\param stream the audio stream to query.\n \\returns the number of bytes queued or -1 on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PutAudioStreamData\n \\sa SDL_ClearAudioStream"]
-    pub fn SDL_GetAudioStreamQueued(stream: *mut SDL_AudioStream) -> libc::c_int;
+    pub fn SDL_GetAudioStreamQueued(stream: *mut SDL_AudioStream) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Tell the stream that you're done sending data, and anything being buffered\n should be converted/resampled and made available immediately.\n\n It is legal to add more data to a stream after flushing, but there may be\n audio gaps in the output. Generally this is intended to signal the end of\n input, so the complete output becomes available.\n\n \\param stream the audio stream to flush.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PutAudioStreamData"]
@@ -4493,10 +4656,10 @@ unsafe extern "C" {
 #[doc = " A callback that fires when data passes through an SDL_AudioStream.\n\n Apps can (optionally) register a callback with an audio stream that is\n called when data is added with SDL_PutAudioStreamData, or requested with\n SDL_GetAudioStreamData.\n\n Two values are offered here: one is the amount of additional data needed to\n satisfy the immediate request (which might be zero if the stream already\n has enough data queued) and the other is the total amount being requested.\n In a Get call triggering a Put callback, these values can be different. In\n a Put call triggering a Get callback, these values are always the same.\n\n Byte counts might be slightly overestimated due to buffering or resampling,\n and may change from call to call.\n\n This callback is not required to do anything. Generally this is useful for\n adding/reading data on demand, and the app will often put/get data as\n appropriate, but the system goes on with the data currently available to it\n if this callback does nothing.\n\n \\param stream the SDL audio stream associated with this callback.\n \\param additional_amount the amount of data, in bytes, that is needed right\n                          now.\n \\param total_amount the total amount of data requested, in bytes, that is\n                     requested or available.\n \\param userdata an opaque pointer provided by the app for their personal\n                 use.\n\n \\threadsafety This callbacks may run from any thread, so if you need to\n               protect shared data, you should use SDL_LockAudioStream to\n               serialize access; this lock will be held before your callback\n               is called, so your callback does not need to manage the lock\n               explicitly.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioStreamGetCallback\n \\sa SDL_SetAudioStreamPutCallback"]
 pub type SDL_AudioStreamCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         stream: *mut SDL_AudioStream,
-        additional_amount: libc::c_int,
-        total_amount: libc::c_int,
+        additional_amount: ::core::ffi::c_int,
+        total_amount: ::core::ffi::c_int,
     ),
 >;
 unsafe extern "C" {
@@ -4504,7 +4667,7 @@ unsafe extern "C" {
     pub fn SDL_SetAudioStreamGetCallback(
         stream: *mut SDL_AudioStream,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4512,7 +4675,7 @@ unsafe extern "C" {
     pub fn SDL_SetAudioStreamPutCallback(
         stream: *mut SDL_AudioStream,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4525,16 +4688,16 @@ unsafe extern "C" {
         devid: SDL_AudioDeviceID,
         spec: *const SDL_AudioSpec,
         callback: SDL_AudioStreamCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_AudioStream;
 }
 #[doc = " A callback that fires when data is about to be fed to an audio device.\n\n This is useful for accessing the final mix, perhaps for writing a\n visualizer or applying a final effect to the audio data before playback.\n\n This callback should run as quickly as possible and not block for any\n significant time, as this callback delays submission of data to the audio\n device, which can cause audio playback problems.\n\n The postmix callback _must_ be able to handle any audio data format\n specified in `spec`, which can change between callbacks if the audio device\n changed. However, this only covers frequency and channel count; data is\n always provided here in SDL_AUDIO_F32 format.\n\n The postmix callback runs _after_ logical device gain and audiostream gain\n have been applied, which is to say you can make the output data louder at\n this point than the gain settings would suggest.\n\n \\param userdata a pointer provided by the app through\n                 SDL_SetAudioPostmixCallback, for its own use.\n \\param spec the current format of audio that is to be submitted to the\n             audio device.\n \\param buffer the buffer of audio samples to be submitted. The callback can\n               inspect and/or modify this data.\n \\param buflen the size of `buffer` in bytes.\n\n \\threadsafety This will run from a background thread owned by SDL. The\n               application is responsible for locking resources the callback\n               touches that need to be protected.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetAudioPostmixCallback"]
 pub type SDL_AudioPostmixCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         spec: *const SDL_AudioSpec,
         buffer: *mut f32,
-        buflen: libc::c_int,
+        buflen: ::core::ffi::c_int,
     ),
 >;
 unsafe extern "C" {
@@ -4542,7 +4705,7 @@ unsafe extern "C" {
     pub fn SDL_SetAudioPostmixCallback(
         devid: SDL_AudioDeviceID,
         callback: SDL_AudioPostmixCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -4558,7 +4721,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Loads a WAV from a file path.\n\n This is a convenience function that is effectively the same as:\n\n ```c\n SDL_LoadWAV_IO(SDL_IOFromFile(path, \"rb\"), true, spec, audio_buf, audio_len);\n ```\n\n \\param path the file path of the WAV file to open.\n \\param spec a pointer to an SDL_AudioSpec that will be set to the WAVE\n             data's format details on successful return.\n \\param audio_buf a pointer filled with the audio data, allocated by the\n                  function.\n \\param audio_len a pointer filled with the length of the audio data buffer\n                  in bytes.\n \\returns true on success. `audio_buf` will be filled with a pointer to an\n          allocated buffer containing the audio data, and `audio_len` is\n          filled with the length of that audio buffer in bytes.\n\n          This function returns false if the .WAV file cannot be opened,\n          uses an unknown data format, or is corrupt; call SDL_GetError()\n          for more information.\n\n          When the application is done with the data returned in\n          `audio_buf`, it should call SDL_free() to dispose of it.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_free\n \\sa SDL_LoadWAV_IO"]
     pub fn SDL_LoadWAV(
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         spec: *mut SDL_AudioSpec,
         audio_buf: *mut *mut Uint8,
         audio_len: *mut Uint32,
@@ -4579,19 +4742,19 @@ unsafe extern "C" {
     pub fn SDL_ConvertAudioSamples(
         src_spec: *const SDL_AudioSpec,
         src_data: *const Uint8,
-        src_len: libc::c_int,
+        src_len: ::core::ffi::c_int,
         dst_spec: *const SDL_AudioSpec,
         dst_data: *mut *mut Uint8,
-        dst_len: *mut libc::c_int,
+        dst_len: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the human readable name of an audio format.\n\n \\param format the audio format to query.\n \\returns the human readable name of the specified audio format or\n          \"SDL_AUDIO_UNKNOWN\" if the format isn't recognized.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetAudioFormatName(format: SDL_AudioFormat) -> *const libc::c_char;
+    pub fn SDL_GetAudioFormatName(format: SDL_AudioFormat) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the appropriate memset value for silencing an audio format.\n\n The value returned by this function can be used as the second argument to\n memset (or SDL_memset) to set an audio buffer in a specific format to\n silence.\n\n \\param format the audio data format to query.\n \\returns a byte value that can be passed to memset.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSilenceValueForFormat(format: SDL_AudioFormat) -> libc::c_int;
+    pub fn SDL_GetSilenceValueForFormat(format: SDL_AudioFormat) -> ::core::ffi::c_int;
 }
 #[doc = " A set of blend modes used in drawing operations.\n\n These predefined blend modes are supported everywhere.\n\n Additional values may be obtained from SDL_ComposeCustomBlendMode.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_ComposeCustomBlendMode"]
 pub type SDL_BlendMode = Uint32;
@@ -4606,7 +4769,7 @@ pub const SDL_BlendOperation_SDL_BLENDOPERATION_MINIMUM: SDL_BlendOperation = 4;
 #[doc = "< max(dst, src) : supported by D3D, OpenGL, OpenGLES, and Vulkan"]
 pub const SDL_BlendOperation_SDL_BLENDOPERATION_MAXIMUM: SDL_BlendOperation = 5;
 #[doc = " The blend operation used when combining source and destination pixel\n components.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_BlendOperation = libc::c_uint;
+pub type SDL_BlendOperation = ::core::ffi::c_uint;
 #[doc = "< 0, 0, 0, 0"]
 pub const SDL_BlendFactor_SDL_BLENDFACTOR_ZERO: SDL_BlendFactor = 1;
 #[doc = "< 1, 1, 1, 1"]
@@ -4628,7 +4791,7 @@ pub const SDL_BlendFactor_SDL_BLENDFACTOR_DST_ALPHA: SDL_BlendFactor = 9;
 #[doc = "< 1-dstA, 1-dstA, 1-dstA, 1-dstA"]
 pub const SDL_BlendFactor_SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA: SDL_BlendFactor = 10;
 #[doc = " The normalized factor used to multiply pixel components.\n\n The blend factors are multiplied with the pixels from a drawing operation\n (src) and the pixels from the render target (dst) before the blend\n operation. The comma-separated factors listed above are always applied in\n the component order red, green, blue, and alpha.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_BlendFactor = libc::c_uint;
+pub type SDL_BlendFactor = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Compose a custom blend mode for renderers.\n\n The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept\n the SDL_BlendMode returned by this function if the renderer supports it.\n\n A blend mode controls how the pixels from a drawing operation (source) get\n combined with the pixels from the render target (destination). First, the\n components of the source and destination pixels get multiplied with their\n blend factors. Then, the blend operation takes the two products and\n calculates the result that will get stored in the render target.\n\n Expressed in pseudocode, it would look like this:\n\n ```c\n dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);\n dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);\n ```\n\n Where the functions `colorOperation(src, dst)` and `alphaOperation(src,\n dst)` can return one of the following:\n\n - `src + dst`\n - `src - dst`\n - `dst - src`\n - `min(src, dst)`\n - `max(src, dst)`\n\n The red, green, and blue components are always multiplied with the first,\n second, and third components of the SDL_BlendFactor, respectively. The\n fourth component is not used.\n\n The alpha component is always multiplied with the fourth component of the\n SDL_BlendFactor. The other components are not used in the alpha\n calculation.\n\n Support for these blend modes varies for each renderer. To check if a\n specific SDL_BlendMode is supported, create a renderer and pass it to\n either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will\n return with an error if the blend mode is not supported.\n\n This list describes the support of custom blend modes for each renderer.\n All renderers support the four blend modes listed in the SDL_BlendMode\n enumeration.\n\n - **direct3d**: Supports all operations with all factors. However, some\n   factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and\n   `SDL_BLENDOPERATION_MAXIMUM`.\n - **direct3d11**: Same as Direct3D 9.\n - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all\n   factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.\n - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,\n   `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`\n   operations with all factors.\n - **psp**: No custom blend mode support.\n - **software**: No custom blend mode support.\n\n Some renderers do not provide an alpha component for the default render\n target. The `SDL_BLENDFACTOR_DST_ALPHA` and\n `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this\n case.\n\n \\param srcColorFactor the SDL_BlendFactor applied to the red, green, and\n                       blue components of the source pixels.\n \\param dstColorFactor the SDL_BlendFactor applied to the red, green, and\n                       blue components of the destination pixels.\n \\param colorOperation the SDL_BlendOperation used to combine the red,\n                       green, and blue components of the source and\n                       destination pixels.\n \\param srcAlphaFactor the SDL_BlendFactor applied to the alpha component of\n                       the source pixels.\n \\param dstAlphaFactor the SDL_BlendFactor applied to the alpha component of\n                       the destination pixels.\n \\param alphaOperation the SDL_BlendOperation used to combine the alpha\n                       component of the source and destination pixels.\n \\returns an SDL_BlendMode that represents the chosen factors and\n          operations.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetRenderDrawBlendMode\n \\sa SDL_GetRenderDrawBlendMode\n \\sa SDL_SetTextureBlendMode\n \\sa SDL_GetTextureBlendMode"]
     pub fn SDL_ComposeCustomBlendMode(
@@ -4654,12 +4817,12 @@ pub const SDL_PixelType_SDL_PIXELTYPE_ARRAYF16: SDL_PixelType = 10;
 pub const SDL_PixelType_SDL_PIXELTYPE_ARRAYF32: SDL_PixelType = 11;
 pub const SDL_PixelType_SDL_PIXELTYPE_INDEX2: SDL_PixelType = 12;
 #[doc = " Pixel type.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PixelType = libc::c_uint;
+pub type SDL_PixelType = ::core::ffi::c_uint;
 pub const SDL_BitmapOrder_SDL_BITMAPORDER_NONE: SDL_BitmapOrder = 0;
 pub const SDL_BitmapOrder_SDL_BITMAPORDER_4321: SDL_BitmapOrder = 1;
 pub const SDL_BitmapOrder_SDL_BITMAPORDER_1234: SDL_BitmapOrder = 2;
 #[doc = " Bitmap pixel order, high bit -> low bit.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_BitmapOrder = libc::c_uint;
+pub type SDL_BitmapOrder = ::core::ffi::c_uint;
 pub const SDL_PackedOrder_SDL_PACKEDORDER_NONE: SDL_PackedOrder = 0;
 pub const SDL_PackedOrder_SDL_PACKEDORDER_XRGB: SDL_PackedOrder = 1;
 pub const SDL_PackedOrder_SDL_PACKEDORDER_RGBX: SDL_PackedOrder = 2;
@@ -4670,7 +4833,7 @@ pub const SDL_PackedOrder_SDL_PACKEDORDER_BGRX: SDL_PackedOrder = 6;
 pub const SDL_PackedOrder_SDL_PACKEDORDER_ABGR: SDL_PackedOrder = 7;
 pub const SDL_PackedOrder_SDL_PACKEDORDER_BGRA: SDL_PackedOrder = 8;
 #[doc = " Packed component order, high bit -> low bit.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PackedOrder = libc::c_uint;
+pub type SDL_PackedOrder = ::core::ffi::c_uint;
 pub const SDL_ArrayOrder_SDL_ARRAYORDER_NONE: SDL_ArrayOrder = 0;
 pub const SDL_ArrayOrder_SDL_ARRAYORDER_RGB: SDL_ArrayOrder = 1;
 pub const SDL_ArrayOrder_SDL_ARRAYORDER_RGBA: SDL_ArrayOrder = 2;
@@ -4679,7 +4842,7 @@ pub const SDL_ArrayOrder_SDL_ARRAYORDER_BGR: SDL_ArrayOrder = 4;
 pub const SDL_ArrayOrder_SDL_ARRAYORDER_BGRA: SDL_ArrayOrder = 5;
 pub const SDL_ArrayOrder_SDL_ARRAYORDER_ABGR: SDL_ArrayOrder = 6;
 #[doc = " Array component order, low byte -> high byte.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ArrayOrder = libc::c_uint;
+pub type SDL_ArrayOrder = ::core::ffi::c_uint;
 pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_NONE: SDL_PackedLayout = 0;
 pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_332: SDL_PackedLayout = 1;
 pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_4444: SDL_PackedLayout = 2;
@@ -4690,7 +4853,7 @@ pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_8888: SDL_PackedLayout = 6;
 pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_2101010: SDL_PackedLayout = 7;
 pub const SDL_PackedLayout_SDL_PACKEDLAYOUT_1010102: SDL_PackedLayout = 8;
 #[doc = " Packed component layout.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PackedLayout = libc::c_uint;
+pub type SDL_PackedLayout = ::core::ffi::c_uint;
 pub const SDL_PixelFormat_SDL_PIXELFORMAT_UNKNOWN: SDL_PixelFormat = 0;
 pub const SDL_PixelFormat_SDL_PIXELFORMAT_INDEX1LSB: SDL_PixelFormat = 286261504;
 pub const SDL_PixelFormat_SDL_PIXELFORMAT_INDEX1MSB: SDL_PixelFormat = 287310080;
@@ -4773,19 +4936,19 @@ pub const SDL_PixelFormat_SDL_PIXELFORMAT_XRGB32: SDL_PixelFormat = 375789572;
 pub const SDL_PixelFormat_SDL_PIXELFORMAT_BGRX32: SDL_PixelFormat = 370546692;
 pub const SDL_PixelFormat_SDL_PIXELFORMAT_XBGR32: SDL_PixelFormat = 371595268;
 #[doc = " Pixel format.\n\n SDL's pixel formats have the following naming convention:\n\n - Names with a list of components and a single bit count, such as RGB24 and\n   ABGR32, define a platform-independent encoding into bytes in the order\n   specified. For example, in RGB24 data, each pixel is encoded in 3 bytes\n   (red, green, blue) in that order, and in ABGR32 data, each pixel is\n   encoded in 4 bytes alpha, blue, green, red) in that order. Use these\n   names if the property of a format that is important to you is the order\n   of the bytes in memory or on disk.\n - Names with a bit count per component, such as ARGB8888 and XRGB1555, are\n   \"packed\" into an appropriately-sized integer in the platform's native\n   endianness. For example, ARGB8888 is a sequence of 32-bit integers; in\n   each integer, the most significant bits are alpha, and the least\n   significant bits are blue. On a little-endian CPU such as x86, the least\n   significant bits of each integer are arranged first in memory, but on a\n   big-endian CPU such as s390x, the most significant bits are arranged\n   first. Use these names if the property of a format that is important to\n   you is the meaning of each bit position within a native-endianness\n   integer.\n - In indexed formats such as INDEX4LSB, each pixel is represented by\n   encoding an index into the palette into the indicated number of bits,\n   with multiple pixels packed into each byte if appropriate. In LSB\n   formats, the first (leftmost) pixel is stored in the least-significant\n   bits of the byte; in MSB formats, it's stored in the most-significant\n   bits. INDEX8 does not need LSB/MSB variants, because each pixel exactly\n   fills one byte.\n\n The 32-bit byte-array encodings such as RGBA32 are aliases for the\n appropriate 8888 encoding for the current platform. For example, RGBA32 is\n an alias for ABGR8888 on little-endian CPUs like x86, or an alias for\n RGBA8888 on big-endian CPUs.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PixelFormat = libc::c_uint;
+pub type SDL_PixelFormat = ::core::ffi::c_uint;
 pub const SDL_ColorType_SDL_COLOR_TYPE_UNKNOWN: SDL_ColorType = 0;
 pub const SDL_ColorType_SDL_COLOR_TYPE_RGB: SDL_ColorType = 1;
 pub const SDL_ColorType_SDL_COLOR_TYPE_YCBCR: SDL_ColorType = 2;
 #[doc = " Colorspace color type.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ColorType = libc::c_uint;
+pub type SDL_ColorType = ::core::ffi::c_uint;
 pub const SDL_ColorRange_SDL_COLOR_RANGE_UNKNOWN: SDL_ColorRange = 0;
 #[doc = "< Narrow range, e.g. 16-235 for 8-bit RGB and luma, and 16-240 for 8-bit chroma"]
 pub const SDL_ColorRange_SDL_COLOR_RANGE_LIMITED: SDL_ColorRange = 1;
 #[doc = "< Full range, e.g. 0-255 for 8-bit RGB and luma, and 1-255 for 8-bit chroma"]
 pub const SDL_ColorRange_SDL_COLOR_RANGE_FULL: SDL_ColorRange = 2;
 #[doc = " Colorspace color range, as described by\n https://www.itu.int/rec/R-REC-BT.2100-2-201807-I/en\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ColorRange = libc::c_uint;
+pub type SDL_ColorRange = ::core::ffi::c_uint;
 pub const SDL_ColorPrimaries_SDL_COLOR_PRIMARIES_UNKNOWN: SDL_ColorPrimaries = 0;
 #[doc = "< ITU-R BT.709-6"]
 pub const SDL_ColorPrimaries_SDL_COLOR_PRIMARIES_BT709: SDL_ColorPrimaries = 1;
@@ -4812,7 +4975,7 @@ pub const SDL_ColorPrimaries_SDL_COLOR_PRIMARIES_SMPTE432: SDL_ColorPrimaries = 
 pub const SDL_ColorPrimaries_SDL_COLOR_PRIMARIES_EBU3213: SDL_ColorPrimaries = 22;
 pub const SDL_ColorPrimaries_SDL_COLOR_PRIMARIES_CUSTOM: SDL_ColorPrimaries = 31;
 #[doc = " Colorspace color primaries, as described by\n https://www.itu.int/rec/T-REC-H.273-201612-S/en\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ColorPrimaries = libc::c_uint;
+pub type SDL_ColorPrimaries = ::core::ffi::c_uint;
 pub const SDL_TransferCharacteristics_SDL_TRANSFER_CHARACTERISTICS_UNKNOWN:
     SDL_TransferCharacteristics = 0;
 #[doc = "< Rec. ITU-R BT.709-6 / ITU-R BT1361"]
@@ -4865,7 +5028,7 @@ pub const SDL_TransferCharacteristics_SDL_TRANSFER_CHARACTERISTICS_HLG:
 pub const SDL_TransferCharacteristics_SDL_TRANSFER_CHARACTERISTICS_CUSTOM:
     SDL_TransferCharacteristics = 31;
 #[doc = " Colorspace transfer characteristics.\n\n These are as described by https://www.itu.int/rec/T-REC-H.273-201612-S/en\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_TransferCharacteristics = libc::c_uint;
+pub type SDL_TransferCharacteristics = ::core::ffi::c_uint;
 pub const SDL_MatrixCoefficients_SDL_MATRIX_COEFFICIENTS_IDENTITY: SDL_MatrixCoefficients = 0;
 #[doc = "< ITU-R BT.709-6"]
 pub const SDL_MatrixCoefficients_SDL_MATRIX_COEFFICIENTS_BT709: SDL_MatrixCoefficients = 1;
@@ -4893,7 +5056,7 @@ pub const SDL_MatrixCoefficients_SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_CL: SDL_
 pub const SDL_MatrixCoefficients_SDL_MATRIX_COEFFICIENTS_ICTCP: SDL_MatrixCoefficients = 14;
 pub const SDL_MatrixCoefficients_SDL_MATRIX_COEFFICIENTS_CUSTOM: SDL_MatrixCoefficients = 31;
 #[doc = " Colorspace matrix coefficients.\n\n These are as described by https://www.itu.int/rec/T-REC-H.273-201612-S/en\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_MatrixCoefficients = libc::c_uint;
+pub type SDL_MatrixCoefficients = ::core::ffi::c_uint;
 #[doc = "< RGB, no chroma sampling"]
 pub const SDL_ChromaLocation_SDL_CHROMA_LOCATION_NONE: SDL_ChromaLocation = 0;
 #[doc = "< In MPEG-2, MPEG-4, and AVC, Cb and Cr are taken on midpoint of the left-edge of the 2x2 square. In other words, they have the same horizontal location as the top-left pixel, but is shifted one-half pixel down vertically."]
@@ -4903,7 +5066,7 @@ pub const SDL_ChromaLocation_SDL_CHROMA_LOCATION_CENTER: SDL_ChromaLocation = 2;
 #[doc = "< In HEVC for BT.2020 and BT.2100 content (in particular on Blu-rays), Cb and Cr are sampled at the same location as the group's top-left Y pixel (\"co-sited\", \"co-located\")."]
 pub const SDL_ChromaLocation_SDL_CHROMA_LOCATION_TOPLEFT: SDL_ChromaLocation = 3;
 #[doc = " Colorspace chroma sample location.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ChromaLocation = libc::c_uint;
+pub type SDL_ChromaLocation = ::core::ffi::c_uint;
 pub const SDL_Colorspace_SDL_COLORSPACE_UNKNOWN: SDL_Colorspace = 0;
 #[doc = "< Equivalent to DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709"]
 pub const SDL_Colorspace_SDL_COLORSPACE_SRGB: SDL_Colorspace = 301991328;
@@ -4930,7 +5093,7 @@ pub const SDL_Colorspace_SDL_COLORSPACE_RGB_DEFAULT: SDL_Colorspace = 301991328;
 #[doc = "< The default colorspace for YUV surfaces if no colorspace is specified"]
 pub const SDL_Colorspace_SDL_COLORSPACE_YUV_DEFAULT: SDL_Colorspace = 570426566;
 #[doc = " Colorspace definitions.\n\n Since similar colorspaces may vary in their details (matrix, transfer\n function, etc.), this is not an exhaustive list, but rather a\n representative sample of the kinds of colorspaces supported in SDL.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_ColorPrimaries\n \\sa SDL_ColorRange\n \\sa SDL_ColorType\n \\sa SDL_MatrixCoefficients\n \\sa SDL_TransferCharacteristics"]
-pub type SDL_Colorspace = libc::c_uint;
+pub type SDL_Colorspace = ::core::ffi::c_uint;
 #[doc = " A structure that represents a color as RGBA components.\n\n The bits of this structure can be directly reinterpreted as an\n integer-packed color which uses the SDL_PIXELFORMAT_RGBA32 format\n (SDL_PIXELFORMAT_ABGR8888 on little-endian systems and\n SDL_PIXELFORMAT_RGBA8888 on big-endian systems).\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4972,13 +5135,13 @@ const _: () = {
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Palette {
     #[doc = "< number of elements in `colors`."]
-    pub ncolors: libc::c_int,
+    pub ncolors: ::core::ffi::c_int,
     #[doc = "< an array of colors, `ncolors` long."]
     pub colors: *mut SDL_Color,
     #[doc = "< internal use only, do not touch."]
     pub version: Uint32,
     #[doc = "< internal use only, do not touch."]
-    pub refcount: libc::c_int,
+    pub refcount: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -5053,13 +5216,13 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Get the human readable name of a pixel format.\n\n \\param format the pixel format to query.\n \\returns the human readable name of the specified pixel format or\n          \"SDL_PIXELFORMAT_UNKNOWN\" if the format isn't recognized.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetPixelFormatName(format: SDL_PixelFormat) -> *const libc::c_char;
+    pub fn SDL_GetPixelFormatName(format: SDL_PixelFormat) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert one of the enumerated pixel formats to a bpp value and RGBA masks.\n\n \\param format one of the SDL_PixelFormat values.\n \\param bpp a bits per pixel value; usually 15, 16, or 32.\n \\param Rmask a pointer filled in with the red mask for the format.\n \\param Gmask a pointer filled in with the green mask for the format.\n \\param Bmask a pointer filled in with the blue mask for the format.\n \\param Amask a pointer filled in with the alpha mask for the format.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPixelFormatForMasks"]
     pub fn SDL_GetMasksForPixelFormat(
         format: SDL_PixelFormat,
-        bpp: *mut libc::c_int,
+        bpp: *mut ::core::ffi::c_int,
         Rmask: *mut Uint32,
         Gmask: *mut Uint32,
         Bmask: *mut Uint32,
@@ -5069,7 +5232,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Convert a bpp value and RGBA masks to an enumerated pixel format.\n\n This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't\n possible.\n\n \\param bpp a bits per pixel value; usually 15, 16, or 32.\n \\param Rmask the red mask for the format.\n \\param Gmask the green mask for the format.\n \\param Bmask the blue mask for the format.\n \\param Amask the alpha mask for the format.\n \\returns the SDL_PixelFormat value corresponding to the format masks, or\n          SDL_PIXELFORMAT_UNKNOWN if there isn't a match.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetMasksForPixelFormat"]
     pub fn SDL_GetPixelFormatForMasks(
-        bpp: libc::c_int,
+        bpp: ::core::ffi::c_int,
         Rmask: Uint32,
         Gmask: Uint32,
         Bmask: Uint32,
@@ -5082,15 +5245,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Create a palette structure with the specified number of color entries.\n\n The palette entries are initialized to white.\n\n \\param ncolors represents the number of color entries in the color palette.\n \\returns a new SDL_Palette structure on success or NULL on failure (e.g. if\n          there wasn't enough memory); call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DestroyPalette\n \\sa SDL_SetPaletteColors\n \\sa SDL_SetSurfacePalette"]
-    pub fn SDL_CreatePalette(ncolors: libc::c_int) -> *mut SDL_Palette;
+    pub fn SDL_CreatePalette(ncolors: ::core::ffi::c_int) -> *mut SDL_Palette;
 }
 unsafe extern "C" {
     #[doc = " Set a range of colors in a palette.\n\n \\param palette the SDL_Palette structure to modify.\n \\param colors an array of SDL_Color structures to copy into the palette.\n \\param firstcolor the index of the first palette entry to modify.\n \\param ncolors the number of entries to modify.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread, as long as\n               the palette is not modified or destroyed in another thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetPaletteColors(
         palette: *mut SDL_Palette,
         colors: *const SDL_Color,
-        firstcolor: libc::c_int,
-        ncolors: libc::c_int,
+        firstcolor: ::core::ffi::c_int,
+        ncolors: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5145,8 +5308,8 @@ unsafe extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Point {
-    pub x: libc::c_int,
-    pub y: libc::c_int,
+    pub x: ::core::ffi::c_int,
+    pub y: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -5173,10 +5336,10 @@ const _: () = {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Rect {
-    pub x: libc::c_int,
-    pub y: libc::c_int,
-    pub w: libc::c_int,
-    pub h: libc::c_int,
+    pub x: ::core::ffi::c_int,
+    pub y: ::core::ffi::c_int,
+    pub w: ::core::ffi::c_int,
+    pub h: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -5225,7 +5388,7 @@ unsafe extern "C" {
     #[doc = " Calculate a minimal rectangle enclosing a set of points.\n\n If `clip` is not NULL then only points inside of the clipping rectangle are\n considered.\n\n \\param points an array of SDL_Point structures representing points to be\n               enclosed.\n \\param count the number of structures in the `points` array.\n \\param clip an SDL_Rect used for clipping or NULL to enclose all points.\n \\param result an SDL_Rect structure filled in with the minimal enclosing\n               rectangle.\n \\returns true if any points were enclosed or false if all the points were\n          outside of the clipping rectangle.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetRectEnclosingPoints(
         points: *const SDL_Point,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         clip: *const SDL_Rect,
         result: *mut SDL_Rect,
     ) -> bool;
@@ -5234,10 +5397,10 @@ unsafe extern "C" {
     #[doc = " Calculate the intersection of a rectangle and line segment.\n\n This function is used to clip a line segment to a rectangle. A line segment\n contained entirely within the rectangle or that does not intersect will\n remain unchanged. A line segment that crosses the rectangle at either or\n both ends will be clipped to the boundary of the rectangle and the new\n coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.\n\n \\param rect an SDL_Rect structure representing the rectangle to intersect.\n \\param X1 a pointer to the starting X-coordinate of the line.\n \\param Y1 a pointer to the starting Y-coordinate of the line.\n \\param X2 a pointer to the ending X-coordinate of the line.\n \\param Y2 a pointer to the ending Y-coordinate of the line.\n \\returns true if there is an intersection, false otherwise.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetRectAndLineIntersection(
         rect: *const SDL_Rect,
-        X1: *mut libc::c_int,
-        Y1: *mut libc::c_int,
-        X2: *mut libc::c_int,
-        Y2: *mut libc::c_int,
+        X1: *mut ::core::ffi::c_int,
+        Y1: *mut ::core::ffi::c_int,
+        X2: *mut ::core::ffi::c_int,
+        Y2: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -5264,7 +5427,7 @@ unsafe extern "C" {
     #[doc = " Calculate a minimal rectangle enclosing a set of points with float\n precision.\n\n If `clip` is not NULL then only points inside of the clipping rectangle are\n considered.\n\n \\param points an array of SDL_FPoint structures representing points to be\n               enclosed.\n \\param count the number of structures in the `points` array.\n \\param clip an SDL_FRect used for clipping or NULL to enclose all points.\n \\param result an SDL_FRect structure filled in with the minimal enclosing\n               rectangle.\n \\returns true if any points were enclosed or false if all the points were\n          outside of the clipping rectangle.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetRectEnclosingPointsFloat(
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         clip: *const SDL_FRect,
         result: *mut SDL_FRect,
     ) -> bool;
@@ -5286,7 +5449,7 @@ pub const SDL_ScaleMode_SDL_SCALEMODE_NEAREST: SDL_ScaleMode = 0;
 #[doc = "< linear filtering"]
 pub const SDL_ScaleMode_SDL_SCALEMODE_LINEAR: SDL_ScaleMode = 1;
 #[doc = " The scaling mode.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_ScaleMode = libc::c_uint;
+pub type SDL_ScaleMode = ::core::ffi::c_uint;
 #[doc = "< Do not flip"]
 pub const SDL_FlipMode_SDL_FLIP_NONE: SDL_FlipMode = 0;
 #[doc = "< flip horizontally"]
@@ -5294,7 +5457,7 @@ pub const SDL_FlipMode_SDL_FLIP_HORIZONTAL: SDL_FlipMode = 1;
 #[doc = "< flip vertically"]
 pub const SDL_FlipMode_SDL_FLIP_VERTICAL: SDL_FlipMode = 2;
 #[doc = " The flip mode.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_FlipMode = libc::c_uint;
+pub type SDL_FlipMode = ::core::ffi::c_uint;
 #[doc = " A collection of pixels used in software blitting.\n\n Pixels are arranged in memory in rows, with the top row first. Each row\n occupies an amount of memory given by the pitch (sometimes known as the row\n stride in non-SDL APIs).\n\n Within each row, pixels are arranged from left to right until the width is\n reached. Each pixel occupies a number of bits appropriate for its format,\n with most formats representing each pixel as one or more whole bytes (in\n some indexed formats, instead multiple pixels are packed into each byte),\n and a byte order given by the format. After encoding all pixels, any\n remaining bytes to reach the pitch are used as padding to reach a desired\n alignment, and have undefined contents.\n\n When a surface holds YUV format data, the planes are assumed to be\n contiguous without padding between them, e.g. a 32x32 surface in NV12\n format with a pitch of 32 would consist of 32x32 bytes of Y plane followed\n by 32x16 bytes of UV plane.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_CreateSurface\n \\sa SDL_DestroySurface"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5304,17 +5467,17 @@ pub struct SDL_Surface {
     #[doc = "< The format of the surface, read-only"]
     pub format: SDL_PixelFormat,
     #[doc = "< The width of the surface, read-only."]
-    pub w: libc::c_int,
+    pub w: ::core::ffi::c_int,
     #[doc = "< The height of the surface, read-only."]
-    pub h: libc::c_int,
+    pub h: ::core::ffi::c_int,
     #[doc = "< The distance in bytes between rows of pixels, read-only"]
-    pub pitch: libc::c_int,
+    pub pitch: ::core::ffi::c_int,
     #[doc = "< A pointer to the pixels of the surface, the pixels are writeable if non-NULL"]
-    pub pixels: *mut libc::c_void,
+    pub pixels: *mut ::core::ffi::c_void,
     #[doc = "< Application reference count, used when freeing surface"]
-    pub refcount: libc::c_int,
+    pub refcount: ::core::ffi::c_int,
     #[doc = "< Reserved for internal use"]
-    pub reserved: *mut libc::c_void,
+    pub reserved: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -5335,19 +5498,19 @@ const _: () = {
 unsafe extern "C" {
     #[doc = " Allocate a new surface with a specific pixel format.\n\n The pixels of the new surface are initialized to zero.\n\n \\param width the width of the surface.\n \\param height the height of the surface.\n \\param format the SDL_PixelFormat for the new surface's pixel format.\n \\returns the new SDL_Surface structure that is created or NULL on failure;\n          call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateSurfaceFrom\n \\sa SDL_DestroySurface"]
     pub fn SDL_CreateSurface(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         format: SDL_PixelFormat,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Allocate a new surface with a specific pixel format and existing pixel\n data.\n\n No copy is made of the pixel data. Pixel data is not managed automatically;\n you must free the surface before you free the pixel data.\n\n Pitch is the offset in bytes from one row of pixels to the next, e.g.\n `width*4` for `SDL_PIXELFORMAT_RGBA8888`.\n\n You may pass NULL for pixels and 0 for pitch to create a surface that you\n will fill in with valid values later.\n\n \\param width the width of the surface.\n \\param height the height of the surface.\n \\param format the SDL_PixelFormat for the new surface's pixel format.\n \\param pixels a pointer to existing pixel data.\n \\param pitch the number of bytes between each row, including padding.\n \\returns the new SDL_Surface structure that is created or NULL on failure;\n          call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateSurface\n \\sa SDL_DestroySurface"]
     pub fn SDL_CreateSurfaceFrom(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         format: SDL_PixelFormat,
-        pixels: *mut libc::c_void,
-        pitch: libc::c_int,
+        pixels: *mut ::core::ffi::c_void,
+        pitch: ::core::ffi::c_int,
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
@@ -5391,7 +5554,7 @@ unsafe extern "C" {
     #[doc = " Get an array including all versions of a surface.\n\n This returns all versions of a surface, with the surface being queried as\n the first element in the returned array.\n\n Freeing the array of surfaces does not affect the surfaces in the array.\n They are still referenced by the surface being queried and will be cleaned\n up normally.\n\n \\param surface the SDL_Surface structure to query.\n \\param count a pointer filled in with the number of surface pointers\n              returned, may be NULL.\n \\returns a NULL terminated array of SDL_Surface pointers or NULL on\n          failure; call SDL_GetError() for more information. This should be\n          freed with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddSurfaceAlternateImage\n \\sa SDL_RemoveSurfaceAlternateImages\n \\sa SDL_SurfaceHasAlternateImages"]
     pub fn SDL_GetSurfaceImages(
         surface: *mut SDL_Surface,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_Surface;
 }
 unsafe extern "C" {
@@ -5412,7 +5575,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Load a BMP image from a file.\n\n The new surface should be freed with SDL_DestroySurface(). Not doing so\n will result in a memory leak.\n\n \\param file the BMP file to load.\n \\returns a pointer to a new SDL_Surface structure or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DestroySurface\n \\sa SDL_LoadBMP_IO\n \\sa SDL_SaveBMP"]
-    pub fn SDL_LoadBMP(file: *const libc::c_char) -> *mut SDL_Surface;
+    pub fn SDL_LoadBMP(file: *const ::core::ffi::c_char) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
     #[doc = " Save a surface to a seekable SDL data stream in BMP format.\n\n Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\n BMP directly. Other RGB formats with 8-bit or higher get converted to a\n 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\n surface before they are saved. YUV and paletted 1-bit and 4-bit formats are\n not supported.\n\n \\param surface the SDL_Surface structure containing the image to be saved.\n \\param dst a data stream to save to.\n \\param closeio if true, calls SDL_CloseIO() on `dst` before returning, even\n                in the case of an error.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadBMP_IO\n \\sa SDL_SaveBMP"]
@@ -5421,7 +5584,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Save a surface to a file.\n\n Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\n BMP directly. Other RGB formats with 8-bit or higher get converted to a\n 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\n surface before they are saved. YUV and paletted 1-bit and 4-bit formats are\n not supported.\n\n \\param surface the SDL_Surface structure containing the image to be saved.\n \\param file a file to save to.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadBMP\n \\sa SDL_SaveBMP_IO"]
-    pub fn SDL_SaveBMP(surface: *mut SDL_Surface, file: *const libc::c_char) -> bool;
+    pub fn SDL_SaveBMP(surface: *mut SDL_Surface, file: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the RLE acceleration hint for a surface.\n\n If RLE is enabled, color key and alpha blending blits are much faster, but\n the surface must be locked before directly accessing the pixels.\n\n \\param surface the SDL_Surface structure to optimize.\n \\param enabled true to enable RLE acceleration, false to disable it.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_BlitSurface\n \\sa SDL_LockSurface\n \\sa SDL_UnlockSurface"]
@@ -5495,8 +5658,8 @@ unsafe extern "C" {
     #[doc = " Creates a new surface identical to the existing surface, scaled to the\n desired size.\n\n The returned surface should be freed with SDL_DestroySurface().\n\n \\param surface the surface to duplicate and scale.\n \\param width the width of the new surface.\n \\param height the height of the new surface.\n \\param scaleMode the SDL_ScaleMode to be used.\n \\returns a copy of the surface or NULL on failure; call SDL_GetError() for\n          more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DestroySurface"]
     pub fn SDL_ScaleSurface(
         surface: *mut SDL_Surface,
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         scaleMode: SDL_ScaleMode,
     ) -> *mut SDL_Surface;
 }
@@ -5520,44 +5683,44 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Copy a block of pixels of one format to another format.\n\n \\param width the width of the block to copy, in pixels.\n \\param height the height of the block to copy, in pixels.\n \\param src_format an SDL_PixelFormat value of the `src` pixels format.\n \\param src a pointer to the source pixels.\n \\param src_pitch the pitch of the source pixels, in bytes.\n \\param dst_format an SDL_PixelFormat value of the `dst` pixels format.\n \\param dst a pointer to be filled in with new pixel data.\n \\param dst_pitch the pitch of the destination pixels, in bytes.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ConvertPixelsAndColorspace"]
     pub fn SDL_ConvertPixels(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Copy a block of pixels of one format and colorspace to another format and\n colorspace.\n\n \\param width the width of the block to copy, in pixels.\n \\param height the height of the block to copy, in pixels.\n \\param src_format an SDL_PixelFormat value of the `src` pixels format.\n \\param src_colorspace an SDL_Colorspace value describing the colorspace of\n                       the `src` pixels.\n \\param src_properties an SDL_PropertiesID with additional source color\n                       properties, or 0.\n \\param src a pointer to the source pixels.\n \\param src_pitch the pitch of the source pixels, in bytes.\n \\param dst_format an SDL_PixelFormat value of the `dst` pixels format.\n \\param dst_colorspace an SDL_Colorspace value describing the colorspace of\n                       the `dst` pixels.\n \\param dst_properties an SDL_PropertiesID with additional destination color\n                       properties, or 0.\n \\param dst a pointer to be filled in with new pixel data.\n \\param dst_pitch the pitch of the destination pixels, in bytes.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ConvertPixels"]
     pub fn SDL_ConvertPixelsAndColorspace(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
         src_colorspace: SDL_Colorspace,
         src_properties: SDL_PropertiesID,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
         dst_colorspace: SDL_Colorspace,
         dst_properties: SDL_PropertiesID,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Premultiply the alpha on a block of pixels.\n\n This is safe to use with src == dst, but not for other overlapping areas.\n\n \\param width the width of the block to convert, in pixels.\n \\param height the height of the block to convert, in pixels.\n \\param src_format an SDL_PixelFormat value of the `src` pixels format.\n \\param src a pointer to the source pixels.\n \\param src_pitch the pitch of the source pixels, in bytes.\n \\param dst_format an SDL_PixelFormat value of the `dst` pixels format.\n \\param dst a pointer to be filled in with premultiplied pixel data.\n \\param dst_pitch the pitch of the destination pixels, in bytes.\n \\param linear true to convert from sRGB to linear space for the alpha\n               multiplication, false to do multiplication in sRGB space.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_PremultiplyAlpha(
-        width: libc::c_int,
-        height: libc::c_int,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         src_format: SDL_PixelFormat,
-        src: *const libc::c_void,
-        src_pitch: libc::c_int,
+        src: *const ::core::ffi::c_void,
+        src_pitch: ::core::ffi::c_int,
         dst_format: SDL_PixelFormat,
-        dst: *mut libc::c_void,
-        dst_pitch: libc::c_int,
+        dst: *mut ::core::ffi::c_void,
+        dst_pitch: ::core::ffi::c_int,
         linear: bool,
     ) -> bool;
 }
@@ -5579,7 +5742,7 @@ unsafe extern "C" {
     pub fn SDL_FillSurfaceRects(
         dst: *mut SDL_Surface,
         rects: *const SDL_Rect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
         color: Uint32,
     ) -> bool;
 }
@@ -5656,10 +5819,10 @@ unsafe extern "C" {
     pub fn SDL_BlitSurface9Grid(
         src: *mut SDL_Surface,
         srcrect: *const SDL_Rect,
-        left_width: libc::c_int,
-        right_width: libc::c_int,
-        top_height: libc::c_int,
-        bottom_height: libc::c_int,
+        left_width: ::core::ffi::c_int,
+        right_width: ::core::ffi::c_int,
+        top_height: ::core::ffi::c_int,
+        bottom_height: ::core::ffi::c_int,
         scale: f32,
         scaleMode: SDL_ScaleMode,
         dst: *mut SDL_Surface,
@@ -5684,8 +5847,8 @@ unsafe extern "C" {
     #[doc = " Retrieves a single pixel from a surface.\n\n This function prioritizes correctness over speed: it is suitable for unit\n tests, but is not intended for use in a game engine.\n\n Like SDL_GetRGBA, this uses the entire 0..255 range when converting color\n components from pixel formats with less than 8 bits per RGB component.\n\n \\param surface the surface to read.\n \\param x the horizontal coordinate, 0 <= x < width.\n \\param y the vertical coordinate, 0 <= y < height.\n \\param r a pointer filled in with the red channel, 0-255, or NULL to ignore\n          this channel.\n \\param g a pointer filled in with the green channel, 0-255, or NULL to\n          ignore this channel.\n \\param b a pointer filled in with the blue channel, 0-255, or NULL to\n          ignore this channel.\n \\param a a pointer filled in with the alpha channel, 0-255, or NULL to\n          ignore this channel.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_ReadSurfacePixel(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: *mut Uint8,
         g: *mut Uint8,
         b: *mut Uint8,
@@ -5696,8 +5859,8 @@ unsafe extern "C" {
     #[doc = " Retrieves a single pixel from a surface.\n\n This function prioritizes correctness over speed: it is suitable for unit\n tests, but is not intended for use in a game engine.\n\n \\param surface the surface to read.\n \\param x the horizontal coordinate, 0 <= x < width.\n \\param y the vertical coordinate, 0 <= y < height.\n \\param r a pointer filled in with the red channel, normally in the range\n          0-1, or NULL to ignore this channel.\n \\param g a pointer filled in with the green channel, normally in the range\n          0-1, or NULL to ignore this channel.\n \\param b a pointer filled in with the blue channel, normally in the range\n          0-1, or NULL to ignore this channel.\n \\param a a pointer filled in with the alpha channel, normally in the range\n          0-1, or NULL to ignore this channel.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_ReadSurfacePixelFloat(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: *mut f32,
         g: *mut f32,
         b: *mut f32,
@@ -5708,8 +5871,8 @@ unsafe extern "C" {
     #[doc = " Writes a single pixel to a surface.\n\n This function prioritizes correctness over speed: it is suitable for unit\n tests, but is not intended for use in a game engine.\n\n Like SDL_MapRGBA, this uses the entire 0..255 range when converting color\n components from pixel formats with less than 8 bits per RGB component.\n\n \\param surface the surface to write.\n \\param x the horizontal coordinate, 0 <= x < width.\n \\param y the vertical coordinate, 0 <= y < height.\n \\param r the red channel value, 0-255.\n \\param g the green channel value, 0-255.\n \\param b the blue channel value, 0-255.\n \\param a the alpha channel value, 0-255.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_WriteSurfacePixel(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: Uint8,
         g: Uint8,
         b: Uint8,
@@ -5720,8 +5883,8 @@ unsafe extern "C" {
     #[doc = " Writes a single pixel to a surface.\n\n This function prioritizes correctness over speed: it is suitable for unit\n tests, but is not intended for use in a game engine.\n\n \\param surface the surface to write.\n \\param x the horizontal coordinate, 0 <= x < width.\n \\param y the vertical coordinate, 0 <= y < height.\n \\param r the red channel value, normally in the range 0-1.\n \\param g the green channel value, normally in the range 0-1.\n \\param b the blue channel value, normally in the range 0-1.\n \\param a the alpha channel value, normally in the range 0-1.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_WriteSurfacePixelFloat(
         surface: *mut SDL_Surface,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
         r: f32,
         g: f32,
         b: f32,
@@ -5744,13 +5907,13 @@ pub struct SDL_CameraSpec {
     #[doc = "< Frame colorspace"]
     pub colorspace: SDL_Colorspace,
     #[doc = "< Frame width"]
-    pub width: libc::c_int,
+    pub width: ::core::ffi::c_int,
     #[doc = "< Frame height"]
-    pub height: libc::c_int,
+    pub height: ::core::ffi::c_int,
     #[doc = "< Frame rate numerator ((num / denom) == FPS, (denom / num) == duration in seconds)"]
-    pub framerate_numerator: libc::c_int,
+    pub framerate_numerator: ::core::ffi::c_int,
     #[doc = "< Frame rate demoninator ((num / denom) == FPS, (denom / num) == duration in seconds)"]
-    pub framerate_denominator: libc::c_int,
+    pub framerate_denominator: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -5773,33 +5936,33 @@ pub const SDL_CameraPosition_SDL_CAMERA_POSITION_UNKNOWN: SDL_CameraPosition = 0
 pub const SDL_CameraPosition_SDL_CAMERA_POSITION_FRONT_FACING: SDL_CameraPosition = 1;
 pub const SDL_CameraPosition_SDL_CAMERA_POSITION_BACK_FACING: SDL_CameraPosition = 2;
 #[doc = " The position of camera in relation to system device.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetCameraPosition"]
-pub type SDL_CameraPosition = libc::c_uint;
+pub type SDL_CameraPosition = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Use this function to get the number of built-in camera drivers.\n\n This function returns a hardcoded number. This never returns a negative\n value; if there are no drivers compiled into this build of SDL, this\n function returns zero. The presence of a driver in this list does not mean\n it will function, it just means SDL is capable of interacting with that\n interface. For example, a build of SDL might have v4l2 support, but if\n there's no kernel support available, SDL's v4l2 driver would fail if used.\n\n By default, SDL tries all drivers, in its preferred order, until one is\n found to be usable.\n\n \\returns the number of built-in camera drivers.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetCameraDriver"]
-    pub fn SDL_GetNumCameraDrivers() -> libc::c_int;
+    pub fn SDL_GetNumCameraDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Use this function to get the name of a built in camera driver.\n\n The list of camera drivers is given in the order that they are normally\n initialized by default; the drivers that seem more reasonable to choose\n first (as far as the SDL developers believe) are earlier in the list.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"v4l2\",\n \"coremedia\" or \"android\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\param index the index of the camera driver; the value ranges from 0 to\n              SDL_GetNumCameraDrivers() - 1.\n \\returns the name of the camera driver at the requested index, or NULL if\n          an invalid index was specified.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumCameraDrivers"]
-    pub fn SDL_GetCameraDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetCameraDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the name of the current camera driver.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"v4l2\",\n \"coremedia\" or \"android\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\returns the name of the current camera driver or NULL if no driver has\n          been initialized.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetCurrentCameraDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentCameraDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected camera devices.\n\n \\param count a pointer filled in with the number of cameras returned, may\n              be NULL.\n \\returns a 0 terminated array of camera instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenCamera"]
-    pub fn SDL_GetCameras(count: *mut libc::c_int) -> *mut SDL_CameraID;
+    pub fn SDL_GetCameras(count: *mut ::core::ffi::c_int) -> *mut SDL_CameraID;
 }
 unsafe extern "C" {
     #[doc = " Get the list of native formats/sizes a camera supports.\n\n This returns a list of all formats and frame sizes that a specific camera\n can offer. This is useful if your app can accept a variety of image formats\n and sizes and so want to find the optimal spec that doesn't require\n conversion.\n\n This function isn't strictly required; if you call SDL_OpenCamera with a\n NULL spec, SDL will choose a native format for you, and if you instead\n specify a desired format, it will transparently convert to the requested\n format on your behalf.\n\n If `count` is not NULL, it will be filled with the number of elements in\n the returned array.\n\n Note that it's legal for a camera to supply an empty list. This is what\n will happen on Emscripten builds, since that platform won't tell _anything_\n about available cameras until you've opened one, and won't even tell if\n there _is_ a camera until the user has given you permission to check\n through a scary warning popup.\n\n \\param instance_id the camera device instance ID.\n \\param count a pointer filled in with the number of elements in the list,\n              may be NULL.\n \\returns a NULL terminated array of pointers to SDL_CameraSpec or NULL on\n          failure; call SDL_GetError() for more information. This is a\n          single allocation that should be freed with SDL_free() when it is\n          no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetCameras\n \\sa SDL_OpenCamera"]
     pub fn SDL_GetCameraSupportedFormats(
         instance_id: SDL_CameraID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_CameraSpec;
 }
 unsafe extern "C" {
     #[doc = " Get the human-readable device name for a camera.\n\n \\param instance_id the camera device instance ID.\n \\returns a human-readable device name or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetCameras"]
-    pub fn SDL_GetCameraName(instance_id: SDL_CameraID) -> *const libc::c_char;
+    pub fn SDL_GetCameraName(instance_id: SDL_CameraID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the position of the camera in relation to the system.\n\n Most platforms will report UNKNOWN, but mobile devices, like phones, can\n often make a distinction between cameras on the front of the device (that\n points towards the user, for taking \"selfies\") and cameras on the back (for\n filming in the direction the user is facing).\n\n \\param instance_id the camera device instance ID.\n \\returns the position of the camera on the system hardware.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetCameras"]
@@ -5814,7 +5977,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Query if camera access has been approved by the user.\n\n Cameras will not function between when the device is opened by the app and\n when the user permits access to the hardware. On some platforms, this\n presents as a popup dialog where the user has to explicitly approve access;\n on others the approval might be implicit and not alert the user at all.\n\n This function can be used to check the status of that approval. It will\n return 0 if still waiting for user response, 1 if the camera is approved\n for use, and -1 if the user denied access.\n\n Instead of polling with this function, you can wait for a\n SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event\n in the standard SDL event loop, which is guaranteed to be sent once when\n permission to use the camera is decided.\n\n If a camera is declined, there's nothing to be done but call\n SDL_CloseCamera() to dispose of it.\n\n \\param camera the opened camera device to query.\n \\returns -1 if user denied access to the camera, 1 if user approved access,\n          0 if no decision has been made yet.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenCamera\n \\sa SDL_CloseCamera"]
-    pub fn SDL_GetCameraPermissionState(camera: *mut SDL_Camera) -> libc::c_int;
+    pub fn SDL_GetCameraPermissionState(camera: *mut SDL_Camera) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the instance ID of an opened camera.\n\n \\param camera an SDL_Camera to query.\n \\returns the instance ID of the specified camera on success or 0 on\n          failure; call SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenCamera"]
@@ -5845,11 +6008,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Put UTF-8 text into the clipboard.\n\n \\param text the text to store in the clipboard.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetClipboardText\n \\sa SDL_HasClipboardText"]
-    pub fn SDL_SetClipboardText(text: *const libc::c_char) -> bool;
+    pub fn SDL_SetClipboardText(text: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get UTF-8 text from the clipboard.\n\n This functions returns an empty string if there was not enough memory left\n for a copy of the clipboard's content.\n\n \\returns the clipboard text on success or an empty string on failure; call\n          SDL_GetError() for more information. This should be freed with\n          SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasClipboardText\n \\sa SDL_SetClipboardText"]
-    pub fn SDL_GetClipboardText() -> *mut libc::c_char;
+    pub fn SDL_GetClipboardText() -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query whether the clipboard exists and contains a non-empty text string.\n\n \\returns true if the clipboard has text, or false if it does not.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetClipboardText\n \\sa SDL_SetClipboardText"]
@@ -5857,11 +6020,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Put UTF-8 text into the primary selection.\n\n \\param text the text to store in the primary selection.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPrimarySelectionText\n \\sa SDL_HasPrimarySelectionText"]
-    pub fn SDL_SetPrimarySelectionText(text: *const libc::c_char) -> bool;
+    pub fn SDL_SetPrimarySelectionText(text: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get UTF-8 text from the primary selection.\n\n This functions returns an empty string if there was not enough memory left\n for a copy of the primary selection's content.\n\n \\returns the primary selection text on success or an empty string on\n          failure; call SDL_GetError() for more information. This should be\n          freed with SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasPrimarySelectionText\n \\sa SDL_SetPrimarySelectionText"]
-    pub fn SDL_GetPrimarySelectionText() -> *mut libc::c_char;
+    pub fn SDL_GetPrimarySelectionText() -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query whether the primary selection exists and contains a non-empty text\n string.\n\n \\returns true if the primary selection has text, or false if it does not.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPrimarySelectionText\n \\sa SDL_SetPrimarySelectionText"]
@@ -5870,21 +6033,21 @@ unsafe extern "C" {
 #[doc = " Callback function that will be called when data for the specified mime-type\n is requested by the OS.\n\n The callback function is called with NULL as the mime_type when the\n clipboard is cleared or new data is set. The clipboard is automatically\n cleared in SDL_Quit().\n\n \\param userdata a pointer to provided user data.\n \\param mime_type the requested mime-type.\n \\param size a pointer filled in with the length of the returned data.\n \\returns a pointer to the data for the provided mime-type. Returning NULL\n          or setting length to 0 will cause no data to be sent to the\n          \"receiver\". It is up to the receiver to handle this. Essentially\n          returning no data is more or less undefined behavior and may cause\n          breakage in receiving applications. The returned data will not be\n          freed so it needs to be retained and dealt with internally.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetClipboardData"]
 pub type SDL_ClipboardDataCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        mime_type: *const libc::c_char,
+        userdata: *mut ::core::ffi::c_void,
+        mime_type: *const ::core::ffi::c_char,
         size: *mut usize,
-    ) -> *const libc::c_void,
+    ) -> *const ::core::ffi::c_void,
 >;
 #[doc = " Callback function that will be called when the clipboard is cleared, or new\n data is set.\n\n \\param userdata a pointer to provided user data.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetClipboardData"]
 pub type SDL_ClipboardCleanupCallback =
-    ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void)>;
 unsafe extern "C" {
     #[doc = " Offer clipboard data to the OS.\n\n Tell the operating system that the application is offering clipboard data\n for each of the provided mime-types. Once another application requests the\n data the callback function will be called, allowing it to generate and\n respond with the data for the requested mime-type.\n\n The size of text data does not include any terminator, and the text does\n not need to be null terminated (e.g. you can directly copy a portion of a\n document).\n\n \\param callback a function pointer to the function that provides the\n                 clipboard data.\n \\param cleanup a function pointer to the function that cleans up the\n                clipboard data.\n \\param userdata an opaque pointer that will be forwarded to the callbacks.\n \\param mime_types a list of mime-types that are being offered.\n \\param num_mime_types the number of mime-types in the mime_types list.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ClearClipboardData\n \\sa SDL_GetClipboardData\n \\sa SDL_HasClipboardData"]
     pub fn SDL_SetClipboardData(
         callback: SDL_ClipboardDataCallback,
         cleanup: SDL_ClipboardCleanupCallback,
-        userdata: *mut libc::c_void,
-        mime_types: *mut *const libc::c_char,
+        userdata: *mut ::core::ffi::c_void,
+        mime_types: *mut *const ::core::ffi::c_char,
         num_mime_types: usize,
     ) -> bool;
 }
@@ -5895,25 +6058,25 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Get the data from clipboard for a given mime type.\n\n The size of text data does not include the terminator, but the text is\n guaranteed to be null terminated.\n\n \\param mime_type the mime type to read from the clipboard.\n \\param size a pointer filled in with the length of the returned data.\n \\returns the retrieved data buffer or NULL on failure; call SDL_GetError()\n          for more information. This should be freed with SDL_free() when it\n          is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasClipboardData\n \\sa SDL_SetClipboardData"]
     pub fn SDL_GetClipboardData(
-        mime_type: *const libc::c_char,
+        mime_type: *const ::core::ffi::c_char,
         size: *mut usize,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Query whether there is data in the clipboard for the provided mime type.\n\n \\param mime_type the mime type to check for data for.\n \\returns true if there exists data in clipboard for the provided mime type,\n          false if it does not.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetClipboardData\n \\sa SDL_GetClipboardData"]
-    pub fn SDL_HasClipboardData(mime_type: *const libc::c_char) -> bool;
+    pub fn SDL_HasClipboardData(mime_type: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Retrieve the list of mime types available in the clipboard.\n\n \\param num_mime_types a pointer filled with the number of mime types, may\n                       be NULL.\n \\returns a null terminated array of strings with mime types, or NULL on\n          failure; call SDL_GetError() for more information. This should be\n          freed with SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetClipboardData"]
-    pub fn SDL_GetClipboardMimeTypes(num_mime_types: *mut usize) -> *mut *mut libc::c_char;
+    pub fn SDL_GetClipboardMimeTypes(num_mime_types: *mut usize) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the number of logical CPU cores available.\n\n \\returns the total number of logical CPU cores. On CPUs that include\n          technologies such as hyperthreading, the number of logical cores\n          may be more than the number of physical cores.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetNumLogicalCPUCores() -> libc::c_int;
+    pub fn SDL_GetNumLogicalCPUCores() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Determine the L1 cache line size of the CPU.\n\n This is useful for determining multi-threaded structure padding or SIMD\n prefetch sizes.\n\n \\returns the L1 cache line size of the CPU, in bytes.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetCPUCacheLineSize() -> libc::c_int;
+    pub fn SDL_GetCPUCacheLineSize() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Determine whether the CPU has AltiVec features.\n\n This always returns false on CPUs that aren't using PowerPC instruction\n sets.\n\n \\returns true if the CPU has AltiVec features or false if not.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -5973,7 +6136,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the amount of RAM configured in the system.\n\n \\returns the amount of RAM configured in the system in MiB.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSystemRAM() -> libc::c_int;
+    pub fn SDL_GetSystemRAM() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Report the alignment this system needs for SIMD allocations.\n\n This will return the minimum number of bytes to which a pointer must be\n aligned to be compatible with SIMD instructions on the current machine. For\n example, if the machine supports SSE only, it will return 16, but if it\n supports AVX-512F, it'll return 64 (etc). This only reports values for\n instruction sets SDL knows about, so if your SDL build doesn't have\n SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and\n not 64 for the AVX-512 instructions that exist but SDL doesn't know about.\n Plan accordingly.\n\n \\returns the alignment in bytes needed for available, known SIMD\n          instructions.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_aligned_alloc\n \\sa SDL_aligned_free"]
@@ -5990,7 +6153,7 @@ pub const SDL_SystemTheme_SDL_SYSTEM_THEME_LIGHT: SDL_SystemTheme = 1;
 #[doc = "< Dark colored system theme"]
 pub const SDL_SystemTheme_SDL_SYSTEM_THEME_DARK: SDL_SystemTheme = 2;
 #[doc = " System theme.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_SystemTheme = libc::c_uint;
+pub type SDL_SystemTheme = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_DisplayModeData {
@@ -6005,17 +6168,17 @@ pub struct SDL_DisplayMode {
     #[doc = "< pixel format"]
     pub format: SDL_PixelFormat,
     #[doc = "< width"]
-    pub w: libc::c_int,
+    pub w: ::core::ffi::c_int,
     #[doc = "< height"]
-    pub h: libc::c_int,
+    pub h: ::core::ffi::c_int,
     #[doc = "< scale converting size to pixels (e.g. a 1920x1080 mode with 2.0 scale would have 3840x2160 pixels)"]
     pub pixel_density: f32,
     #[doc = "< refresh rate (or 0.0f for unspecified)"]
     pub refresh_rate: f32,
     #[doc = "< precise refresh rate numerator (or 0 for unspecified)"]
-    pub refresh_rate_numerator: libc::c_int,
+    pub refresh_rate_numerator: ::core::ffi::c_int,
     #[doc = "< precise refresh rate denominator"]
-    pub refresh_rate_denominator: libc::c_int,
+    pub refresh_rate_denominator: ::core::ffi::c_int,
     #[doc = "< Private"]
     pub internal: *mut SDL_DisplayModeData,
 }
@@ -6051,7 +6214,7 @@ pub const SDL_DisplayOrientation_SDL_ORIENTATION_PORTRAIT: SDL_DisplayOrientatio
 #[doc = "< The display is in portrait mode, upside down"]
 pub const SDL_DisplayOrientation_SDL_ORIENTATION_PORTRAIT_FLIPPED: SDL_DisplayOrientation = 4;
 #[doc = " Display orientation values; the way a display is rotated.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_DisplayOrientation = libc::c_uint;
+pub type SDL_DisplayOrientation = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Window {
@@ -6066,7 +6229,7 @@ pub const SDL_FlashOperation_SDL_FLASH_BRIEFLY: SDL_FlashOperation = 1;
 #[doc = "< Flash the window until it gets focus"]
 pub const SDL_FlashOperation_SDL_FLASH_UNTIL_FOCUSED: SDL_FlashOperation = 2;
 #[doc = " Window flash operation.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_FlashOperation = libc::c_uint;
+pub type SDL_FlashOperation = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_GLContextState {
@@ -6075,22 +6238,23 @@ pub struct SDL_GLContextState {
 #[doc = " An opaque handle to an OpenGL context.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_GL_CreateContext"]
 pub type SDL_GLContext = *mut SDL_GLContextState;
 #[doc = " Opaque type for an EGL display.\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_EGLDisplay = *mut libc::c_void;
+pub type SDL_EGLDisplay = *mut ::core::ffi::c_void;
 #[doc = " Opaque type for an EGL config.\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_EGLConfig = *mut libc::c_void;
+pub type SDL_EGLConfig = *mut ::core::ffi::c_void;
 #[doc = " Opaque type for an EGL surface.\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_EGLSurface = *mut libc::c_void;
+pub type SDL_EGLSurface = *mut ::core::ffi::c_void;
 #[doc = " An EGL attribute, used when creating an EGL context.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_EGLAttrib = isize;
 #[doc = " An EGL integer attribute, used when creating an EGL surface.\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_EGLint = libc::c_int;
+pub type SDL_EGLint = ::core::ffi::c_int;
 #[doc = " EGL platform attribute initialization callback.\n\n This is called when SDL is attempting to create an EGL context, to let the\n app add extra attributes to its eglGetPlatformDisplay() call.\n\n The callback should return a pointer to an EGL attribute array terminated\n with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow\n process will fail gracefully.\n\n The returned pointer should be allocated with SDL_malloc() and will be\n passed to SDL_free().\n\n The arrays returned by each callback will be appended to the existing\n attribute arrays defined by SDL.\n\n \\param userdata an app-controlled pointer that is passed to the callback.\n \\returns a newly-allocated array of attributes, terminated with `EGL_NONE`.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_EGL_SetAttributeCallbacks"]
-pub type SDL_EGLAttribArrayCallback =
-    ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> *mut SDL_EGLAttrib>;
+pub type SDL_EGLAttribArrayCallback = ::core::option::Option<
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> *mut SDL_EGLAttrib,
+>;
 #[doc = " EGL surface/context attribute initialization callback types.\n\n This is called when SDL is attempting to create an EGL surface, to let the\n app add extra attributes to its eglCreateWindowSurface() or\n eglCreateContext calls.\n\n For convenience, the EGLDisplay and EGLConfig to use are provided to the\n callback.\n\n The callback should return a pointer to an EGL attribute array terminated\n with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow\n process will fail gracefully.\n\n The returned pointer should be allocated with SDL_malloc() and will be\n passed to SDL_free().\n\n The arrays returned by each callback will be appended to the existing\n attribute arrays defined by SDL.\n\n \\param userdata an app-controlled pointer that is passed to the callback.\n \\param display the EGL display to be used.\n \\param config the EGL config to be used.\n \\returns a newly-allocated array of attributes, terminated with `EGL_NONE`.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_EGL_SetAttributeCallbacks"]
 pub type SDL_EGLIntArrayCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         display: SDL_EGLDisplay,
         config: SDL_EGLConfig,
     ) -> *mut SDL_EGLint,
@@ -6149,7 +6313,7 @@ pub const SDL_GLAttr_SDL_GL_CONTEXT_NO_ERROR: SDL_GLAttr = 25;
 pub const SDL_GLAttr_SDL_GL_FLOATBUFFERS: SDL_GLAttr = 26;
 pub const SDL_GLAttr_SDL_GL_EGL_PLATFORM: SDL_GLAttr = 27;
 #[doc = " An enumeration of OpenGL configuration attributes.\n\n While you can set most OpenGL attributes normally, the attributes listed\n above must be known before SDL creates the window that will be used with\n the OpenGL context. These attributes are set and read with\n SDL_GL_SetAttribute() and SDL_GL_GetAttribute().\n\n In some cases, these attributes are minimum requests; the GL does not\n promise to give you exactly what you asked for. It's possible to ask for a\n 16-bit depth buffer and get a 24-bit one instead, for example, or to ask\n for no stencil buffer and still have one available. Context creation should\n fail if the GL can't provide your requested attributes at a minimum, but\n you should check to see exactly what you got.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GLAttr = libc::c_uint;
+pub type SDL_GLAttr = ::core::ffi::c_uint;
 #[doc = " Possible values to be set for the SDL_GL_CONTEXT_PROFILE_MASK attribute.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_GLProfile = Uint32;
 #[doc = " Possible flags to be set for the SDL_GL_CONTEXT_FLAGS attribute.\n\n \\since This datatype is available since SDL 3.2.0."]
@@ -6160,15 +6324,15 @@ pub type SDL_GLContextReleaseFlag = Uint32;
 pub type SDL_GLContextResetNotification = Uint32;
 unsafe extern "C" {
     #[doc = " Get the number of video drivers compiled into SDL.\n\n \\returns the number of built in video drivers.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetVideoDriver"]
-    pub fn SDL_GetNumVideoDrivers() -> libc::c_int;
+    pub fn SDL_GetNumVideoDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the name of a built in video driver.\n\n The video drivers are presented in the order in which they are normally\n checked during initialization.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"cocoa\",\n \"x11\" or \"windows\". These never have Unicode characters, and are not meant\n to be proper names.\n\n \\param index the index of a video driver.\n \\returns the name of the video driver with the given **index**.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumVideoDrivers"]
-    pub fn SDL_GetVideoDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetVideoDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the name of the currently initialized video driver.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"cocoa\",\n \"x11\" or \"windows\". These never have Unicode characters, and are not meant\n to be proper names.\n\n \\returns the name of the current video driver or NULL if no driver has been\n          initialized.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumVideoDrivers\n \\sa SDL_GetVideoDriver"]
-    pub fn SDL_GetCurrentVideoDriver() -> *const libc::c_char;
+    pub fn SDL_GetCurrentVideoDriver() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the current system theme.\n\n \\returns the current system theme, light, dark, or unknown.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6176,7 +6340,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected displays.\n\n \\param count a pointer filled in with the number of displays returned, may\n              be NULL.\n \\returns a 0 terminated array of display instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetDisplays(count: *mut libc::c_int) -> *mut SDL_DisplayID;
+    pub fn SDL_GetDisplays(count: *mut ::core::ffi::c_int) -> *mut SDL_DisplayID;
 }
 unsafe extern "C" {
     #[doc = " Return the primary display.\n\n \\returns the instance ID of the primary display on success or 0 on failure;\n          call SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDisplays"]
@@ -6188,7 +6352,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the name of a display in UTF-8 encoding.\n\n \\param displayID the instance ID of the display to query.\n \\returns the name of a display or NULL on failure; call SDL_GetError() for\n          more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDisplays"]
-    pub fn SDL_GetDisplayName(displayID: SDL_DisplayID) -> *const libc::c_char;
+    pub fn SDL_GetDisplayName(displayID: SDL_DisplayID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the desktop area represented by a display.\n\n The primary display is often located at (0,0), but may be placed at a\n different location depending on monitor layout.\n\n \\param displayID the instance ID of the display to query.\n \\param rect the SDL_Rect structure filled in with the display bounds.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDisplayUsableBounds\n \\sa SDL_GetDisplays"]
@@ -6214,15 +6378,15 @@ unsafe extern "C" {
     #[doc = " Get a list of fullscreen display modes available on a display.\n\n The display modes are sorted in this priority:\n\n - w -> largest to smallest\n - h -> largest to smallest\n - bits per pixel -> more colors to fewer colors\n - packed pixel layout -> largest to smallest\n - refresh rate -> highest to lowest\n - pixel density -> lowest to highest\n\n \\param displayID the instance ID of the display to query.\n \\param count a pointer filled in with the number of display modes returned,\n              may be NULL.\n \\returns a NULL terminated array of display mode pointers or NULL on\n          failure; call SDL_GetError() for more information. This is a\n          single allocation that should be freed with SDL_free() when it is\n          no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDisplays"]
     pub fn SDL_GetFullscreenDisplayModes(
         displayID: SDL_DisplayID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_DisplayMode;
 }
 unsafe extern "C" {
     #[doc = " Get the closest match to the requested display mode.\n\n The available display modes are scanned and `closest` is filled in with the\n closest mode matching the requested mode and returned. The mode format and\n refresh rate default to the desktop mode if they are set to 0. The modes\n are scanned with size being first priority, format being second priority,\n and finally checking the refresh rate. If all the available modes are too\n small, then false is returned.\n\n \\param displayID the instance ID of the display to query.\n \\param w the width in pixels of the desired display mode.\n \\param h the height in pixels of the desired display mode.\n \\param refresh_rate the refresh rate of the desired display mode, or 0.0f\n                     for the desktop refresh rate.\n \\param include_high_density_modes boolean to include high density modes in\n                                   the search.\n \\param closest a pointer filled in with the closest display mode equal to\n                or larger than the desired mode.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDisplays\n \\sa SDL_GetFullscreenDisplayModes"]
     pub fn SDL_GetClosestFullscreenDisplayMode(
         displayID: SDL_DisplayID,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         refresh_rate: f32,
         include_high_density_modes: bool,
         closest: *mut SDL_DisplayMode,
@@ -6269,7 +6433,10 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the raw ICC profile data for the screen the window is currently on.\n\n \\param window the window to query.\n \\param size the size of the ICC profile.\n \\returns the raw ICC profile data on success or NULL on failure; call\n          SDL_GetError() for more information. This should be freed with\n          SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetWindowICCProfile(window: *mut SDL_Window, size: *mut usize) -> *mut libc::c_void;
+    pub fn SDL_GetWindowICCProfile(
+        window: *mut SDL_Window,
+        size: *mut usize,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Get the pixel format associated with the window.\n\n \\param window the window to query.\n \\returns the pixel format of the window on success or\n          SDL_PIXELFORMAT_UNKNOWN on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6277,14 +6444,14 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of valid windows.\n\n \\param count a pointer filled in with the number of windows returned, may\n              be NULL.\n \\returns a NULL terminated array of SDL_Window pointers or NULL on failure;\n          call SDL_GetError() for more information. This is a single\n          allocation that should be freed with SDL_free() when it is no\n          longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetWindows(count: *mut libc::c_int) -> *mut *mut SDL_Window;
+    pub fn SDL_GetWindows(count: *mut ::core::ffi::c_int) -> *mut *mut SDL_Window;
 }
 unsafe extern "C" {
     #[doc = " Create a window with the specified dimensions and flags.\n\n `flags` may be any of the following OR'd together:\n\n - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution\n - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context\n - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another\n   window\n - `SDL_WINDOW_HIDDEN`: window is not visible\n - `SDL_WINDOW_BORDERLESS`: no window decoration\n - `SDL_WINDOW_RESIZABLE`: window can be resized\n - `SDL_WINDOW_MINIMIZED`: window is minimized\n - `SDL_WINDOW_MAXIMIZED`: window is maximized\n - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus\n - `SDL_WINDOW_INPUT_FOCUS`: window has input focus\n - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus\n - `SDL_WINDOW_EXTERNAL`: window not created by SDL\n - `SDL_WINDOW_MODAL`: window is modal\n - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back\n   buffer if possible\n - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to\n   MOUSE_GRABBED)\n - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others\n - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not\n   showing in the task bar and window list\n - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not\n   get mouse or keyboard focus, requires a parent window\n - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,\n   requires a parent window\n - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input\n - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance\n - `SDL_WINDOW_METAL`: window usable with a Metal instance\n - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer\n - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable\n\n The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.\n\n On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist\n property to YES, otherwise you will not receive a High-DPI OpenGL canvas.\n\n The window pixel size may differ from its window coordinate size if the\n window is on a high pixel density display. Use SDL_GetWindowSize() to query\n the client area's size in window coordinates, and\n SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the\n drawable size in pixels. Note that the drawable size can vary after the\n window is created and should be queried again if you get an\n SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.\n\n If the window is created with any of the SDL_WINDOW_OPENGL or\n SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function\n (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the\n corresponding UnloadLibrary function is called by SDL_DestroyWindow().\n\n If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,\n SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.\n\n If SDL_WINDOW_METAL is specified on an OS that does not support Metal,\n SDL_CreateWindow() will fail.\n\n If you intend to use this window with an SDL_Renderer, you should use\n SDL_CreateWindowAndRenderer() instead of this function, to avoid window\n flicker.\n\n On non-Apple devices, SDL requires you to either not link to the Vulkan\n loader or link to a dynamic library version. This limitation may be removed\n in a future version of SDL.\n\n \\param title the title of the window, in UTF-8 encoding.\n \\param w the width of the window.\n \\param h the height of the window.\n \\param flags 0, or one or more SDL_WindowFlags OR'd together.\n \\returns the window that was created or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateWindowAndRenderer\n \\sa SDL_CreatePopupWindow\n \\sa SDL_CreateWindowWithProperties\n \\sa SDL_DestroyWindow"]
     pub fn SDL_CreateWindow(
-        title: *const libc::c_char,
-        w: libc::c_int,
-        h: libc::c_int,
+        title: *const ::core::ffi::c_char,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         flags: SDL_WindowFlags,
     ) -> *mut SDL_Window;
 }
@@ -6292,10 +6459,10 @@ unsafe extern "C" {
     #[doc = " Create a child popup window of the specified parent window.\n\n The flags parameter **must** contain at least one of the following:\n\n - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any\n   input events.\n - `SDL_WINDOW_POPUP_MENU`: The popup window is a popup menu. The topmost\n   popup menu will implicitly gain the keyboard focus.\n\n The following flags are not relevant to popup window creation and will be\n ignored:\n\n - `SDL_WINDOW_MINIMIZED`\n - `SDL_WINDOW_MAXIMIZED`\n - `SDL_WINDOW_FULLSCREEN`\n - `SDL_WINDOW_BORDERLESS`\n\n The following flags are incompatible with popup window creation and will\n cause it to fail:\n\n - `SDL_WINDOW_UTILITY`\n - `SDL_WINDOW_MODAL`\n\n The parent parameter **must** be non-null and a valid window. The parent of\n a popup window can be either a regular, toplevel window, or another popup\n window.\n\n Popup windows cannot be minimized, maximized, made fullscreen, raised,\n flash, be made a modal window, be the parent of a toplevel window, or grab\n the mouse and/or keyboard. Attempts to do so will fail.\n\n Popup windows implicitly do not have a border/decorations and do not appear\n on the taskbar/dock or in lists of windows such as alt-tab menus.\n\n If a parent window is hidden or destroyed, any child popup windows will be\n recursively hidden or destroyed as well. Child popup windows not explicitly\n hidden will be restored when the parent is shown.\n\n \\param parent the parent of the window, must not be NULL.\n \\param offset_x the x position of the popup window relative to the origin\n                 of the parent.\n \\param offset_y the y position of the popup window relative to the origin\n                 of the parent window.\n \\param w the width of the window.\n \\param h the height of the window.\n \\param flags SDL_WINDOW_TOOLTIP or SDL_WINDOW_POPUP_MENU, and zero or more\n              additional SDL_WindowFlags OR'd together.\n \\returns the window that was created or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateWindow\n \\sa SDL_CreateWindowWithProperties\n \\sa SDL_DestroyWindow\n \\sa SDL_GetWindowParent"]
     pub fn SDL_CreatePopupWindow(
         parent: *mut SDL_Window,
-        offset_x: libc::c_int,
-        offset_y: libc::c_int,
-        w: libc::c_int,
-        h: libc::c_int,
+        offset_x: ::core::ffi::c_int,
+        offset_y: ::core::ffi::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         flags: SDL_WindowFlags,
     ) -> *mut SDL_Window;
 }
@@ -6325,11 +6492,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Set the title of a window.\n\n This string is expected to be in UTF-8 encoding.\n\n \\param window the window to change.\n \\param title the desired window title in UTF-8 format.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowTitle"]
-    pub fn SDL_SetWindowTitle(window: *mut SDL_Window, title: *const libc::c_char) -> bool;
+    pub fn SDL_SetWindowTitle(window: *mut SDL_Window, title: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the title of a window.\n\n \\param window the window to query.\n \\returns the title of the window in UTF-8 format or \"\" if there is no\n          title.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetWindowTitle"]
-    pub fn SDL_GetWindowTitle(window: *mut SDL_Window) -> *const libc::c_char;
+    pub fn SDL_GetWindowTitle(window: *mut SDL_Window) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Set the icon for a window.\n\n If this function is passed a surface with alternate representations, the\n surface will be interpreted as the content to be used for 100% display\n scale, and the alternate representations will be used for high DPI\n situations. For example, if the original surface is 32x32, then on a 2x\n macOS display or 200% display scale on Windows, a 64x64 version of the\n image will be used, if available. If a matching version of the image isn't\n available, the closest larger size image will be downscaled to the\n appropriate size and be used instead, if available. Otherwise, the closest\n smaller image will be upscaled and be used instead.\n\n \\param window the window to change.\n \\param icon an SDL_Surface structure containing the icon for the window.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6337,26 +6504,34 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Request that the window's position be set.\n\n If the window is in an exclusive fullscreen or maximized state, this\n request has no effect.\n\n This can be used to reposition fullscreen-desktop windows onto a different\n display, however, as exclusive fullscreen windows are locked to a specific\n display, they can only be repositioned programmatically via\n SDL_SetWindowFullscreenMode().\n\n On some windowing systems this request is asynchronous and the new\n coordinates may not have have been applied immediately upon the return of\n this function. If an immediate change is required, call SDL_SyncWindow() to\n block until the changes have taken effect.\n\n When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be\n emitted with the window's new coordinates. Note that the new coordinates\n may not match the exact coordinates requested, as some windowing systems\n can restrict the position of the window in certain scenarios (e.g.\n constraining the position so the window is always within desktop bounds).\n Additionally, as this is just a request, it can be denied by the windowing\n system.\n\n \\param window the window to reposition.\n \\param x the x coordinate of the window, or `SDL_WINDOWPOS_CENTERED` or\n          `SDL_WINDOWPOS_UNDEFINED`.\n \\param y the y coordinate of the window, or `SDL_WINDOWPOS_CENTERED` or\n          `SDL_WINDOWPOS_UNDEFINED`.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowPosition\n \\sa SDL_SyncWindow"]
-    pub fn SDL_SetWindowPosition(window: *mut SDL_Window, x: libc::c_int, y: libc::c_int) -> bool;
+    pub fn SDL_SetWindowPosition(
+        window: *mut SDL_Window,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the position of a window.\n\n This is the current position of the window as last reported by the\n windowing system.\n\n If you do not need the value for one of the positions a NULL may be passed\n in the `x` or `y` parameter.\n\n \\param window the window to query.\n \\param x a pointer filled in with the x position of the window, may be\n          NULL.\n \\param y a pointer filled in with the y position of the window, may be\n          NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetWindowPosition"]
     pub fn SDL_GetWindowPosition(
         window: *mut SDL_Window,
-        x: *mut libc::c_int,
-        y: *mut libc::c_int,
+        x: *mut ::core::ffi::c_int,
+        y: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Request that the size of a window's client area be set.\n\n If the window is in a fullscreen or maximized state, this request has no\n effect.\n\n To change the exclusive fullscreen mode of a window, use\n SDL_SetWindowFullscreenMode().\n\n On some windowing systems, this request is asynchronous and the new window\n size may not have have been applied immediately upon the return of this\n function. If an immediate change is required, call SDL_SyncWindow() to\n block until the changes have taken effect.\n\n When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be\n emitted with the new window dimensions. Note that the new dimensions may\n not match the exact size requested, as some windowing systems can restrict\n the window size in certain scenarios (e.g. constraining the size of the\n content area to remain within the usable desktop bounds). Additionally, as\n this is just a request, it can be denied by the windowing system.\n\n \\param window the window to change.\n \\param w the width of the window, must be > 0.\n \\param h the height of the window, must be > 0.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowSize\n \\sa SDL_SetWindowFullscreenMode\n \\sa SDL_SyncWindow"]
-    pub fn SDL_SetWindowSize(window: *mut SDL_Window, w: libc::c_int, h: libc::c_int) -> bool;
+    pub fn SDL_SetWindowSize(
+        window: *mut SDL_Window,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the size of a window's client area.\n\n The window pixel size may differ from its window coordinate size if the\n window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()\n or SDL_GetRenderOutputSize() to get the real client area size in pixels.\n\n \\param window the window to query the width and height from.\n \\param w a pointer filled in with the width of the window, may be NULL.\n \\param h a pointer filled in with the height of the window, may be NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderOutputSize\n \\sa SDL_GetWindowSizeInPixels\n \\sa SDL_SetWindowSize"]
     pub fn SDL_GetWindowSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6383,50 +6558,50 @@ unsafe extern "C" {
     #[doc = " Get the size of a window's borders (decorations) around the client area.\n\n Note: If this function fails (returns false), the size values will be\n initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the\n window in question was borderless.\n\n Note: This function may fail on systems where the window has not yet been\n decorated by the display server (for example, immediately after calling\n SDL_CreateWindow). It is recommended that you wait at least until the\n window has been presented and composited, so that the window system has a\n chance to decorate the window and provide the border dimensions to SDL.\n\n This function also returns false if getting the information is not\n supported.\n\n \\param window the window to query the size values of the border\n               (decorations) from.\n \\param top pointer to variable for storing the size of the top border; NULL\n            is permitted.\n \\param left pointer to variable for storing the size of the left border;\n             NULL is permitted.\n \\param bottom pointer to variable for storing the size of the bottom\n               border; NULL is permitted.\n \\param right pointer to variable for storing the size of the right border;\n              NULL is permitted.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowSize"]
     pub fn SDL_GetWindowBordersSize(
         window: *mut SDL_Window,
-        top: *mut libc::c_int,
-        left: *mut libc::c_int,
-        bottom: *mut libc::c_int,
-        right: *mut libc::c_int,
+        top: *mut ::core::ffi::c_int,
+        left: *mut ::core::ffi::c_int,
+        bottom: *mut ::core::ffi::c_int,
+        right: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the size of a window's client area, in pixels.\n\n \\param window the window from which the drawable size should be queried.\n \\param w a pointer to variable for storing the width in pixels, may be\n          NULL.\n \\param h a pointer to variable for storing the height in pixels, may be\n          NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateWindow\n \\sa SDL_GetWindowSize"]
     pub fn SDL_GetWindowSizeInPixels(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the minimum size of a window's client area.\n\n \\param window the window to change.\n \\param min_w the minimum width of the window, or 0 for no limit.\n \\param min_h the minimum height of the window, or 0 for no limit.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowMinimumSize\n \\sa SDL_SetWindowMaximumSize"]
     pub fn SDL_SetWindowMinimumSize(
         window: *mut SDL_Window,
-        min_w: libc::c_int,
-        min_h: libc::c_int,
+        min_w: ::core::ffi::c_int,
+        min_h: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the minimum size of a window's client area.\n\n \\param window the window to query.\n \\param w a pointer filled in with the minimum width of the window, may be\n          NULL.\n \\param h a pointer filled in with the minimum height of the window, may be\n          NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowMaximumSize\n \\sa SDL_SetWindowMinimumSize"]
     pub fn SDL_GetWindowMinimumSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the maximum size of a window's client area.\n\n \\param window the window to change.\n \\param max_w the maximum width of the window, or 0 for no limit.\n \\param max_h the maximum height of the window, or 0 for no limit.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowMaximumSize\n \\sa SDL_SetWindowMinimumSize"]
     pub fn SDL_SetWindowMaximumSize(
         window: *mut SDL_Window,
-        max_w: libc::c_int,
-        max_h: libc::c_int,
+        max_w: ::core::ffi::c_int,
+        max_h: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the maximum size of a window's client area.\n\n \\param window the window to query.\n \\param w a pointer filled in with the maximum width of the window, may be\n          NULL.\n \\param h a pointer filled in with the maximum height of the window, may be\n          NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowMinimumSize\n \\sa SDL_SetWindowMaximumSize"]
     pub fn SDL_GetWindowMaximumSize(
         window: *mut SDL_Window,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6483,11 +6658,14 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Toggle VSync for the window surface.\n\n When a window surface is created, vsync defaults to\n SDL_WINDOW_SURFACE_VSYNC_DISABLED.\n\n The `vsync` parameter can be 1 to synchronize present with every vertical\n refresh, 2 to synchronize present with every second vertical refresh, etc.,\n SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync),\n or SDL_WINDOW_SURFACE_VSYNC_DISABLED to disable. Not every value is\n supported by every driver, so you should check the return value to see\n whether the requested setting is supported.\n\n \\param window the window.\n \\param vsync the vertical refresh sync interval.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowSurfaceVSync"]
-    pub fn SDL_SetWindowSurfaceVSync(window: *mut SDL_Window, vsync: libc::c_int) -> bool;
+    pub fn SDL_SetWindowSurfaceVSync(window: *mut SDL_Window, vsync: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get VSync for the window surface.\n\n \\param window the window to query.\n \\param vsync an int filled with the current vertical refresh sync interval.\n              See SDL_SetWindowSurfaceVSync() for the meaning of the value.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetWindowSurfaceVSync"]
-    pub fn SDL_GetWindowSurfaceVSync(window: *mut SDL_Window, vsync: *mut libc::c_int) -> bool;
+    pub fn SDL_GetWindowSurfaceVSync(
+        window: *mut SDL_Window,
+        vsync: *mut ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Copy the window surface to the screen.\n\n This is the function you use to reflect any changes to the surface on the\n screen.\n\n This function is equivalent to the SDL 1.2 API SDL_Flip().\n\n \\param window the window to update.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetWindowSurface\n \\sa SDL_UpdateWindowSurfaceRects"]
@@ -6498,7 +6676,7 @@ unsafe extern "C" {
     pub fn SDL_UpdateWindowSurfaceRects(
         window: *mut SDL_Window,
         rects: *const SDL_Rect,
-        numrects: libc::c_int,
+        numrects: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6557,8 +6735,8 @@ unsafe extern "C" {
     #[doc = " Display the system-level window menu.\n\n This default window menu is provided by the system and on some platforms\n provides functionality for setting or changing privileged state on the\n window, such as moving it between workspaces or displays, or toggling the\n always-on-top property.\n\n On platforms or desktops where this is unsupported, this function does\n nothing.\n\n \\param window the window for which the menu will be displayed.\n \\param x the x coordinate of the menu, relative to the origin (top-left) of\n          the client area.\n \\param y the y coordinate of the menu, relative to the origin (top-left) of\n          the client area.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_ShowWindowSystemMenu(
         window: *mut SDL_Window,
-        x: libc::c_int,
-        y: libc::c_int,
+        x: ::core::ffi::c_int,
+        y: ::core::ffi::c_int,
     ) -> bool;
 }
 #[doc = "< Region is normal. No special properties."]
@@ -6582,13 +6760,13 @@ pub const SDL_HitTestResult_SDL_HITTEST_RESIZE_BOTTOMLEFT: SDL_HitTestResult = 8
 #[doc = "< Region is the resizable left border."]
 pub const SDL_HitTestResult_SDL_HITTEST_RESIZE_LEFT: SDL_HitTestResult = 9;
 #[doc = " Possible return values from the SDL_HitTest callback.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_HitTest"]
-pub type SDL_HitTestResult = libc::c_uint;
+pub type SDL_HitTestResult = ::core::ffi::c_uint;
 #[doc = " Callback used for hit-testing.\n\n \\param win the SDL_Window where hit-testing was set on.\n \\param area an SDL_Point which should be hit-tested.\n \\param data what was passed as `callback_data` to SDL_SetWindowHitTest().\n \\returns an SDL_HitTestResult value.\n\n \\sa SDL_SetWindowHitTest"]
 pub type SDL_HitTest = ::core::option::Option<
     unsafe extern "C" fn(
         win: *mut SDL_Window,
         area: *const SDL_Point,
-        data: *mut libc::c_void,
+        data: *mut ::core::ffi::c_void,
     ) -> SDL_HitTestResult,
 >;
 unsafe extern "C" {
@@ -6596,7 +6774,7 @@ unsafe extern "C" {
     pub fn SDL_SetWindowHitTest(
         window: *mut SDL_Window,
         callback: SDL_HitTest,
-        callback_data: *mut libc::c_void,
+        callback_data: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6625,15 +6803,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Dynamically load an OpenGL library.\n\n This should be done after initializing the video driver, but before\n creating any OpenGL windows. If no OpenGL library is loaded, the default\n library will be loaded upon creation of the first OpenGL window.\n\n If you do this, you need to retrieve all of the GL functions used in your\n program from the dynamic library using SDL_GL_GetProcAddress().\n\n \\param path the platform dependent OpenGL library name, or NULL to open the\n             default OpenGL library.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_GetProcAddress\n \\sa SDL_GL_UnloadLibrary"]
-    pub fn SDL_GL_LoadLibrary(path: *const libc::c_char) -> bool;
+    pub fn SDL_GL_LoadLibrary(path: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get an OpenGL function by name.\n\n If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all\n GL functions must be retrieved this way. Usually this is used to retrieve\n function pointers to OpenGL extensions.\n\n There are some quirks to looking up OpenGL functions that require some\n extra care from the application. If you code carefully, you can handle\n these quirks without any platform-specific code, though:\n\n - On Windows, function pointers are specific to the current GL context;\n   this means you need to have created a GL context and made it current\n   before calling SDL_GL_GetProcAddress(). If you recreate your context or\n   create a second context, you should assume that any existing function\n   pointers aren't valid to use with it. This is (currently) a\n   Windows-specific limitation, and in practice lots of drivers don't suffer\n   this limitation, but it is still the way the wgl API is documented to\n   work and you should expect crashes if you don't respect it. Store a copy\n   of the function pointers that comes and goes with context lifespan.\n - On X11, function pointers returned by this function are valid for any\n   context, and can even be looked up before a context is created at all.\n   This means that, for at least some common OpenGL implementations, if you\n   look up a function that doesn't exist, you'll get a non-NULL result that\n   is _NOT_ safe to call. You must always make sure the function is actually\n   available for a given GL context before calling it, by checking for the\n   existence of the appropriate extension with SDL_GL_ExtensionSupported(),\n   or verifying that the version of OpenGL you're using offers the function\n   as core functionality.\n - Some OpenGL drivers, on all platforms, *will* return NULL if a function\n   isn't supported, but you can't count on this behavior. Check for\n   extensions you use, and if you get a NULL anyway, act as if that\n   extension wasn't available. This is probably a bug in the driver, but you\n   can code defensively for this scenario anyhow.\n - Just because you're on Linux/Unix, don't assume you'll be using X11.\n   Next-gen display servers are waiting to replace it, and may or may not\n   make the same promises about function pointers.\n - OpenGL function pointers must be declared `APIENTRY` as in the example\n   code. This will ensure the proper calling convention is followed on\n   platforms where this matters (Win32) thereby avoiding stack corruption.\n\n \\param proc the name of an OpenGL function.\n \\returns a pointer to the named OpenGL function. The returned pointer\n          should be cast to the appropriate function signature.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_ExtensionSupported\n \\sa SDL_GL_LoadLibrary\n \\sa SDL_GL_UnloadLibrary"]
-    pub fn SDL_GL_GetProcAddress(proc_: *const libc::c_char) -> SDL_FunctionPointer;
+    pub fn SDL_GL_GetProcAddress(proc_: *const ::core::ffi::c_char) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
     #[doc = " Get an EGL library function by name.\n\n If an EGL library is loaded, this function allows applications to get entry\n points for EGL functions. This is useful to provide to an EGL API and\n extension loader.\n\n \\param proc the name of an EGL function.\n \\returns a pointer to the named EGL function. The returned pointer should\n          be cast to the appropriate function signature.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_EGL_GetCurrentDisplay"]
-    pub fn SDL_EGL_GetProcAddress(proc_: *const libc::c_char) -> SDL_FunctionPointer;
+    pub fn SDL_EGL_GetProcAddress(proc_: *const ::core::ffi::c_char) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
     #[doc = " Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_LoadLibrary"]
@@ -6641,7 +6819,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Check if an OpenGL extension is supported for the current context.\n\n This function operates on the current GL context; you must have created a\n context and it must be current before calling this function. Do not assume\n that all contexts you create will have the same set of extensions\n available, or that recreating an existing context will offer the same\n extensions again.\n\n While it's probably not a massive overhead, this function is not an O(1)\n operation. Check the extensions you care about after creating the GL\n context and save that information somewhere instead of calling the function\n every time you need to know.\n\n \\param extension the name of the extension to check.\n \\returns true if the extension is supported, false otherwise.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GL_ExtensionSupported(extension: *const libc::c_char) -> bool;
+    pub fn SDL_GL_ExtensionSupported(extension: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Reset all previously set OpenGL context attributes to their default values.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_GetAttribute\n \\sa SDL_GL_SetAttribute"]
@@ -6649,11 +6827,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Set an OpenGL window attribute before window creation.\n\n This function sets the OpenGL attribute `attr` to `value`. The requested\n attributes should be set before creating an OpenGL window. You should use\n SDL_GL_GetAttribute() to check the values after creating the OpenGL\n context, since the values obtained can differ from the requested ones.\n\n \\param attr an SDL_GLAttr enum value specifying the OpenGL attribute to\n             set.\n \\param value the desired value for the attribute.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_GetAttribute\n \\sa SDL_GL_ResetAttributes"]
-    pub fn SDL_GL_SetAttribute(attr: SDL_GLAttr, value: libc::c_int) -> bool;
+    pub fn SDL_GL_SetAttribute(attr: SDL_GLAttr, value: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the actual value for an attribute from the current context.\n\n \\param attr an SDL_GLAttr enum value specifying the OpenGL attribute to\n             get.\n \\param value a pointer filled in with the current value of `attr`.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_ResetAttributes\n \\sa SDL_GL_SetAttribute"]
-    pub fn SDL_GL_GetAttribute(attr: SDL_GLAttr, value: *mut libc::c_int) -> bool;
+    pub fn SDL_GL_GetAttribute(attr: SDL_GLAttr, value: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Create an OpenGL context for an OpenGL window, and make it current.\n\n Windows users new to OpenGL should note that, for historical reasons, GL\n functions added after OpenGL version 1.1 are not available by default.\n Those functions must be loaded at run-time, either with an OpenGL\n extension-handling library or with SDL_GL_GetProcAddress() and its related\n functions.\n\n SDL_GLContext is opaque to the application.\n\n \\param window the window to associate with the context.\n \\returns the OpenGL context associated with `window` or NULL on failure;\n          call SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_DestroyContext\n \\sa SDL_GL_MakeCurrent"]
@@ -6689,16 +6867,16 @@ unsafe extern "C" {
         platformAttribCallback: SDL_EGLAttribArrayCallback,
         surfaceAttribCallback: SDL_EGLIntArrayCallback,
         contextAttribCallback: SDL_EGLIntArrayCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
     #[doc = " Set the swap interval for the current OpenGL context.\n\n Some systems allow specifying -1 for the interval, to enable adaptive\n vsync. Adaptive vsync works the same as vsync, but if you've already missed\n the vertical retrace for a given frame, it swaps buffers immediately, which\n might be less jarring for the user during occasional framerate drops. If an\n application requests adaptive vsync and the system does not support it,\n this function will fail and return false. In such a case, you should\n probably retry the call with 1 for the interval.\n\n Adaptive vsync is implemented for some glX drivers with\n GLX_EXT_swap_control_tear, and for some Windows drivers with\n WGL_EXT_swap_control_tear.\n\n Read more on the Khronos wiki:\n https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync\n\n \\param interval 0 for immediate updates, 1 for updates synchronized with\n                 the vertical retrace, -1 for adaptive vsync.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_GetSwapInterval"]
-    pub fn SDL_GL_SetSwapInterval(interval: libc::c_int) -> bool;
+    pub fn SDL_GL_SetSwapInterval(interval: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the swap interval for the current OpenGL context.\n\n If the system can't determine the swap interval, or there isn't a valid\n current context, this function will set *interval to 0 as a safe default.\n\n \\param interval output interval value. 0 if there is no vertical retrace\n                 synchronization, 1 if the buffer swap is synchronized with\n                 the vertical retrace, and -1 if late swaps happen\n                 immediately instead of waiting for the next retrace.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GL_SetSwapInterval"]
-    pub fn SDL_GL_GetSwapInterval(interval: *mut libc::c_int) -> bool;
+    pub fn SDL_GL_GetSwapInterval(interval: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Update a window with OpenGL rendering.\n\n This is used with double-buffered OpenGL contexts, which are the default.\n\n On macOS, make sure you bind 0 to the draw framebuffer before swapping the\n window, otherwise nothing will happen. If you aren't using\n glBindFramebuffer(), this is the default and you won't have to do anything\n extra.\n\n \\param window the window to change.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6712,8 +6890,8 @@ unsafe extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_DialogFileFilter {
-    pub name: *const libc::c_char,
-    pub pattern: *const libc::c_char,
+    pub name: *const ::core::ffi::c_char,
+    pub pattern: *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -6727,20 +6905,20 @@ const _: () = {
 #[doc = " Callback used by file dialog functions.\n\n The specific usage is described in each function.\n\n If `filelist` is:\n\n - NULL, an error occurred. Details can be obtained with SDL_GetError().\n - A pointer to NULL, the user either didn't choose any file or canceled the\n   dialog.\n - A pointer to non-`NULL`, the user chose one or more files. The argument\n   is a null-terminated list of pointers to C strings, each containing a\n   path.\n\n The filelist argument should not be freed; it will automatically be freed\n when the callback returns.\n\n The filter argument is the index of the filter that was selected, or -1 if\n no filter was selected or if the platform or method doesn't support\n fetching the selected filter.\n\n In Android, the `filelist` are `content://` URIs. They should be opened\n using SDL_IOFromFile() with appropriate modes. This applies both to open\n and save file dialog.\n\n \\param userdata an app-provided pointer, for the callback's use.\n \\param filelist the file(s) chosen by the user.\n \\param filter index of the selected filter.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_DialogFileFilter\n \\sa SDL_ShowOpenFileDialog\n \\sa SDL_ShowSaveFileDialog\n \\sa SDL_ShowOpenFolderDialog\n \\sa SDL_ShowFileDialogWithProperties"]
 pub type SDL_DialogFileCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        filelist: *const *const libc::c_char,
-        filter: libc::c_int,
+        userdata: *mut ::core::ffi::c_void,
+        filelist: *const *const ::core::ffi::c_char,
+        filter: ::core::ffi::c_int,
     ),
 >;
 unsafe extern "C" {
     #[doc = " Displays a dialog that lets the user select a file on their filesystem.\n\n This is an asynchronous function; it will return immediately, and the\n result will be passed to the callback.\n\n The callback will be invoked with a null-terminated list of files the user\n chose. The list will be empty if the user canceled the dialog, and it will\n be NULL if an error occurred.\n\n Note that the callback may be called from a different thread than the one\n the function was invoked on.\n\n Depending on the platform, the user may be allowed to input paths that\n don't yet exist.\n\n On Linux, dialogs may require XDG Portals, which requires DBus, which\n requires an event-handling loop. Apps that do not use SDL to handle events\n should add a call to SDL_PumpEvents in their main loop.\n\n \\param callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n \\param userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n \\param window the window that the dialog should be modal for, may be NULL.\n               Not all platforms support this option.\n \\param filters a list of filters, may be NULL. Not all platforms support\n                this option, and platforms that do support it may allow the\n                user to ignore the filters. If non-NULL, it must remain\n                valid at least until the callback is invoked.\n \\param nfilters the number of filters. Ignored if filters is NULL.\n \\param default_location the default folder or file to start the dialog at,\n                         may be NULL. Not all platforms support this option.\n \\param allow_many if non-zero, the user will be allowed to select multiple\n                   entries. Not all platforms support this option.\n\n \\threadsafety This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DialogFileCallback\n \\sa SDL_DialogFileFilter\n \\sa SDL_ShowSaveFileDialog\n \\sa SDL_ShowOpenFolderDialog\n \\sa SDL_ShowFileDialogWithProperties"]
     pub fn SDL_ShowOpenFileDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
         filters: *const SDL_DialogFileFilter,
-        nfilters: libc::c_int,
-        default_location: *const libc::c_char,
+        nfilters: ::core::ffi::c_int,
+        default_location: *const ::core::ffi::c_char,
         allow_many: bool,
     );
 }
@@ -6748,20 +6926,20 @@ unsafe extern "C" {
     #[doc = " Displays a dialog that lets the user choose a new or existing file on their\n filesystem.\n\n This is an asynchronous function; it will return immediately, and the\n result will be passed to the callback.\n\n The callback will be invoked with a null-terminated list of files the user\n chose. The list will be empty if the user canceled the dialog, and it will\n be NULL if an error occurred.\n\n Note that the callback may be called from a different thread than the one\n the function was invoked on.\n\n The chosen file may or may not already exist.\n\n On Linux, dialogs may require XDG Portals, which requires DBus, which\n requires an event-handling loop. Apps that do not use SDL to handle events\n should add a call to SDL_PumpEvents in their main loop.\n\n \\param callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n \\param userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n \\param window the window that the dialog should be modal for, may be NULL.\n               Not all platforms support this option.\n \\param filters a list of filters, may be NULL. Not all platforms support\n                this option, and platforms that do support it may allow the\n                user to ignore the filters. If non-NULL, it must remain\n                valid at least until the callback is invoked.\n \\param nfilters the number of filters. Ignored if filters is NULL.\n \\param default_location the default folder or file to start the dialog at,\n                         may be NULL. Not all platforms support this option.\n\n \\threadsafety This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DialogFileCallback\n \\sa SDL_DialogFileFilter\n \\sa SDL_ShowOpenFileDialog\n \\sa SDL_ShowOpenFolderDialog\n \\sa SDL_ShowFileDialogWithProperties"]
     pub fn SDL_ShowSaveFileDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
         filters: *const SDL_DialogFileFilter,
-        nfilters: libc::c_int,
-        default_location: *const libc::c_char,
+        nfilters: ::core::ffi::c_int,
+        default_location: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     #[doc = " Displays a dialog that lets the user select a folder on their filesystem.\n\n This is an asynchronous function; it will return immediately, and the\n result will be passed to the callback.\n\n The callback will be invoked with a null-terminated list of files the user\n chose. The list will be empty if the user canceled the dialog, and it will\n be NULL if an error occurred.\n\n Note that the callback may be called from a different thread than the one\n the function was invoked on.\n\n Depending on the platform, the user may be allowed to input paths that\n don't yet exist.\n\n On Linux, dialogs may require XDG Portals, which requires DBus, which\n requires an event-handling loop. Apps that do not use SDL to handle events\n should add a call to SDL_PumpEvents in their main loop.\n\n \\param callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n \\param userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n \\param window the window that the dialog should be modal for, may be NULL.\n               Not all platforms support this option.\n \\param default_location the default folder or file to start the dialog at,\n                         may be NULL. Not all platforms support this option.\n \\param allow_many if non-zero, the user will be allowed to select multiple\n                   entries. Not all platforms support this option.\n\n \\threadsafety This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_DialogFileCallback\n \\sa SDL_ShowOpenFileDialog\n \\sa SDL_ShowSaveFileDialog\n \\sa SDL_ShowFileDialogWithProperties"]
     pub fn SDL_ShowOpenFolderDialog(
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         window: *mut SDL_Window,
-        default_location: *const libc::c_char,
+        default_location: *const ::core::ffi::c_char,
         allow_many: bool,
     );
 }
@@ -6769,13 +6947,13 @@ pub const SDL_FileDialogType_SDL_FILEDIALOG_OPENFILE: SDL_FileDialogType = 0;
 pub const SDL_FileDialogType_SDL_FILEDIALOG_SAVEFILE: SDL_FileDialogType = 1;
 pub const SDL_FileDialogType_SDL_FILEDIALOG_OPENFOLDER: SDL_FileDialogType = 2;
 #[doc = " Various types of file dialogs.\n\n This is used by SDL_ShowFileDialogWithProperties() to decide what kind of\n dialog to present to the user.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_ShowFileDialogWithProperties"]
-pub type SDL_FileDialogType = libc::c_uint;
+pub type SDL_FileDialogType = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Create and launch a file dialog with the specified properties.\n\n These are the supported properties:\n\n - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of\n   SDL_DialogFileFilter structs, which will be used as filters for\n   file-based selections. Ignored if the dialog is an \"Open Folder\" dialog.\n   If non-NULL, the array of filters must remain valid at least until the\n   callback is invoked.\n - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the\n   array of filters, if it exists.\n - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should\n   be modal for.\n - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to\n   start the dialog at.\n - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select\n   more than one entry.\n - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.\n - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button\n   should have.\n - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button\n   should have.\n\n Note that each platform may or may not support any of the properties.\n\n \\param type the type of file dialog.\n \\param callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n \\param userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n \\param props the properties to use.\n\n \\threadsafety This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_FileDialogType\n \\sa SDL_DialogFileCallback\n \\sa SDL_DialogFileFilter\n \\sa SDL_ShowOpenFileDialog\n \\sa SDL_ShowSaveFileDialog\n \\sa SDL_ShowOpenFolderDialog"]
     pub fn SDL_ShowFileDialogWithProperties(
         type_: SDL_FileDialogType,
         callback: SDL_DialogFileCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         props: SDL_PropertiesID,
     );
 }
@@ -6793,11 +6971,15 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Get an ASCII string representation for a given SDL_GUID.\n\n \\param guid the SDL_GUID you wish to convert to string.\n \\param pszGUID buffer in which to write the ASCII string.\n \\param cbGUID the size of pszGUID, should be at least 33 bytes.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StringToGUID"]
-    pub fn SDL_GUIDToString(guid: SDL_GUID, pszGUID: *mut libc::c_char, cbGUID: libc::c_int);
+    pub fn SDL_GUIDToString(
+        guid: SDL_GUID,
+        pszGUID: *mut ::core::ffi::c_char,
+        cbGUID: ::core::ffi::c_int,
+    );
 }
 unsafe extern "C" {
     #[doc = " Convert a GUID string into a SDL_GUID structure.\n\n Performs no error checking. If this function is given a string containing\n an invalid GUID, the function will silently succeed, but the GUID generated\n will not be useful.\n\n \\param pchGUID string containing an ASCII representation of a GUID.\n \\returns a SDL_GUID structure.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GUIDToString"]
-    pub fn SDL_StringToGUID(pchGUID: *const libc::c_char) -> SDL_GUID;
+    pub fn SDL_StringToGUID(pchGUID: *const ::core::ffi::c_char) -> SDL_GUID;
 }
 #[doc = "< error determining power status"]
 pub const SDL_PowerState_SDL_POWERSTATE_ERROR: SDL_PowerState = -1;
@@ -6812,11 +6994,13 @@ pub const SDL_PowerState_SDL_POWERSTATE_CHARGING: SDL_PowerState = 3;
 #[doc = "< Plugged in, battery charged"]
 pub const SDL_PowerState_SDL_POWERSTATE_CHARGED: SDL_PowerState = 4;
 #[doc = " The basic state for the system's power supply.\n\n These are results returned by SDL_GetPowerInfo().\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PowerState = libc::c_int;
+pub type SDL_PowerState = ::core::ffi::c_int;
 unsafe extern "C" {
     #[doc = " Get the current power supply details.\n\n You should never take a battery status as absolute truth. Batteries\n (especially failing batteries) are delicate hardware, and the values\n reported here are best estimates based on what that hardware reports. It's\n not uncommon for older batteries to lose stored power much faster than it\n reports, or completely drain when reporting it has 20 percent left, etc.\n\n Battery status can change at any time; if you are concerned with power\n state, you should call this function frequently, and perhaps ignore changes\n until they seem to be stable for a few seconds.\n\n It's possible a platform can only report battery percentage or time left\n but not both.\n\n \\param seconds a pointer filled in with the seconds of battery life left,\n                or NULL to ignore. This will be filled in with -1 if we\n                can't determine a value or there is no battery.\n \\param percent a pointer filled in with the percentage of battery life\n                left, between 0 and 100, or NULL to ignore. This will be\n                filled in with -1 we can't determine a value or there is no\n                battery.\n \\returns the current battery state or `SDL_POWERSTATE_ERROR` on failure;\n          call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetPowerInfo(seconds: *mut libc::c_int, percent: *mut libc::c_int)
-        -> SDL_PowerState;
+    pub fn SDL_GetPowerInfo(
+        seconds: *mut ::core::ffi::c_int,
+        percent: *mut ::core::ffi::c_int,
+    ) -> SDL_PowerState;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6842,14 +7026,14 @@ pub const SDL_SensorType_SDL_SENSOR_ACCEL_R: SDL_SensorType = 5;
 #[doc = "< Gyroscope for right Joy-Con controller"]
 pub const SDL_SensorType_SDL_SENSOR_GYRO_R: SDL_SensorType = 6;
 #[doc = " The different sensors defined by SDL.\n\n Additional sensors may be available, using platform dependent semantics.\n\n Here are the additional Android sensors:\n\n https://developer.android.com/reference/android/hardware/SensorEvent.html#values\n\n Accelerometer sensor notes:\n\n The accelerometer returns the current acceleration in SI meters per second\n squared. This measurement includes the force of gravity, so a device at\n rest will have an value of SDL_STANDARD_GRAVITY away from the center of the\n earth, which is a positive Y value.\n\n - `values[0]`: Acceleration on the x axis\n - `values[1]`: Acceleration on the y axis\n - `values[2]`: Acceleration on the z axis\n\n For phones and tablets held in natural orientation and game controllers\n held in front of you, the axes are defined as follows:\n\n - -X ... +X : left ... right\n - -Y ... +Y : bottom ... top\n - -Z ... +Z : farther ... closer\n\n The accelerometer axis data is not changed when the device is rotated.\n\n Gyroscope sensor notes:\n\n The gyroscope returns the current rate of rotation in radians per second.\n The rotation is positive in the counter-clockwise direction. That is, an\n observer looking from a positive location on one of the axes would see\n positive rotation on that axis when it appeared to be rotating\n counter-clockwise.\n\n - `values[0]`: Angular speed around the x axis (pitch)\n - `values[1]`: Angular speed around the y axis (yaw)\n - `values[2]`: Angular speed around the z axis (roll)\n\n For phones and tablets held in natural orientation and game controllers\n held in front of you, the axes are defined as follows:\n\n - -X ... +X : left ... right\n - -Y ... +Y : bottom ... top\n - -Z ... +Z : farther ... closer\n\n The gyroscope axis data is not changed when the device is rotated.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetCurrentDisplayOrientation"]
-pub type SDL_SensorType = libc::c_int;
+pub type SDL_SensorType = ::core::ffi::c_int;
 unsafe extern "C" {
     #[doc = " Get a list of currently connected sensors.\n\n \\param count a pointer filled in with the number of sensors returned, may\n              be NULL.\n \\returns a 0 terminated array of sensor instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSensors(count: *mut libc::c_int) -> *mut SDL_SensorID;
+    pub fn SDL_GetSensors(count: *mut ::core::ffi::c_int) -> *mut SDL_SensorID;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a sensor.\n\n This can be called before any sensors are opened.\n\n \\param instance_id the sensor instance ID.\n \\returns the sensor name, or NULL if `instance_id` is not valid.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSensorNameForID(instance_id: SDL_SensorID) -> *const libc::c_char;
+    pub fn SDL_GetSensorNameForID(instance_id: SDL_SensorID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the type of a sensor.\n\n This can be called before any sensors are opened.\n\n \\param instance_id the sensor instance ID.\n \\returns the SDL_SensorType, or `SDL_SENSOR_INVALID` if `instance_id` is\n          not valid.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6857,7 +7041,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the platform dependent type of a sensor.\n\n This can be called before any sensors are opened.\n\n \\param instance_id the sensor instance ID.\n \\returns the sensor platform dependent type, or -1 if `instance_id` is not\n          valid.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSensorNonPortableTypeForID(instance_id: SDL_SensorID) -> libc::c_int;
+    pub fn SDL_GetSensorNonPortableTypeForID(instance_id: SDL_SensorID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Open a sensor for use.\n\n \\param instance_id the sensor instance ID.\n \\returns an SDL_Sensor object or NULL on failure; call SDL_GetError() for\n          more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6873,7 +7057,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a sensor.\n\n \\param sensor the SDL_Sensor object.\n \\returns the sensor name or NULL on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSensorName(sensor: *mut SDL_Sensor) -> *const libc::c_char;
+    pub fn SDL_GetSensorName(sensor: *mut SDL_Sensor) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the type of a sensor.\n\n \\param sensor the SDL_Sensor object to inspect.\n \\returns the SDL_SensorType type, or `SDL_SENSOR_INVALID` if `sensor` is\n          NULL.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6881,7 +7065,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the platform dependent type of a sensor.\n\n \\param sensor the SDL_Sensor object to inspect.\n \\returns the sensor platform dependent type, or -1 if `sensor` is NULL.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetSensorNonPortableType(sensor: *mut SDL_Sensor) -> libc::c_int;
+    pub fn SDL_GetSensorNonPortableType(sensor: *mut SDL_Sensor) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the instance ID of a sensor.\n\n \\param sensor the SDL_Sensor object to inspect.\n \\returns the sensor instance ID, or 0 on failure; call SDL_GetError() for\n          more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -6892,7 +7076,7 @@ unsafe extern "C" {
     pub fn SDL_GetSensorData(
         sensor: *mut SDL_Sensor,
         data: *mut f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -6922,7 +7106,7 @@ pub const SDL_JoystickType_SDL_JOYSTICK_TYPE_ARCADE_PAD: SDL_JoystickType = 8;
 pub const SDL_JoystickType_SDL_JOYSTICK_TYPE_THROTTLE: SDL_JoystickType = 9;
 pub const SDL_JoystickType_SDL_JOYSTICK_TYPE_COUNT: SDL_JoystickType = 10;
 #[doc = " An enum of some common joystick types.\n\n In some cases, SDL can identify a low-level joystick as being a certain\n type of device, and will report it through SDL_GetJoystickType (or\n SDL_GetJoystickTypeForID).\n\n This is by no means a complete list of everything that can be plugged into\n a computer.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_JoystickType = libc::c_uint;
+pub type SDL_JoystickType = ::core::ffi::c_uint;
 pub const SDL_JoystickConnectionState_SDL_JOYSTICK_CONNECTION_INVALID: SDL_JoystickConnectionState =
     -1;
 pub const SDL_JoystickConnectionState_SDL_JOYSTICK_CONNECTION_UNKNOWN: SDL_JoystickConnectionState =
@@ -6932,7 +7116,7 @@ pub const SDL_JoystickConnectionState_SDL_JOYSTICK_CONNECTION_WIRED: SDL_Joystic
 pub const SDL_JoystickConnectionState_SDL_JOYSTICK_CONNECTION_WIRELESS:
     SDL_JoystickConnectionState = 2;
 #[doc = " Possible connection states for a joystick device.\n\n This is used by SDL_GetJoystickConnectionState to report how a device is\n connected to the system.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_JoystickConnectionState = libc::c_int;
+pub type SDL_JoystickConnectionState = ::core::ffi::c_int;
 unsafe extern "C" {
     #[doc = " Locking for atomic access to the joystick API.\n\n The SDL joystick functions are thread-safe, however you can lock the\n joysticks while processing to guarantee that the joystick list won't change\n and joystick and gamepad events will not be delivered.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_LockJoysticks();
@@ -6947,19 +7131,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected joysticks.\n\n \\param count a pointer filled in with the number of joysticks returned, may\n              be NULL.\n \\returns a 0 terminated array of joystick instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasJoystick\n \\sa SDL_OpenJoystick"]
-    pub fn SDL_GetJoysticks(count: *mut libc::c_int) -> *mut SDL_JoystickID;
+    pub fn SDL_GetJoysticks(count: *mut ::core::ffi::c_int) -> *mut SDL_JoystickID;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a joystick.\n\n This can be called before any joysticks are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the name of the selected joystick. If no name can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickName\n \\sa SDL_GetJoysticks"]
-    pub fn SDL_GetJoystickNameForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetJoystickNameForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent path of a joystick.\n\n This can be called before any joysticks are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the path of the selected joystick. If no path can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickPath\n \\sa SDL_GetJoysticks"]
-    pub fn SDL_GetJoystickPathForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetJoystickPathForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the player index of a joystick.\n\n This can be called before any joysticks are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the player index of a joystick, or -1 if it's not available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickPlayerIndex\n \\sa SDL_GetJoysticks"]
-    pub fn SDL_GetJoystickPlayerIndexForID(instance_id: SDL_JoystickID) -> libc::c_int;
+    pub fn SDL_GetJoystickPlayerIndexForID(instance_id: SDL_JoystickID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation-dependent GUID of a joystick.\n\n This can be called before any joysticks are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the GUID of the selected joystick. If called with an invalid\n          instance_id, this function returns a zero GUID.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickGUID\n \\sa SDL_GUIDToString"]
@@ -6991,7 +7175,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the SDL_Joystick associated with a player index.\n\n \\param player_index the player index to get the SDL_Joystick for.\n \\returns an SDL_Joystick on success or NULL on failure; call SDL_GetError()\n          for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickPlayerIndex\n \\sa SDL_SetJoystickPlayerIndex"]
-    pub fn SDL_GetJoystickFromPlayerIndex(player_index: libc::c_int) -> *mut SDL_Joystick;
+    pub fn SDL_GetJoystickFromPlayerIndex(player_index: ::core::ffi::c_int) -> *mut SDL_Joystick;
 }
 #[doc = " The structure that describes a virtual joystick touchpad.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_VirtualJoystickDesc"]
 #[repr(C)]
@@ -7065,23 +7249,23 @@ pub struct SDL_VirtualJoystickDesc {
     #[doc = "< A mask of which axes are valid for this controller\ne.g. (1 << SDL_GAMEPAD_AXIS_LEFTX)"]
     pub axis_mask: Uint32,
     #[doc = "< the name of the joystick"]
-    pub name: *const libc::c_char,
+    pub name: *const ::core::ffi::c_char,
     #[doc = "< A pointer to an array of touchpad descriptions, required if `ntouchpads` is > 0"]
     pub touchpads: *const SDL_VirtualJoystickTouchpadDesc,
     #[doc = "< A pointer to an array of sensor descriptions, required if `nsensors` is > 0"]
     pub sensors: *const SDL_VirtualJoystickSensorDesc,
     #[doc = "< User data pointer passed to callbacks"]
-    pub userdata: *mut libc::c_void,
+    pub userdata: *mut ::core::ffi::c_void,
     #[doc = "< Called when the joystick state should be updated"]
-    pub Update: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void)>,
+    pub Update: ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void)>,
     #[doc = "< Called when the player index is set"]
     pub SetPlayerIndex: ::core::option::Option<
-        unsafe extern "C" fn(userdata: *mut libc::c_void, player_index: libc::c_int),
+        unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, player_index: ::core::ffi::c_int),
     >,
     #[doc = "< Implements SDL_RumbleJoystick()"]
     pub Rumble: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
             low_frequency_rumble: Uint16,
             high_frequency_rumble: Uint16,
         ) -> bool,
@@ -7089,7 +7273,7 @@ pub struct SDL_VirtualJoystickDesc {
     #[doc = "< Implements SDL_RumbleJoystickTriggers()"]
     pub RumbleTriggers: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
             left_rumble: Uint16,
             right_rumble: Uint16,
         ) -> bool,
@@ -7097,7 +7281,7 @@ pub struct SDL_VirtualJoystickDesc {
     #[doc = "< Implements SDL_SetJoystickLED()"]
     pub SetLED: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
             red: Uint8,
             green: Uint8,
             blue: Uint8,
@@ -7106,17 +7290,17 @@ pub struct SDL_VirtualJoystickDesc {
     #[doc = "< Implements SDL_SendJoystickEffect()"]
     pub SendEffect: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            data: *const libc::c_void,
-            size: libc::c_int,
+            userdata: *mut ::core::ffi::c_void,
+            data: *const ::core::ffi::c_void,
+            size: ::core::ffi::c_int,
         ) -> bool,
     >,
     #[doc = "< Implements SDL_SetGamepadSensorEnabled()"]
     pub SetSensorsEnabled: ::core::option::Option<
-        unsafe extern "C" fn(userdata: *mut libc::c_void, enabled: bool) -> bool,
+        unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, enabled: bool) -> bool,
     >,
     #[doc = "< Cleans up the userdata when the joystick is detached"]
-    pub Cleanup: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void)>,
+    pub Cleanup: ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void)>,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7193,7 +7377,7 @@ unsafe extern "C" {
     #[doc = " Set the state of an axis on an opened virtual joystick.\n\n Please note that values set here will not be applied until the next call to\n SDL_UpdateJoysticks, which can either be called directly, or can be called\n indirectly through various other SDL APIs, including, but not limited to\n the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,\n SDL_WaitEvent.\n\n Note that when sending trigger axes, you should scale the value to the full\n range of Sint16. For example, a trigger at rest would have the value of\n `SDL_JOYSTICK_AXIS_MIN`.\n\n \\param joystick the virtual joystick on which to set state.\n \\param axis the index of the axis on the virtual joystick to update.\n \\param value the new value for the specified axis.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetJoystickVirtualAxis(
         joystick: *mut SDL_Joystick,
-        axis: libc::c_int,
+        axis: ::core::ffi::c_int,
         value: Sint16,
     ) -> bool;
 }
@@ -7201,7 +7385,7 @@ unsafe extern "C" {
     #[doc = " Generate ball motion on an opened virtual joystick.\n\n Please note that values set here will not be applied until the next call to\n SDL_UpdateJoysticks, which can either be called directly, or can be called\n indirectly through various other SDL APIs, including, but not limited to\n the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,\n SDL_WaitEvent.\n\n \\param joystick the virtual joystick on which to set state.\n \\param ball the index of the ball on the virtual joystick to update.\n \\param xrel the relative motion on the X axis.\n \\param yrel the relative motion on the Y axis.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetJoystickVirtualBall(
         joystick: *mut SDL_Joystick,
-        ball: libc::c_int,
+        ball: ::core::ffi::c_int,
         xrel: Sint16,
         yrel: Sint16,
     ) -> bool;
@@ -7210,7 +7394,7 @@ unsafe extern "C" {
     #[doc = " Set the state of a button on an opened virtual joystick.\n\n Please note that values set here will not be applied until the next call to\n SDL_UpdateJoysticks, which can either be called directly, or can be called\n indirectly through various other SDL APIs, including, but not limited to\n the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,\n SDL_WaitEvent.\n\n \\param joystick the virtual joystick on which to set state.\n \\param button the index of the button on the virtual joystick to update.\n \\param down true if the button is pressed, false otherwise.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetJoystickVirtualButton(
         joystick: *mut SDL_Joystick,
-        button: libc::c_int,
+        button: ::core::ffi::c_int,
         down: bool,
     ) -> bool;
 }
@@ -7218,7 +7402,7 @@ unsafe extern "C" {
     #[doc = " Set the state of a hat on an opened virtual joystick.\n\n Please note that values set here will not be applied until the next call to\n SDL_UpdateJoysticks, which can either be called directly, or can be called\n indirectly through various other SDL APIs, including, but not limited to\n the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,\n SDL_WaitEvent.\n\n \\param joystick the virtual joystick on which to set state.\n \\param hat the index of the hat on the virtual joystick to update.\n \\param value the new value for the specified hat.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetJoystickVirtualHat(
         joystick: *mut SDL_Joystick,
-        hat: libc::c_int,
+        hat: ::core::ffi::c_int,
         value: Uint8,
     ) -> bool;
 }
@@ -7226,8 +7410,8 @@ unsafe extern "C" {
     #[doc = " Set touchpad finger state on an opened virtual joystick.\n\n Please note that values set here will not be applied until the next call to\n SDL_UpdateJoysticks, which can either be called directly, or can be called\n indirectly through various other SDL APIs, including, but not limited to\n the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,\n SDL_WaitEvent.\n\n \\param joystick the virtual joystick on which to set state.\n \\param touchpad the index of the touchpad on the virtual joystick to\n                 update.\n \\param finger the index of the finger on the touchpad to set.\n \\param down true if the finger is pressed, false if the finger is released.\n \\param x the x coordinate of the finger on the touchpad, normalized 0 to 1,\n          with the origin in the upper left.\n \\param y the y coordinate of the finger on the touchpad, normalized 0 to 1,\n          with the origin in the upper left.\n \\param pressure the pressure of the finger.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetJoystickVirtualTouchpad(
         joystick: *mut SDL_Joystick,
-        touchpad: libc::c_int,
-        finger: libc::c_int,
+        touchpad: ::core::ffi::c_int,
+        finger: ::core::ffi::c_int,
         down: bool,
         x: f32,
         y: f32,
@@ -7241,7 +7425,7 @@ unsafe extern "C" {
         type_: SDL_SensorType,
         sensor_timestamp: Uint64,
         data: *const f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7250,21 +7434,21 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a joystick.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\returns the name of the selected joystick. If no name can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickNameForID"]
-    pub fn SDL_GetJoystickName(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickName(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent path of a joystick.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\returns the path of the selected joystick. If no path can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickPathForID"]
-    pub fn SDL_GetJoystickPath(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickPath(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the player index of an opened joystick.\n\n For XInput controllers this returns the XInput user index. Many joysticks\n will not be able to supply this information.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\returns the player index, or -1 if it's not available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetJoystickPlayerIndex"]
-    pub fn SDL_GetJoystickPlayerIndex(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetJoystickPlayerIndex(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Set the player index of an opened joystick.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\param player_index player index to assign to this joystick, or -1 to clear\n                     the player index and turn off player LEDs.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickPlayerIndex"]
     pub fn SDL_SetJoystickPlayerIndex(
         joystick: *mut SDL_Joystick,
-        player_index: libc::c_int,
+        player_index: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7289,7 +7473,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the serial number of an opened joystick, if available.\n\n Returns the serial number of the joystick, or NULL if it is not available.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\returns the serial number of the selected joystick, or NULL if\n          unavailable.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetJoystickSerial(joystick: *mut SDL_Joystick) -> *const libc::c_char;
+    pub fn SDL_GetJoystickSerial(joystick: *mut SDL_Joystick) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the type of an opened joystick.\n\n \\param joystick the SDL_Joystick obtained from SDL_OpenJoystick().\n \\returns the SDL_JoystickType of the selected joystick.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickTypeForID"]
@@ -7315,19 +7499,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of general axis controls on a joystick.\n\n Often, the directional pad on a game controller will either look like 4\n separate buttons or a POV hat, and not axes, but all of this is up to the\n device and platform.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\returns the number of axis controls/number of axes on success or -1 on\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickAxis\n \\sa SDL_GetNumJoystickBalls\n \\sa SDL_GetNumJoystickButtons\n \\sa SDL_GetNumJoystickHats"]
-    pub fn SDL_GetNumJoystickAxes(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickAxes(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of trackballs on a joystick.\n\n Joystick trackballs have only relative motion events associated with them\n and their state cannot be polled.\n\n Most joysticks do not have trackballs.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\returns the number of trackballs on success or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickBall\n \\sa SDL_GetNumJoystickAxes\n \\sa SDL_GetNumJoystickButtons\n \\sa SDL_GetNumJoystickHats"]
-    pub fn SDL_GetNumJoystickBalls(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickBalls(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of POV hats on a joystick.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\returns the number of POV hats on success or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickHat\n \\sa SDL_GetNumJoystickAxes\n \\sa SDL_GetNumJoystickBalls\n \\sa SDL_GetNumJoystickButtons"]
-    pub fn SDL_GetNumJoystickHats(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickHats(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of buttons on a joystick.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\returns the number of buttons on success or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickButton\n \\sa SDL_GetNumJoystickAxes\n \\sa SDL_GetNumJoystickBalls\n \\sa SDL_GetNumJoystickHats"]
-    pub fn SDL_GetNumJoystickButtons(joystick: *mut SDL_Joystick) -> libc::c_int;
+    pub fn SDL_GetNumJoystickButtons(joystick: *mut SDL_Joystick) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Set the state of joystick event processing.\n\n If joystick events are disabled, you must call SDL_UpdateJoysticks()\n yourself and check the state of the joystick when you want joystick\n information.\n\n \\param enabled whether to process joystick events or not.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_JoystickEventsEnabled\n \\sa SDL_UpdateJoysticks"]
@@ -7343,13 +7527,13 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the current state of an axis control on a joystick.\n\n SDL makes no promises about what part of the joystick any given axis refers\n to. Your game should have some sort of configuration UI to let users\n specify what each axis should be bound to. Alternately, SDL's higher-level\n Game Controller API makes a great effort to apply order to this lower-level\n interface, so you know that a specific axis is the \"left thumb stick,\" etc.\n\n The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to\n 32767) representing the current position of the axis. It may be necessary\n to impose certain tolerances on these values to account for jitter.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\param axis the axis to query; the axis indices start at index 0.\n \\returns a 16-bit signed integer representing the current position of the\n          axis or 0 on failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumJoystickAxes"]
-    pub fn SDL_GetJoystickAxis(joystick: *mut SDL_Joystick, axis: libc::c_int) -> Sint16;
+    pub fn SDL_GetJoystickAxis(joystick: *mut SDL_Joystick, axis: ::core::ffi::c_int) -> Sint16;
 }
 unsafe extern "C" {
     #[doc = " Get the initial state of an axis control on a joystick.\n\n The state is a value ranging from -32768 to 32767.\n\n The axis indices start at index 0.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\param axis the axis to query; the axis indices start at index 0.\n \\param state upon return, the initial value is supplied here.\n \\returns true if this axis has any initial value, or false if not.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetJoystickAxisInitialState(
         joystick: *mut SDL_Joystick,
-        axis: libc::c_int,
+        axis: ::core::ffi::c_int,
         state: *mut Sint16,
     ) -> bool;
 }
@@ -7357,18 +7541,18 @@ unsafe extern "C" {
     #[doc = " Get the ball axis change since the last poll.\n\n Trackballs can only return relative motion since the last call to\n SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.\n\n Most joysticks do not have trackballs.\n\n \\param joystick the SDL_Joystick to query.\n \\param ball the ball index to query; ball indices start at index 0.\n \\param dx stores the difference in the x axis position since the last poll.\n \\param dy stores the difference in the y axis position since the last poll.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumJoystickBalls"]
     pub fn SDL_GetJoystickBall(
         joystick: *mut SDL_Joystick,
-        ball: libc::c_int,
-        dx: *mut libc::c_int,
-        dy: *mut libc::c_int,
+        ball: ::core::ffi::c_int,
+        dx: *mut ::core::ffi::c_int,
+        dy: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the current state of a POV hat on a joystick.\n\n The returned value will be one of the `SDL_HAT_*` values.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\param hat the hat index to get the state from; indices start at index 0.\n \\returns the current hat position.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumJoystickHats"]
-    pub fn SDL_GetJoystickHat(joystick: *mut SDL_Joystick, hat: libc::c_int) -> Uint8;
+    pub fn SDL_GetJoystickHat(joystick: *mut SDL_Joystick, hat: ::core::ffi::c_int) -> Uint8;
 }
 unsafe extern "C" {
     #[doc = " Get the current state of a button on a joystick.\n\n \\param joystick an SDL_Joystick structure containing joystick information.\n \\param button the button index to get the state from; indices start at\n               index 0.\n \\returns true if the button is pressed, false otherwise.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumJoystickButtons"]
-    pub fn SDL_GetJoystickButton(joystick: *mut SDL_Joystick, button: libc::c_int) -> bool;
+    pub fn SDL_GetJoystickButton(joystick: *mut SDL_Joystick, button: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Start a rumble effect.\n\n Each call to this function cancels any previous rumble effect, and calling\n it with 0 intensity stops any rumbling.\n\n This function requires you to process SDL events or call\n SDL_UpdateJoysticks() to update rumble state.\n\n \\param joystick the joystick to vibrate.\n \\param low_frequency_rumble the intensity of the low frequency (left)\n                             rumble motor, from 0 to 0xFFFF.\n \\param high_frequency_rumble the intensity of the high frequency (right)\n                              rumble motor, from 0 to 0xFFFF.\n \\param duration_ms the duration of the rumble effect, in milliseconds.\n \\returns true, or false if rumble isn't supported on this joystick.\n\n \\since This function is available since SDL 3.2.0."]
@@ -7401,8 +7585,8 @@ unsafe extern "C" {
     #[doc = " Send a joystick specific effect packet.\n\n \\param joystick the joystick to affect.\n \\param data the data to send to the joystick.\n \\param size the size of the data to send to the joystick.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SendJoystickEffect(
         joystick: *mut SDL_Joystick,
-        data: *const libc::c_void,
-        size: libc::c_int,
+        data: *const ::core::ffi::c_void,
+        size: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7419,7 +7603,7 @@ unsafe extern "C" {
     #[doc = " Get the battery state of a joystick.\n\n You should never take a battery status as absolute truth. Batteries\n (especially failing batteries) are delicate hardware, and the values\n reported here are best estimates based on what that hardware reports. It's\n not uncommon for older batteries to lose stored power much faster than it\n reports, or completely drain when reporting it has 20 percent left, etc.\n\n \\param joystick the joystick to query.\n \\param percent a pointer filled in with the percentage of battery life\n                left, between 0 and 100, or NULL to ignore. This will be\n                filled in with -1 we can't determine a value or there is no\n                battery.\n \\returns the current battery state or `SDL_POWERSTATE_ERROR` on failure;\n          call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetJoystickPowerInfo(
         joystick: *mut SDL_Joystick,
-        percent: *mut libc::c_int,
+        percent: *mut ::core::ffi::c_int,
     ) -> SDL_PowerState;
 }
 #[repr(C)]
@@ -7440,7 +7624,7 @@ pub const SDL_GamepadType_SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT: SDL_Gam
 pub const SDL_GamepadType_SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR: SDL_GamepadType = 10;
 pub const SDL_GamepadType_SDL_GAMEPAD_TYPE_COUNT: SDL_GamepadType = 11;
 #[doc = " Standard gamepad types.\n\n This type does not necessarily map to first-party controllers from\n Microsoft/Sony/Nintendo; in many cases, third-party controllers can report\n as these, either because they were designed for a specific console, or they\n simply most closely match that console's controllers (does it have A/B/X/Y\n buttons or X/O/Square/Triangle? Does it have a touchpad? etc)."]
-pub type SDL_GamepadType = libc::c_uint;
+pub type SDL_GamepadType = ::core::ffi::c_uint;
 pub const SDL_GamepadButton_SDL_GAMEPAD_BUTTON_INVALID: SDL_GamepadButton = -1;
 #[doc = "< Bottom face button (e.g. Xbox A button)"]
 pub const SDL_GamepadButton_SDL_GAMEPAD_BUTTON_SOUTH: SDL_GamepadButton = 0;
@@ -7485,7 +7669,7 @@ pub const SDL_GamepadButton_SDL_GAMEPAD_BUTTON_MISC5: SDL_GamepadButton = 24;
 pub const SDL_GamepadButton_SDL_GAMEPAD_BUTTON_MISC6: SDL_GamepadButton = 25;
 pub const SDL_GamepadButton_SDL_GAMEPAD_BUTTON_COUNT: SDL_GamepadButton = 26;
 #[doc = " The list of buttons available on a gamepad\n\n For controllers that use a diamond pattern for the face buttons, the\n south/east/west/north buttons below correspond to the locations in the\n diamond pattern. For Xbox controllers, this would be A/B/X/Y, for Nintendo\n Switch controllers, this would be B/A/Y/X, for PlayStation controllers this\n would be Cross/Circle/Square/Triangle.\n\n For controllers that don't use a diamond pattern for the face buttons, the\n south/east/west/north buttons indicate the buttons labeled A, B, C, D, or\n 1, 2, 3, 4, or for controllers that aren't labeled, they are the primary,\n secondary, etc. buttons.\n\n The activate action is often the south button and the cancel action is\n often the east button, but in some regions this is reversed, so your game\n should allow remapping actions based on user preferences.\n\n You can query the labels for the face buttons using\n SDL_GetGamepadButtonLabel()\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GamepadButton = libc::c_int;
+pub type SDL_GamepadButton = ::core::ffi::c_int;
 pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_UNKNOWN: SDL_GamepadButtonLabel = 0;
 pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_A: SDL_GamepadButtonLabel = 1;
 pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_B: SDL_GamepadButtonLabel = 2;
@@ -7496,7 +7680,7 @@ pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_CIRCLE: SDL_GamepadBut
 pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_SQUARE: SDL_GamepadButtonLabel = 7;
 pub const SDL_GamepadButtonLabel_SDL_GAMEPAD_BUTTON_LABEL_TRIANGLE: SDL_GamepadButtonLabel = 8;
 #[doc = " The set of gamepad button labels\n\n This isn't a complete set, just the face buttons to make it easy to show\n button prompts.\n\n For a complete set, you should look at the button and gamepad type and have\n a set of symbols that work well with your art style.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GamepadButtonLabel = libc::c_uint;
+pub type SDL_GamepadButtonLabel = ::core::ffi::c_uint;
 pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_INVALID: SDL_GamepadAxis = -1;
 pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_LEFTX: SDL_GamepadAxis = 0;
 pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_LEFTY: SDL_GamepadAxis = 1;
@@ -7506,13 +7690,13 @@ pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_LEFT_TRIGGER: SDL_GamepadAxis = 4;
 pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_RIGHT_TRIGGER: SDL_GamepadAxis = 5;
 pub const SDL_GamepadAxis_SDL_GAMEPAD_AXIS_COUNT: SDL_GamepadAxis = 6;
 #[doc = " The list of axes available on a gamepad\n\n Thumbstick axis values range from SDL_JOYSTICK_AXIS_MIN to\n SDL_JOYSTICK_AXIS_MAX, and are centered within ~8000 of zero, though\n advanced UI will allow users to set or autodetect the dead zone, which\n varies between gamepads.\n\n Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX (fully\n pressed) when reported by SDL_GetGamepadAxis(). Note that this is not the\n same range that will be reported by the lower-level SDL_GetJoystickAxis().\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GamepadAxis = libc::c_int;
+pub type SDL_GamepadAxis = ::core::ffi::c_int;
 pub const SDL_GamepadBindingType_SDL_GAMEPAD_BINDTYPE_NONE: SDL_GamepadBindingType = 0;
 pub const SDL_GamepadBindingType_SDL_GAMEPAD_BINDTYPE_BUTTON: SDL_GamepadBindingType = 1;
 pub const SDL_GamepadBindingType_SDL_GAMEPAD_BINDTYPE_AXIS: SDL_GamepadBindingType = 2;
 pub const SDL_GamepadBindingType_SDL_GAMEPAD_BINDTYPE_HAT: SDL_GamepadBindingType = 3;
 #[doc = " Types of gamepad control bindings.\n\n A gamepad is a collection of bindings that map arbitrary joystick buttons,\n axes and hat switches to specific positions on a generic console-style\n gamepad. This enum is used as part of SDL_GamepadBinding to specify those\n mappings.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GamepadBindingType = libc::c_uint;
+pub type SDL_GamepadBindingType = ::core::ffi::c_uint;
 #[doc = " A mapping between one joystick input to a gamepad control.\n\n A gamepad has a collection of several bindings, to say, for example, when\n joystick button number 5 is pressed, that should be treated like the\n gamepad's \"start\" button.\n\n SDL has these bindings built-in for many popular controllers, and can add\n more with a simple text string. Those strings are parsed into a collection\n of these structs to make it easier to operate on the data.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadBindings"]
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7525,16 +7709,16 @@ pub struct SDL_GamepadBinding {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union SDL_GamepadBinding__bindgen_ty_1 {
-    pub button: libc::c_int,
+    pub button: ::core::ffi::c_int,
     pub axis: SDL_GamepadBinding__bindgen_ty_1__bindgen_ty_1,
     pub hat: SDL_GamepadBinding__bindgen_ty_1__bindgen_ty_2,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_GamepadBinding__bindgen_ty_1__bindgen_ty_1 {
-    pub axis: libc::c_int,
-    pub axis_min: libc::c_int,
-    pub axis_max: libc::c_int,
+    pub axis: ::core::ffi::c_int,
+    pub axis_min: ::core::ffi::c_int,
+    pub axis_max: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7556,8 +7740,8 @@ const _: () = {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_GamepadBinding__bindgen_ty_1__bindgen_ty_2 {
-    pub hat: libc::c_int,
-    pub hat_mask: libc::c_int,
+    pub hat: ::core::ffi::c_int,
+    pub hat_mask: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7595,8 +7779,8 @@ pub union SDL_GamepadBinding__bindgen_ty_2 {
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_GamepadBinding__bindgen_ty_2__bindgen_ty_1 {
     pub axis: SDL_GamepadAxis,
-    pub axis_min: libc::c_int,
-    pub axis_max: libc::c_int,
+    pub axis_min: ::core::ffi::c_int,
+    pub axis_max: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7641,15 +7825,18 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Add support for gamepads that SDL is unaware of or change the binding of an\n existing gamepad.\n\n The mapping string has the format \"GUID,name,mapping\", where GUID is the\n string value from SDL_GUIDToString(), name is the human readable string for\n the device and mappings are gamepad mappings to joystick ones. Under\n Windows there is a reserved GUID of \"xinput\" that covers all XInput\n devices. The mapping format for joystick is:\n\n - `bX`: a joystick button, index X\n - `hX.Y`: hat X with value Y\n - `aX`: axis X of the joystick\n\n Buttons can be used as a gamepad axes and vice versa.\n\n If a device with this GUID is already plugged in, SDL will generate an\n SDL_EVENT_GAMEPAD_ADDED event.\n\n This string shows an example of a valid mapping for a gamepad:\n\n ```c\n \"341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7\"\n ```\n\n \\param mapping the mapping string.\n \\returns 1 if a new mapping is added, 0 if an existing mapping is updated,\n          -1 on failure; call SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddGamepadMappingsFromFile\n \\sa SDL_AddGamepadMappingsFromIO\n \\sa SDL_GetGamepadMapping\n \\sa SDL_GetGamepadMappingForGUID\n \\sa SDL_HINT_GAMECONTROLLERCONFIG\n \\sa SDL_HINT_GAMECONTROLLERCONFIG_FILE\n \\sa SDL_EVENT_GAMEPAD_ADDED"]
-    pub fn SDL_AddGamepadMapping(mapping: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_AddGamepadMapping(mapping: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Load a set of gamepad mappings from an SDL_IOStream.\n\n You can call this function several times, if needed, to load different\n database files.\n\n If a new mapping is loaded for an already known gamepad GUID, the later\n version will overwrite the one currently loaded.\n\n Any new mappings for already plugged in controllers will generate\n SDL_EVENT_GAMEPAD_ADDED events.\n\n Mappings not belonging to the current platform or with no platform field\n specified will be ignored (i.e. mappings for Linux will be ignored in\n Windows, etc).\n\n This function will load the text database entirely in memory before\n processing it, so take this into consideration if you are in a memory\n constrained environment.\n\n \\param src the data stream for the mappings to be added.\n \\param closeio if true, calls SDL_CloseIO() on `src` before returning, even\n                in the case of an error.\n \\returns the number of mappings added or -1 on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddGamepadMapping\n \\sa SDL_AddGamepadMappingsFromFile\n \\sa SDL_GetGamepadMapping\n \\sa SDL_GetGamepadMappingForGUID\n \\sa SDL_HINT_GAMECONTROLLERCONFIG\n \\sa SDL_HINT_GAMECONTROLLERCONFIG_FILE\n \\sa SDL_EVENT_GAMEPAD_ADDED"]
-    pub fn SDL_AddGamepadMappingsFromIO(src: *mut SDL_IOStream, closeio: bool) -> libc::c_int;
+    pub fn SDL_AddGamepadMappingsFromIO(
+        src: *mut SDL_IOStream,
+        closeio: bool,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Load a set of gamepad mappings from a file.\n\n You can call this function several times, if needed, to load different\n database files.\n\n If a new mapping is loaded for an already known gamepad GUID, the later\n version will overwrite the one currently loaded.\n\n Any new mappings for already plugged in controllers will generate\n SDL_EVENT_GAMEPAD_ADDED events.\n\n Mappings not belonging to the current platform or with no platform field\n specified will be ignored (i.e. mappings for Linux will be ignored in\n Windows, etc).\n\n \\param file the mappings file to load.\n \\returns the number of mappings added or -1 on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddGamepadMapping\n \\sa SDL_AddGamepadMappingsFromIO\n \\sa SDL_GetGamepadMapping\n \\sa SDL_GetGamepadMappingForGUID\n \\sa SDL_HINT_GAMECONTROLLERCONFIG\n \\sa SDL_HINT_GAMECONTROLLERCONFIG_FILE\n \\sa SDL_EVENT_GAMEPAD_ADDED"]
-    pub fn SDL_AddGamepadMappingsFromFile(file: *const libc::c_char) -> libc::c_int;
+    pub fn SDL_AddGamepadMappingsFromFile(file: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Reinitialize the SDL mapping database to its initial state.\n\n This will generate gamepad events as needed if device mappings change.\n\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -7657,20 +7844,22 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the current gamepad mappings.\n\n \\param count a pointer filled in with the number of mappings returned, can\n              be NULL.\n \\returns an array of the mapping strings, NULL-terminated, or NULL on\n          failure; call SDL_GetError() for more information. This is a\n          single allocation that should be freed with SDL_free() when it is\n          no longer needed.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetGamepadMappings(count: *mut libc::c_int) -> *mut *mut libc::c_char;
+    pub fn SDL_GetGamepadMappings(count: *mut ::core::ffi::c_int) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the gamepad mapping string for a given GUID.\n\n \\param guid a structure containing the GUID for which a mapping is desired.\n \\returns a mapping string or NULL on failure; call SDL_GetError() for more\n          information. This should be freed with SDL_free() when it is no\n          longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoystickGUIDForID\n \\sa SDL_GetJoystickGUID"]
-    pub fn SDL_GetGamepadMappingForGUID(guid: SDL_GUID) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMappingForGUID(guid: SDL_GUID) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the current mapping of a gamepad.\n\n Details about mappings are discussed with SDL_AddGamepadMapping().\n\n \\param gamepad the gamepad you want to get the current mapping for.\n \\returns a string that has the gamepad's mapping or NULL if no mapping is\n          available; call SDL_GetError() for more information. This should\n          be freed with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddGamepadMapping\n \\sa SDL_GetGamepadMappingForID\n \\sa SDL_GetGamepadMappingForGUID\n \\sa SDL_SetGamepadMapping"]
-    pub fn SDL_GetGamepadMapping(gamepad: *mut SDL_Gamepad) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMapping(gamepad: *mut SDL_Gamepad) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Set the current mapping of a joystick or gamepad.\n\n Details about mappings are discussed with SDL_AddGamepadMapping().\n\n \\param instance_id the joystick instance ID.\n \\param mapping the mapping to use for this device, or NULL to clear the\n                mapping.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddGamepadMapping\n \\sa SDL_GetGamepadMapping"]
-    pub fn SDL_SetGamepadMapping(instance_id: SDL_JoystickID, mapping: *const libc::c_char)
-        -> bool;
+    pub fn SDL_SetGamepadMapping(
+        instance_id: SDL_JoystickID,
+        mapping: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Return whether a gamepad is currently connected.\n\n \\returns true if a gamepad is connected, false otherwise.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepads"]
@@ -7678,7 +7867,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected gamepads.\n\n \\param count a pointer filled in with the number of gamepads returned, may\n              be NULL.\n \\returns a 0 terminated array of joystick instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasGamepad\n \\sa SDL_OpenGamepad"]
-    pub fn SDL_GetGamepads(count: *mut libc::c_int) -> *mut SDL_JoystickID;
+    pub fn SDL_GetGamepads(count: *mut ::core::ffi::c_int) -> *mut SDL_JoystickID;
 }
 unsafe extern "C" {
     #[doc = " Check if the given joystick is supported by the gamepad interface.\n\n \\param instance_id the joystick instance ID.\n \\returns true if the given joystick is supported by the gamepad interface,\n          false if it isn't or it's an invalid index.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetJoysticks\n \\sa SDL_OpenGamepad"]
@@ -7686,15 +7875,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a gamepad.\n\n This can be called before any gamepads are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the name of the selected gamepad. If no name can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadName\n \\sa SDL_GetGamepads"]
-    pub fn SDL_GetGamepadNameForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetGamepadNameForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent path of a gamepad.\n\n This can be called before any gamepads are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the path of the selected gamepad. If no path can be found, this\n          function returns NULL; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadPath\n \\sa SDL_GetGamepads"]
-    pub fn SDL_GetGamepadPathForID(instance_id: SDL_JoystickID) -> *const libc::c_char;
+    pub fn SDL_GetGamepadPathForID(instance_id: SDL_JoystickID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the player index of a gamepad.\n\n This can be called before any gamepads are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the player index of a gamepad, or -1 if it's not available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadPlayerIndex\n \\sa SDL_GetGamepads"]
-    pub fn SDL_GetGamepadPlayerIndexForID(instance_id: SDL_JoystickID) -> libc::c_int;
+    pub fn SDL_GetGamepadPlayerIndexForID(instance_id: SDL_JoystickID) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation-dependent GUID of a gamepad.\n\n This can be called before any gamepads are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the GUID of the selected gamepad. If called on an invalid index,\n          this function returns a zero GUID.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GUIDToString\n \\sa SDL_GetGamepads"]
@@ -7722,7 +7911,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the mapping of a gamepad.\n\n This can be called before any gamepads are opened.\n\n \\param instance_id the joystick instance ID.\n \\returns the mapping string. Returns NULL if no mapping is available. This\n          should be freed with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepads\n \\sa SDL_GetGamepadMapping"]
-    pub fn SDL_GetGamepadMappingForID(instance_id: SDL_JoystickID) -> *mut libc::c_char;
+    pub fn SDL_GetGamepadMappingForID(instance_id: SDL_JoystickID) -> *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Open a gamepad for use.\n\n \\param instance_id the joystick instance ID.\n \\returns a gamepad identifier or NULL if an error occurred; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseGamepad\n \\sa SDL_IsGamepad"]
@@ -7734,7 +7923,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the SDL_Gamepad associated with a player index.\n\n \\param player_index the player index, which different from the instance ID.\n \\returns the SDL_Gamepad associated with a player index.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadPlayerIndex\n \\sa SDL_SetGamepadPlayerIndex"]
-    pub fn SDL_GetGamepadFromPlayerIndex(player_index: libc::c_int) -> *mut SDL_Gamepad;
+    pub fn SDL_GetGamepadFromPlayerIndex(player_index: ::core::ffi::c_int) -> *mut SDL_Gamepad;
 }
 unsafe extern "C" {
     #[doc = " Get the properties associated with an opened gamepad.\n\n These properties are shared with the underlying joystick object.\n\n The following read-only properties are provided by SDL:\n\n - `SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN`: true if this gamepad has an LED\n   that has adjustable brightness\n - `SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN`: true if this gamepad has an LED\n   that has adjustable color\n - `SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN`: true if this gamepad has a\n   player LED\n - `SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN`: true if this gamepad has\n   left/right rumble\n - `SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this gamepad has\n   simple trigger rumble\n\n \\param gamepad a gamepad identifier previously returned by\n                SDL_OpenGamepad().\n \\returns a valid property ID on success or 0 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -7746,11 +7935,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the implementation-dependent name for an opened gamepad.\n\n \\param gamepad a gamepad identifier previously returned by\n                SDL_OpenGamepad().\n \\returns the implementation dependent name for the gamepad, or NULL if\n          there is no name or the identifier passed is invalid.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadNameForID"]
-    pub fn SDL_GetGamepadName(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadName(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation-dependent path for an opened gamepad.\n\n \\param gamepad a gamepad identifier previously returned by\n                SDL_OpenGamepad().\n \\returns the implementation dependent path for the gamepad, or NULL if\n          there is no path or the identifier passed is invalid.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadPathForID"]
-    pub fn SDL_GetGamepadPath(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadPath(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the type of an opened gamepad.\n\n \\param gamepad the gamepad object to query.\n \\returns the gamepad type, or SDL_GAMEPAD_TYPE_UNKNOWN if it's not\n          available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadTypeForID"]
@@ -7762,11 +7951,14 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the player index of an opened gamepad.\n\n For XInput gamepads this returns the XInput user index.\n\n \\param gamepad the gamepad object to query.\n \\returns the player index for gamepad, or -1 if it's not available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetGamepadPlayerIndex"]
-    pub fn SDL_GetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad) -> libc::c_int;
+    pub fn SDL_GetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Set the player index of an opened gamepad.\n\n \\param gamepad the gamepad object to adjust.\n \\param player_index player index to assign to this gamepad, or -1 to clear\n                     the player index and turn off player LEDs.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadPlayerIndex"]
-    pub fn SDL_SetGamepadPlayerIndex(gamepad: *mut SDL_Gamepad, player_index: libc::c_int) -> bool;
+    pub fn SDL_SetGamepadPlayerIndex(
+        gamepad: *mut SDL_Gamepad,
+        player_index: ::core::ffi::c_int,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the USB vendor ID of an opened gamepad, if available.\n\n If the vendor ID isn't available this function returns 0.\n\n \\param gamepad the gamepad object to query.\n \\returns the USB vendor ID, or zero if unavailable.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadVendorForID"]
@@ -7786,7 +7978,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the serial number of an opened gamepad, if available.\n\n Returns the serial number of the gamepad, or NULL if it is not available.\n\n \\param gamepad the gamepad object to query.\n \\returns the serial number, or NULL if unavailable.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetGamepadSerial(gamepad: *mut SDL_Gamepad) -> *const libc::c_char;
+    pub fn SDL_GetGamepadSerial(gamepad: *mut SDL_Gamepad) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the Steam Input handle of an opened gamepad, if available.\n\n Returns an InputHandle_t for the gamepad that can be used with Steam Input\n API: https://partner.steamgames.com/doc/api/ISteamInput\n\n \\param gamepad the gamepad object to query.\n \\returns the gamepad handle, or 0 if unavailable.\n\n \\since This function is available since SDL 3.2.0."]
@@ -7800,7 +7992,7 @@ unsafe extern "C" {
     #[doc = " Get the battery state of a gamepad.\n\n You should never take a battery status as absolute truth. Batteries\n (especially failing batteries) are delicate hardware, and the values\n reported here are best estimates based on what that hardware reports. It's\n not uncommon for older batteries to lose stored power much faster than it\n reports, or completely drain when reporting it has 20 percent left, etc.\n\n \\param gamepad the gamepad object to query.\n \\param percent a pointer filled in with the percentage of battery life\n                left, between 0 and 100, or NULL to ignore. This will be\n                filled in with -1 we can't determine a value or there is no\n                battery.\n \\returns the current battery state.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetGamepadPowerInfo(
         gamepad: *mut SDL_Gamepad,
-        percent: *mut libc::c_int,
+        percent: *mut ::core::ffi::c_int,
     ) -> SDL_PowerState;
 }
 unsafe extern "C" {
@@ -7823,7 +8015,7 @@ unsafe extern "C" {
     #[doc = " Get the SDL joystick layer bindings for a gamepad.\n\n \\param gamepad a gamepad.\n \\param count a pointer filled in with the number of bindings returned.\n \\returns a NULL terminated array of pointers to bindings or NULL on\n          failure; call SDL_GetError() for more information. This is a\n          single allocation that should be freed with SDL_free() when it is\n          no longer needed.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetGamepadBindings(
         gamepad: *mut SDL_Gamepad,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_GamepadBinding;
 }
 unsafe extern "C" {
@@ -7832,19 +8024,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Convert a string into SDL_GamepadType enum.\n\n This function is called internally to translate SDL_Gamepad mapping strings\n for the underlying joystick device into the consistent SDL_Gamepad mapping.\n You do not normally need to call this function unless you are parsing\n SDL_Gamepad mappings in your own code.\n\n \\param str string representing a SDL_GamepadType type.\n \\returns the SDL_GamepadType enum corresponding to the input string, or\n          `SDL_GAMEPAD_TYPE_UNKNOWN` if no match was found.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadStringForType"]
-    pub fn SDL_GetGamepadTypeFromString(str_: *const libc::c_char) -> SDL_GamepadType;
+    pub fn SDL_GetGamepadTypeFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadType;
 }
 unsafe extern "C" {
     #[doc = " Convert from an SDL_GamepadType enum to a string.\n\n \\param type an enum value for a given SDL_GamepadType.\n \\returns a string for the given type, or NULL if an invalid type is\n          specified. The string returned is of the format used by\n          SDL_Gamepad mapping strings.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadTypeFromString"]
-    pub fn SDL_GetGamepadStringForType(type_: SDL_GamepadType) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForType(type_: SDL_GamepadType) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Convert a string into SDL_GamepadAxis enum.\n\n This function is called internally to translate SDL_Gamepad mapping strings\n for the underlying joystick device into the consistent SDL_Gamepad mapping.\n You do not normally need to call this function unless you are parsing\n SDL_Gamepad mappings in your own code.\n\n Note specially that \"righttrigger\" and \"lefttrigger\" map to\n `SDL_GAMEPAD_AXIS_RIGHT_TRIGGER` and `SDL_GAMEPAD_AXIS_LEFT_TRIGGER`,\n respectively.\n\n \\param str string representing a SDL_Gamepad axis.\n \\returns the SDL_GamepadAxis enum corresponding to the input string, or\n          `SDL_GAMEPAD_AXIS_INVALID` if no match was found.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadStringForAxis"]
-    pub fn SDL_GetGamepadAxisFromString(str_: *const libc::c_char) -> SDL_GamepadAxis;
+    pub fn SDL_GetGamepadAxisFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadAxis;
 }
 unsafe extern "C" {
     #[doc = " Convert from an SDL_GamepadAxis enum to a string.\n\n \\param axis an enum value for a given SDL_GamepadAxis.\n \\returns a string for the given axis, or NULL if an invalid axis is\n          specified. The string returned is of the format used by\n          SDL_Gamepad mapping strings.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadAxisFromString"]
-    pub fn SDL_GetGamepadStringForAxis(axis: SDL_GamepadAxis) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForAxis(axis: SDL_GamepadAxis) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query whether a gamepad has a given axis.\n\n This merely reports whether the gamepad's mapping defined this axis, as\n that is all the information SDL has about the physical device.\n\n \\param gamepad a gamepad.\n \\param axis an axis enum value (an SDL_GamepadAxis value).\n \\returns true if the gamepad has this axis, false otherwise.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GamepadHasButton\n \\sa SDL_GetGamepadAxis"]
@@ -7856,11 +8048,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Convert a string into an SDL_GamepadButton enum.\n\n This function is called internally to translate SDL_Gamepad mapping strings\n for the underlying joystick device into the consistent SDL_Gamepad mapping.\n You do not normally need to call this function unless you are parsing\n SDL_Gamepad mappings in your own code.\n\n \\param str string representing a SDL_Gamepad axis.\n \\returns the SDL_GamepadButton enum corresponding to the input string, or\n          `SDL_GAMEPAD_BUTTON_INVALID` if no match was found.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadStringForButton"]
-    pub fn SDL_GetGamepadButtonFromString(str_: *const libc::c_char) -> SDL_GamepadButton;
+    pub fn SDL_GetGamepadButtonFromString(str_: *const ::core::ffi::c_char) -> SDL_GamepadButton;
 }
 unsafe extern "C" {
     #[doc = " Convert from an SDL_GamepadButton enum to a string.\n\n \\param button an enum value for a given SDL_GamepadButton.\n \\returns a string for the given button, or NULL if an invalid button is\n          specified. The string returned is of the format used by\n          SDL_Gamepad mapping strings.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadButtonFromString"]
-    pub fn SDL_GetGamepadStringForButton(button: SDL_GamepadButton) -> *const libc::c_char;
+    pub fn SDL_GetGamepadStringForButton(button: SDL_GamepadButton) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query whether a gamepad has a given button.\n\n This merely reports whether the gamepad's mapping defined this button, as\n that is all the information SDL has about the physical device.\n\n \\param gamepad a gamepad.\n \\param button a button enum value (an SDL_GamepadButton value).\n \\returns true if the gamepad has this button, false otherwise.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GamepadHasAxis"]
@@ -7886,21 +8078,21 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of touchpads on a gamepad.\n\n \\param gamepad a gamepad.\n \\returns number of touchpads.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumGamepadTouchpadFingers"]
-    pub fn SDL_GetNumGamepadTouchpads(gamepad: *mut SDL_Gamepad) -> libc::c_int;
+    pub fn SDL_GetNumGamepadTouchpads(gamepad: *mut SDL_Gamepad) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of supported simultaneous fingers on a touchpad on a game\n gamepad.\n\n \\param gamepad a gamepad.\n \\param touchpad a touchpad.\n \\returns number of supported simultaneous fingers.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadTouchpadFinger\n \\sa SDL_GetNumGamepadTouchpads"]
     pub fn SDL_GetNumGamepadTouchpadFingers(
         gamepad: *mut SDL_Gamepad,
-        touchpad: libc::c_int,
-    ) -> libc::c_int;
+        touchpad: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the current state of a finger on a touchpad on a gamepad.\n\n \\param gamepad a gamepad.\n \\param touchpad a touchpad.\n \\param finger a finger.\n \\param down a pointer filled with true if the finger is down, false\n             otherwise, may be NULL.\n \\param x a pointer filled with the x position, normalized 0 to 1, with the\n          origin in the upper left, may be NULL.\n \\param y a pointer filled with the y position, normalized 0 to 1, with the\n          origin in the upper left, may be NULL.\n \\param pressure a pointer filled with pressure value, may be NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumGamepadTouchpadFingers"]
     pub fn SDL_GetGamepadTouchpadFinger(
         gamepad: *mut SDL_Gamepad,
-        touchpad: libc::c_int,
-        finger: libc::c_int,
+        touchpad: ::core::ffi::c_int,
+        finger: ::core::ffi::c_int,
         down: *mut bool,
         x: *mut f32,
         y: *mut f32,
@@ -7933,7 +8125,7 @@ unsafe extern "C" {
         gamepad: *mut SDL_Gamepad,
         type_: SDL_SensorType,
         data: *mut f32,
-        num_values: libc::c_int,
+        num_values: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7967,8 +8159,8 @@ unsafe extern "C" {
     #[doc = " Send a gamepad specific effect packet.\n\n \\param gamepad the gamepad to affect.\n \\param data the data to send to the gamepad.\n \\param size the size of the data to send to the gamepad.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SendGamepadEffect(
         gamepad: *mut SDL_Gamepad,
-        data: *const libc::c_void,
-        size: libc::c_int,
+        data: *const ::core::ffi::c_void,
+        size: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -7980,14 +8172,14 @@ unsafe extern "C" {
     pub fn SDL_GetGamepadAppleSFSymbolsNameForButton(
         gamepad: *mut SDL_Gamepad,
         button: SDL_GamepadButton,
-    ) -> *const libc::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.\n\n \\param gamepad the gamepad to query.\n \\param axis an axis on the gamepad.\n \\returns the sfSymbolsName or NULL if the name can't be found.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGamepadAppleSFSymbolsNameForButton"]
     pub fn SDL_GetGamepadAppleSFSymbolsNameForAxis(
         gamepad: *mut SDL_Gamepad,
         axis: SDL_GamepadAxis,
-    ) -> *const libc::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 pub const SDL_Scancode_SDL_SCANCODE_UNKNOWN: SDL_Scancode = 0;
 pub const SDL_Scancode_SDL_SCANCODE_A: SDL_Scancode = 4;
@@ -8308,7 +8500,7 @@ pub const SDL_Scancode_SDL_SCANCODE_RESERVED: SDL_Scancode = 400;
 #[doc = "< not a key, just marks the number of scancodes for array bounds"]
 pub const SDL_Scancode_SDL_SCANCODE_COUNT: SDL_Scancode = 512;
 #[doc = " The SDL keyboard scancode representation.\n\n An SDL scancode is the physical representation of a key on the keyboard,\n independent of language and keyboard mapping.\n\n Values of this type are used to represent keyboard keys, among other places\n in the `scancode` field of the SDL_KeyboardEvent structure.\n\n The values in this enumeration are based on the USB usage page standard:\n https://usb.org/sites/default/files/hut1_5.pdf\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_Scancode = libc::c_uint;
+pub type SDL_Scancode = ::core::ffi::c_uint;
 #[doc = " The SDL virtual key representation.\n\n Values of this type are used to represent keyboard keys using the current\n layout of the keyboard. These values include Unicode values representing\n the unmodified character that would be generated by pressing the key, or an\n `SDLK_*` constant for those keys that do not generate characters.\n\n A special exception is the number keys at the top of the keyboard which map\n to SDLK_0...SDLK_9 on AZERTY layouts.\n\n Keys with the `SDLK_EXTENDED_MASK` bit set do not map to a scancode or\n unicode code point.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_Keycode = Uint32;
 #[doc = " Valid key modifiers (possibly OR'd together).\n\n \\since This datatype is available since SDL 3.2.0."]
@@ -8321,11 +8513,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected keyboards.\n\n Note that this will include any device or virtual driver that includes\n keyboard functionality, including some mice, KVM switches, motherboard\n power buttons, etc. You should wait for input from a device before you\n consider it actively in use.\n\n \\param count a pointer filled in with the number of keyboards returned, may\n              be NULL.\n \\returns a 0 terminated array of keyboards instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyboardNameForID\n \\sa SDL_HasKeyboard"]
-    pub fn SDL_GetKeyboards(count: *mut libc::c_int) -> *mut SDL_KeyboardID;
+    pub fn SDL_GetKeyboards(count: *mut ::core::ffi::c_int) -> *mut SDL_KeyboardID;
 }
 unsafe extern "C" {
     #[doc = " Get the name of a keyboard.\n\n This function returns \"\" if the keyboard doesn't have a name.\n\n \\param instance_id the keyboard instance ID.\n \\returns the name of the selected keyboard or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyboards"]
-    pub fn SDL_GetKeyboardNameForID(instance_id: SDL_KeyboardID) -> *const libc::c_char;
+    pub fn SDL_GetKeyboardNameForID(instance_id: SDL_KeyboardID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query the window which currently has keyboard focus.\n\n \\returns the window with keyboard focus.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -8333,7 +8525,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a snapshot of the current state of the keyboard.\n\n The pointer returned is a pointer to an internal SDL array. It will be\n valid for the whole lifetime of the application and should not be freed by\n the caller.\n\n A array element with a value of true means that the key is pressed and a\n value of false means that it is not. Indexes into this array are obtained\n by using SDL_Scancode values.\n\n Use SDL_PumpEvents() to update the state array.\n\n This function gives you the current state after all events have been\n processed, so if a key or button has been pressed and released before you\n process events, then the pressed state will never show up in the\n SDL_GetKeyboardState() calls.\n\n Note: This function doesn't take into account whether shift has been\n pressed or not.\n\n \\param numkeys if non-NULL, receives the length of the returned array.\n \\returns a pointer to an array of key states.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PumpEvents\n \\sa SDL_ResetKeyboard"]
-    pub fn SDL_GetKeyboardState(numkeys: *mut libc::c_int) -> *const bool;
+    pub fn SDL_GetKeyboardState(numkeys: *mut ::core::ffi::c_int) -> *const bool;
 }
 unsafe extern "C" {
     #[doc = " Clear the state of the keyboard.\n\n This function will generate key up events for all pressed keys.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyboardState"]
@@ -8361,23 +8553,23 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Set a human-readable name for a scancode.\n\n \\param scancode the desired SDL_Scancode.\n \\param name the name to use for the scancode, encoded as UTF-8. The string\n             is not copied, so the pointer given to this function must stay\n             valid while SDL is being used.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetScancodeName"]
-    pub fn SDL_SetScancodeName(scancode: SDL_Scancode, name: *const libc::c_char) -> bool;
+    pub fn SDL_SetScancodeName(scancode: SDL_Scancode, name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get a human-readable name for a scancode.\n\n **Warning**: The returned name is by design not stable across platforms,\n e.g. the name for `SDL_SCANCODE_LGUI` is \"Left GUI\" under Linux but \"Left\n Windows\" under Microsoft Windows, and some scancodes like\n `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even\n scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and\n `SDL_SCANCODE_RETURN2` (both called \"Return\"). This function is therefore\n unsuitable for creating a stable cross-platform two-way mapping between\n strings and scancodes.\n\n \\param scancode the desired SDL_Scancode to query.\n \\returns a pointer to the name for the scancode. If the scancode doesn't\n          have a name this function returns an empty string (\"\").\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetScancodeFromKey\n \\sa SDL_GetScancodeFromName\n \\sa SDL_SetScancodeName"]
-    pub fn SDL_GetScancodeName(scancode: SDL_Scancode) -> *const libc::c_char;
+    pub fn SDL_GetScancodeName(scancode: SDL_Scancode) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get a scancode from a human-readable name.\n\n \\param name the human-readable scancode name.\n \\returns the SDL_Scancode, or `SDL_SCANCODE_UNKNOWN` if the name wasn't\n          recognized; call SDL_GetError() for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyFromName\n \\sa SDL_GetScancodeFromKey\n \\sa SDL_GetScancodeName"]
-    pub fn SDL_GetScancodeFromName(name: *const libc::c_char) -> SDL_Scancode;
+    pub fn SDL_GetScancodeFromName(name: *const ::core::ffi::c_char) -> SDL_Scancode;
 }
 unsafe extern "C" {
     #[doc = " Get a human-readable name for a key.\n\n If the key doesn't have a name, this function returns an empty string (\"\").\n\n Letters will be presented in their uppercase form, if applicable.\n\n \\param key the desired SDL_Keycode to query.\n \\returns a UTF-8 encoded string of the key name.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyFromName\n \\sa SDL_GetKeyFromScancode\n \\sa SDL_GetScancodeFromKey"]
-    pub fn SDL_GetKeyName(key: SDL_Keycode) -> *const libc::c_char;
+    pub fn SDL_GetKeyName(key: SDL_Keycode) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get a key code from a human-readable name.\n\n \\param name the human-readable key name.\n \\returns key code, or `SDLK_UNKNOWN` if the name wasn't recognized; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function is not thread safe.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetKeyFromScancode\n \\sa SDL_GetKeyName\n \\sa SDL_GetScancodeFromName"]
-    pub fn SDL_GetKeyFromName(name: *const libc::c_char) -> SDL_Keycode;
+    pub fn SDL_GetKeyFromName(name: *const ::core::ffi::c_char) -> SDL_Keycode;
 }
 unsafe extern "C" {
     #[doc = " Start accepting Unicode text input events in a window.\n\n This function will enable text input (SDL_EVENT_TEXT_INPUT and\n SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this\n function paired with SDL_StopTextInput().\n\n Text input events are not received by default.\n\n On some platforms using this function shows the screen keyboard and/or\n activates an IME, which can prevent some key press events from being passed\n through.\n\n \\param window the window to enable text input.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetTextInputArea\n \\sa SDL_StartTextInputWithProperties\n \\sa SDL_StopTextInput\n \\sa SDL_TextInputActive"]
@@ -8402,7 +8594,7 @@ pub const SDL_TextInputType_SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_HIDDEN: SDL_TextI
 #[doc = "< The input is a secure PIN that is visible"]
 pub const SDL_TextInputType_SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_VISIBLE: SDL_TextInputType = 8;
 #[doc = " Text input type.\n\n These are the valid values for SDL_PROP_TEXTINPUT_TYPE_NUMBER. Not every\n value is valid on every platform, but where a value isn't supported, a\n reasonable fallback will be used.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_StartTextInputWithProperties"]
-pub type SDL_TextInputType = libc::c_uint;
+pub type SDL_TextInputType = ::core::ffi::c_uint;
 #[doc = "< No auto-capitalization will be done"]
 pub const SDL_Capitalization_SDL_CAPITALIZE_NONE: SDL_Capitalization = 0;
 #[doc = "< The first letter of sentences will be capitalized"]
@@ -8412,7 +8604,7 @@ pub const SDL_Capitalization_SDL_CAPITALIZE_WORDS: SDL_Capitalization = 2;
 #[doc = "< All letters will be capitalized"]
 pub const SDL_Capitalization_SDL_CAPITALIZE_LETTERS: SDL_Capitalization = 3;
 #[doc = " Auto capitalization type.\n\n These are the valid values for SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER.\n Not every value is valid on every platform, but where a value isn't\n supported, a reasonable fallback will be used.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_StartTextInputWithProperties"]
-pub type SDL_Capitalization = libc::c_uint;
+pub type SDL_Capitalization = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Start accepting Unicode text input events in a window, with properties\n describing the input.\n\n This function will enable text input (SDL_EVENT_TEXT_INPUT and\n SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this\n function paired with SDL_StopTextInput().\n\n Text input events are not received by default.\n\n On some platforms using this function shows the screen keyboard and/or\n activates an IME, which can prevent some key press events from being passed\n through.\n\n These are the supported properties:\n\n - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that\n   describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.\n - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value\n   that describes how text should be capitalized, defaults to\n   SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for\n   SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail\n   addresses, usernames, and passwords.\n - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion\n   and auto correction, defaults to true.\n - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text\n   are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is\n   \"0\" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME\n   is \"1\".\n\n On Android you can directly specify the input type:\n\n - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to\n   use, overriding other properties. This is documented at\n   https://developer.android.com/reference/android/text/InputType\n\n \\param window the window to enable text input.\n \\param props the properties to use.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetTextInputArea\n \\sa SDL_StartTextInput\n \\sa SDL_StopTextInput\n \\sa SDL_TextInputActive"]
     pub fn SDL_StartTextInputWithProperties(
@@ -8437,7 +8629,7 @@ unsafe extern "C" {
     pub fn SDL_SetTextInputArea(
         window: *mut SDL_Window,
         rect: *const SDL_Rect,
-        cursor: libc::c_int,
+        cursor: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -8445,7 +8637,7 @@ unsafe extern "C" {
     pub fn SDL_GetTextInputArea(
         window: *mut SDL_Window,
         rect: *mut SDL_Rect,
-        cursor: *mut libc::c_int,
+        cursor: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -8505,13 +8697,13 @@ pub const SDL_SystemCursor_SDL_SYSTEM_CURSOR_SW_RESIZE: SDL_SystemCursor = 18;
 pub const SDL_SystemCursor_SDL_SYSTEM_CURSOR_W_RESIZE: SDL_SystemCursor = 19;
 pub const SDL_SystemCursor_SDL_SYSTEM_CURSOR_COUNT: SDL_SystemCursor = 20;
 #[doc = " Cursor types for SDL_CreateSystemCursor().\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_SystemCursor = libc::c_uint;
+pub type SDL_SystemCursor = ::core::ffi::c_uint;
 #[doc = "< The scroll direction is normal"]
 pub const SDL_MouseWheelDirection_SDL_MOUSEWHEEL_NORMAL: SDL_MouseWheelDirection = 0;
 #[doc = "< The scroll direction is flipped / natural"]
 pub const SDL_MouseWheelDirection_SDL_MOUSEWHEEL_FLIPPED: SDL_MouseWheelDirection = 1;
 #[doc = " Scroll direction types for the Scroll event\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_MouseWheelDirection = libc::c_uint;
+pub type SDL_MouseWheelDirection = ::core::ffi::c_uint;
 #[doc = " A bitmask of pressed mouse buttons, as reported by SDL_GetMouseState, etc.\n\n - Button 1: Left mouse button\n - Button 2: Middle mouse button\n - Button 3: Right mouse button\n - Button 4: Side mouse button 1\n - Button 5: Side mouse button 2\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_GetMouseState\n \\sa SDL_GetGlobalMouseState\n \\sa SDL_GetRelativeMouseState"]
 pub type SDL_MouseButtonFlags = Uint32;
 unsafe extern "C" {
@@ -8520,11 +8712,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a list of currently connected mice.\n\n Note that this will include any device or virtual driver that includes\n mouse functionality, including some game controllers, KVM switches, etc.\n You should wait for input from a device before you consider it actively in\n use.\n\n \\param count a pointer filled in with the number of mice returned, may be\n              NULL.\n \\returns a 0 terminated array of mouse instance IDs or NULL on failure;\n          call SDL_GetError() for more information. This should be freed\n          with SDL_free() when it is no longer needed.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetMouseNameForID\n \\sa SDL_HasMouse"]
-    pub fn SDL_GetMice(count: *mut libc::c_int) -> *mut SDL_MouseID;
+    pub fn SDL_GetMice(count: *mut ::core::ffi::c_int) -> *mut SDL_MouseID;
 }
 unsafe extern "C" {
     #[doc = " Get the name of a mouse.\n\n This function returns \"\" if the mouse doesn't have a name.\n\n \\param instance_id the mouse instance ID.\n \\returns the name of the selected mouse, or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetMice"]
-    pub fn SDL_GetMouseNameForID(instance_id: SDL_MouseID) -> *const libc::c_char;
+    pub fn SDL_GetMouseNameForID(instance_id: SDL_MouseID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the window which currently has mouse focus.\n\n \\returns the window with mouse focus.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -8567,18 +8759,18 @@ unsafe extern "C" {
     pub fn SDL_CreateCursor(
         data: *const Uint8,
         mask: *const Uint8,
-        w: libc::c_int,
-        h: libc::c_int,
-        hot_x: libc::c_int,
-        hot_y: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
+        hot_x: ::core::ffi::c_int,
+        hot_y: ::core::ffi::c_int,
     ) -> *mut SDL_Cursor;
 }
 unsafe extern "C" {
     #[doc = " Create a color cursor.\n\n If this function is passed a surface with alternate representations, the\n surface will be interpreted as the content to be used for 100% display\n scale, and the alternate representations will be used for high DPI\n situations. For example, if the original surface is 32x32, then on a 2x\n macOS display or 200% display scale on Windows, a 64x64 version of the\n image will be used, if available. If a matching version of the image isn't\n available, the closest larger size image will be downscaled to the\n appropriate size and be used instead, if available. Otherwise, the closest\n smaller image will be upscaled and be used instead.\n\n \\param surface an SDL_Surface structure representing the cursor image.\n \\param hot_x the x position of the cursor hot spot.\n \\param hot_y the y position of the cursor hot spot.\n \\returns the new cursor on success or NULL on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateCursor\n \\sa SDL_CreateSystemCursor\n \\sa SDL_DestroyCursor\n \\sa SDL_SetCursor"]
     pub fn SDL_CreateColorCursor(
         surface: *mut SDL_Surface,
-        hot_x: libc::c_int,
-        hot_y: libc::c_int,
+        hot_x: ::core::ffi::c_int,
+        hot_y: ::core::ffi::c_int,
     ) -> *mut SDL_Cursor;
 }
 unsafe extern "C" {
@@ -8625,7 +8817,7 @@ pub const SDL_TouchDeviceType_SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE: SDL_TouchDevic
 #[doc = "< trackpad with screen cursor-relative coordinates"]
 pub const SDL_TouchDeviceType_SDL_TOUCH_DEVICE_INDIRECT_RELATIVE: SDL_TouchDeviceType = 2;
 #[doc = " An enum that describes the type of a touch device.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_TouchDeviceType = libc::c_int;
+pub type SDL_TouchDeviceType = ::core::ffi::c_int;
 #[doc = " Data about a single finger in a multitouch event.\n\n Each touch event is a collection of fingers that are simultaneously in\n contact with the touch device (so a \"touch\" can be a \"multitouch,\" in\n reality), and this struct reports details of the specific fingers.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_GetTouchFingers"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8651,11 +8843,11 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Get a list of registered touch devices.\n\n On some platforms SDL first sees the touch device if it was actually used.\n Therefore the returned list might be empty, although devices are available.\n After using all devices at least once the number will be correct.\n\n \\param count a pointer filled in with the number of devices returned, may\n              be NULL.\n \\returns a 0 terminated array of touch device IDs or NULL on failure; call\n          SDL_GetError() for more information. This should be freed with\n          SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetTouchDevices(count: *mut libc::c_int) -> *mut SDL_TouchID;
+    pub fn SDL_GetTouchDevices(count: *mut ::core::ffi::c_int) -> *mut SDL_TouchID;
 }
 unsafe extern "C" {
     #[doc = " Get the touch device name as reported from the driver.\n\n \\param touchID the touch device instance ID.\n \\returns touch device name, or NULL on failure; call SDL_GetError() for\n          more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetTouchDeviceName(touchID: SDL_TouchID) -> *const libc::c_char;
+    pub fn SDL_GetTouchDeviceName(touchID: SDL_TouchID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the type of the given touch device.\n\n \\param touchID the ID of a touch device.\n \\returns touch device type.\n\n \\since This function is available since SDL 3.2.0."]
@@ -8665,7 +8857,7 @@ unsafe extern "C" {
     #[doc = " Get a list of active fingers for a given touch device.\n\n \\param touchID the ID of a touch device.\n \\param count a pointer filled in with the number of fingers returned, can\n              be NULL.\n \\returns a NULL terminated array of SDL_Finger pointers or NULL on failure;\n          call SDL_GetError() for more information. This is a single\n          allocation that should be freed with SDL_free() when it is no\n          longer needed.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetTouchFingers(
         touchID: SDL_TouchID,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *mut SDL_Finger;
 }
 #[doc = " SDL pen instance IDs.\n\n Zero is used to signify an invalid/null device.\n\n These show up in pen events when SDL sees input from them. They remain\n consistent as long as SDL can recognize a tool to be the same pen; but if a\n pen physically leaves the area and returns, it might get a new ID.\n\n \\since This datatype is available since SDL 3.2.0."]
@@ -8689,7 +8881,7 @@ pub const SDL_PenAxis_SDL_PEN_AXIS_TANGENTIAL_PRESSURE: SDL_PenAxis = 6;
 #[doc = "< Total known pen axis types in this version of SDL. This number may grow in future releases!"]
 pub const SDL_PenAxis_SDL_PEN_AXIS_COUNT: SDL_PenAxis = 7;
 #[doc = " Pen axis indices.\n\n These are the valid values for the `axis` field in SDL_PenAxisEvent. All\n axes are either normalised to 0..1 or report a (positive or negative) angle\n in degrees, with 0.0 representing the centre. Not all pens/backends support\n all axes: unsupported axes are always zero.\n\n To convert angles for tilt and rotation into vector representation, use\n SDL_sinf on the XTILT, YTILT, or ROTATION component, for example:\n\n `SDL_sinf(xtilt * SDL_PI_F / 180.0)`.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_PenAxis = libc::c_uint;
+pub type SDL_PenAxis = ::core::ffi::c_uint;
 #[doc = "< Unused (do not remove)"]
 pub const SDL_EventType_SDL_EVENT_FIRST: SDL_EventType = 0;
 #[doc = "< User-requested quit"]
@@ -8915,7 +9107,7 @@ pub const SDL_EventType_SDL_EVENT_LAST: SDL_EventType = 65535;
 #[doc = "  This last event is only for bounding internal arrays"]
 pub const SDL_EventType_SDL_EVENT_ENUM_PADDING: SDL_EventType = 2147483647;
 #[doc = " The types of events that can be delivered.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_EventType = libc::c_uint;
+pub type SDL_EventType = ::core::ffi::c_uint;
 #[doc = " Fields shared by every event\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -9095,7 +9287,7 @@ pub struct SDL_TextEditingEvent {
     #[doc = "< The window with keyboard focus, if any"]
     pub windowID: SDL_WindowID,
     #[doc = "< The editing text"]
-    pub text: *const libc::c_char,
+    pub text: *const ::core::ffi::c_char,
     #[doc = "< The start cursor of selected editing text, or -1 if not set"]
     pub start: Sint32,
     #[doc = "< The length of selected editing text, or -1 if not set"]
@@ -9132,7 +9324,7 @@ pub struct SDL_TextEditingCandidatesEvent {
     #[doc = "< The window with keyboard focus, if any"]
     pub windowID: SDL_WindowID,
     #[doc = "< The list of candidates, or NULL if there are no candidates available"]
-    pub candidates: *const *const libc::c_char,
+    pub candidates: *const *const ::core::ffi::c_char,
     #[doc = "< The number of strings in `candidates`"]
     pub num_candidates: Sint32,
     #[doc = "< The index of the selected candidate, or -1 if no candidate is selected"]
@@ -9184,7 +9376,7 @@ pub struct SDL_TextInputEvent {
     #[doc = "< The window with keyboard focus, if any"]
     pub windowID: SDL_WindowID,
     #[doc = "< The input text, UTF-8 encoded"]
-    pub text: *const libc::c_char,
+    pub text: *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -9584,7 +9776,7 @@ pub struct SDL_JoyBatteryEvent {
     #[doc = "< The joystick battery state"]
     pub state: SDL_PowerState,
     #[doc = "< The joystick battery percent charge remaining"]
-    pub percent: libc::c_int,
+    pub percent: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -10174,9 +10366,9 @@ pub struct SDL_DropEvent {
     #[doc = "< Y coordinate, relative to window (not on begin)"]
     pub y: f32,
     #[doc = "< The source app that sent this drop event, or NULL if that isn't available"]
-    pub source: *const libc::c_char,
+    pub source: *const ::core::ffi::c_char,
     #[doc = "< The text for SDL_EVENT_DROP_TEXT and the file name for SDL_EVENT_DROP_FILE, NULL for other events"]
-    pub data: *const libc::c_char,
+    pub data: *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -10211,7 +10403,7 @@ pub struct SDL_ClipboardEvent {
     #[doc = "< number of mime types"]
     pub num_mime_types: Sint32,
     #[doc = "< current mime types"]
-    pub mime_types: *mut *const libc::c_char,
+    pub mime_types: *mut *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -10298,9 +10490,9 @@ pub struct SDL_UserEvent {
     #[doc = "< User defined event code"]
     pub code: Sint32,
     #[doc = "< User defined data pointer"]
-    pub data1: *mut libc::c_void,
+    pub data1: *mut ::core::ffi::c_void,
     #[doc = "< User defined data pointer"]
-    pub data2: *mut libc::c_void,
+    pub data2: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -10462,16 +10654,16 @@ pub const SDL_EventAction_SDL_PEEKEVENT: SDL_EventAction = 1;
 #[doc = "< Retrieve/remove events from the front of the queue."]
 pub const SDL_EventAction_SDL_GETEVENT: SDL_EventAction = 2;
 #[doc = " The type of action to request from SDL_PeepEvents().\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_EventAction = libc::c_uint;
+pub type SDL_EventAction = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Check the event queue for messages and optionally return them.\n\n `action` may be any of the following:\n\n - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the\n   event queue.\n - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,\n   within the specified minimum and maximum type, will be returned to the\n   caller and will _not_ be removed from the queue. If you pass NULL for\n   `events`, then `numevents` is ignored and the total number of matching\n   events will be returned.\n - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,\n   within the specified minimum and maximum type, will be returned to the\n   caller and will be removed from the queue.\n\n You may have to call SDL_PumpEvents() before calling this function.\n Otherwise, the events may not be ready to be filtered when you call\n SDL_PeepEvents().\n\n \\param events destination buffer for the retrieved events, may be NULL to\n               leave the events in the queue and return the number of events\n               that would have been stored.\n \\param numevents if action is SDL_ADDEVENT, the number of events to add\n                  back to the event queue; if action is SDL_PEEKEVENT or\n                  SDL_GETEVENT, the maximum number of events to retrieve.\n \\param action action to take; see [[#action|Remarks]] for details.\n \\param minType minimum value of the event type to be considered;\n                SDL_EVENT_FIRST is a safe choice.\n \\param maxType maximum value of the event type to be considered;\n                SDL_EVENT_LAST is a safe choice.\n \\returns the number of events actually stored or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PollEvent\n \\sa SDL_PumpEvents\n \\sa SDL_PushEvent"]
     pub fn SDL_PeepEvents(
         events: *mut SDL_Event,
-        numevents: libc::c_int,
+        numevents: ::core::ffi::c_int,
         action: SDL_EventAction,
         minType: Uint32,
         maxType: Uint32,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Check for the existence of a certain event type in the event queue.\n\n If you need to check for a range of event types, use SDL_HasEvents()\n instead.\n\n \\param type the type of event to be queried; see SDL_EventType for details.\n \\returns true if events matching `type` are present, or false if events\n          matching `type` are not present.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HasEvents"]
@@ -10507,30 +10699,30 @@ unsafe extern "C" {
 }
 #[doc = " A function pointer used for callbacks that watch the event queue.\n\n \\param userdata what was passed as `userdata` to SDL_SetEventFilter() or\n                 SDL_AddEventWatch, etc.\n \\param event the event that triggered the callback.\n \\returns true to permit event to be added to the queue, and false to\n          disallow it. When used with SDL_AddEventWatch, the return value is\n          ignored.\n\n \\threadsafety SDL may call this callback at any time from any thread; the\n               application is responsible for locking resources the callback\n               touches that need to be protected.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetEventFilter\n \\sa SDL_AddEventWatch"]
 pub type SDL_EventFilter = ::core::option::Option<
-    unsafe extern "C" fn(userdata: *mut libc::c_void, event: *mut SDL_Event) -> bool,
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, event: *mut SDL_Event) -> bool,
 >;
 unsafe extern "C" {
     #[doc = " Set up a filter to process all events before they are added to the internal\n event queue.\n\n If you just want to see events without modifying them or preventing them\n from being queued, you should use SDL_AddEventWatch() instead.\n\n If the filter function returns true when called, then the event will be\n added to the internal queue. If it returns false, then the event will be\n dropped from the queue, but the internal state will still be updated. This\n allows selective filtering of dynamically arriving events.\n\n **WARNING**: Be very careful of what you do in the event filter function,\n as it may run in a different thread!\n\n On platforms that support it, if the quit event is generated by an\n interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the\n application at the next event poll.\n\n Note: Disabled events never make it to the event filter function; see\n SDL_SetEventEnabled().\n\n Note: Events pushed onto the queue with SDL_PushEvent() get passed through\n the event filter, but events pushed onto the queue with SDL_PeepEvents() do\n not.\n\n \\param filter an SDL_EventFilter function to call when an event happens.\n \\param userdata a pointer that is passed to `filter`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddEventWatch\n \\sa SDL_SetEventEnabled\n \\sa SDL_GetEventFilter\n \\sa SDL_PeepEvents\n \\sa SDL_PushEvent"]
-    pub fn SDL_SetEventFilter(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_SetEventFilter(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     #[doc = " Query the current event filter.\n\n This function can be used to \"chain\" filters, by saving the existing filter\n before replacing it with a function that will call that saved filter.\n\n \\param filter the current callback function will be stored here.\n \\param userdata the pointer that is passed to the current event filter will\n                 be stored here.\n \\returns true on success or false if there is no event filter set.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetEventFilter"]
     pub fn SDL_GetEventFilter(
         filter: *mut SDL_EventFilter,
-        userdata: *mut *mut libc::c_void,
+        userdata: *mut *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Add a callback to be triggered when an event is added to the event queue.\n\n `filter` will be called when an event happens, and its return value is\n ignored.\n\n **WARNING**: Be very careful of what you do in the event filter function,\n as it may run in a different thread!\n\n If the quit event is generated by a signal (e.g. SIGINT), it will bypass\n the internal queue and be delivered to the watch callback immediately, and\n arrive at the next event poll.\n\n Note: the callback is called for events posted by the user through\n SDL_PushEvent(), but not for disabled events, nor for events by a filter\n callback set with SDL_SetEventFilter(), nor for events posted by the user\n through SDL_PeepEvents().\n\n \\param filter an SDL_EventFilter function to call when an event happens.\n \\param userdata a pointer that is passed to `filter`.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_RemoveEventWatch\n \\sa SDL_SetEventFilter"]
-    pub fn SDL_AddEventWatch(filter: SDL_EventFilter, userdata: *mut libc::c_void) -> bool;
+    pub fn SDL_AddEventWatch(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Remove an event watch callback added with SDL_AddEventWatch().\n\n This function takes the same input as SDL_AddEventWatch() to identify and\n delete the corresponding callback.\n\n \\param filter the function originally passed to SDL_AddEventWatch().\n \\param userdata the pointer originally passed to SDL_AddEventWatch().\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddEventWatch"]
-    pub fn SDL_RemoveEventWatch(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_RemoveEventWatch(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     #[doc = " Run a specific filter function on the current event queue, removing any\n events for which the filter returns false.\n\n See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),\n this function does not change the filter permanently, it only uses the\n supplied filter until this function returns.\n\n \\param filter the SDL_EventFilter function to call when an event happens.\n \\param userdata a pointer that is passed to `filter`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetEventFilter\n \\sa SDL_SetEventFilter"]
-    pub fn SDL_FilterEvents(filter: SDL_EventFilter, userdata: *mut libc::c_void);
+    pub fn SDL_FilterEvents(filter: SDL_EventFilter, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     #[doc = " Set the state of processing events by type.\n\n \\param type the type of event; see SDL_EventType for details.\n \\param enabled whether to process the event or not.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_EventEnabled"]
@@ -10542,7 +10734,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Allocate a set of user-defined events, and return the beginning event\n number for that set of events.\n\n \\param numevents the number of events to be allocated.\n \\returns the beginning event number, or 0 if numevents is invalid or if\n          there are not enough user-defined events left.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PushEvent"]
-    pub fn SDL_RegisterEvents(numevents: libc::c_int) -> Uint32;
+    pub fn SDL_RegisterEvents(numevents: ::core::ffi::c_int) -> Uint32;
 }
 unsafe extern "C" {
     #[doc = " Get window associated with an event.\n\n \\param event an event containing a `windowID`.\n \\returns the associated window on success or NULL if there is none.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PollEvent\n \\sa SDL_WaitEvent\n \\sa SDL_WaitEventTimeout"]
@@ -10550,12 +10742,14 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the directory where the application was run from.\n\n SDL caches the result of this call internally, but the first call to this\n function is not necessarily fast, so plan accordingly.\n\n **macOS and iOS Specific Functionality**: If the application is in a \".app\"\n bundle, this function returns the Resource directory (e.g.\n MyApp.app/Contents/Resources/). This behaviour can be overridden by adding\n a property to the Info.plist file. Adding a string key with the name\n SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the\n behaviour.\n\n Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an\n application in /Applications/SDLApp/MyApp.app):\n\n - `resource`: bundle resource directory (the default). For example:\n   `/Applications/SDLApp/MyApp.app/Contents/Resources`\n - `bundle`: the Bundle directory. For example:\n   `/Applications/SDLApp/MyApp.app/`\n - `parent`: the containing directory of the bundle. For example:\n   `/Applications/SDLApp/`\n\n **Nintendo 3DS Specific Functionality**: This function returns \"romfs\"\n directory of the application as it is uncommon to store resources outside\n the executable. As such it is not a writable directory.\n\n The returned path is guaranteed to end with a path separator ('\\\\' on\n Windows, '/' on most other platforms).\n\n \\returns an absolute path in UTF-8 encoding to the application data\n          directory. NULL will be returned on error or when the platform\n          doesn't implement this functionality, call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetPrefPath"]
-    pub fn SDL_GetBasePath() -> *const libc::c_char;
+    pub fn SDL_GetBasePath() -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the user-and-app-specific path where files can be written.\n\n Get the \"pref dir\". This is meant to be where users can write personal\n files (preferences and save games, etc) that are specific to your\n application. This directory is unique per user, per application.\n\n This function will decide the appropriate location in the native\n filesystem, create the directory if necessary, and return a string of the\n absolute path to the directory in UTF-8 encoding.\n\n On Windows, the string might look like:\n\n `C:\\\\Users\\\\bob\\\\AppData\\\\Roaming\\\\My Company\\\\My Program Name\\\\`\n\n On Linux, the string might look like:\n\n `/home/bob/.local/share/My Program Name/`\n\n On macOS, the string might look like:\n\n `/Users/bob/Library/Application Support/My Program Name/`\n\n You should assume the path returned by this function is the only safe place\n to write files (and that SDL_GetBasePath(), while it might be writable, or\n even the parent of the returned path, isn't where you should be writing\n things).\n\n Both the org and app strings may become part of a directory name, so please\n follow these rules:\n\n - Try to use the same org string (_including case-sensitivity_) for all\n   your applications that use this function.\n - Always use a unique app string for each one, and make sure it never\n   changes for an app once you've decided on it.\n - Unicode characters are legal, as long as they are UTF-8 encoded, but...\n - ...only use letters, numbers, and spaces. Avoid punctuation like \"Game\n   Name 2: Bad Guy's Revenge!\" ... \"Game Name 2\" is sufficient.\n\n The returned path is guaranteed to end with a path separator ('\\\\' on\n Windows, '/' on most other platforms).\n\n \\param org the name of your organization.\n \\param app the name of your application.\n \\returns a UTF-8 string of the user directory in platform-dependent\n          notation. NULL if there's a problem (creating directory failed,\n          etc.). This should be freed with SDL_free() when it is no longer\n          needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetBasePath"]
-    pub fn SDL_GetPrefPath(org: *const libc::c_char, app: *const libc::c_char)
-        -> *mut libc::c_char;
+    pub fn SDL_GetPrefPath(
+        org: *const ::core::ffi::c_char,
+        app: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 #[doc = "< The folder which contains all of the current user's data, preferences, and documents. It usually contains most of the other folders. If a requested folder does not exist, the home folder can be considered a safe fallback to store a user's documents."]
 pub const SDL_Folder_SDL_FOLDER_HOME: SDL_Folder = 0;
@@ -10582,10 +10776,10 @@ pub const SDL_Folder_SDL_FOLDER_VIDEOS: SDL_Folder = 10;
 #[doc = "< Total number of types in this enum, not a folder type by itself."]
 pub const SDL_Folder_SDL_FOLDER_COUNT: SDL_Folder = 11;
 #[doc = " The type of the OS-provided default folder for a specific purpose.\n\n Note that the Trash folder isn't included here, because trashing files\n usually involves extra OS-specific functionality to remember the file's\n original location.\n\n The folders supported per platform are:\n\n |             | Windows | macOS/iOS | tvOS | Unix (XDG) | Haiku | Emscripten |\n | ----------- | ------- | --------- | ---- | ---------- | ----- | ---------- |\n | HOME        | X       | X         |      | X          | X     | X          |\n | DESKTOP     | X       | X         |      | X          | X     |            |\n | DOCUMENTS   | X       | X         |      | X          |       |            |\n | DOWNLOADS   | Vista+  | X         |      | X          |       |            |\n | MUSIC       | X       | X         |      | X          |       |            |\n | PICTURES    | X       | X         |      | X          |       |            |\n | PUBLICSHARE |         | X         |      | X          |       |            |\n | SAVEDGAMES  | Vista+  |           |      |            |       |            |\n | SCREENSHOTS | Vista+  |           |      |            |       |            |\n | TEMPLATES   | X       | X         |      | X          |       |            |\n | VIDEOS      | X       | X*        |      | X          |       |            |\n\n Note that on macOS/iOS, the Videos folder is called \"Movies\".\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetUserFolder"]
-pub type SDL_Folder = libc::c_uint;
+pub type SDL_Folder = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Finds the most suitable user folder for a specific purpose.\n\n Many OSes provide certain standard folders for certain purposes, such as\n storing pictures, music or videos for a certain user. This function gives\n the path for many of those special locations.\n\n This function is specifically for _user_ folders, which are meant for the\n user to access and manage. For application-specific folders, meant to hold\n data for the application to manage, see SDL_GetBasePath() and\n SDL_GetPrefPath().\n\n The returned path is guaranteed to end with a path separator ('\\\\' on\n Windows, '/' on most other platforms).\n\n If NULL is returned, the error may be obtained with SDL_GetError().\n\n \\param folder the type of folder to find.\n \\returns either a null-terminated C string containing the full path to the\n          folder, or NULL if an error happened.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetUserFolder(folder: SDL_Folder) -> *const libc::c_char;
+    pub fn SDL_GetUserFolder(folder: SDL_Folder) -> *const ::core::ffi::c_char;
 }
 #[doc = "< path does not exist"]
 pub const SDL_PathType_SDL_PATHTYPE_NONE: SDL_PathType = 0;
@@ -10596,7 +10790,7 @@ pub const SDL_PathType_SDL_PATHTYPE_DIRECTORY: SDL_PathType = 2;
 #[doc = "< something completely different like a device node (not a symlink, those are always followed)"]
 pub const SDL_PathType_SDL_PATHTYPE_OTHER: SDL_PathType = 3;
 #[doc = " Types of filesystem entries.\n\n Note that there may be other sorts of items on a filesystem: devices,\n symlinks, named pipes, etc. They are currently reported as\n SDL_PATHTYPE_OTHER.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_PathInfo"]
-pub type SDL_PathType = libc::c_uint;
+pub type SDL_PathType = ::core::ffi::c_uint;
 #[doc = " Information about a path on the filesystem.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_GetPathInfo\n \\sa SDL_GetStoragePathInfo"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10629,7 +10823,7 @@ const _: () = {
 pub type SDL_GlobFlags = Uint32;
 unsafe extern "C" {
     #[doc = " Create a directory, and any missing parent directories.\n\n This reports success if `path` already exists as a directory.\n\n If parent directories are missing, it will also create them. Note that if\n this fails, it will not remove any parent directories it already made.\n\n \\param path the path of the directory to create.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_CreateDirectory(path: *const libc::c_char) -> bool;
+    pub fn SDL_CreateDirectory(path: *const ::core::ffi::c_char) -> bool;
 }
 #[doc = "< Value that requests that enumeration continue."]
 pub const SDL_EnumerationResult_SDL_ENUM_CONTINUE: SDL_EnumerationResult = 0;
@@ -10638,51 +10832,57 @@ pub const SDL_EnumerationResult_SDL_ENUM_SUCCESS: SDL_EnumerationResult = 1;
 #[doc = "< Value that requests that enumeration stop, as a failure."]
 pub const SDL_EnumerationResult_SDL_ENUM_FAILURE: SDL_EnumerationResult = 2;
 #[doc = " Possible results from an enumeration callback.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_EnumerateDirectoryCallback"]
-pub type SDL_EnumerationResult = libc::c_uint;
+pub type SDL_EnumerationResult = ::core::ffi::c_uint;
 #[doc = " Callback for directory enumeration.\n\n Enumeration of directory entries will continue until either all entries\n have been provided to the callback, or the callback has requested a stop\n through its return value.\n\n Returning SDL_ENUM_CONTINUE will let enumeration proceed, calling the\n callback with further entries. SDL_ENUM_SUCCESS and SDL_ENUM_FAILURE will\n terminate the enumeration early, and dictate the return value of the\n enumeration function itself.\n\n `dirname` is guaranteed to end with a path separator ('\\\\' on Windows, '/'\n on most other platforms).\n\n \\param userdata an app-controlled pointer that is passed to the callback.\n \\param dirname the directory that is being enumerated.\n \\param fname the next entry in the enumeration.\n \\returns how the enumeration should proceed.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_EnumerateDirectory"]
 pub type SDL_EnumerateDirectoryCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        dirname: *const libc::c_char,
-        fname: *const libc::c_char,
+        userdata: *mut ::core::ffi::c_void,
+        dirname: *const ::core::ffi::c_char,
+        fname: *const ::core::ffi::c_char,
     ) -> SDL_EnumerationResult,
 >;
 unsafe extern "C" {
     #[doc = " Enumerate a directory through a callback function.\n\n This function provides every directory entry through an app-provided\n callback, called once for each directory entry, until all results have been\n provided or the callback returns either SDL_ENUM_SUCCESS or\n SDL_ENUM_FAILURE.\n\n This will return false if there was a system problem in general, or if a\n callback returns SDL_ENUM_FAILURE. A successful return means a callback\n returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries\n were enumerated.\n\n \\param path the path of the directory to enumerate.\n \\param callback a function that is called for each entry in the directory.\n \\param userdata a pointer that is passed to `callback`.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_EnumerateDirectory(
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         callback: SDL_EnumerateDirectoryCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Remove a file or an empty directory.\n\n Directories that are not empty will fail; this function will not recursely\n delete directory trees.\n\n \\param path the path to remove from the filesystem.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_RemovePath(path: *const libc::c_char) -> bool;
+    pub fn SDL_RemovePath(path: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Rename a file or directory.\n\n If the file at `newpath` already exists, it will replaced.\n\n Note that this will not copy files across filesystems/drives/volumes, as\n that is a much more complicated (and possibly time-consuming) operation.\n\n Which is to say, if this function fails, SDL_CopyFile() to a temporary file\n in the same directory as `newpath`, then SDL_RenamePath() from the\n temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work\n for files. Renaming a non-empty directory across filesystems is\n dramatically more complex, however.\n\n \\param oldpath the old path.\n \\param newpath the new path.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_RenamePath(oldpath: *const libc::c_char, newpath: *const libc::c_char) -> bool;
+    pub fn SDL_RenamePath(
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Copy a file.\n\n If the file at `newpath` already exists, it will be overwritten with the\n contents of the file at `oldpath`.\n\n This function will block until the copy is complete, which might be a\n significant time for large files on slow disks. On some platforms, the copy\n can be handed off to the OS itself, but on others SDL might just open both\n paths, and read from one and write to the other.\n\n Note that this is not an atomic operation! If something tries to read from\n `newpath` while the copy is in progress, it will see an incomplete copy of\n the data, and if the calling thread terminates (or the power goes out)\n during the copy, `newpath`'s previous contents will be gone, replaced with\n an incomplete copy of the data. To avoid this risk, it is recommended that\n the app copy to a temporary file in the same directory as `newpath`, and if\n the copy is successful, use SDL_RenamePath() to replace `newpath` with the\n temporary file. This will ensure that reads of `newpath` will either see a\n complete copy of the data, or it will see the pre-copy state of `newpath`.\n\n This function attempts to synchronize the newly-copied data to disk before\n returning, if the platform allows it, so that the renaming trick will not\n have a problem in a system crash or power failure, where the file could be\n renamed but the contents never made it from the system file cache to the\n physical disk.\n\n If the copy fails for any reason, the state of `newpath` is undefined. It\n might be half a copy, it might be the untouched data of what was already\n there, or it might be a zero-byte file, etc.\n\n \\param oldpath the old path.\n \\param newpath the new path.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_CopyFile(oldpath: *const libc::c_char, newpath: *const libc::c_char) -> bool;
+    pub fn SDL_CopyFile(
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get information about a filesystem path.\n\n \\param path the path to query.\n \\param info a pointer filled in with information about the path, or NULL to\n             check for the existence of a file.\n \\returns true on success or false if the file doesn't exist, or another\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetPathInfo(path: *const libc::c_char, info: *mut SDL_PathInfo) -> bool;
+    pub fn SDL_GetPathInfo(path: *const ::core::ffi::c_char, info: *mut SDL_PathInfo) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Enumerate a directory tree, filtered by pattern, and return a list.\n\n Files are filtered out if they don't match the string in `pattern`, which\n may contain wildcard characters '\\*' (match everything) and '?' (match one\n character). If pattern is NULL, no filtering is done and all results are\n returned. Subdirectories are permitted, and are specified with a path\n separator of '/'. Wildcard characters '\\*' and '?' never match a path\n separator.\n\n `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching\n case-insensitive.\n\n The returned array is always NULL-terminated, for your iterating\n convenience, but if `count` is non-NULL, on return it will contain the\n number of items in the array, not counting the NULL terminator.\n\n \\param path the path of the directory to enumerate.\n \\param pattern the pattern that files in the directory must match. Can be\n                NULL.\n \\param flags `SDL_GLOB_*` bitflags that affect this search.\n \\param count on return, will be set to the number of items in the returned\n              array. Can be NULL.\n \\returns an array of strings on success or NULL on failure; call\n          SDL_GetError() for more information. This is a single allocation\n          that should be freed with SDL_free() when it is no longer needed.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GlobDirectory(
-        path: *const libc::c_char,
-        pattern: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
+        pattern: *const ::core::ffi::c_char,
         flags: SDL_GlobFlags,
-        count: *mut libc::c_int,
-    ) -> *mut *mut libc::c_char;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut *mut ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get what the system believes is the \"current working directory.\"\n\n For systems without a concept of a current working directory, this will\n still attempt to provide something reasonable.\n\n SDL does not provide a means to _change_ the current working directory; for\n platforms without this concept, this would cause surprises with file access\n outside of SDL.\n\n The returned path is guaranteed to end with a path separator ('\\\\' on\n Windows, '/' on most other platforms).\n\n \\returns a UTF-8 string of the current working directory in\n          platform-dependent notation. NULL if there's a problem. This\n          should be freed with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetCurrentDirectory() -> *mut libc::c_char;
+    pub fn SDL_GetCurrentDirectory() -> *mut ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10760,7 +10960,7 @@ pub const SDL_GPUPrimitiveType_SDL_GPU_PRIMITIVETYPE_LINESTRIP: SDL_GPUPrimitive
 #[doc = "< A series of separate points."]
 pub const SDL_GPUPrimitiveType_SDL_GPU_PRIMITIVETYPE_POINTLIST: SDL_GPUPrimitiveType = 4;
 #[doc = " Specifies the primitive topology of a graphics pipeline.\n\n If you are using POINTLIST you must include a point size output in the\n vertex shader.\n\n - For HLSL compiling to SPIRV you must decorate a float output with\n   [[vk::builtin(\"PointSize\")]].\n - For GLSL you must set the gl_PointSize builtin.\n - For MSL you must include a float output with the [[point_size]]\n   decorator.\n\n Note that sized point topology is totally unsupported on D3D12. Any size\n other than 1 will be ignored. In general, you should avoid using point\n topology for both compatibility and performance reasons. You WILL regret\n using it.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUPrimitiveType = libc::c_uint;
+pub type SDL_GPUPrimitiveType = ::core::ffi::c_uint;
 #[doc = "< The previous contents of the texture will be preserved."]
 pub const SDL_GPULoadOp_SDL_GPU_LOADOP_LOAD: SDL_GPULoadOp = 0;
 #[doc = "< The contents of the texture will be cleared to a color."]
@@ -10768,7 +10968,7 @@ pub const SDL_GPULoadOp_SDL_GPU_LOADOP_CLEAR: SDL_GPULoadOp = 1;
 #[doc = "< The previous contents of the texture need not be preserved. The contents will be undefined."]
 pub const SDL_GPULoadOp_SDL_GPU_LOADOP_DONT_CARE: SDL_GPULoadOp = 2;
 #[doc = " Specifies how the contents of a texture attached to a render pass are\n treated at the beginning of the render pass.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_BeginGPURenderPass"]
-pub type SDL_GPULoadOp = libc::c_uint;
+pub type SDL_GPULoadOp = ::core::ffi::c_uint;
 #[doc = "< The contents generated during the render pass will be written to memory."]
 pub const SDL_GPUStoreOp_SDL_GPU_STOREOP_STORE: SDL_GPUStoreOp = 0;
 #[doc = "< The contents generated during the render pass are not needed and may be discarded. The contents will be undefined."]
@@ -10778,13 +10978,13 @@ pub const SDL_GPUStoreOp_SDL_GPU_STOREOP_RESOLVE: SDL_GPUStoreOp = 2;
 #[doc = "< The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture will be written to memory."]
 pub const SDL_GPUStoreOp_SDL_GPU_STOREOP_RESOLVE_AND_STORE: SDL_GPUStoreOp = 3;
 #[doc = " Specifies how the contents of a texture attached to a render pass are\n treated at the end of the render pass.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_BeginGPURenderPass"]
-pub type SDL_GPUStoreOp = libc::c_uint;
+pub type SDL_GPUStoreOp = ::core::ffi::c_uint;
 #[doc = "< The index elements are 16-bit."]
 pub const SDL_GPUIndexElementSize_SDL_GPU_INDEXELEMENTSIZE_16BIT: SDL_GPUIndexElementSize = 0;
 #[doc = "< The index elements are 32-bit."]
 pub const SDL_GPUIndexElementSize_SDL_GPU_INDEXELEMENTSIZE_32BIT: SDL_GPUIndexElementSize = 1;
 #[doc = " Specifies the size of elements in an index buffer.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUIndexElementSize = libc::c_uint;
+pub type SDL_GPUIndexElementSize = ::core::ffi::c_uint;
 pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_INVALID: SDL_GPUTextureFormat = 0;
 pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_A8_UNORM: SDL_GPUTextureFormat = 1;
 pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_R8_UNORM: SDL_GPUTextureFormat = 2;
@@ -10897,7 +11097,7 @@ pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT: SDL_GPUTe
 pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT: SDL_GPUTextureFormat = 103;
 pub const SDL_GPUTextureFormat_SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT: SDL_GPUTextureFormat = 104;
 #[doc = " Specifies the pixel format of a texture.\n\n Texture format support varies depending on driver, hardware, and usage\n flags. In general, you should use SDL_GPUTextureSupportsFormat to query if\n a format is supported before using it. However, there are a few guaranteed\n formats.\n\n FIXME: Check universal support for 32-bit component formats FIXME: Check\n universal support for SIMULTANEOUS_READ_WRITE\n\n For SAMPLER usage, the following formats are universally supported:\n\n - R8G8B8A8_UNORM\n - B8G8R8A8_UNORM\n - R8_UNORM\n - R8_SNORM\n - R8G8_UNORM\n - R8G8_SNORM\n - R8G8B8A8_SNORM\n - R16_FLOAT\n - R16G16_FLOAT\n - R16G16B16A16_FLOAT\n - R32_FLOAT\n - R32G32_FLOAT\n - R32G32B32A32_FLOAT\n - R11G11B10_UFLOAT\n - R8G8B8A8_UNORM_SRGB\n - B8G8R8A8_UNORM_SRGB\n - D16_UNORM\n\n For COLOR_TARGET usage, the following formats are universally supported:\n\n - R8G8B8A8_UNORM\n - B8G8R8A8_UNORM\n - R8_UNORM\n - R16_FLOAT\n - R16G16_FLOAT\n - R16G16B16A16_FLOAT\n - R32_FLOAT\n - R32G32_FLOAT\n - R32G32B32A32_FLOAT\n - R8_UINT\n - R8G8_UINT\n - R8G8B8A8_UINT\n - R16_UINT\n - R16G16_UINT\n - R16G16B16A16_UINT\n - R8_INT\n - R8G8_INT\n - R8G8B8A8_INT\n - R16_INT\n - R16G16_INT\n - R16G16B16A16_INT\n - R8G8B8A8_UNORM_SRGB\n - B8G8R8A8_UNORM_SRGB\n\n For STORAGE usages, the following formats are universally supported:\n\n - R8G8B8A8_UNORM\n - R8G8B8A8_SNORM\n - R16G16B16A16_FLOAT\n - R32_FLOAT\n - R32G32_FLOAT\n - R32G32B32A32_FLOAT\n - R8G8B8A8_UINT\n - R16G16B16A16_UINT\n - R8G8B8A8_INT\n - R16G16B16A16_INT\n\n For DEPTH_STENCIL_TARGET usage, the following formats are universally\n supported:\n\n - D16_UNORM\n - Either (but not necessarily both!) D24_UNORM or D32_FLOAT\n - Either (but not necessarily both!) D24_UNORM_S8_UINT or D32_FLOAT_S8_UINT\n\n Unless D16_UNORM is sufficient for your purposes, always check which of\n D24/D32 is supported before creating a depth-stencil texture!\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUTexture\n \\sa SDL_GPUTextureSupportsFormat"]
-pub type SDL_GPUTextureFormat = libc::c_uint;
+pub type SDL_GPUTextureFormat = ::core::ffi::c_uint;
 #[doc = " Specifies how a texture is intended to be used by the client.\n\n A texture must have at least one usage flag. Note that some usage flag\n combinations are invalid.\n\n With regards to compute storage usage, READ | WRITE means that you can have\n shader A that only writes into the texture and shader B that only reads\n from the texture and bind the same texture to either shader respectively.\n SIMULTANEOUS means that you can do reads and writes within the same shader\n or compute pass. It also implies that atomic ops can be used, since those\n are read-modify-write operations. If you use SIMULTANEOUS, you are\n responsible for avoiding data races, as there is no data synchronization\n within a compute pass. Note that SIMULTANEOUS usage is only supported by a\n limited number of texture formats.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUTexture"]
 pub type SDL_GPUTextureUsageFlags = Uint32;
 #[doc = "< The texture is a 2-dimensional image."]
@@ -10911,7 +11111,7 @@ pub const SDL_GPUTextureType_SDL_GPU_TEXTURETYPE_CUBE: SDL_GPUTextureType = 3;
 #[doc = "< The texture is a cube array image."]
 pub const SDL_GPUTextureType_SDL_GPU_TEXTURETYPE_CUBE_ARRAY: SDL_GPUTextureType = 4;
 #[doc = " Specifies the type of a texture.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUTexture"]
-pub type SDL_GPUTextureType = libc::c_uint;
+pub type SDL_GPUTextureType = ::core::ffi::c_uint;
 #[doc = "< No multisampling."]
 pub const SDL_GPUSampleCount_SDL_GPU_SAMPLECOUNT_1: SDL_GPUSampleCount = 0;
 #[doc = "< MSAA 2x"]
@@ -10921,7 +11121,7 @@ pub const SDL_GPUSampleCount_SDL_GPU_SAMPLECOUNT_4: SDL_GPUSampleCount = 2;
 #[doc = "< MSAA 8x"]
 pub const SDL_GPUSampleCount_SDL_GPU_SAMPLECOUNT_8: SDL_GPUSampleCount = 3;
 #[doc = " Specifies the sample count of a texture.\n\n Used in multisampling. Note that this value only applies when the texture\n is used as a render target.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUTexture\n \\sa SDL_GPUTextureSupportsSampleCount"]
-pub type SDL_GPUSampleCount = libc::c_uint;
+pub type SDL_GPUSampleCount = ::core::ffi::c_uint;
 pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_POSITIVEX: SDL_GPUCubeMapFace = 0;
 pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_NEGATIVEX: SDL_GPUCubeMapFace = 1;
 pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_POSITIVEY: SDL_GPUCubeMapFace = 2;
@@ -10929,7 +11129,7 @@ pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_NEGATIVEY: SDL_GPUCubeMapFace =
 pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_POSITIVEZ: SDL_GPUCubeMapFace = 4;
 pub const SDL_GPUCubeMapFace_SDL_GPU_CUBEMAPFACE_NEGATIVEZ: SDL_GPUCubeMapFace = 5;
 #[doc = " Specifies the face of a cube map.\n\n Can be passed in as the layer field in texture-related structs.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_GPUCubeMapFace = libc::c_uint;
+pub type SDL_GPUCubeMapFace = ::core::ffi::c_uint;
 #[doc = " Specifies how a buffer is intended to be used by the client.\n\n A buffer must have at least one usage flag. Note that some usage flag\n combinations are invalid.\n\n Unlike textures, READ | WRITE can be used for simultaneous read-write\n usage. The same data synchronization concerns as textures apply.\n\n If you use a STORAGE flag, the data in the buffer must respect std140\n layout conventions. In practical terms this means you must ensure that vec3\n and vec4 fields are 16-byte aligned.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUBuffer"]
 pub type SDL_GPUBufferUsageFlags = Uint32;
 pub const SDL_GPUTransferBufferUsage_SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD:
@@ -10937,11 +11137,11 @@ pub const SDL_GPUTransferBufferUsage_SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD:
 pub const SDL_GPUTransferBufferUsage_SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD:
     SDL_GPUTransferBufferUsage = 1;
 #[doc = " Specifies how a transfer buffer is intended to be used by the client.\n\n Note that mapping and copying FROM an upload transfer buffer or TO a\n download transfer buffer is undefined behavior.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUTransferBuffer"]
-pub type SDL_GPUTransferBufferUsage = libc::c_uint;
+pub type SDL_GPUTransferBufferUsage = ::core::ffi::c_uint;
 pub const SDL_GPUShaderStage_SDL_GPU_SHADERSTAGE_VERTEX: SDL_GPUShaderStage = 0;
 pub const SDL_GPUShaderStage_SDL_GPU_SHADERSTAGE_FRAGMENT: SDL_GPUShaderStage = 1;
 #[doc = " Specifies which stage a shader program corresponds to.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUShader"]
-pub type SDL_GPUShaderStage = libc::c_uint;
+pub type SDL_GPUShaderStage = ::core::ffi::c_uint;
 #[doc = " Specifies the format of shader code.\n\n Each format corresponds to a specific backend that accepts it.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUShader"]
 pub type SDL_GPUShaderFormat = Uint32;
 pub const SDL_GPUVertexElementFormat_SDL_GPU_VERTEXELEMENTFORMAT_INVALID:
@@ -11007,19 +11207,19 @@ pub const SDL_GPUVertexElementFormat_SDL_GPU_VERTEXELEMENTFORMAT_HALF2: SDL_GPUV
 pub const SDL_GPUVertexElementFormat_SDL_GPU_VERTEXELEMENTFORMAT_HALF4: SDL_GPUVertexElementFormat =
     30;
 #[doc = " Specifies the format of a vertex attribute.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUVertexElementFormat = libc::c_uint;
+pub type SDL_GPUVertexElementFormat = ::core::ffi::c_uint;
 #[doc = "< Attribute addressing is a function of the vertex index."]
 pub const SDL_GPUVertexInputRate_SDL_GPU_VERTEXINPUTRATE_VERTEX: SDL_GPUVertexInputRate = 0;
 #[doc = "< Attribute addressing is a function of the instance index."]
 pub const SDL_GPUVertexInputRate_SDL_GPU_VERTEXINPUTRATE_INSTANCE: SDL_GPUVertexInputRate = 1;
 #[doc = " Specifies the rate at which vertex attributes are pulled from buffers.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUVertexInputRate = libc::c_uint;
+pub type SDL_GPUVertexInputRate = ::core::ffi::c_uint;
 #[doc = "< Polygons will be rendered via rasterization."]
 pub const SDL_GPUFillMode_SDL_GPU_FILLMODE_FILL: SDL_GPUFillMode = 0;
 #[doc = "< Polygon edges will be drawn as line segments."]
 pub const SDL_GPUFillMode_SDL_GPU_FILLMODE_LINE: SDL_GPUFillMode = 1;
 #[doc = " Specifies the fill mode of the graphics pipeline.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUFillMode = libc::c_uint;
+pub type SDL_GPUFillMode = ::core::ffi::c_uint;
 #[doc = "< No triangles are culled."]
 pub const SDL_GPUCullMode_SDL_GPU_CULLMODE_NONE: SDL_GPUCullMode = 0;
 #[doc = "< Front-facing triangles are culled."]
@@ -11027,13 +11227,13 @@ pub const SDL_GPUCullMode_SDL_GPU_CULLMODE_FRONT: SDL_GPUCullMode = 1;
 #[doc = "< Back-facing triangles are culled."]
 pub const SDL_GPUCullMode_SDL_GPU_CULLMODE_BACK: SDL_GPUCullMode = 2;
 #[doc = " Specifies the facing direction in which triangle faces will be culled.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUCullMode = libc::c_uint;
+pub type SDL_GPUCullMode = ::core::ffi::c_uint;
 #[doc = "< A triangle with counter-clockwise vertex winding will be considered front-facing."]
 pub const SDL_GPUFrontFace_SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE: SDL_GPUFrontFace = 0;
 #[doc = "< A triangle with clockwise vertex winding will be considered front-facing."]
 pub const SDL_GPUFrontFace_SDL_GPU_FRONTFACE_CLOCKWISE: SDL_GPUFrontFace = 1;
 #[doc = " Specifies the vertex winding that will cause a triangle to be determined to\n be front-facing.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUFrontFace = libc::c_uint;
+pub type SDL_GPUFrontFace = ::core::ffi::c_uint;
 pub const SDL_GPUCompareOp_SDL_GPU_COMPAREOP_INVALID: SDL_GPUCompareOp = 0;
 #[doc = "< The comparison always evaluates false."]
 pub const SDL_GPUCompareOp_SDL_GPU_COMPAREOP_NEVER: SDL_GPUCompareOp = 1;
@@ -11052,7 +11252,7 @@ pub const SDL_GPUCompareOp_SDL_GPU_COMPAREOP_GREATER_OR_EQUAL: SDL_GPUCompareOp 
 #[doc = "< The comparison always evaluates true."]
 pub const SDL_GPUCompareOp_SDL_GPU_COMPAREOP_ALWAYS: SDL_GPUCompareOp = 8;
 #[doc = " Specifies a comparison operator for depth, stencil and sampler operations.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUCompareOp = libc::c_uint;
+pub type SDL_GPUCompareOp = ::core::ffi::c_uint;
 pub const SDL_GPUStencilOp_SDL_GPU_STENCILOP_INVALID: SDL_GPUStencilOp = 0;
 #[doc = "< Keeps the current value."]
 pub const SDL_GPUStencilOp_SDL_GPU_STENCILOP_KEEP: SDL_GPUStencilOp = 1;
@@ -11071,7 +11271,7 @@ pub const SDL_GPUStencilOp_SDL_GPU_STENCILOP_INCREMENT_AND_WRAP: SDL_GPUStencilO
 #[doc = "< Decrements the current value and wraps to the maximum value."]
 pub const SDL_GPUStencilOp_SDL_GPU_STENCILOP_DECREMENT_AND_WRAP: SDL_GPUStencilOp = 8;
 #[doc = " Specifies what happens to a stored stencil value if stencil tests fail or\n pass.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUStencilOp = libc::c_uint;
+pub type SDL_GPUStencilOp = ::core::ffi::c_uint;
 pub const SDL_GPUBlendOp_SDL_GPU_BLENDOP_INVALID: SDL_GPUBlendOp = 0;
 #[doc = "< (source * source_factor) + (destination * destination_factor)"]
 pub const SDL_GPUBlendOp_SDL_GPU_BLENDOP_ADD: SDL_GPUBlendOp = 1;
@@ -11084,7 +11284,7 @@ pub const SDL_GPUBlendOp_SDL_GPU_BLENDOP_MIN: SDL_GPUBlendOp = 4;
 #[doc = "< max(source, destination)"]
 pub const SDL_GPUBlendOp_SDL_GPU_BLENDOP_MAX: SDL_GPUBlendOp = 5;
 #[doc = " Specifies the operator to be used when pixels in a render target are\n blended with existing pixels in the texture.\n\n The source color is the value written by the fragment shader. The\n destination color is the value currently existing in the texture.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUBlendOp = libc::c_uint;
+pub type SDL_GPUBlendOp = ::core::ffi::c_uint;
 pub const SDL_GPUBlendFactor_SDL_GPU_BLENDFACTOR_INVALID: SDL_GPUBlendFactor = 0;
 #[doc = "< 0"]
 pub const SDL_GPUBlendFactor_SDL_GPU_BLENDFACTOR_ZERO: SDL_GPUBlendFactor = 1;
@@ -11113,7 +11313,7 @@ pub const SDL_GPUBlendFactor_SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR: SDL_G
 #[doc = "< min(source alpha, 1 - destination alpha)"]
 pub const SDL_GPUBlendFactor_SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE: SDL_GPUBlendFactor = 13;
 #[doc = " Specifies a blending factor to be used when pixels in a render target are\n blended with existing pixels in the texture.\n\n The source color is the value written by the fragment shader. The\n destination color is the value currently existing in the texture.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
-pub type SDL_GPUBlendFactor = libc::c_uint;
+pub type SDL_GPUBlendFactor = ::core::ffi::c_uint;
 #[doc = " Specifies which color components are written in a graphics pipeline.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUGraphicsPipeline"]
 pub type SDL_GPUColorComponentFlags = Uint8;
 #[doc = "< Point filtering."]
@@ -11121,13 +11321,13 @@ pub const SDL_GPUFilter_SDL_GPU_FILTER_NEAREST: SDL_GPUFilter = 0;
 #[doc = "< Linear filtering."]
 pub const SDL_GPUFilter_SDL_GPU_FILTER_LINEAR: SDL_GPUFilter = 1;
 #[doc = " Specifies a filter operation used by a sampler.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUSampler"]
-pub type SDL_GPUFilter = libc::c_uint;
+pub type SDL_GPUFilter = ::core::ffi::c_uint;
 #[doc = "< Point filtering."]
 pub const SDL_GPUSamplerMipmapMode_SDL_GPU_SAMPLERMIPMAPMODE_NEAREST: SDL_GPUSamplerMipmapMode = 0;
 #[doc = "< Linear filtering."]
 pub const SDL_GPUSamplerMipmapMode_SDL_GPU_SAMPLERMIPMAPMODE_LINEAR: SDL_GPUSamplerMipmapMode = 1;
 #[doc = " Specifies a mipmap mode used by a sampler.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUSampler"]
-pub type SDL_GPUSamplerMipmapMode = libc::c_uint;
+pub type SDL_GPUSamplerMipmapMode = ::core::ffi::c_uint;
 #[doc = "< Specifies that the coordinates will wrap around."]
 pub const SDL_GPUSamplerAddressMode_SDL_GPU_SAMPLERADDRESSMODE_REPEAT: SDL_GPUSamplerAddressMode =
     0;
@@ -11138,12 +11338,12 @@ pub const SDL_GPUSamplerAddressMode_SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT:
 pub const SDL_GPUSamplerAddressMode_SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE:
     SDL_GPUSamplerAddressMode = 2;
 #[doc = " Specifies behavior of texture sampling when the coordinates exceed the 0-1\n range.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUSampler"]
-pub type SDL_GPUSamplerAddressMode = libc::c_uint;
+pub type SDL_GPUSamplerAddressMode = ::core::ffi::c_uint;
 pub const SDL_GPUPresentMode_SDL_GPU_PRESENTMODE_VSYNC: SDL_GPUPresentMode = 0;
 pub const SDL_GPUPresentMode_SDL_GPU_PRESENTMODE_IMMEDIATE: SDL_GPUPresentMode = 1;
 pub const SDL_GPUPresentMode_SDL_GPU_PRESENTMODE_MAILBOX: SDL_GPUPresentMode = 2;
 #[doc = " Specifies the timing that will be used to present swapchain textures to the\n OS.\n\n VSYNC mode will always be supported. IMMEDIATE and MAILBOX modes may not be\n supported on certain systems.\n\n It is recommended to query SDL_WindowSupportsGPUPresentMode after claiming\n the window if you wish to change the present mode to IMMEDIATE or MAILBOX.\n\n - VSYNC: Waits for vblank before presenting. No tearing is possible. If\n   there is a pending image to present, the new image is enqueued for\n   presentation. Disallows tearing at the cost of visual latency.\n - IMMEDIATE: Immediately presents. Lowest latency option, but tearing may\n   occur.\n - MAILBOX: Waits for vblank before presenting. No tearing is possible. If\n   there is a pending image to present, the pending image is replaced by the\n   new image. Similar to VSYNC, but with reduced visual latency.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_SetGPUSwapchainParameters\n \\sa SDL_WindowSupportsGPUPresentMode\n \\sa SDL_WaitAndAcquireGPUSwapchainTexture"]
-pub type SDL_GPUPresentMode = libc::c_uint;
+pub type SDL_GPUPresentMode = ::core::ffi::c_uint;
 pub const SDL_GPUSwapchainComposition_SDL_GPU_SWAPCHAINCOMPOSITION_SDR:
     SDL_GPUSwapchainComposition = 0;
 pub const SDL_GPUSwapchainComposition_SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR:
@@ -11153,7 +11353,7 @@ pub const SDL_GPUSwapchainComposition_SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_
 pub const SDL_GPUSwapchainComposition_SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084:
     SDL_GPUSwapchainComposition = 3;
 #[doc = " Specifies the texture format and colorspace of the swapchain textures.\n\n SDR will always be supported. Other compositions may not be supported on\n certain systems.\n\n It is recommended to query SDL_WindowSupportsGPUSwapchainComposition after\n claiming the window if you wish to change the swapchain composition from\n SDR.\n\n - SDR: B8G8R8A8 or R8G8B8A8 swapchain. Pixel values are in sRGB encoding.\n - SDR_LINEAR: B8G8R8A8_SRGB or R8G8B8A8_SRGB swapchain. Pixel values are\n   stored in memory in sRGB encoding but accessed in shaders in \"linear\n   sRGB\" encoding which is sRGB but with a linear transfer function.\n - HDR_EXTENDED_LINEAR: R16G16B16A16_FLOAT swapchain. Pixel values are in\n   extended linear sRGB encoding and permits values outside of the [0, 1]\n   range.\n - HDR10_ST2084: A2R10G10B10 or A2B10G10R10 swapchain. Pixel values are in\n   BT.2020 ST2084 (PQ) encoding.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_SetGPUSwapchainParameters\n \\sa SDL_WindowSupportsGPUSwapchainComposition\n \\sa SDL_WaitAndAcquireGPUSwapchainTexture"]
-pub type SDL_GPUSwapchainComposition = libc::c_uint;
+pub type SDL_GPUSwapchainComposition = ::core::ffi::c_uint;
 #[doc = " A structure specifying a viewport.\n\n \\since This struct is available since SDL 3.2.0.\n\n \\sa SDL_SetGPUViewport"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11723,7 +11923,7 @@ pub struct SDL_GPUShaderCreateInfo {
     #[doc = "< A pointer to shader code."]
     pub code: *const Uint8,
     #[doc = "< A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader."]
-    pub entrypoint: *const libc::c_char,
+    pub entrypoint: *const ::core::ffi::c_char,
     #[doc = "< The format of the shader code."]
     pub format: SDL_GPUShaderFormat,
     #[doc = "< The stage the shader program corresponds to."]
@@ -12117,7 +12317,7 @@ pub struct SDL_GPUComputePipelineCreateInfo {
     #[doc = "< A pointer to compute shader code."]
     pub code: *const Uint8,
     #[doc = "< A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader."]
-    pub entrypoint: *const libc::c_char,
+    pub entrypoint: *const ::core::ffi::c_char,
     #[doc = "< The format of the compute shader code."]
     pub format: SDL_GPUShaderFormat,
     #[doc = "< The number of samplers defined in the shader."]
@@ -12454,7 +12654,7 @@ unsafe extern "C" {
     #[doc = " Checks for GPU runtime support.\n\n \\param format_flags a bitflag indicating which shader formats the app is\n                     able to provide.\n \\param name the preferred GPU driver, or NULL to let SDL pick the optimal\n             driver.\n \\returns true if supported, false otherwise.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateGPUDevice"]
     pub fn SDL_GPUSupportsShaderFormats(
         format_flags: SDL_GPUShaderFormat,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -12466,7 +12666,7 @@ unsafe extern "C" {
     pub fn SDL_CreateGPUDevice(
         format_flags: SDL_GPUShaderFormat,
         debug_mode: bool,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> *mut SDL_GPUDevice;
 }
 unsafe extern "C" {
@@ -12479,15 +12679,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of GPU drivers compiled into SDL.\n\n \\returns the number of built in GPU drivers.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetGPUDriver"]
-    pub fn SDL_GetNumGPUDrivers() -> libc::c_int;
+    pub fn SDL_GetNumGPUDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the name of a built in GPU driver.\n\n The GPU drivers are presented in the order in which they are normally\n checked during initialization.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"vulkan\",\n \"metal\" or \"direct3d12\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\param index the index of a GPU driver.\n \\returns the name of the GPU driver with the given **index**.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumGPUDrivers"]
-    pub fn SDL_GetGPUDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetGPUDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Returns the name of the backend used to create this GPU context.\n\n \\param device a GPU context to query.\n \\returns the name of the device's driver, or NULL on error.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetGPUDeviceDriver(device: *mut SDL_GPUDevice) -> *const libc::c_char;
+    pub fn SDL_GetGPUDeviceDriver(device: *mut SDL_GPUDevice) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Returns the supported shader formats for this GPU context.\n\n \\param device a GPU context to query.\n \\returns a bitflag indicating which shader formats the driver is able to\n          consume.\n\n \\since This function is available since SDL 3.2.0."]
@@ -12547,7 +12747,7 @@ unsafe extern "C" {
     pub fn SDL_SetGPUBufferName(
         device: *mut SDL_GPUDevice,
         buffer: *mut SDL_GPUBuffer,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
@@ -12555,21 +12755,21 @@ unsafe extern "C" {
     pub fn SDL_SetGPUTextureName(
         device: *mut SDL_GPUDevice,
         texture: *mut SDL_GPUTexture,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     #[doc = " Inserts an arbitrary string label into the command buffer callstream.\n\n Useful for debugging.\n\n \\param command_buffer a command buffer.\n \\param text a UTF-8 string constant to insert as the label.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_InsertGPUDebugLabel(
         command_buffer: *mut SDL_GPUCommandBuffer,
-        text: *const libc::c_char,
+        text: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
     #[doc = " Begins a debug group with an arbitary name.\n\n Used for denoting groups of calls when viewing the command buffer\n callstream in a graphics debugging tool.\n\n Each call to SDL_PushGPUDebugGroup must have a corresponding call to\n SDL_PopGPUDebugGroup.\n\n On some backends (e.g. Metal), pushing a debug group during a\n render/blit/compute pass will create a group that is scoped to the native\n pass rather than the command buffer. For best results, if you push a debug\n group during a pass, always pop it in the same pass.\n\n \\param command_buffer a command buffer.\n \\param name a UTF-8 string constant that names the group.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_PopGPUDebugGroup"]
     pub fn SDL_PushGPUDebugGroup(
         command_buffer: *mut SDL_GPUCommandBuffer,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     );
 }
 unsafe extern "C" {
@@ -12622,7 +12822,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUVertexUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -12631,7 +12831,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUFragmentUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -12640,7 +12840,7 @@ unsafe extern "C" {
     pub fn SDL_PushGPUComputeUniformData(
         command_buffer: *mut SDL_GPUCommandBuffer,
         slot_index: Uint32,
-        data: *const libc::c_void,
+        data: *const ::core::ffi::c_void,
         length: Uint32,
     );
 }
@@ -12867,7 +13067,7 @@ unsafe extern "C" {
         device: *mut SDL_GPUDevice,
         transfer_buffer: *mut SDL_GPUTransferBuffer,
         cycle: bool,
-    ) -> *mut libc::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Unmaps a previously mapped transfer buffer.\n\n \\param device a GPU context.\n \\param transfer_buffer a previously mapped transfer buffer.\n\n \\since This function is available since SDL 3.2.0."]
@@ -13484,11 +13684,11 @@ const _: () = {
 pub type SDL_HapticID = Uint32;
 unsafe extern "C" {
     #[doc = " Get a list of currently connected haptic devices.\n\n \\param count a pointer filled in with the number of haptic devices\n              returned, may be NULL.\n \\returns a 0 terminated array of haptic device instance IDs or NULL on\n          failure; call SDL_GetError() for more information. This should be\n          freed with SDL_free() when it is no longer needed.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenHaptic"]
-    pub fn SDL_GetHaptics(count: *mut libc::c_int) -> *mut SDL_HapticID;
+    pub fn SDL_GetHaptics(count: *mut ::core::ffi::c_int) -> *mut SDL_HapticID;
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a haptic device.\n\n This can be called before any haptic devices are opened.\n\n \\param instance_id the haptic device instance ID.\n \\returns the name of the selected haptic device. If no name can be found,\n          this function returns NULL; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticName\n \\sa SDL_OpenHaptic"]
-    pub fn SDL_GetHapticNameForID(instance_id: SDL_HapticID) -> *const libc::c_char;
+    pub fn SDL_GetHapticNameForID(instance_id: SDL_HapticID) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Open a haptic device for use.\n\n The index passed as an argument refers to the N'th haptic device on this\n system.\n\n When opening a haptic device, its gain will be set to maximum and\n autocenter will be disabled. To modify these values use SDL_SetHapticGain()\n and SDL_SetHapticAutocenter().\n\n \\param instance_id the haptic device instance ID.\n \\returns the device identifier or NULL on failure; call SDL_GetError() for\n          more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseHaptic\n \\sa SDL_GetHaptics\n \\sa SDL_OpenHapticFromJoystick\n \\sa SDL_OpenHapticFromMouse\n \\sa SDL_SetHapticAutocenter\n \\sa SDL_SetHapticGain"]
@@ -13504,7 +13704,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the implementation dependent name of a haptic device.\n\n \\param haptic the SDL_Haptic obtained from SDL_OpenJoystick().\n \\returns the name of the selected haptic device. If no name can be found,\n          this function returns NULL; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticNameForID"]
-    pub fn SDL_GetHapticName(haptic: *mut SDL_Haptic) -> *const libc::c_char;
+    pub fn SDL_GetHapticName(haptic: *mut SDL_Haptic) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Query whether or not the current mouse has haptic capabilities.\n\n \\returns true if the mouse is haptic or false if it isn't.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_OpenHapticFromMouse"]
@@ -13528,11 +13728,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of effects a haptic device can store.\n\n On some platforms this isn't fully supported, and therefore is an\n approximation. Always check to see if your created effect was actually\n created and do not rely solely on SDL_GetMaxHapticEffects().\n\n \\param haptic the SDL_Haptic device to query.\n \\returns the number of effects the haptic device can store or a negative\n          error code on failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetMaxHapticEffectsPlaying\n \\sa SDL_GetHapticFeatures"]
-    pub fn SDL_GetMaxHapticEffects(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetMaxHapticEffects(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of effects a haptic device can play at the same time.\n\n This is not supported on all platforms, but will always return a value.\n\n \\param haptic the SDL_Haptic device to query maximum playing effects.\n \\returns the number of effects the haptic device can play at the same time\n          or -1 on failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetMaxHapticEffects\n \\sa SDL_GetHapticFeatures"]
-    pub fn SDL_GetMaxHapticEffectsPlaying(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetMaxHapticEffectsPlaying(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the haptic device's supported features in bitwise manner.\n\n \\param haptic the SDL_Haptic device to query.\n \\returns a list of supported haptic features in bitwise manner (OR'd), or 0\n          on failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_HapticEffectSupported\n \\sa SDL_GetMaxHapticEffects"]
@@ -13540,7 +13740,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of haptic axes the device has.\n\n The number of haptic axes might be useful if working with the\n SDL_HapticDirection effect.\n\n \\param haptic the SDL_Haptic device to query.\n \\returns the number of axes on success or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetNumHapticAxes(haptic: *mut SDL_Haptic) -> libc::c_int;
+    pub fn SDL_GetNumHapticAxes(haptic: *mut SDL_Haptic) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Check to see if an effect is supported by a haptic device.\n\n \\param haptic the SDL_Haptic device to query.\n \\param effect the desired effect to query.\n \\returns true if the effect is supported or false if it isn't.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateHapticEffect\n \\sa SDL_GetHapticFeatures"]
@@ -13554,13 +13754,13 @@ unsafe extern "C" {
     pub fn SDL_CreateHapticEffect(
         haptic: *mut SDL_Haptic,
         effect: *const SDL_HapticEffect,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Update the properties of an effect.\n\n Can be used dynamically, although behavior when dynamically changing\n direction may be strange. Specifically the effect may re-upload itself and\n start playing from the start. You also cannot change the type either when\n running SDL_UpdateHapticEffect().\n\n \\param haptic the SDL_Haptic device that has the effect.\n \\param effect the identifier of the effect to update.\n \\param data an SDL_HapticEffect structure containing the new effect\n             properties to use.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateHapticEffect\n \\sa SDL_RunHapticEffect"]
     pub fn SDL_UpdateHapticEffect(
         haptic: *mut SDL_Haptic,
-        effect: libc::c_int,
+        effect: ::core::ffi::c_int,
         data: *const SDL_HapticEffect,
     ) -> bool;
 }
@@ -13568,29 +13768,30 @@ unsafe extern "C" {
     #[doc = " Run the haptic effect on its associated haptic device.\n\n To repeat the effect over and over indefinitely, set `iterations` to\n `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make\n one instance of the effect last indefinitely (so the effect does not fade),\n set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`\n instead.\n\n \\param haptic the SDL_Haptic device to run the effect on.\n \\param effect the ID of the haptic effect to run.\n \\param iterations the number of iterations to run the effect; use\n                   `SDL_HAPTIC_INFINITY` to repeat forever.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticEffectStatus\n \\sa SDL_StopHapticEffect\n \\sa SDL_StopHapticEffects"]
     pub fn SDL_RunHapticEffect(
         haptic: *mut SDL_Haptic,
-        effect: libc::c_int,
+        effect: ::core::ffi::c_int,
         iterations: Uint32,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Stop the haptic effect on its associated haptic device.\n\n \\param haptic the SDL_Haptic device to stop the effect on.\n \\param effect the ID of the haptic effect to stop.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_RunHapticEffect\n \\sa SDL_StopHapticEffects"]
-    pub fn SDL_StopHapticEffect(haptic: *mut SDL_Haptic, effect: libc::c_int) -> bool;
+    pub fn SDL_StopHapticEffect(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Destroy a haptic effect on the device.\n\n This will stop the effect if it's running. Effects are automatically\n destroyed when the device is closed.\n\n \\param haptic the SDL_Haptic device to destroy the effect on.\n \\param effect the ID of the haptic effect to destroy.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateHapticEffect"]
-    pub fn SDL_DestroyHapticEffect(haptic: *mut SDL_Haptic, effect: libc::c_int);
+    pub fn SDL_DestroyHapticEffect(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int);
 }
 unsafe extern "C" {
     #[doc = " Get the status of the current effect on the specified haptic device.\n\n Device must support the SDL_HAPTIC_STATUS feature.\n\n \\param haptic the SDL_Haptic device to query for the effect status on.\n \\param effect the ID of the haptic effect to query its status.\n \\returns true if it is playing, false if it isn't playing or haptic status\n          isn't supported.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticFeatures"]
-    pub fn SDL_GetHapticEffectStatus(haptic: *mut SDL_Haptic, effect: libc::c_int) -> bool;
+    pub fn SDL_GetHapticEffectStatus(haptic: *mut SDL_Haptic, effect: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the global gain of the specified haptic device.\n\n Device must support the SDL_HAPTIC_GAIN feature.\n\n The user may specify the maximum gain by setting the environment variable\n `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to\n SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the\n maximum.\n\n \\param haptic the SDL_Haptic device to set the gain on.\n \\param gain value to set the gain to, should be between 0 and 100 (0 -\n             100).\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticFeatures"]
-    pub fn SDL_SetHapticGain(haptic: *mut SDL_Haptic, gain: libc::c_int) -> bool;
+    pub fn SDL_SetHapticGain(haptic: *mut SDL_Haptic, gain: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set the global autocenter of the device.\n\n Autocenter should be between 0 and 100. Setting it to 0 will disable\n autocentering.\n\n Device must support the SDL_HAPTIC_AUTOCENTER feature.\n\n \\param haptic the SDL_Haptic device to set autocentering on.\n \\param autocenter value to set autocenter to (0-100).\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHapticFeatures"]
-    pub fn SDL_SetHapticAutocenter(haptic: *mut SDL_Haptic, autocenter: libc::c_int) -> bool;
+    pub fn SDL_SetHapticAutocenter(haptic: *mut SDL_Haptic, autocenter: ::core::ffi::c_int)
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Pause a haptic device.\n\n Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()\n to resume playback.\n\n Do not modify the effects nor add new ones while the device is paused. That\n can cause all sorts of weird errors.\n\n \\param haptic the SDL_Haptic device to pause.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ResumeHaptic"]
@@ -13636,35 +13837,35 @@ pub const SDL_hid_bus_type_SDL_HID_API_BUS_I2C: SDL_hid_bus_type = 3;
 #[doc = " SPI bus\nSpecifications:\nhttps://www.microsoft.com/download/details.aspx?id=103325"]
 pub const SDL_hid_bus_type_SDL_HID_API_BUS_SPI: SDL_hid_bus_type = 4;
 #[doc = " HID underlying bus types.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_hid_bus_type = libc::c_uint;
+pub type SDL_hid_bus_type = ::core::ffi::c_uint;
 #[doc = " Information about a connected HID device\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_hid_device_info {
     #[doc = " Platform-specific device path"]
-    pub path: *mut libc::c_char,
+    pub path: *mut ::core::ffi::c_char,
     #[doc = " Device Vendor ID"]
-    pub vendor_id: libc::c_ushort,
+    pub vendor_id: ::core::ffi::c_ushort,
     #[doc = " Device Product ID"]
-    pub product_id: libc::c_ushort,
+    pub product_id: ::core::ffi::c_ushort,
     #[doc = " Serial Number"]
     pub serial_number: *mut wchar_t,
     #[doc = " Device Release Number in binary-coded decimal,\nalso known as Device Version Number"]
-    pub release_number: libc::c_ushort,
+    pub release_number: ::core::ffi::c_ushort,
     #[doc = " Manufacturer String"]
     pub manufacturer_string: *mut wchar_t,
     #[doc = " Product string"]
     pub product_string: *mut wchar_t,
     #[doc = " Usage Page for this Device/Interface\n(Windows/Mac/hidraw only)"]
-    pub usage_page: libc::c_ushort,
+    pub usage_page: ::core::ffi::c_ushort,
     #[doc = " Usage for this Device/Interface\n(Windows/Mac/hidraw only)"]
-    pub usage: libc::c_ushort,
+    pub usage: ::core::ffi::c_ushort,
     #[doc = " The USB interface which this logical device\nrepresents.\n\nValid only if the device is a USB HID device.\nSet to -1 in all other cases."]
-    pub interface_number: libc::c_int,
+    pub interface_number: ::core::ffi::c_int,
     #[doc = " Additional information about the USB interface.\nValid on libusb and Android implementations."]
-    pub interface_class: libc::c_int,
-    pub interface_subclass: libc::c_int,
-    pub interface_protocol: libc::c_int,
+    pub interface_class: ::core::ffi::c_int,
+    pub interface_subclass: ::core::ffi::c_int,
+    pub interface_protocol: ::core::ffi::c_int,
     #[doc = " Underlying bus type"]
     pub bus_type: SDL_hid_bus_type,
     #[doc = " Pointer to the next device"]
@@ -13707,11 +13908,11 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Initialize the HIDAPI library.\n\n This function initializes the HIDAPI library. Calling it is not strictly\n necessary, as it will be called automatically by SDL_hid_enumerate() and\n any of the SDL_hid_open_*() functions if it is needed. This function should\n be called at the beginning of execution however, if there is a chance of\n HIDAPI handles being opened by different threads simultaneously.\n\n Each call to this function should have a matching call to SDL_hid_exit()\n\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_hid_exit"]
-    pub fn SDL_hid_init() -> libc::c_int;
+    pub fn SDL_hid_init() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Finalize the HIDAPI library.\n\n This function frees all of the static data associated with HIDAPI. It\n should be called at the end of execution to avoid memory leaks.\n\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_hid_init"]
-    pub fn SDL_hid_exit() -> libc::c_int;
+    pub fn SDL_hid_exit() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Check to see if devices may have been added or removed.\n\n Enumerating the HID devices is an expensive operation, so you can call this\n to see if there have been any system device changes since the last call to\n this function. A change in the counter returned doesn't necessarily mean\n that anything has changed, but you can call SDL_hid_enumerate() to get an\n updated device list.\n\n Calling this function for the first time may cause a thread or other system\n resource to be allocated to track device change notifications.\n\n \\returns a change counter that is incremented with each potential device\n          change, or 0 if device change detection isn't available.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_hid_enumerate"]
@@ -13720,8 +13921,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Enumerate the HID Devices.\n\n This function returns a linked list of all the HID devices attached to the\n system which match vendor_id and product_id. If `vendor_id` is set to 0\n then any vendor matches. If `product_id` is set to 0 then any product\n matches. If `vendor_id` and `product_id` are both set to 0, then all HID\n devices will be returned.\n\n By default SDL will only enumerate controllers, to reduce risk of hanging\n or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS\n can be set to \"0\" to enumerate all HID devices.\n\n \\param vendor_id the Vendor ID (VID) of the types of device to open, or 0\n                  to match any vendor.\n \\param product_id the Product ID (PID) of the types of device to open, or 0\n                   to match any product.\n \\returns a pointer to a linked list of type SDL_hid_device_info, containing\n          information about the HID devices attached to the system, or NULL\n          in the case of failure. Free this linked list by calling\n          SDL_hid_free_enumeration().\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_hid_device_change_count"]
     pub fn SDL_hid_enumerate(
-        vendor_id: libc::c_ushort,
-        product_id: libc::c_ushort,
+        vendor_id: ::core::ffi::c_ushort,
+        product_id: ::core::ffi::c_ushort,
     ) -> *mut SDL_hid_device_info;
 }
 unsafe extern "C" {
@@ -13731,71 +13932,74 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally\n a serial number.\n\n If `serial_number` is NULL, the first device with the specified VID and PID\n is opened.\n\n \\param vendor_id the Vendor ID (VID) of the device to open.\n \\param product_id the Product ID (PID) of the device to open.\n \\param serial_number the Serial Number of the device to open (Optionally\n                      NULL).\n \\returns a pointer to a SDL_hid_device object on success or NULL on\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_open(
-        vendor_id: libc::c_ushort,
-        product_id: libc::c_ushort,
+        vendor_id: ::core::ffi::c_ushort,
+        product_id: ::core::ffi::c_ushort,
         serial_number: *const wchar_t,
     ) -> *mut SDL_hid_device;
 }
 unsafe extern "C" {
     #[doc = " Open a HID device by its path name.\n\n The path name be determined by calling SDL_hid_enumerate(), or a\n platform-specific path name can be used (eg: /dev/hidraw0 on Linux).\n\n \\param path the path name of the device to open.\n \\returns a pointer to a SDL_hid_device object on success or NULL on\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_hid_open_path(path: *const libc::c_char) -> *mut SDL_hid_device;
+    pub fn SDL_hid_open_path(path: *const ::core::ffi::c_char) -> *mut SDL_hid_device;
 }
 unsafe extern "C" {
     #[doc = " Write an Output report to a HID device.\n\n The first byte of `data` must contain the Report ID. For devices which only\n support a single report, this must be set to 0x0. The remaining bytes\n contain the report data. Since the Report ID is mandatory, calls to\n SDL_hid_write() will always contain one more byte than the report contains.\n For example, if a hid report is 16 bytes long, 17 bytes must be passed to\n SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),\n followed by the report data (16 bytes). In this example, the length passed\n in would be 17.\n\n SDL_hid_write() will send the data on the first OUT endpoint, if one\n exists. If it does not, it will send the data through the Control Endpoint\n (Endpoint 0).\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data the data to send, including the report number as the first\n             byte.\n \\param length the length in bytes of the data to send.\n \\returns the actual number of bytes written and -1 on on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_write(
         dev: *mut SDL_hid_device,
-        data: *const libc::c_uchar,
+        data: *const ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Read an Input report from a HID device with timeout.\n\n Input reports are returned to the host through the INTERRUPT IN endpoint.\n The first byte will contain the Report number if the device uses numbered\n reports.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data a buffer to put the read data into.\n \\param length the number of bytes to read. For devices with multiple\n               reports, make sure to read an extra byte for the report\n               number.\n \\param milliseconds timeout in milliseconds or -1 for blocking wait.\n \\returns the actual number of bytes read and -1 on on failure; call\n          SDL_GetError() for more information. If no packet was available to\n          be read within the timeout period, this function returns 0.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_read_timeout(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-        milliseconds: libc::c_int,
-    ) -> libc::c_int;
+        milliseconds: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Read an Input report from a HID device.\n\n Input reports are returned to the host through the INTERRUPT IN endpoint.\n The first byte will contain the Report number if the device uses numbered\n reports.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data a buffer to put the read data into.\n \\param length the number of bytes to read. For devices with multiple\n               reports, make sure to read an extra byte for the report\n               number.\n \\returns the actual number of bytes read and -1 on failure; call\n          SDL_GetError() for more information. If no packet was available to\n          be read and the handle is in non-blocking mode, this function\n          returns 0.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_read(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Set the device handle to be non-blocking.\n\n In non-blocking mode calls to SDL_hid_read() will return immediately with a\n value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()\n will wait (block) until there is data to read before returning.\n\n Nonblocking can be turned on and off at any time.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param nonblock enable or not the nonblocking reads - 1 to enable\n                 nonblocking - 0 to disable nonblocking.\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_hid_set_nonblocking(dev: *mut SDL_hid_device, nonblock: libc::c_int) -> libc::c_int;
+    pub fn SDL_hid_set_nonblocking(
+        dev: *mut SDL_hid_device,
+        nonblock: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Send a Feature report to the device.\n\n Feature reports are sent over the Control endpoint as a Set_Report\n transfer. The first byte of `data` must contain the Report ID. For devices\n which only support a single report, this must be set to 0x0. The remaining\n bytes contain the report data. Since the Report ID is mandatory, calls to\n SDL_hid_send_feature_report() will always contain one more byte than the\n report contains. For example, if a hid report is 16 bytes long, 17 bytes\n must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for\n devices which do not use numbered reports), followed by the report data (16\n bytes). In this example, the length passed in would be 17.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data the data to send, including the report number as the first\n             byte.\n \\param length the length in bytes of the data to send, including the report\n               number.\n \\returns the actual number of bytes written and -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_send_feature_report(
         dev: *mut SDL_hid_device,
-        data: *const libc::c_uchar,
+        data: *const ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get a feature report from a HID device.\n\n Set the first byte of `data` to the Report ID of the report to be read.\n Make sure to allow space for this extra byte in `data`. Upon return, the\n first byte will still contain the Report ID, and the report data will start\n in data[1].\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data a buffer to put the read data into, including the Report ID.\n             Set the first byte of `data` to the Report ID of the report to\n             be read, or set it to zero if your device does not use numbered\n             reports.\n \\param length the number of bytes to read, including an extra byte for the\n               report ID. The buffer can be longer than the actual report.\n \\returns the number of bytes read plus one for the report ID (which is\n          still in the first byte), or -1 on on failure; call SDL_GetError()\n          for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_get_feature_report(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get an input report from a HID device.\n\n Set the first byte of `data` to the Report ID of the report to be read.\n Make sure to allow space for this extra byte in `data`. Upon return, the\n first byte will still contain the Report ID, and the report data will start\n in data[1].\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param data a buffer to put the read data into, including the Report ID.\n             Set the first byte of `data` to the Report ID of the report to\n             be read, or set it to zero if your device does not use numbered\n             reports.\n \\param length the number of bytes to read, including an extra byte for the\n               report ID. The buffer can be longer than the actual report.\n \\returns the number of bytes read plus one for the report ID (which is\n          still in the first byte), or -1 on on failure; call SDL_GetError()\n          for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_get_input_report(
         dev: *mut SDL_hid_device,
-        data: *mut libc::c_uchar,
+        data: *mut ::core::ffi::c_uchar,
         length: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Close a HID device.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_hid_close(dev: *mut SDL_hid_device) -> libc::c_int;
+    pub fn SDL_hid_close(dev: *mut SDL_hid_device) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get The Manufacturer String from a HID device.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param string a wide string buffer to put the data into.\n \\param maxlen the length of the buffer in multiples of wchar_t.\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -13803,7 +14007,7 @@ unsafe extern "C" {
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get The Product String from a HID device.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param string a wide string buffer to put the data into.\n \\param maxlen the length of the buffer in multiples of wchar_t.\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -13811,7 +14015,7 @@ unsafe extern "C" {
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get The Serial Number String from a HID device.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param string a wide string buffer to put the data into.\n \\param maxlen the length of the buffer in multiples of wchar_t.\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
@@ -13819,16 +14023,16 @@ unsafe extern "C" {
         dev: *mut SDL_hid_device,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get a string from a HID device, based on its string index.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param string_index the index of the string to get.\n \\param string a wide string buffer to put the data into.\n \\param maxlen the length of the buffer in multiples of wchar_t.\n \\returns 0 on success or a negative error code on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_get_indexed_string(
         dev: *mut SDL_hid_device,
-        string_index: libc::c_int,
+        string_index: ::core::ffi::c_int,
         string: *mut wchar_t,
         maxlen: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the device info from a HID device.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\returns a pointer to the SDL_hid_device_info for this hid_device or NULL\n          on failure; call SDL_GetError() for more information. This struct\n          is valid until the device is closed with SDL_hid_close().\n\n \\since This function is available since SDL 3.2.0."]
@@ -13838,9 +14042,9 @@ unsafe extern "C" {
     #[doc = " Get a report descriptor from a HID device.\n\n User has to provide a preallocated buffer where descriptor will be copied\n to. The recommended size for a preallocated buffer is 4096 bytes.\n\n \\param dev a device handle returned from SDL_hid_open().\n \\param buf the buffer to copy descriptor into.\n \\param buf_size the size of the buffer in bytes.\n \\returns the number of bytes actually copied or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_hid_get_report_descriptor(
         dev: *mut SDL_hid_device,
-        buf: *mut libc::c_uchar,
+        buf: *mut ::core::ffi::c_uchar,
         buf_size: usize,
-    ) -> libc::c_int;
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers.\n\n \\param active true to start the scan, false to stop the scan.\n\n \\since This function is available since SDL 3.2.0."]
@@ -13850,22 +14054,23 @@ pub const SDL_HintPriority_SDL_HINT_DEFAULT: SDL_HintPriority = 0;
 pub const SDL_HintPriority_SDL_HINT_NORMAL: SDL_HintPriority = 1;
 pub const SDL_HintPriority_SDL_HINT_OVERRIDE: SDL_HintPriority = 2;
 #[doc = " An enumeration of hint priorities.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_HintPriority = libc::c_uint;
+pub type SDL_HintPriority = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Set a hint with a specific priority.\n\n The priority controls the behavior when setting a hint that already has a\n value. Hints will replace existing hints of their priority and lower.\n Environment variables are considered to have override priority.\n\n \\param name the hint to set.\n \\param value the value of the hint variable.\n \\param priority the SDL_HintPriority level for the hint.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHint\n \\sa SDL_ResetHint\n \\sa SDL_SetHint"]
     pub fn SDL_SetHintWithPriority(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
         priority: SDL_HintPriority,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Set a hint with normal priority.\n\n Hints will not be set if there is an existing override hint or environment\n variable that takes precedence. You can use SDL_SetHintWithPriority() to\n set the hint with override priority instead.\n\n \\param name the hint to set.\n \\param value the value of the hint variable.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHint\n \\sa SDL_ResetHint\n \\sa SDL_SetHintWithPriority"]
-    pub fn SDL_SetHint(name: *const libc::c_char, value: *const libc::c_char) -> bool;
+    pub fn SDL_SetHint(name: *const ::core::ffi::c_char, value: *const ::core::ffi::c_char)
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Reset a hint to the default value.\n\n This will reset a hint to the value of the environment variable, or NULL if\n the environment isn't set. Callbacks will be called normally with this\n change.\n\n \\param name the hint to set.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetHint\n \\sa SDL_ResetHints"]
-    pub fn SDL_ResetHint(name: *const libc::c_char) -> bool;
+    pub fn SDL_ResetHint(name: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Reset all hints to the default values.\n\n This will reset all hints to the value of the associated environment\n variable, or NULL if the environment isn't set. Callbacks will be called\n normally with this change.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ResetHint"]
@@ -13873,35 +14078,35 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the value of a hint.\n\n \\param name the hint to query.\n \\returns the string value of a hint or NULL if the hint isn't set.\n\n \\threadsafety It is safe to call this function from any thread, however the\n               return value only remains valid until the hint is changed; if\n               another thread might do so, the app should supply locks\n               and/or make a copy of the string. Note that using a hint\n               callback instead is always thread-safe, as SDL holds a lock\n               on the thread subsystem during the callback.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetHint\n \\sa SDL_SetHintWithPriority"]
-    pub fn SDL_GetHint(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_GetHint(name: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the boolean value of a hint variable.\n\n \\param name the name of the hint to get the boolean value from.\n \\param default_value the value to return if the hint does not exist.\n \\returns the boolean value of a hint or the provided default value if the\n          hint does not exist.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetHint\n \\sa SDL_SetHint"]
-    pub fn SDL_GetHintBoolean(name: *const libc::c_char, default_value: bool) -> bool;
+    pub fn SDL_GetHintBoolean(name: *const ::core::ffi::c_char, default_value: bool) -> bool;
 }
 #[doc = " A callback used to send notifications of hint value changes.\n\n This is called an initial time during SDL_AddHintCallback with the hint's\n current value, and then again each time the hint's value changes.\n\n \\param userdata what was passed as `userdata` to SDL_AddHintCallback().\n \\param name what was passed as `name` to SDL_AddHintCallback().\n \\param oldValue the previous hint value.\n \\param newValue the new value hint is to be set to.\n\n \\threadsafety This callback is fired from whatever thread is setting a new\n               hint value. SDL holds a lock on the hint subsystem when\n               calling this callback.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_AddHintCallback"]
 pub type SDL_HintCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        name: *const libc::c_char,
-        oldValue: *const libc::c_char,
-        newValue: *const libc::c_char,
+        userdata: *mut ::core::ffi::c_void,
+        name: *const ::core::ffi::c_char,
+        oldValue: *const ::core::ffi::c_char,
+        newValue: *const ::core::ffi::c_char,
     ),
 >;
 unsafe extern "C" {
     #[doc = " Add a function to watch a particular hint.\n\n The callback function is called _during_ this function, to provide it an\n initial value, and again each time the hint's value changes.\n\n \\param name the hint to watch.\n \\param callback An SDL_HintCallback function that will be called when the\n                 hint value changes.\n \\param userdata a pointer to pass to the callback function.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_RemoveHintCallback"]
     pub fn SDL_AddHintCallback(
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         callback: SDL_HintCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Remove a function watching a particular hint.\n\n \\param name the hint being watched.\n \\param callback an SDL_HintCallback function that will be called when the\n                 hint value changes.\n \\param userdata a pointer being passed to the callback function.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_AddHintCallback"]
     pub fn SDL_RemoveHintCallback(
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
         callback: SDL_HintCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 #[doc = " Initialization flags for SDL_Init and/or SDL_InitSubSystem\n\n These are the flags which may be passed to SDL_Init(). You should specify\n the subsystems which you will be using in your application.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_Init\n \\sa SDL_Quit\n \\sa SDL_InitSubSystem\n \\sa SDL_QuitSubSystem\n \\sa SDL_WasInit"]
@@ -13913,25 +14118,29 @@ pub const SDL_AppResult_SDL_APP_SUCCESS: SDL_AppResult = 1;
 #[doc = "< Value that requests termination with error from the main callbacks."]
 pub const SDL_AppResult_SDL_APP_FAILURE: SDL_AppResult = 2;
 #[doc = " Return values for optional main callbacks.\n\n Returning SDL_APP_SUCCESS or SDL_APP_FAILURE from SDL_AppInit,\n SDL_AppEvent, or SDL_AppIterate will terminate the program and report\n success/failure to the operating system. What that means is\n platform-dependent. On Unix, for example, on success, the process error\n code will be zero, and on failure it will be 1. This interface doesn't\n allow you to return specific exit codes, just whether there was an error\n generally or not.\n\n Returning SDL_APP_CONTINUE from these functions will let the app continue\n to run.\n\n See\n [Main callbacks in SDL3](https://wiki.libsdl.org/SDL3/README/main-functions#main-callbacks-in-sdl3)\n for complete details.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_AppResult = libc::c_uint;
+pub type SDL_AppResult = ::core::ffi::c_uint;
 #[doc = " Function pointer typedef for SDL_AppInit.\n\n These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind\n the scenes for apps using the optional main callbacks. Apps that want to\n use this should just implement SDL_AppInit directly.\n\n \\param appstate a place where the app can optionally store a pointer for\n                 future use.\n \\param argc the standard ANSI C main's argc; number of elements in `argv`.\n \\param argv the standard ANSI C main's argv; array of command line\n             arguments.\n \\returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to\n          terminate with success, SDL_APP_CONTINUE to continue.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_AppInit_func = ::core::option::Option<
     unsafe extern "C" fn(
-        appstate: *mut *mut libc::c_void,
-        argc: libc::c_int,
-        argv: *mut *mut libc::c_char,
+        appstate: *mut *mut ::core::ffi::c_void,
+        argc: ::core::ffi::c_int,
+        argv: *mut *mut ::core::ffi::c_char,
     ) -> SDL_AppResult,
 >;
 #[doc = " Function pointer typedef for SDL_AppIterate.\n\n These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind\n the scenes for apps using the optional main callbacks. Apps that want to\n use this should just implement SDL_AppIterate directly.\n\n \\param appstate an optional pointer, provided by the app in SDL_AppInit.\n \\returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to\n          terminate with success, SDL_APP_CONTINUE to continue.\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_AppIterate_func =
-    ::core::option::Option<unsafe extern "C" fn(appstate: *mut libc::c_void) -> SDL_AppResult>;
+pub type SDL_AppIterate_func = ::core::option::Option<
+    unsafe extern "C" fn(appstate: *mut ::core::ffi::c_void) -> SDL_AppResult,
+>;
 #[doc = " Function pointer typedef for SDL_AppEvent.\n\n These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind\n the scenes for apps using the optional main callbacks. Apps that want to\n use this should just implement SDL_AppEvent directly.\n\n \\param appstate an optional pointer, provided by the app in SDL_AppInit.\n \\param event the new event for the app to examine.\n \\returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to\n          terminate with success, SDL_APP_CONTINUE to continue.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_AppEvent_func = ::core::option::Option<
-    unsafe extern "C" fn(appstate: *mut libc::c_void, event: *mut SDL_Event) -> SDL_AppResult,
+    unsafe extern "C" fn(
+        appstate: *mut ::core::ffi::c_void,
+        event: *mut SDL_Event,
+    ) -> SDL_AppResult,
 >;
 #[doc = " Function pointer typedef for SDL_AppQuit.\n\n These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind\n the scenes for apps using the optional main callbacks. Apps that want to\n use this should just implement SDL_AppEvent directly.\n\n \\param appstate an optional pointer, provided by the app in SDL_AppInit.\n \\param result the result code that terminated the app (success or failure).\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_AppQuit_func = ::core::option::Option<
-    unsafe extern "C" fn(appstate: *mut libc::c_void, result: SDL_AppResult),
+    unsafe extern "C" fn(appstate: *mut ::core::ffi::c_void, result: SDL_AppResult),
 >;
 unsafe extern "C" {
     #[doc = " Initialize the SDL library.\n\n SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the\n two may be used interchangeably. Though for readability of your code\n SDL_InitSubSystem() might be preferred.\n\n The file I/O (for example: SDL_IOFromFile) and threading (SDL_CreateThread)\n subsystems are initialized by default. Message boxes\n (SDL_ShowSimpleMessageBox) also attempt to work without initializing the\n video subsystem, in hopes of being useful in showing an error dialog when\n SDL_Init fails. You must specifically initialize other subsystems if you\n use them in your application.\n\n Logging (such as SDL_Log) works without initialization, too.\n\n `flags` may be any of the following OR'd together:\n\n - `SDL_INIT_AUDIO`: audio subsystem; automatically initializes the events\n   subsystem\n - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events\n   subsystem, should be initialized on the main thread.\n - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the\n   events subsystem\n - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem\n - `SDL_INIT_GAMEPAD`: gamepad subsystem; automatically initializes the\n   joystick subsystem\n - `SDL_INIT_EVENTS`: events subsystem\n - `SDL_INIT_SENSOR`: sensor subsystem; automatically initializes the events\n   subsystem\n - `SDL_INIT_CAMERA`: camera subsystem; automatically initializes the events\n   subsystem\n\n Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()\n for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or\n call SDL_Quit() to force shutdown). If a subsystem is already loaded then\n this call will increase the ref-count and return.\n\n Consider reporting some basic metadata about your application before\n calling SDL_Init, using either SDL_SetAppMetadata() or\n SDL_SetAppMetadataProperty().\n\n \\param flags subsystem initialization flags.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAppMetadata\n \\sa SDL_SetAppMetadataProperty\n \\sa SDL_InitSubSystem\n \\sa SDL_Quit\n \\sa SDL_SetMainReady\n \\sa SDL_WasInit"]
@@ -13959,33 +14168,35 @@ unsafe extern "C" {
 }
 #[doc = " Callback run on the main thread.\n\n \\param userdata an app-controlled pointer that is passed to the callback.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_RunOnMainThread"]
 pub type SDL_MainThreadCallback =
-    ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void)>;
 unsafe extern "C" {
     #[doc = " Call a function on the main thread during event processing.\n\n If this is called on the main thread, the callback is executed immediately.\n If this is called on another thread, this callback is queued for execution\n on the main thread during event processing.\n\n Be careful of deadlocks when using this functionality. You should not have\n the main thread wait for the current thread while this function is being\n called with `wait_complete` true.\n\n \\param callback the callback to call on the main thread.\n \\param userdata a pointer that is passed to `callback`.\n \\param wait_complete true to wait for the callback to complete, false to\n                      return immediately.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_IsMainThread"]
     pub fn SDL_RunOnMainThread(
         callback: SDL_MainThreadCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         wait_complete: bool,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Specify basic metadata about your app.\n\n You can optionally provide metadata about your app to SDL. This is not\n required, but strongly encouraged.\n\n There are several locations where SDL can make use of metadata (an \"About\"\n box in the macOS menu bar, the name of the app can be shown on some audio\n mixers, etc). Any piece of metadata can be left as NULL, if a specific\n detail doesn't make sense for the app.\n\n This function should be called as early as possible, before SDL_Init.\n Multiple calls to this function are allowed, but various state might not\n change once it has been set up with a previous call to this function.\n\n Passing a NULL removes any previous metadata.\n\n This is a simplified interface for the most important information. You can\n supply significantly more detailed metadata with\n SDL_SetAppMetadataProperty().\n\n \\param appname The name of the application (\"My Game 2: Bad Guy's\n                Revenge!\").\n \\param appversion The version of the application (\"1.0.0beta5\" or a git\n                   hash, or whatever makes sense).\n \\param appidentifier A unique string in reverse-domain format that\n                      identifies this app (\"com.example.mygame2\").\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAppMetadataProperty"]
     pub fn SDL_SetAppMetadata(
-        appname: *const libc::c_char,
-        appversion: *const libc::c_char,
-        appidentifier: *const libc::c_char,
+        appname: *const ::core::ffi::c_char,
+        appversion: *const ::core::ffi::c_char,
+        appidentifier: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Specify metadata about your app through a set of properties.\n\n You can optionally provide metadata about your app to SDL. This is not\n required, but strongly encouraged.\n\n There are several locations where SDL can make use of metadata (an \"About\"\n box in the macOS menu bar, the name of the app can be shown on some audio\n mixers, etc). Any piece of metadata can be left out, if a specific detail\n doesn't make sense for the app.\n\n This function should be called as early as possible, before SDL_Init.\n Multiple calls to this function are allowed, but various state might not\n change once it has been set up with a previous call to this function.\n\n Once set, this metadata can be read using SDL_GetAppMetadataProperty().\n\n These are the supported properties:\n\n - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the\n   application, like \"My Game 2: Bad Guy's Revenge!\". This will show up\n   anywhere the OS shows the name of the application separately from window\n   titles, such as volume control applets, etc. This defaults to \"SDL\n   Application\".\n - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is\n   running; there are no rules on format, so \"1.0.3beta2\" and \"April 22nd,\n   2024\" and a git hash are all valid options. This has no default.\n - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that\n   identifies this app. This must be in reverse-domain format, like\n   \"com.example.mygame2\". This string is used by desktop compositors to\n   identify and group windows together, as well as match applications with\n   associated desktop settings and icons. If you plan to package your\n   application in a container such as Flatpak, the app ID should match the\n   name of your Flatpak container as well. This has no default.\n - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the\n   creator/developer/maker of this app, like \"MojoWorkshop, LLC\"\n - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright\n   notice, like \"Copyright (c) 2024 MojoWorkshop, LLC\" or whatnot. Keep this\n   to one line, don't paste a copy of a whole software license in here. This\n   has no default.\n - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a\n   product page, or a storefront, or even a GitHub repository, for user's\n   further information This has no default.\n - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.\n   Currently this string can be \"game\" for a video game, \"mediaplayer\" for a\n   media player, or generically \"application\" if nothing else applies.\n   Future versions of SDL might add new types. This defaults to\n   \"application\".\n\n \\param name the name of the metadata property to set.\n \\param value the value of the property, or NULL to remove that property.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetAppMetadataProperty\n \\sa SDL_SetAppMetadata"]
     pub fn SDL_SetAppMetadataProperty(
-        name: *const libc::c_char,
-        value: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get metadata about your app.\n\n This returns metadata previously set using SDL_SetAppMetadata() or\n SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list\n of available properties and their meanings.\n\n \\param name the name of the metadata property to get.\n \\returns the current value of the metadata property, or the default if it\n          is not set, NULL for properties with no default.\n\n \\threadsafety It is safe to call this function from any thread, although\n               the string returned is not protected and could potentially be\n               freed if you call SDL_SetAppMetadataProperty() to set that\n               property from another thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetAppMetadata\n \\sa SDL_SetAppMetadataProperty"]
-    pub fn SDL_GetAppMetadataProperty(name: *const libc::c_char) -> *const libc::c_char;
+    pub fn SDL_GetAppMetadataProperty(
+        name: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -13994,13 +14205,13 @@ pub struct SDL_SharedObject {
 }
 unsafe extern "C" {
     #[doc = " Dynamically load a shared object.\n\n \\param sofile a system-dependent name of the object file.\n \\returns an opaque pointer to the object handle or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadFunction\n \\sa SDL_UnloadObject"]
-    pub fn SDL_LoadObject(sofile: *const libc::c_char) -> *mut SDL_SharedObject;
+    pub fn SDL_LoadObject(sofile: *const ::core::ffi::c_char) -> *mut SDL_SharedObject;
 }
 unsafe extern "C" {
     #[doc = " Look up the address of the named function in a shared object.\n\n This function pointer is no longer valid after calling SDL_UnloadObject().\n\n This function can only look up C function names. Other languages may have\n name mangling and intrinsic language support that varies from compiler to\n compiler.\n\n Make sure you declare your function pointers with the same calling\n convention as the actual library function. Your code will crash\n mysteriously if you do not do this.\n\n If the requested function doesn't exist, NULL is returned.\n\n \\param handle a valid shared object handle returned by SDL_LoadObject().\n \\param name the name of the function to look up.\n \\returns a pointer to the function or NULL on failure; call SDL_GetError()\n          for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LoadObject"]
     pub fn SDL_LoadFunction(
         handle: *mut SDL_SharedObject,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> SDL_FunctionPointer;
 }
 unsafe extern "C" {
@@ -14012,9 +14223,9 @@ unsafe extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Locale {
     #[doc = "< A language name, like \"en\" for English."]
-    pub language: *const libc::c_char,
+    pub language: *const ::core::ffi::c_char,
     #[doc = "< A country, like \"US\" for America. Can be NULL."]
-    pub country: *const libc::c_char,
+    pub country: *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -14026,7 +14237,7 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Report the user's preferred locale.\n\n Returned language strings are in the format xx, where 'xx' is an ISO-639\n language specifier (such as \"en\" for English, \"de\" for German, etc).\n Country strings are in the format YY, where \"YY\" is an ISO-3166 country\n code (such as \"US\" for the United States, \"CA\" for Canada, etc). Country\n might be NULL if there's no specific guidance on them (so you might get {\n \"en\", \"US\" } for American English, but { \"en\", NULL } means \"English\n language, generically\"). Language strings are never NULL, except to\n terminate the array.\n\n Please note that not all of these strings are 2 characters; some are three\n or more.\n\n The returned list of locales are in the order of the user's preference. For\n example, a German citizen that is fluent in US English and knows enough\n Japanese to navigate around Tokyo might have a list like: { \"de\", \"en_US\",\n \"jp\", NULL }. Someone from England might prefer British English (where\n \"color\" is spelled \"colour\", etc), but will settle for anything like it: {\n \"en_GB\", \"en\", NULL }.\n\n This function returns NULL on error, including when the platform does not\n supply this information at all.\n\n This might be a \"slow\" call that has to query the operating system. It's\n best to ask for this once and save the results. However, this list can\n change, usually because the user has changed a system preference outside of\n your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,\n if possible, and you can call this function again to get an updated copy of\n preferred locales.\n\n \\param count a pointer filled in with the number of locales returned, may\n              be NULL.\n \\returns a NULL terminated array of locale pointers, or NULL on failure;\n          call SDL_GetError() for more information. This is a single\n          allocation that should be freed with SDL_free() when it is no\n          longer needed.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetPreferredLocales(count: *mut libc::c_int) -> *mut *mut SDL_Locale;
+    pub fn SDL_GetPreferredLocales(count: *mut ::core::ffi::c_int) -> *mut *mut SDL_Locale;
 }
 pub const SDL_LogCategory_SDL_LOG_CATEGORY_APPLICATION: SDL_LogCategory = 0;
 pub const SDL_LogCategory_SDL_LOG_CATEGORY_ERROR: SDL_LogCategory = 1;
@@ -14049,7 +14260,7 @@ pub const SDL_LogCategory_SDL_LOG_CATEGORY_RESERVED9: SDL_LogCategory = 17;
 pub const SDL_LogCategory_SDL_LOG_CATEGORY_RESERVED10: SDL_LogCategory = 18;
 pub const SDL_LogCategory_SDL_LOG_CATEGORY_CUSTOM: SDL_LogCategory = 19;
 #[doc = " The predefined log categories\n\n By default the application and gpu categories are enabled at the INFO\n level, the assert category is enabled at the WARN level, test is enabled at\n the VERBOSE level and all other categories are enabled at the ERROR level.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_LogCategory = libc::c_uint;
+pub type SDL_LogCategory = ::core::ffi::c_uint;
 pub const SDL_LogPriority_SDL_LOG_PRIORITY_INVALID: SDL_LogPriority = 0;
 pub const SDL_LogPriority_SDL_LOG_PRIORITY_TRACE: SDL_LogPriority = 1;
 pub const SDL_LogPriority_SDL_LOG_PRIORITY_VERBOSE: SDL_LogPriority = 2;
@@ -14060,18 +14271,18 @@ pub const SDL_LogPriority_SDL_LOG_PRIORITY_ERROR: SDL_LogPriority = 6;
 pub const SDL_LogPriority_SDL_LOG_PRIORITY_CRITICAL: SDL_LogPriority = 7;
 pub const SDL_LogPriority_SDL_LOG_PRIORITY_COUNT: SDL_LogPriority = 8;
 #[doc = " The predefined log priorities\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_LogPriority = libc::c_uint;
+pub type SDL_LogPriority = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Set the priority of all log categories.\n\n \\param priority the SDL_LogPriority to assign.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ResetLogPriorities\n \\sa SDL_SetLogPriority"]
     pub fn SDL_SetLogPriorities(priority: SDL_LogPriority);
 }
 unsafe extern "C" {
     #[doc = " Set the priority of a particular log category.\n\n \\param category the category to assign a priority to.\n \\param priority the SDL_LogPriority to assign.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetLogPriority\n \\sa SDL_ResetLogPriorities\n \\sa SDL_SetLogPriorities"]
-    pub fn SDL_SetLogPriority(category: libc::c_int, priority: SDL_LogPriority);
+    pub fn SDL_SetLogPriority(category: ::core::ffi::c_int, priority: SDL_LogPriority);
 }
 unsafe extern "C" {
     #[doc = " Get the priority of a particular log category.\n\n \\param category the category to query.\n \\returns the SDL_LogPriority for the requested category.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetLogPriority"]
-    pub fn SDL_GetLogPriority(category: libc::c_int) -> SDL_LogPriority;
+    pub fn SDL_GetLogPriority(category: ::core::ffi::c_int) -> SDL_LogPriority;
 }
 unsafe extern "C" {
     #[doc = " Reset all priorities to default.\n\n This is called by SDL_Quit().\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetLogPriorities\n \\sa SDL_SetLogPriority"]
@@ -14079,66 +14290,68 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Set the text prepended to log messages of a given priority.\n\n By default SDL_LOG_PRIORITY_INFO and below have no prefix, and\n SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.\n \"WARNING: \".\n\n \\param priority the SDL_LogPriority to modify.\n \\param prefix the prefix to use for that log priority, or NULL to use no\n               prefix.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetLogPriorities\n \\sa SDL_SetLogPriority"]
-    pub fn SDL_SetLogPriorityPrefix(priority: SDL_LogPriority, prefix: *const libc::c_char)
-        -> bool;
+    pub fn SDL_SetLogPriorityPrefix(
+        priority: SDL_LogPriority,
+        prefix: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_CATEGORY_APPLICATION and SDL_LOG_PRIORITY_INFO.\n\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the `fmt` string, if\n            any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_Log(fmt: *const libc::c_char, ...);
+    pub fn SDL_Log(fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_TRACE.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogTrace(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogTrace(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_VERBOSE.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogVerbose(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogVerbose(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_DEBUG.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogDebug(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogDebug(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_INFO.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogInfo(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogInfo(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_WARN.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose"]
-    pub fn SDL_LogWarn(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogWarn(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_ERROR.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogError(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogError(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with SDL_LOG_PRIORITY_CRITICAL.\n\n \\param category the category of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
-    pub fn SDL_LogCritical(category: libc::c_int, fmt: *const libc::c_char, ...);
+    pub fn SDL_LogCritical(category: ::core::ffi::c_int, fmt: *const ::core::ffi::c_char, ...);
 }
 unsafe extern "C" {
     #[doc = " Log a message with the specified category and priority.\n\n \\param category the category of the message.\n \\param priority the priority of the message.\n \\param fmt a printf() style message format string.\n \\param ... additional parameters matching % tokens in the **fmt** string,\n            if any.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessageV\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
     pub fn SDL_LogMessage(
-        category: libc::c_int,
+        category: ::core::ffi::c_int,
         priority: SDL_LogPriority,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
     );
 }
 unsafe extern "C" {
     #[doc = " Log a message with the specified category and priority.\n\n \\param category the category of the message.\n \\param priority the priority of the message.\n \\param fmt a printf() style message format string.\n \\param ap a variable argument list.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Log\n \\sa SDL_LogCritical\n \\sa SDL_LogDebug\n \\sa SDL_LogError\n \\sa SDL_LogInfo\n \\sa SDL_LogMessage\n \\sa SDL_LogTrace\n \\sa SDL_LogVerbose\n \\sa SDL_LogWarn"]
     pub fn SDL_LogMessageV(
-        category: libc::c_int,
+        category: ::core::ffi::c_int,
         priority: SDL_LogPriority,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: *mut __va_list_tag,
     );
 }
 #[doc = " The prototype for the log output callback function.\n\n This function is called by SDL when there is new text to be logged. A mutex\n is held so that this function is never called by more than one thread at\n once.\n\n \\param userdata what was passed as `userdata` to\n                 SDL_SetLogOutputFunction().\n \\param category the category of the message.\n \\param priority the priority of the message.\n \\param message the message being output.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_LogOutputFunction = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
-        category: libc::c_int,
+        userdata: *mut ::core::ffi::c_void,
+        category: ::core::ffi::c_int,
         priority: SDL_LogPriority,
-        message: *const libc::c_char,
+        message: *const ::core::ffi::c_char,
     ),
 >;
 unsafe extern "C" {
@@ -14149,12 +14362,15 @@ unsafe extern "C" {
     #[doc = " Get the current log output function.\n\n \\param callback an SDL_LogOutputFunction filled in with the current log\n                 callback.\n \\param userdata a pointer filled in with the pointer that is passed to\n                 `callback`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDefaultLogOutputFunction\n \\sa SDL_SetLogOutputFunction"]
     pub fn SDL_GetLogOutputFunction(
         callback: *mut SDL_LogOutputFunction,
-        userdata: *mut *mut libc::c_void,
+        userdata: *mut *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
     #[doc = " Replace the default log output function with one of your own.\n\n \\param callback an SDL_LogOutputFunction to call instead of the default.\n \\param userdata a pointer that is passed to `callback`.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetDefaultLogOutputFunction\n \\sa SDL_GetLogOutputFunction"]
-    pub fn SDL_SetLogOutputFunction(callback: SDL_LogOutputFunction, userdata: *mut libc::c_void);
+    pub fn SDL_SetLogOutputFunction(
+        callback: SDL_LogOutputFunction,
+        userdata: *mut ::core::ffi::c_void,
+    );
 }
 #[doc = " Message box flags.\n\n If supported will display warning icon, etc.\n\n \\since This datatype is available since SDL 3.2.0."]
 pub type SDL_MessageBoxFlags = Uint32;
@@ -14166,9 +14382,9 @@ pub type SDL_MessageBoxButtonFlags = Uint32;
 pub struct SDL_MessageBoxButtonData {
     pub flags: SDL_MessageBoxButtonFlags,
     #[doc = "< User defined button id (value returned via SDL_ShowMessageBox)"]
-    pub buttonID: libc::c_int,
+    pub buttonID: ::core::ffi::c_int,
     #[doc = "< The UTF-8 button text"]
-    pub text: *const libc::c_char,
+    pub text: *const ::core::ffi::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -14211,7 +14427,7 @@ pub const SDL_MessageBoxColorType_SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED: SDL_Mess
 #[doc = "< Size of the colors array of SDL_MessageBoxColorScheme."]
 pub const SDL_MessageBoxColorType_SDL_MESSAGEBOX_COLOR_COUNT: SDL_MessageBoxColorType = 5;
 #[doc = " An enumeration of indices inside the colors array of\n SDL_MessageBoxColorScheme."]
-pub type SDL_MessageBoxColorType = libc::c_uint;
+pub type SDL_MessageBoxColorType = ::core::ffi::c_uint;
 #[doc = " A set of colors to use for message box dialogs\n\n \\since This struct is available since SDL 3.2.0."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14235,10 +14451,10 @@ pub struct SDL_MessageBoxData {
     #[doc = "< Parent window, can be NULL"]
     pub window: *mut SDL_Window,
     #[doc = "< UTF-8 title"]
-    pub title: *const libc::c_char,
+    pub title: *const ::core::ffi::c_char,
     #[doc = "< UTF-8 message text"]
-    pub message: *const libc::c_char,
-    pub numbuttons: libc::c_int,
+    pub message: *const ::core::ffi::c_char,
+    pub numbuttons: ::core::ffi::c_int,
     pub buttons: *const SDL_MessageBoxButtonData,
     #[doc = "< SDL_MessageBoxColorScheme, can be NULL to use system settings"]
     pub colorScheme: *const SDL_MessageBoxColorScheme,
@@ -14266,20 +14482,20 @@ unsafe extern "C" {
     #[doc = " Create a modal message box.\n\n If your needs aren't complex, it might be easier to use\n SDL_ShowSimpleMessageBox.\n\n This function should be called on the thread that created the parent\n window, or on the main thread if the messagebox has no parent. It will\n block execution of that thread until the user clicks a button or closes the\n messagebox.\n\n This function may be called at any time, even before SDL_Init(). This makes\n it useful for reporting errors like a failure to create a renderer or\n OpenGL context.\n\n On X11, SDL rolls its own dialog box with X11 primitives instead of a\n formal toolkit like GTK+ or Qt.\n\n Note that if SDL_Init() would fail because there isn't any available video\n target, this function is likely to fail for the same reasons. If this is a\n concern, check the return value from this function and fall back to writing\n to stderr if you can.\n\n \\param messageboxdata the SDL_MessageBoxData structure with title, text and\n                       other options.\n \\param buttonid the pointer to which user id of hit button should be\n                 copied.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ShowSimpleMessageBox"]
     pub fn SDL_ShowMessageBox(
         messageboxdata: *const SDL_MessageBoxData,
-        buttonid: *mut libc::c_int,
+        buttonid: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Display a simple modal message box.\n\n If your needs aren't complex, this function is preferred over\n SDL_ShowMessageBox.\n\n `flags` may be any of the following:\n\n - `SDL_MESSAGEBOX_ERROR`: error dialog\n - `SDL_MESSAGEBOX_WARNING`: warning dialog\n - `SDL_MESSAGEBOX_INFORMATION`: informational dialog\n\n This function should be called on the thread that created the parent\n window, or on the main thread if the messagebox has no parent. It will\n block execution of that thread until the user clicks a button or closes the\n messagebox.\n\n This function may be called at any time, even before SDL_Init(). This makes\n it useful for reporting errors like a failure to create a renderer or\n OpenGL context.\n\n On X11, SDL rolls its own dialog box with X11 primitives instead of a\n formal toolkit like GTK+ or Qt.\n\n Note that if SDL_Init() would fail because there isn't any available video\n target, this function is likely to fail for the same reasons. If this is a\n concern, check the return value from this function and fall back to writing\n to stderr if you can.\n\n \\param flags an SDL_MessageBoxFlags value.\n \\param title UTF-8 title text.\n \\param message UTF-8 message text.\n \\param window the parent window, or NULL for no parent.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ShowMessageBox"]
     pub fn SDL_ShowSimpleMessageBox(
         flags: SDL_MessageBoxFlags,
-        title: *const libc::c_char,
-        message: *const libc::c_char,
+        title: *const ::core::ffi::c_char,
+        message: *const ::core::ffi::c_char,
         window: *mut SDL_Window,
     ) -> bool;
 }
 #[doc = " A handle to a CAMetalLayer-backed NSView (macOS) or UIView (iOS/tvOS).\n\n \\since This datatype is available since SDL 3.2.0."]
-pub type SDL_MetalView = *mut libc::c_void;
+pub type SDL_MetalView = *mut ::core::ffi::c_void;
 unsafe extern "C" {
     #[doc = " Create a CAMetalLayer-backed NSView/UIView and attach it to the specified\n window.\n\n On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on\n its own. It is up to user code to do that.\n\n The returned handle can be casted directly to a NSView or UIView. To access\n the backing CAMetalLayer, call SDL_Metal_GetLayer().\n\n \\param window the window.\n \\returns handle NSView or UIView.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_Metal_DestroyView\n \\sa SDL_Metal_GetLayer"]
     pub fn SDL_Metal_CreateView(window: *mut SDL_Window) -> SDL_MetalView;
@@ -14290,15 +14506,15 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get a pointer to the backing CAMetalLayer for the given view.\n\n \\param view the SDL_MetalView object.\n \\returns a pointer.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_Metal_GetLayer(view: SDL_MetalView) -> *mut libc::c_void;
+    pub fn SDL_Metal_GetLayer(view: SDL_MetalView) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Open a URL/URI in the browser or other appropriate external application.\n\n Open a URL in a separate, system-provided application. How this works will\n vary wildly depending on the platform. This will likely launch what makes\n sense to handle a specific URL's protocol (a web browser for `http://`,\n etc), but it might also be able to launch file managers for directories and\n other things.\n\n What happens when you open a URL varies wildly as well: your game window\n may lose focus (and may or may not lose focus if your game was fullscreen\n or grabbing input at the time). On mobile devices, your app will likely\n move to the background or your process might be paused. Any given platform\n may or may not handle a given URL.\n\n If this is unimplemented (or simply unavailable) for a platform, this will\n fail with an error. A successful result does not mean the URL loaded, just\n that we launched _something_ to handle it (or at least believe we did).\n\n All this to say: this function can be useful, but you should definitely\n test it on every platform you target.\n\n \\param url a valid URL/URI to open. Use `file:///full/path/to/file` for\n            local files, if supported.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_OpenURL(url: *const libc::c_char) -> bool;
+    pub fn SDL_OpenURL(url: *const ::core::ffi::c_char) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the name of the platform.\n\n Here are the names returned for some (but not all) supported platforms:\n\n - \"Windows\"\n - \"macOS\"\n - \"Linux\"\n - \"iOS\"\n - \"Android\"\n\n \\returns the name of the platform. If the correct platform name is not\n          available, returns a string beginning with the text \"Unknown\".\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetPlatform() -> *const libc::c_char;
+    pub fn SDL_GetPlatform() -> *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14308,7 +14524,7 @@ pub struct SDL_Process {
 unsafe extern "C" {
     #[doc = " Create a new process.\n\n The path to the executable is supplied in args[0]. args[1..N] are\n additional arguments passed on the command line of the new process, and the\n argument list should be terminated with a NULL, e.g.:\n\n ```c\n const char *args[] = { \"myprogram\", \"argument\", NULL };\n ```\n\n Setting pipe_stdio to true is equivalent to setting\n `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and\n `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and\n will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and\n SDL_GetProcessOutput().\n\n See SDL_CreateProcessWithProperties() for more details.\n\n \\param args the path and arguments for the new process.\n \\param pipe_stdio true to create pipes to the process's standard input and\n                   from the process's standard output, false for the process\n                   to have no input and inherit the application's standard\n                   output.\n \\returns the newly created and running process, or NULL if the process\n          couldn't be created.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateProcessWithProperties\n \\sa SDL_GetProcessProperties\n \\sa SDL_ReadProcess\n \\sa SDL_GetProcessInput\n \\sa SDL_GetProcessOutput\n \\sa SDL_KillProcess\n \\sa SDL_WaitProcess\n \\sa SDL_DestroyProcess"]
     pub fn SDL_CreateProcess(
-        args: *const *const libc::c_char,
+        args: *const *const ::core::ffi::c_char,
         pipe_stdio: bool,
     ) -> *mut SDL_Process;
 }
@@ -14321,7 +14537,7 @@ pub const SDL_ProcessIO_SDL_PROCESS_STDIO_APP: SDL_ProcessIO = 2;
 #[doc = "< The I/O stream is redirected to an existing SDL_IOStream."]
 pub const SDL_ProcessIO_SDL_PROCESS_STDIO_REDIRECT: SDL_ProcessIO = 3;
 #[doc = " Description of where standard I/O should be directed when creating a\n process.\n\n If a standard I/O stream is set to SDL_PROCESS_STDIO_INHERITED, it will go\n to the same place as the application's I/O stream. This is the default for\n standard output and standard error.\n\n If a standard I/O stream is set to SDL_PROCESS_STDIO_NULL, it is connected\n to `NUL:` on Windows and `/dev/null` on POSIX systems. This is the default\n for standard input.\n\n If a standard I/O stream is set to SDL_PROCESS_STDIO_APP, it is connected\n to a new SDL_IOStream that is available to the application. Standard input\n will be available as `SDL_PROP_PROCESS_STDIN_POINTER` and allows\n SDL_GetProcessInput(), standard output will be available as\n `SDL_PROP_PROCESS_STDOUT_POINTER` and allows SDL_ReadProcess() and\n SDL_GetProcessOutput(), and standard error will be available as\n `SDL_PROP_PROCESS_STDERR_POINTER` in the properties for the created\n process.\n\n If a standard I/O stream is set to SDL_PROCESS_STDIO_REDIRECT, it is\n connected to an existing SDL_IOStream provided by the application. Standard\n input is provided using `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`, standard\n output is provided using `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`, and\n standard error is provided using `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`\n in the creation properties. These existing streams should be closed by the\n application once the new process is created.\n\n In order to use an SDL_IOStream with SDL_PROCESS_STDIO_REDIRECT, it must\n have `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER` or\n `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER` set. This is true for streams\n representing files and process I/O.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_CreateProcessWithProperties\n \\sa SDL_GetProcessProperties\n \\sa SDL_ReadProcess\n \\sa SDL_GetProcessInput\n \\sa SDL_GetProcessOutput"]
-pub type SDL_ProcessIO = libc::c_uint;
+pub type SDL_ProcessIO = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Create a new process with the specified properties.\n\n These are the supported properties:\n\n - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing\n   the program to run, any arguments, and a NULL pointer, e.g. const char\n   *args[] = { \"myprogram\", \"argument\", NULL }. This is a required property.\n - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment\n   pointer. If this property is set, it will be the entire environment for\n   the process, otherwise the current environment is used.\n - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing\n   where standard input for the process comes from, defaults to\n   `SDL_PROCESS_STDIO_NULL`.\n - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for\n   standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to\n   `SDL_PROCESS_STDIO_REDIRECT`.\n - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value\n   describing where standard output for the process goes to, defaults to\n   `SDL_PROCESS_STDIO_INHERITED`.\n - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used\n   for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set\n   to `SDL_PROCESS_STDIO_REDIRECT`.\n - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value\n   describing where standard error for the process goes to, defaults to\n   `SDL_PROCESS_STDIO_INHERITED`.\n - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used\n   for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to\n   `SDL_PROCESS_STDIO_REDIRECT`.\n - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error\n   output of the process should be redirected into the standard output of\n   the process. This property has no effect if\n   `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.\n - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should\n   run in the background. In this case the default input and output is\n   `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not\n   available, and will always be 0.\n\n On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and\n SIGCHLD should not be ignored or handled because those would prevent SDL\n from properly tracking the lifetime of the underlying process. You should\n use SDL_WaitProcess() instead.\n\n \\param props the properties to use.\n \\returns the newly created and running process, or NULL if the process\n          couldn't be created.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateProcess\n \\sa SDL_GetProcessProperties\n \\sa SDL_ReadProcess\n \\sa SDL_GetProcessInput\n \\sa SDL_GetProcessOutput\n \\sa SDL_KillProcess\n \\sa SDL_WaitProcess\n \\sa SDL_DestroyProcess"]
     pub fn SDL_CreateProcessWithProperties(props: SDL_PropertiesID) -> *mut SDL_Process;
@@ -14335,8 +14551,8 @@ unsafe extern "C" {
     pub fn SDL_ReadProcess(
         process: *mut SDL_Process,
         datasize: *mut usize,
-        exitcode: *mut libc::c_int,
-    ) -> *mut libc::c_void;
+        exitcode: *mut ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Get the SDL_IOStream associated with process standard input.\n\n The process must have been created with SDL_CreateProcess() and pipe_stdio\n set to true, or with SDL_CreateProcessWithProperties() and\n `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.\n\n Writing to this stream can return less data than expected if the process\n hasn't read its input. It may be blocked waiting for its output to be read,\n if so you may need to call SDL_GetProcessOutput() and read the output in\n parallel with writing input.\n\n \\param process The process to get the input stream for.\n \\returns the input stream or NULL on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateProcess\n \\sa SDL_CreateProcessWithProperties\n \\sa SDL_GetProcessOutput"]
@@ -14355,7 +14571,7 @@ unsafe extern "C" {
     pub fn SDL_WaitProcess(
         process: *mut SDL_Process,
         block: bool,
-        exitcode: *mut libc::c_int,
+        exitcode: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14390,7 +14606,7 @@ pub const SDL_TextureAccess_SDL_TEXTUREACCESS_STREAMING: SDL_TextureAccess = 1;
 #[doc = "< Texture can be used as a render target"]
 pub const SDL_TextureAccess_SDL_TEXTUREACCESS_TARGET: SDL_TextureAccess = 2;
 #[doc = " The access pattern allowed for a texture.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_TextureAccess = libc::c_uint;
+pub type SDL_TextureAccess = ::core::ffi::c_uint;
 #[doc = "< There is no logical size in effect"]
 pub const SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_DISABLED:
     SDL_RendererLogicalPresentation = 0;
@@ -14407,7 +14623,7 @@ pub const SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_OVERSCAN:
 pub const SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_INTEGER_SCALE:
     SDL_RendererLogicalPresentation = 4;
 #[doc = " How the logical size is mapped to the output.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_RendererLogicalPresentation = libc::c_uint;
+pub type SDL_RendererLogicalPresentation = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_Renderer {
@@ -14420,11 +14636,11 @@ pub struct SDL_Texture {
     #[doc = "< The format of the texture, read-only"]
     pub format: SDL_PixelFormat,
     #[doc = "< The width of the texture, read-only."]
-    pub w: libc::c_int,
+    pub w: ::core::ffi::c_int,
     #[doc = "< The height of the texture, read-only."]
-    pub h: libc::c_int,
+    pub h: ::core::ffi::c_int,
     #[doc = "< Application reference count, used when freeing texture"]
-    pub refcount: libc::c_int,
+    pub refcount: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -14438,18 +14654,18 @@ const _: () = {
 };
 unsafe extern "C" {
     #[doc = " Get the number of 2D rendering drivers available for the current display.\n\n A render driver is a set of code that handles rendering and texture\n management on a particular display. Normally there is only one, but some\n drivers may have several available with different capabilities.\n\n There may be none if SDL was compiled without render support.\n\n \\returns the number of built in render drivers.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateRenderer\n \\sa SDL_GetRenderDriver"]
-    pub fn SDL_GetNumRenderDrivers() -> libc::c_int;
+    pub fn SDL_GetNumRenderDrivers() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Use this function to get the name of a built in 2D rendering driver.\n\n The list of rendering drivers is given in the order that they are normally\n initialized by default; the drivers that seem more reasonable to choose\n first (as far as the SDL developers believe) are earlier in the list.\n\n The names of drivers are all simple, low-ASCII identifiers, like \"opengl\",\n \"direct3d12\" or \"metal\". These never have Unicode characters, and are not\n meant to be proper names.\n\n \\param index the index of the rendering driver; the value ranges from 0 to\n              SDL_GetNumRenderDrivers() - 1.\n \\returns the name of the rendering driver at the requested index, or NULL\n          if an invalid index was specified.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetNumRenderDrivers"]
-    pub fn SDL_GetRenderDriver(index: libc::c_int) -> *const libc::c_char;
+    pub fn SDL_GetRenderDriver(index: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Create a window and default renderer.\n\n \\param title the title of the window, in UTF-8 encoding.\n \\param width the width of the window.\n \\param height the height of the window.\n \\param window_flags the flags used to create the window (see\n                     SDL_CreateWindow()).\n \\param window a pointer filled with the window, or NULL on error.\n \\param renderer a pointer filled with the renderer, or NULL on error.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateRenderer\n \\sa SDL_CreateWindow"]
     pub fn SDL_CreateWindowAndRenderer(
-        title: *const libc::c_char,
-        width: libc::c_int,
-        height: libc::c_int,
+        title: *const ::core::ffi::c_char,
+        width: ::core::ffi::c_int,
+        height: ::core::ffi::c_int,
         window_flags: SDL_WindowFlags,
         window: *mut *mut SDL_Window,
         renderer: *mut *mut SDL_Renderer,
@@ -14459,7 +14675,7 @@ unsafe extern "C" {
     #[doc = " Create a 2D rendering context for a window.\n\n If you want a specific renderer, you can specify its name here. A list of\n available renderers can be obtained by calling SDL_GetRenderDriver()\n multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you\n don't need a specific renderer, specify NULL and SDL will attempt to choose\n the best option for you, based on what is available on the user's system.\n\n If `name` is a comma-separated list, SDL will try each name, in the order\n listed, until one succeeds or all of them fail.\n\n By default the rendering size matches the window size in pixels, but you\n can call SDL_SetRenderLogicalPresentation() to change the content size and\n scaling options.\n\n \\param window the window where rendering is displayed.\n \\param name the name of the rendering driver to initialize, or NULL to let\n             SDL choose one.\n \\returns a valid rendering context or NULL if there was an error; call\n          SDL_GetError() for more information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateRendererWithProperties\n \\sa SDL_CreateSoftwareRenderer\n \\sa SDL_DestroyRenderer\n \\sa SDL_GetNumRenderDrivers\n \\sa SDL_GetRenderDriver\n \\sa SDL_GetRendererName"]
     pub fn SDL_CreateRenderer(
         window: *mut SDL_Window,
-        name: *const libc::c_char,
+        name: *const ::core::ffi::c_char,
     ) -> *mut SDL_Renderer;
 }
 unsafe extern "C" {
@@ -14480,7 +14696,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the name of a renderer.\n\n \\param renderer the rendering context.\n \\returns the name of the selected renderer, or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateRenderer\n \\sa SDL_CreateRendererWithProperties"]
-    pub fn SDL_GetRendererName(renderer: *mut SDL_Renderer) -> *const libc::c_char;
+    pub fn SDL_GetRendererName(renderer: *mut SDL_Renderer) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Get the properties associated with a renderer.\n\n The following read-only properties are provided by SDL:\n\n - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver\n - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is\n   displayed, if any\n - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is\n   displayed, if this is a software renderer without a window\n - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting\n - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width\n   and height\n - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)\n   array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,\n   representing the available texture formats for this renderer.\n - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value\n   describing the colorspace for output to the display, defaults to\n   SDL_COLORSPACE_SRGB.\n - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is\n   SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with\n   HDR enabled. This property can change dynamically when\n   SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the\n   SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is\n   automatically multiplied into the color scale. This property can change\n   dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range\n   that can be displayed, in terms of the SDR white point. When HDR is not\n   enabled, this will be 1.0. This property can change dynamically when\n   SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n\n With the direct3d renderer:\n\n - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated\n   with the renderer\n\n With the direct3d11 renderer:\n\n - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated\n   with the renderer\n - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1\n   associated with the renderer. This may change when the window is resized.\n\n With the direct3d12 renderer:\n\n - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated\n   with the renderer\n - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4\n   associated with the renderer.\n - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue\n   associated with the renderer\n\n With the vulkan renderer:\n\n - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated\n   with the renderer\n - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated\n   with the renderer\n - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice\n   associated with the renderer\n - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with\n   the renderer\n - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue\n   family index used for rendering\n - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue\n   family index used for presentation\n - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of\n   swapchain images, or potential frames in flight, used by the Vulkan\n   renderer\n\n With the gpu renderer:\n\n - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with\n   the renderer\n\n \\param renderer the rendering context.\n \\returns a valid property ID on success or 0 on failure; call\n          SDL_GetError() for more information.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -14490,16 +14706,16 @@ unsafe extern "C" {
     #[doc = " Get the output size in pixels of a rendering context.\n\n This returns the true output size in pixels, ignoring any render targets or\n logical size and presentation.\n\n \\param renderer the rendering context.\n \\param w a pointer filled in with the width in pixels.\n \\param h a pointer filled in with the height in pixels.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetCurrentRenderOutputSize"]
     pub fn SDL_GetRenderOutputSize(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get the current output size in pixels of a rendering context.\n\n If a rendering target is active, this will return the size of the rendering\n target in pixels, otherwise if a logical size is set, it will return the\n logical size, otherwise it will return the value of\n SDL_GetRenderOutputSize().\n\n \\param renderer the rendering context.\n \\param w a pointer filled in with the current width.\n \\param h a pointer filled in with the current height.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderOutputSize"]
     pub fn SDL_GetCurrentRenderOutputSize(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14508,8 +14724,8 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         format: SDL_PixelFormat,
         access: SDL_TextureAccess,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
     ) -> *mut SDL_Texture;
 }
 unsafe extern "C" {
@@ -14607,8 +14823,8 @@ unsafe extern "C" {
     pub fn SDL_UpdateTexture(
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
-        pixels: *const libc::c_void,
-        pitch: libc::c_int,
+        pixels: *const ::core::ffi::c_void,
+        pitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14617,11 +14833,11 @@ unsafe extern "C" {
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
         Yplane: *const Uint8,
-        Ypitch: libc::c_int,
+        Ypitch: ::core::ffi::c_int,
         Uplane: *const Uint8,
-        Upitch: libc::c_int,
+        Upitch: ::core::ffi::c_int,
         Vplane: *const Uint8,
-        Vpitch: libc::c_int,
+        Vpitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14630,9 +14846,9 @@ unsafe extern "C" {
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
         Yplane: *const Uint8,
-        Ypitch: libc::c_int,
+        Ypitch: ::core::ffi::c_int,
         UVplane: *const Uint8,
-        UVpitch: libc::c_int,
+        UVpitch: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14640,8 +14856,8 @@ unsafe extern "C" {
     pub fn SDL_LockTexture(
         texture: *mut SDL_Texture,
         rect: *const SDL_Rect,
-        pixels: *mut *mut libc::c_void,
-        pitch: *mut libc::c_int,
+        pixels: *mut *mut ::core::ffi::c_void,
+        pitch: *mut ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14668,8 +14884,8 @@ unsafe extern "C" {
     #[doc = " Set a device independent resolution and presentation mode for rendering.\n\n This function sets the width and height of the logical rendering output.\n The renderer will act as if the window is always the requested dimensions,\n scaling to the actual window resolution as necessary.\n\n This can be useful for games that expect a fixed size, but would like to\n scale the output to whatever is available, regardless of how a user resizes\n a window, or if the display is high DPI.\n\n You can disable logical coordinates by setting the mode to\n SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel\n resolution of the output window; it is safe to toggle logical presentation\n during the rendering of a frame: perhaps most of the rendering is done to\n specific dimensions but to make fonts look sharp, the app turns off logical\n presentation while drawing text.\n\n Letterboxing will only happen if logical presentation is enabled during\n SDL_RenderPresent; be sure to reenable it first if you were using it.\n\n You can convert coordinates in an event into rendering coordinates using\n SDL_ConvertEventToRenderCoordinates().\n\n \\param renderer the rendering context.\n \\param w the width of the logical resolution.\n \\param h the height of the logical resolution.\n \\param mode the presentation mode used.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ConvertEventToRenderCoordinates\n \\sa SDL_GetRenderLogicalPresentation\n \\sa SDL_GetRenderLogicalPresentationRect"]
     pub fn SDL_SetRenderLogicalPresentation(
         renderer: *mut SDL_Renderer,
-        w: libc::c_int,
-        h: libc::c_int,
+        w: ::core::ffi::c_int,
+        h: ::core::ffi::c_int,
         mode: SDL_RendererLogicalPresentation,
     ) -> bool;
 }
@@ -14677,8 +14893,8 @@ unsafe extern "C" {
     #[doc = " Get device independent resolution and presentation mode for rendering.\n\n This function gets the width and height of the logical rendering output, or\n the output size in pixels if a logical resolution is not enabled.\n\n \\param renderer the rendering context.\n \\param w an int to be filled with the width.\n \\param h an int to be filled with the height.\n \\param mode the presentation mode used.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetRenderLogicalPresentation"]
     pub fn SDL_GetRenderLogicalPresentation(
         renderer: *mut SDL_Renderer,
-        w: *mut libc::c_int,
-        h: *mut libc::c_int,
+        w: *mut ::core::ffi::c_int,
+        h: *mut ::core::ffi::c_int,
         mode: *mut SDL_RendererLogicalPresentation,
     ) -> bool;
 }
@@ -14831,7 +15047,7 @@ unsafe extern "C" {
     pub fn SDL_RenderPoints(
         renderer: *mut SDL_Renderer,
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14843,7 +15059,7 @@ unsafe extern "C" {
     pub fn SDL_RenderLines(
         renderer: *mut SDL_Renderer,
         points: *const SDL_FPoint,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14855,7 +15071,7 @@ unsafe extern "C" {
     pub fn SDL_RenderRects(
         renderer: *mut SDL_Renderer,
         rects: *const SDL_FRect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14867,7 +15083,7 @@ unsafe extern "C" {
     pub fn SDL_RenderFillRects(
         renderer: *mut SDL_Renderer,
         rects: *const SDL_FRect,
-        count: libc::c_int,
+        count: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14932,9 +15148,9 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
         vertices: *const SDL_Vertex,
-        num_vertices: libc::c_int,
-        indices: *const libc::c_int,
-        num_indices: libc::c_int,
+        num_vertices: ::core::ffi::c_int,
+        indices: *const ::core::ffi::c_int,
+        num_indices: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14943,15 +15159,15 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
         xy: *const f32,
-        xy_stride: libc::c_int,
+        xy_stride: ::core::ffi::c_int,
         color: *const SDL_FColor,
-        color_stride: libc::c_int,
+        color_stride: ::core::ffi::c_int,
         uv: *const f32,
-        uv_stride: libc::c_int,
-        num_vertices: libc::c_int,
-        indices: *const libc::c_void,
-        num_indices: libc::c_int,
-        size_indices: libc::c_int,
+        uv_stride: ::core::ffi::c_int,
+        num_vertices: ::core::ffi::c_int,
+        indices: *const ::core::ffi::c_void,
+        num_indices: ::core::ffi::c_int,
+        size_indices: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -14979,11 +15195,13 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the CAMetalLayer associated with the given Metal renderer.\n\n This function returns `void *`, so SDL doesn't have to include Metal's\n headers, but it can be safely cast to a `CAMetalLayer *`.\n\n \\param renderer the renderer to query.\n \\returns a `CAMetalLayer *` on success, or NULL if the renderer isn't a\n          Metal renderer.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderMetalCommandEncoder"]
-    pub fn SDL_GetRenderMetalLayer(renderer: *mut SDL_Renderer) -> *mut libc::c_void;
+    pub fn SDL_GetRenderMetalLayer(renderer: *mut SDL_Renderer) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Get the Metal command encoder for the current frame.\n\n This function returns `void *`, so SDL doesn't have to include Metal's\n headers, but it can be safely cast to an `id<MTLRenderCommandEncoder>`.\n\n This will return NULL if Metal refuses to give SDL a drawable to render to,\n which might happen if the window is hidden/minimized/offscreen. This\n doesn't apply to command encoders for render targets, just the window's\n backbuffer. Check your return values!\n\n \\param renderer the renderer to query.\n \\returns an `id<MTLRenderCommandEncoder>` on success, or NULL if the\n          renderer isn't a Metal renderer or there was an error.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderMetalLayer"]
-    pub fn SDL_GetRenderMetalCommandEncoder(renderer: *mut SDL_Renderer) -> *mut libc::c_void;
+    pub fn SDL_GetRenderMetalCommandEncoder(
+        renderer: *mut SDL_Renderer,
+    ) -> *mut ::core::ffi::c_void;
 }
 unsafe extern "C" {
     #[doc = " Add a set of synchronization semaphores for the current frame.\n\n The Vulkan renderer will wait for `wait_semaphore` before submitting\n rendering commands and signal `signal_semaphore` after rendering commands\n are complete for this frame.\n\n This should be called each frame that you want semaphore synchronization.\n The Vulkan renderer may have multiple frames in flight on the GPU, so you\n should have multiple semaphores that are used for synchronization. Querying\n SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER will give you the\n maximum number of semaphores you'll need.\n\n \\param renderer the rendering context.\n \\param wait_stage_mask the VkPipelineStageFlags for the wait.\n \\param wait_semaphore a VkSempahore to wait on before rendering the current\n                       frame, or 0 if not needed.\n \\param signal_semaphore a VkSempahore that SDL will signal when rendering\n                         for the current frame is complete, or 0 if not\n                         needed.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety It is **NOT** safe to call this function from two threads at\n               once.\n\n \\since This function is available since SDL 3.2.0."]
@@ -14996,11 +15214,11 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Toggle VSync of the given renderer.\n\n When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.\n\n The `vsync` parameter can be 1 to synchronize present with every vertical\n refresh, 2 to synchronize present with every second vertical refresh, etc.,\n SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync), or\n SDL_RENDERER_VSYNC_DISABLED to disable. Not every value is supported by\n every driver, so you should check the return value to see whether the\n requested setting is supported.\n\n \\param renderer the renderer to toggle.\n \\param vsync the vertical refresh sync interval.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderVSync"]
-    pub fn SDL_SetRenderVSync(renderer: *mut SDL_Renderer, vsync: libc::c_int) -> bool;
+    pub fn SDL_SetRenderVSync(renderer: *mut SDL_Renderer, vsync: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get VSync of the given renderer.\n\n \\param renderer the renderer to toggle.\n \\param vsync an int filled with the current vertical refresh sync interval.\n              See SDL_SetRenderVSync() for the meaning of the value.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_SetRenderVSync"]
-    pub fn SDL_GetRenderVSync(renderer: *mut SDL_Renderer, vsync: *mut libc::c_int) -> bool;
+    pub fn SDL_GetRenderVSync(renderer: *mut SDL_Renderer, vsync: *mut ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Draw debug text to an SDL_Renderer.\n\n This function will render a string of text to an SDL_Renderer. Note that\n this is a convenience function for debugging, with severe limitations, and\n not intended to be used for production apps and games.\n\n Among these limitations:\n\n - It accepts UTF-8 strings, but will only renders ASCII characters.\n - It has a single, tiny size (8x8 pixels). One can use logical presentation\n   or scaling to adjust it, but it will be blurry.\n - It uses a simple, hardcoded bitmap font. It does not allow different font\n   selections and it does not support truetype, for proper scaling.\n - It does no word-wrapping and does not treat newline characters as a line\n   break. If the text goes out of the window, it's gone.\n\n For serious text rendering, there are several good options, such as\n SDL_ttf, stb_truetype, or other external libraries.\n\n On first use, this will create an internal texture for rendering glyphs.\n This texture will live until the renderer is destroyed.\n\n The text is drawn in the color specified by SDL_SetRenderDrawColor().\n\n \\param renderer the renderer which should draw a line of text.\n \\param x the x coordinate where the top-left corner of the text will draw.\n \\param y the y coordinate where the top-left corner of the text will draw.\n \\param str the string to render.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_RenderDebugTextFormat\n \\sa SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE"]
@@ -15008,7 +15226,7 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         x: f32,
         y: f32,
-        str_: *const libc::c_char,
+        str_: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -15017,7 +15235,7 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         x: f32,
         y: f32,
-        fmt: *const libc::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
     ) -> bool;
 }
@@ -15026,61 +15244,69 @@ unsafe extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_StorageInterface {
     pub version: Uint32,
-    pub close: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> bool>,
-    pub ready: ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> bool>,
+    pub close:
+        ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> bool>,
+    pub ready:
+        ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> bool>,
     pub enumerate: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            path: *const libc::c_char,
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
             callback: SDL_EnumerateDirectoryCallback,
-            callback_userdata: *mut libc::c_void,
+            callback_userdata: *mut ::core::ffi::c_void,
         ) -> bool,
     >,
     pub info: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            path: *const libc::c_char,
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
             info: *mut SDL_PathInfo,
         ) -> bool,
     >,
     pub read_file: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            path: *const libc::c_char,
-            destination: *mut libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
+            destination: *mut ::core::ffi::c_void,
             length: Uint64,
         ) -> bool,
     >,
     pub write_file: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            path: *const libc::c_char,
-            source: *const libc::c_void,
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
+            source: *const ::core::ffi::c_void,
             length: Uint64,
         ) -> bool,
     >,
     pub mkdir: ::core::option::Option<
-        unsafe extern "C" fn(userdata: *mut libc::c_void, path: *const libc::c_char) -> bool,
+        unsafe extern "C" fn(
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
+        ) -> bool,
     >,
     pub remove: ::core::option::Option<
-        unsafe extern "C" fn(userdata: *mut libc::c_void, path: *const libc::c_char) -> bool,
+        unsafe extern "C" fn(
+            userdata: *mut ::core::ffi::c_void,
+            path: *const ::core::ffi::c_char,
+        ) -> bool,
     >,
     pub rename: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            oldpath: *const libc::c_char,
-            newpath: *const libc::c_char,
+            userdata: *mut ::core::ffi::c_void,
+            oldpath: *const ::core::ffi::c_char,
+            newpath: *const ::core::ffi::c_char,
         ) -> bool,
     >,
     pub copy: ::core::option::Option<
         unsafe extern "C" fn(
-            userdata: *mut libc::c_void,
-            oldpath: *const libc::c_char,
-            newpath: *const libc::c_char,
+            userdata: *mut ::core::ffi::c_void,
+            oldpath: *const ::core::ffi::c_char,
+            newpath: *const ::core::ffi::c_char,
         ) -> bool,
     >,
     pub space_remaining:
-        ::core::option::Option<unsafe extern "C" fn(userdata: *mut libc::c_void) -> Uint64>,
+        ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> Uint64>,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -15119,27 +15345,27 @@ pub struct SDL_Storage {
 unsafe extern "C" {
     #[doc = " Opens up a read-only container for the application's filesystem.\n\n \\param override a path to override the backend's default title root.\n \\param props a property list that may contain backend-specific information.\n \\returns a title storage container on success or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseStorage\n \\sa SDL_GetStorageFileSize\n \\sa SDL_OpenUserStorage\n \\sa SDL_ReadStorageFile"]
     pub fn SDL_OpenTitleStorage(
-        override_: *const libc::c_char,
+        override_: *const ::core::ffi::c_char,
         props: SDL_PropertiesID,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
     #[doc = " Opens up a container for a user's unique read/write filesystem.\n\n While title storage can generally be kept open throughout runtime, user\n storage should only be opened when the client is ready to read/write files.\n This allows the backend to properly batch file operations and flush them\n when the container has been closed; ensuring safe and optimal save I/O.\n\n \\param org the name of your organization.\n \\param app the name of your application.\n \\param props a property list that may contain backend-specific information.\n \\returns a user storage container on success or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseStorage\n \\sa SDL_GetStorageFileSize\n \\sa SDL_GetStorageSpaceRemaining\n \\sa SDL_OpenTitleStorage\n \\sa SDL_ReadStorageFile\n \\sa SDL_StorageReady\n \\sa SDL_WriteStorageFile"]
     pub fn SDL_OpenUserStorage(
-        org: *const libc::c_char,
-        app: *const libc::c_char,
+        org: *const ::core::ffi::c_char,
+        app: *const ::core::ffi::c_char,
         props: SDL_PropertiesID,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
     #[doc = " Opens up a container for local filesystem storage.\n\n This is provided for development and tools. Portable applications should\n use SDL_OpenTitleStorage() for access to game data and\n SDL_OpenUserStorage() for access to user data.\n\n \\param path the base path prepended to all storage paths, or NULL for no\n             base path.\n \\returns a filesystem storage container on success or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseStorage\n \\sa SDL_GetStorageFileSize\n \\sa SDL_GetStorageSpaceRemaining\n \\sa SDL_OpenTitleStorage\n \\sa SDL_OpenUserStorage\n \\sa SDL_ReadStorageFile\n \\sa SDL_WriteStorageFile"]
-    pub fn SDL_OpenFileStorage(path: *const libc::c_char) -> *mut SDL_Storage;
+    pub fn SDL_OpenFileStorage(path: *const ::core::ffi::c_char) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
     #[doc = " Opens up a container using a client-provided storage interface.\n\n Applications do not need to use this function unless they are providing\n their own SDL_Storage implementation. If you just need an SDL_Storage, you\n should use the built-in implementations in SDL, like SDL_OpenTitleStorage()\n or SDL_OpenUserStorage().\n\n This function makes a copy of `iface` and the caller does not need to keep\n it around after this call.\n\n \\param iface the interface that implements this storage, initialized using\n              SDL_INIT_INTERFACE().\n \\param userdata the pointer that will be passed to the interface functions.\n \\returns a storage container on success or NULL on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CloseStorage\n \\sa SDL_GetStorageFileSize\n \\sa SDL_GetStorageSpaceRemaining\n \\sa SDL_INIT_INTERFACE\n \\sa SDL_ReadStorageFile\n \\sa SDL_StorageReady\n \\sa SDL_WriteStorageFile"]
     pub fn SDL_OpenStorage(
         iface: *const SDL_StorageInterface,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> *mut SDL_Storage;
 }
 unsafe extern "C" {
@@ -15154,7 +15380,7 @@ unsafe extern "C" {
     #[doc = " Query the size of a file within a storage container.\n\n \\param storage a storage container to query.\n \\param path the relative path of the file to query.\n \\param length a pointer to be filled with the file's length.\n \\returns true if the file could be queried or false on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_ReadStorageFile\n \\sa SDL_StorageReady"]
     pub fn SDL_GetStorageFileSize(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         length: *mut Uint64,
     ) -> bool;
 }
@@ -15162,8 +15388,8 @@ unsafe extern "C" {
     #[doc = " Synchronously read a file from a storage container into a client-provided\n buffer.\n\n The value of `length` must match the length of the file exactly; call\n SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in\n a future release.\n\n \\param storage a storage container to read from.\n \\param path the relative path of the file to read.\n \\param destination a client-provided buffer to read the file into.\n \\param length the length of the destination buffer.\n \\returns true if the file was read or false on failure; call SDL_GetError()\n          for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetStorageFileSize\n \\sa SDL_StorageReady\n \\sa SDL_WriteStorageFile"]
     pub fn SDL_ReadStorageFile(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        destination: *mut libc::c_void,
+        path: *const ::core::ffi::c_char,
+        destination: *mut ::core::ffi::c_void,
         length: Uint64,
     ) -> bool;
 }
@@ -15171,50 +15397,55 @@ unsafe extern "C" {
     #[doc = " Synchronously write a file from client memory into a storage container.\n\n \\param storage a storage container to write to.\n \\param path the relative path of the file to write.\n \\param source a client-provided buffer to write from.\n \\param length the length of the source buffer.\n \\returns true if the file was written or false on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetStorageSpaceRemaining\n \\sa SDL_ReadStorageFile\n \\sa SDL_StorageReady"]
     pub fn SDL_WriteStorageFile(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        source: *const libc::c_void,
+        path: *const ::core::ffi::c_char,
+        source: *const ::core::ffi::c_void,
         length: Uint64,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Create a directory in a writable storage container.\n\n \\param storage a storage container.\n \\param path the path of the directory to create.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
-    pub fn SDL_CreateStorageDirectory(storage: *mut SDL_Storage, path: *const libc::c_char)
-        -> bool;
+    pub fn SDL_CreateStorageDirectory(
+        storage: *mut SDL_Storage,
+        path: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Enumerate a directory in a storage container through a callback function.\n\n This function provides every directory entry through an app-provided\n callback, called once for each directory entry, until all results have been\n provided or the callback returns either SDL_ENUM_SUCCESS or\n SDL_ENUM_FAILURE.\n\n This will return false if there was a system problem in general, or if a\n callback returns SDL_ENUM_FAILURE. A successful return means a callback\n returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries\n were enumerated.\n\n If `path` is NULL, this is treated as a request to enumerate the root of\n the storage container's tree. An empty string also works for this.\n\n \\param storage a storage container.\n \\param path the path of the directory to enumerate, or NULL for the root.\n \\param callback a function that is called for each entry in the directory.\n \\param userdata a pointer that is passed to `callback`.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
     pub fn SDL_EnumerateStorageDirectory(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         callback: SDL_EnumerateDirectoryCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Remove a file or an empty directory in a writable storage container.\n\n \\param storage a storage container.\n \\param path the path of the directory to enumerate.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
-    pub fn SDL_RemoveStoragePath(storage: *mut SDL_Storage, path: *const libc::c_char) -> bool;
+    pub fn SDL_RemoveStoragePath(
+        storage: *mut SDL_Storage,
+        path: *const ::core::ffi::c_char,
+    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Rename a file or directory in a writable storage container.\n\n \\param storage a storage container.\n \\param oldpath the old path.\n \\param newpath the new path.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
     pub fn SDL_RenameStoragePath(
         storage: *mut SDL_Storage,
-        oldpath: *const libc::c_char,
-        newpath: *const libc::c_char,
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Copy a file in a writable storage container.\n\n \\param storage a storage container.\n \\param oldpath the old path.\n \\param newpath the new path.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
     pub fn SDL_CopyStorageFile(
         storage: *mut SDL_Storage,
-        oldpath: *const libc::c_char,
-        newpath: *const libc::c_char,
+        oldpath: *const ::core::ffi::c_char,
+        newpath: *const ::core::ffi::c_char,
     ) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Get information about a filesystem path in a storage container.\n\n \\param storage a storage container.\n \\param path the path to query.\n \\param info a pointer filled in with information about the path, or NULL to\n             check for the existence of a file.\n \\returns true on success or false if the file doesn't exist, or another\n          failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_StorageReady"]
     pub fn SDL_GetStoragePathInfo(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
         info: *mut SDL_PathInfo,
     ) -> bool;
 }
@@ -15226,11 +15457,11 @@ unsafe extern "C" {
     #[doc = " Enumerate a directory tree, filtered by pattern, and return a list.\n\n Files are filtered out if they don't match the string in `pattern`, which\n may contain wildcard characters `*` (match everything) and `?` (match one\n character). If pattern is NULL, no filtering is done and all results are\n returned. Subdirectories are permitted, and are specified with a path\n separator of '/'. Wildcard characters `*` and `?` never match a path\n separator.\n\n `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching\n case-insensitive.\n\n The returned array is always NULL-terminated, for your iterating\n convenience, but if `count` is non-NULL, on return it will contain the\n number of items in the array, not counting the NULL terminator.\n\n If `path` is NULL, this is treated as a request to enumerate the root of\n the storage container's tree. An empty string also works for this.\n\n \\param storage a storage container.\n \\param path the path of the directory to enumerate, or NULL for the root.\n \\param pattern the pattern that files in the directory must match. Can be\n                NULL.\n \\param flags `SDL_GLOB_*` bitflags that affect this search.\n \\param count on return, will be set to the number of items in the returned\n              array. Can be NULL.\n \\returns an array of strings on success or NULL on failure; call\n          SDL_GetError() for more information. The caller should pass the\n          returned pointer to SDL_free when done with it. This is a single\n          allocation that should be freed with SDL_free() when it is no\n          longer needed.\n\n \\threadsafety It is safe to call this function from any thread, assuming\n               the `storage` object is thread-safe.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GlobStorageDirectory(
         storage: *mut SDL_Storage,
-        path: *const libc::c_char,
-        pattern: *const libc::c_char,
+        path: *const ::core::ffi::c_char,
+        pattern: *const ::core::ffi::c_char,
         flags: SDL_GlobFlags,
-        count: *mut libc::c_int,
-    ) -> *mut *mut libc::c_char;
+        count: *mut ::core::ffi::c_int,
+    ) -> *mut *mut ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -15240,22 +15471,22 @@ pub struct _XEvent {
 pub type XEvent = _XEvent;
 #[doc = " A callback to be used with SDL_SetX11EventHook.\n\n This callback may modify the event, and should return true if the event\n should continue to be processed, or false to prevent further processing.\n\n As this is processing an event directly from the X11 event loop, this\n callback should do the minimum required work and return quickly.\n\n \\param userdata the app-defined pointer provided to SDL_SetX11EventHook.\n \\param xevent a pointer to an Xlib XEvent union to process.\n \\returns true to let event continue on, false to drop it.\n\n \\threadsafety This may only be called (by SDL) from the thread handling the\n               X11 event loop.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetX11EventHook"]
 pub type SDL_X11EventHook = ::core::option::Option<
-    unsafe extern "C" fn(userdata: *mut libc::c_void, xevent: *mut XEvent) -> bool,
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, xevent: *mut XEvent) -> bool,
 >;
 unsafe extern "C" {
     #[doc = " Set a callback for every X11 event.\n\n The callback may modify the event, and should return true if the event\n should continue to be processed, or false to prevent further processing.\n\n \\param callback the SDL_X11EventHook function to call.\n \\param userdata a pointer to pass to every iteration of `callback`.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_SetX11EventHook(callback: SDL_X11EventHook, userdata: *mut libc::c_void);
+    pub fn SDL_SetX11EventHook(callback: SDL_X11EventHook, userdata: *mut ::core::ffi::c_void);
 }
 unsafe extern "C" {
     #[doc = " Sets the UNIX nice value for a thread.\n\n This uses setpriority() if possible, and RealtimeKit if available.\n\n \\param threadID the Unix thread ID to change priority of.\n \\param priority the new, Unix-specific, priority value.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_SetLinuxThreadPriority(threadID: Sint64, priority: libc::c_int) -> bool;
+    pub fn SDL_SetLinuxThreadPriority(threadID: Sint64, priority: ::core::ffi::c_int) -> bool;
 }
 unsafe extern "C" {
     #[doc = " Sets the priority (not nice level) and scheduling policy for a thread.\n\n This uses setpriority() if possible, and RealtimeKit if available.\n\n \\param threadID the Unix thread ID to change priority of.\n \\param sdlPriority the new SDL_ThreadPriority value.\n \\param schedPolicy the new scheduling policy (SCHED_FIFO, SCHED_RR,\n                    SCHED_OTHER, etc...).\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_SetLinuxThreadPriorityAndPolicy(
         threadID: Sint64,
-        sdlPriority: libc::c_int,
-        schedPolicy: libc::c_int,
+        sdlPriority: ::core::ffi::c_int,
+        schedPolicy: ::core::ffi::c_int,
     ) -> bool;
 }
 unsafe extern "C" {
@@ -15272,7 +15503,7 @@ pub const SDL_Sandbox_SDL_SANDBOX_FLATPAK: SDL_Sandbox = 2;
 pub const SDL_Sandbox_SDL_SANDBOX_SNAP: SDL_Sandbox = 3;
 pub const SDL_Sandbox_SDL_SANDBOX_MACOS: SDL_Sandbox = 4;
 #[doc = " Application sandbox environment.\n\n \\since This enum is available since SDL 3.2.0."]
-pub type SDL_Sandbox = libc::c_uint;
+pub type SDL_Sandbox = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Get the application sandbox environment, if any.\n\n \\returns the application sandbox environment or SDL_SANDBOX_NONE if the\n          application is not running in a sandbox environment.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetSandbox() -> SDL_Sandbox;
@@ -15306,23 +15537,23 @@ unsafe extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct SDL_DateTime {
     #[doc = "< Year"]
-    pub year: libc::c_int,
+    pub year: ::core::ffi::c_int,
     #[doc = "< Month [01-12]"]
-    pub month: libc::c_int,
+    pub month: ::core::ffi::c_int,
     #[doc = "< Day of the month [01-31]"]
-    pub day: libc::c_int,
+    pub day: ::core::ffi::c_int,
     #[doc = "< Hour [0-23]"]
-    pub hour: libc::c_int,
+    pub hour: ::core::ffi::c_int,
     #[doc = "< Minute [0-59]"]
-    pub minute: libc::c_int,
+    pub minute: ::core::ffi::c_int,
     #[doc = "< Seconds [0-60]"]
-    pub second: libc::c_int,
+    pub second: ::core::ffi::c_int,
     #[doc = "< Nanoseconds [0-999999999]"]
-    pub nanosecond: libc::c_int,
+    pub nanosecond: ::core::ffi::c_int,
     #[doc = "< Day of the week [0-6] (0 being Sunday)"]
-    pub day_of_week: libc::c_int,
+    pub day_of_week: ::core::ffi::c_int,
     #[doc = "< Seconds east of UTC"]
-    pub utc_offset: libc::c_int,
+    pub utc_offset: ::core::ffi::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -15350,13 +15581,13 @@ pub const SDL_DateFormat_SDL_DATE_FORMAT_DDMMYYYY: SDL_DateFormat = 1;
 #[doc = "< Month/Day/Year"]
 pub const SDL_DateFormat_SDL_DATE_FORMAT_MMDDYYYY: SDL_DateFormat = 2;
 #[doc = " The preferred date format of the current system locale.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetDateTimeLocalePreferences"]
-pub type SDL_DateFormat = libc::c_uint;
+pub type SDL_DateFormat = ::core::ffi::c_uint;
 #[doc = "< 24 hour time"]
 pub const SDL_TimeFormat_SDL_TIME_FORMAT_24HR: SDL_TimeFormat = 0;
 #[doc = "< 12 hour time"]
 pub const SDL_TimeFormat_SDL_TIME_FORMAT_12HR: SDL_TimeFormat = 1;
 #[doc = " The preferred time format of the current system locale.\n\n \\since This enum is available since SDL 3.2.0.\n\n \\sa SDL_GetDateTimeLocalePreferences"]
-pub type SDL_TimeFormat = libc::c_uint;
+pub type SDL_TimeFormat = ::core::ffi::c_uint;
 unsafe extern "C" {
     #[doc = " Gets the current preferred date and time format for the system locale.\n\n This might be a \"slow\" call that has to query the operating system. It's\n best to ask for this once and save the results. However, the preferred\n formats can change, usually because the user has changed a system\n preference outside of your program.\n\n \\param dateFormat a pointer to the SDL_DateFormat to hold the returned date\n                   format, may be NULL.\n \\param timeFormat a pointer to the SDL_TimeFormat to hold the returned time\n                   format, may be NULL.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\since This function is available since SDL 3.2.0."]
     pub fn SDL_GetDateTimeLocalePreferences(
@@ -15390,17 +15621,26 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the number of days in a month for a given year.\n\n \\param year the year.\n \\param month the month [1-12].\n \\returns the number of days in the requested month or -1 on failure; call\n          SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetDaysInMonth(year: libc::c_int, month: libc::c_int) -> libc::c_int;
+    pub fn SDL_GetDaysInMonth(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the day of year for a calendar date.\n\n \\param year the year component of the date.\n \\param month the month component of the date.\n \\param day the day component of the date.\n \\returns the day of year [0-365] if the date is valid or -1 on failure;\n          call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetDayOfYear(year: libc::c_int, month: libc::c_int, day: libc::c_int)
-        -> libc::c_int;
+    pub fn SDL_GetDayOfYear(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+        day: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the day of week for a calendar date.\n\n \\param year the year component of the date.\n \\param month the month component of the date.\n \\param day the day component of the date.\n \\returns a value between 0 and 6 (0 being Sunday) if the date is valid or\n          -1 on failure; call SDL_GetError() for more information.\n\n \\since This function is available since SDL 3.2.0."]
-    pub fn SDL_GetDayOfWeek(year: libc::c_int, month: libc::c_int, day: libc::c_int)
-        -> libc::c_int;
+    pub fn SDL_GetDayOfWeek(
+        year: ::core::ffi::c_int,
+        month: ::core::ffi::c_int,
+        day: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the number of milliseconds since SDL library initialization.\n\n \\returns an unsigned 64-bit value representing the number of milliseconds\n          since the SDL library initialized.\n\n \\threadsafety It is safe to call this function from any thread.\n\n \\since This function is available since SDL 3.2.0."]
@@ -15435,7 +15675,7 @@ pub type SDL_TimerID = Uint32;
 #[doc = " Function prototype for the millisecond timer callback function.\n\n The callback function is passed the current timer interval and returns the\n next timer interval, in milliseconds. If the returned value is the same as\n the one passed in, the periodic alarm continues, otherwise a new alarm is\n scheduled. If the callback returns 0, the periodic alarm is canceled and\n will be removed.\n\n \\param userdata an arbitrary pointer provided by the app through\n                 SDL_AddTimer, for its own use.\n \\param timerID the current timer being processed.\n \\param interval the current callback time interval.\n \\returns the new callback time interval, or 0 to disable further runs of\n          the callback.\n\n \\threadsafety SDL may call this callback at any time from a background\n               thread; the application is responsible for locking resources\n               the callback touches that need to be protected.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_AddTimer"]
 pub type SDL_TimerCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         timerID: SDL_TimerID,
         interval: Uint32,
     ) -> Uint32,
@@ -15445,13 +15685,13 @@ unsafe extern "C" {
     pub fn SDL_AddTimer(
         interval: Uint32,
         callback: SDL_TimerCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> SDL_TimerID;
 }
 #[doc = " Function prototype for the nanosecond timer callback function.\n\n The callback function is passed the current timer interval and returns the\n next timer interval, in nanoseconds. If the returned value is the same as\n the one passed in, the periodic alarm continues, otherwise a new alarm is\n scheduled. If the callback returns 0, the periodic alarm is canceled and\n will be removed.\n\n \\param userdata an arbitrary pointer provided by the app through\n                 SDL_AddTimer, for its own use.\n \\param timerID the current timer being processed.\n \\param interval the current callback time interval.\n \\returns the new callback time interval, or 0 to disable further runs of\n          the callback.\n\n \\threadsafety SDL may call this callback at any time from a background\n               thread; the application is responsible for locking resources\n               the callback touches that need to be protected.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_AddTimerNS"]
 pub type SDL_NSTimerCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
         timerID: SDL_TimerID,
         interval: Uint64,
     ) -> Uint64,
@@ -15461,7 +15701,7 @@ unsafe extern "C" {
     pub fn SDL_AddTimerNS(
         interval: Uint64,
         callback: SDL_NSTimerCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> SDL_TimerID;
 }
 unsafe extern "C" {
@@ -15487,11 +15727,14 @@ pub struct SDL_TrayEntry {
 pub type SDL_TrayEntryFlags = Uint32;
 #[doc = " A callback that is invoked when a tray entry is selected.\n\n \\param userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n \\param entry the tray entry that was selected.\n\n \\since This datatype is available since SDL 3.2.0.\n\n \\sa SDL_SetTrayEntryCallback"]
 pub type SDL_TrayCallback = ::core::option::Option<
-    unsafe extern "C" fn(userdata: *mut libc::c_void, entry: *mut SDL_TrayEntry),
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, entry: *mut SDL_TrayEntry),
 >;
 unsafe extern "C" {
     #[doc = " Create an icon to be placed in the operating system's tray, or equivalent.\n\n Many platforms advise not using a system tray unless persistence is a\n necessary feature. Avoid needlessly creating a tray icon, as the user may\n feel like it clutters their interface.\n\n Using tray icons require the video subsystem.\n\n \\param icon a surface to be used as icon. May be NULL.\n \\param tooltip a tooltip to be displayed when the mouse hovers the icon in\n                UTF-8 encoding. Not supported on all platforms. May be NULL.\n \\returns The newly created system tray icon.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateTrayMenu\n \\sa SDL_GetTrayMenu\n \\sa SDL_DestroyTray"]
-    pub fn SDL_CreateTray(icon: *mut SDL_Surface, tooltip: *const libc::c_char) -> *mut SDL_Tray;
+    pub fn SDL_CreateTray(
+        icon: *mut SDL_Surface,
+        tooltip: *const ::core::ffi::c_char,
+    ) -> *mut SDL_Tray;
 }
 unsafe extern "C" {
     #[doc = " Updates the system tray icon's icon.\n\n \\param tray the tray icon to be updated.\n \\param icon the new icon. May be NULL.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateTray"]
@@ -15499,7 +15742,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Updates the system tray icon's tooltip.\n\n \\param tray the tray icon to be updated.\n \\param tooltip the new tooltip in UTF-8 encoding. May be NULL.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateTray"]
-    pub fn SDL_SetTrayTooltip(tray: *mut SDL_Tray, tooltip: *const libc::c_char);
+    pub fn SDL_SetTrayTooltip(tray: *mut SDL_Tray, tooltip: *const ::core::ffi::c_char);
 }
 unsafe extern "C" {
     #[doc = " Create a menu for a system tray.\n\n This should be called at most once per tray icon.\n\n This function does the same thing as SDL_CreateTraySubmenu(), except that\n it takes a SDL_Tray instead of a SDL_TrayEntry.\n\n A menu does not need to be destroyed; it will be destroyed with the tray.\n\n \\param tray the tray to bind the menu to.\n \\returns the newly created menu.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_CreateTray\n \\sa SDL_GetTrayMenu\n \\sa SDL_GetTrayMenuParentTray"]
@@ -15521,7 +15764,7 @@ unsafe extern "C" {
     #[doc = " Returns a list of entries in the menu, in order.\n\n \\param menu The menu to get entries from.\n \\param count An optional pointer to obtain the number of entries in the\n              menu.\n \\returns a NULL-terminated list of entries within the given menu. The\n          pointer becomes invalid when any function that inserts or deletes\n          entries in the menu is called.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_RemoveTrayEntry\n \\sa SDL_InsertTrayEntryAt"]
     pub fn SDL_GetTrayEntries(
         menu: *mut SDL_TrayMenu,
-        count: *mut libc::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut *const SDL_TrayEntry;
 }
 unsafe extern "C" {
@@ -15532,18 +15775,18 @@ unsafe extern "C" {
     #[doc = " Insert a tray entry at a given position.\n\n If label is NULL, the entry will be a separator. Many functions won't work\n for an entry that is a separator.\n\n An entry does not need to be destroyed; it will be destroyed with the tray.\n\n \\param menu the menu to append the entry to.\n \\param pos the desired position for the new entry. Entries at or following\n            this place will be moved. If pos is -1, the entry is appended.\n \\param label the text to be displayed on the entry, in UTF-8 encoding, or\n              NULL for a separator.\n \\param flags a combination of flags, some of which are mandatory.\n \\returns the newly created entry, or NULL if pos is out of bounds.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_TrayEntryFlags\n \\sa SDL_GetTrayEntries\n \\sa SDL_RemoveTrayEntry\n \\sa SDL_GetTrayEntryParent"]
     pub fn SDL_InsertTrayEntryAt(
         menu: *mut SDL_TrayMenu,
-        pos: libc::c_int,
-        label: *const libc::c_char,
+        pos: ::core::ffi::c_int,
+        label: *const ::core::ffi::c_char,
         flags: SDL_TrayEntryFlags,
     ) -> *mut SDL_TrayEntry;
 }
 unsafe extern "C" {
     #[doc = " Sets the label of an entry.\n\n An entry cannot change between a separator and an ordinary entry; that is,\n it is not possible to set a non-NULL label on an entry that has a NULL\n label (separators), or to set a NULL label to an entry that has a non-NULL\n label. The function will silently fail if that happens.\n\n \\param entry the entry to be updated.\n \\param label the new label for the entry in UTF-8 encoding.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetTrayEntries\n \\sa SDL_InsertTrayEntryAt\n \\sa SDL_GetTrayEntryLabel"]
-    pub fn SDL_SetTrayEntryLabel(entry: *mut SDL_TrayEntry, label: *const libc::c_char);
+    pub fn SDL_SetTrayEntryLabel(entry: *mut SDL_TrayEntry, label: *const ::core::ffi::c_char);
 }
 unsafe extern "C" {
     #[doc = " Gets the label of an entry.\n\n If the returned value is NULL, the entry is a separator.\n\n \\param entry the entry to be read.\n \\returns the label of the entry in UTF-8 encoding.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetTrayEntries\n \\sa SDL_InsertTrayEntryAt\n \\sa SDL_SetTrayEntryLabel"]
-    pub fn SDL_GetTrayEntryLabel(entry: *mut SDL_TrayEntry) -> *const libc::c_char;
+    pub fn SDL_GetTrayEntryLabel(entry: *mut SDL_TrayEntry) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " Sets whether or not an entry is checked.\n\n The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.\n\n \\param entry the entry to be updated.\n \\param checked true if the entry should be checked; false otherwise.\n\n \\threadsafety This function should be called on the thread that created the\n               tray.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetTrayEntries\n \\sa SDL_InsertTrayEntryAt\n \\sa SDL_GetTrayEntryChecked"]
@@ -15566,7 +15809,7 @@ unsafe extern "C" {
     pub fn SDL_SetTrayEntryCallback(
         entry: *mut SDL_TrayEntry,
         callback: SDL_TrayCallback,
-        userdata: *mut libc::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 unsafe extern "C" {
@@ -15595,20 +15838,20 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     #[doc = " Get the version of SDL that is linked against your program.\n\n If you are linking to SDL dynamically, then it is possible that the current\n version will be different than the version you compiled against. This\n function returns the current version, while SDL_VERSION is the version you\n compiled with.\n\n This function may be called safely at any time, even before SDL_Init().\n\n \\returns the version of the linked library.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRevision"]
-    pub fn SDL_GetVersion() -> libc::c_int;
+    pub fn SDL_GetVersion() -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = " Get the code revision of SDL that is linked against your program.\n\n This value is the revision of the code you are linked with and may be\n different from the code you are compiling with, which is found in the\n constant SDL_REVISION.\n\n The revision is arbitrary string (a hash value) uniquely identifying the\n exact revision of the SDL library in use, and is only useful in comparing\n against other revisions. It is NOT an incrementing number.\n\n If SDL wasn't built from a git repository with the appropriate tools, this\n will return an empty string.\n\n You shouldn't use this function for anything but logging it for debugging\n purposes. The string is not intended to be reliable in any way.\n\n \\returns an arbitrary string, uniquely identifying the exact revision of\n          the SDL library in use.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetVersion"]
-    pub fn SDL_GetRevision() -> *const libc::c_char;
+    pub fn SDL_GetRevision() -> *const ::core::ffi::c_char;
 }
 pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __va_list_tag {
-    pub gp_offset: libc::c_uint,
-    pub fp_offset: libc::c_uint,
-    pub overflow_arg_area: *mut libc::c_void,
-    pub reg_save_area: *mut libc::c_void,
+    pub gp_offset: ::core::ffi::c_uint,
+    pub fp_offset: ::core::ffi::c_uint,
+    pub overflow_arg_area: *mut ::core::ffi::c_void,
+    pub reg_save_area: *mut ::core::ffi::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
