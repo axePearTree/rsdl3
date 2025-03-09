@@ -54,7 +54,7 @@ impl VideoSubsystem {
 
     /// Creates a new surface identical to the existing surface.
     /// If the original surface has alternate images, the new surface will have a reference to them as well.
-    pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface, Error> {
+    pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface<'static>, Error> {
         let ptr = unsafe { sys::SDL_DuplicateSurface(surface.raw()) };
         if ptr.is_null() {
             return Err(Error::from_sdl());

@@ -6,9 +6,10 @@ use core::marker::PhantomData;
 use core::mem::MaybeUninit;
 
 impl EventsSubsystem {
-    /// Returns a mutably borrowed [`EventPump`].
-    /// Only a single instance of [`EventPump`] can ever be active.
-    /// This will return an error if the [`EventPump`] is already borrowed.
+    /// Returns a mutably borrowed `EventPump`. Only a single instance of
+    /// `EventPump` can ever be active.
+    ///
+    /// This will return an error if the `EventPump` is already borrowed.
     pub fn event_pump(&self) -> Result<RefMut<EventPump>, Error> {
         self.1
             .try_borrow_mut()
@@ -16,6 +17,7 @@ impl EventsSubsystem {
     }
 
     /// Returns an [`EventQueue`] that can be used to push events to SDL.
+    ///
     /// These events can be consumed by an [`EventPump`].
     pub fn event_queue(&self) -> EventQueue {
         EventQueue(PhantomData)
@@ -23,6 +25,7 @@ impl EventsSubsystem {
 }
 
 /// Can be used to push [`Event`]s to SDL.
+///
 /// [`Event`]s pushed to this queue can be consumed by an [`EventPump`].
 // This can be shared between threads safely since SDL supports pushing events to the event queue
 // from multiple threads. That being said, its' use is still limited to scoped threads, since its'
@@ -30,6 +33,7 @@ impl EventsSubsystem {
 pub struct EventQueue<'a>(PhantomData<&'a ()>);
 
 /// A zero-sized type used for pumping and handling events.
+///
 /// Only a single instance of this struct can ever be obtained from the [`EventsSubsystem`].
 pub struct EventPump;
 

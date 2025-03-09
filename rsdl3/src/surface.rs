@@ -24,7 +24,7 @@ use core::ops::{Deref, DerefMut};
 /// between them, e.g. a 32x32 surface in NV12 format with a pitch of 32 would consist of 32x32
 /// bytes of Y plane followed by 32x16 bytes of UV plane.
 pub struct Surface<'a> {
-    _video: VideoSubsystem,
+    video: VideoSubsystem,
     ptr: *mut sys::SDL_Surface,
     _marker: PhantomData<&'a ()>,
 }
@@ -38,7 +38,7 @@ impl Surface<'static> {
             return Err(Error::from_sdl());
         }
         Ok(Self {
-            _video: video.clone(),
+            video: video.clone(),
             ptr,
             _marker: PhantomData,
         })
@@ -119,13 +119,32 @@ impl<'a> Surface<'a> {
         if ptr.is_null() {
             return Err(Error::from_sdl());
         }
-        Ok(unsafe { Surface::from_mut_ptr(&self._video, ptr) })
+        Ok(unsafe { Surface::from_mut_ptr(&self.video, ptr) })
+    }
+
+    /// Creates a new surface identical to the existing surface.
+    ///
+    /// If the original surface has alternate images, the new surface will have a reference to them as well.
+    ///
+    /// This method is equivalent to [`Surface::duplicate`] and [`VideoSubsystem::duplicate_surface`].
+    #[inline]
+    pub fn try_clone(&self) -> Result<Surface<'static>, Error> {
+        self.duplicate()
+    }
+
+    /// Creates a new surface identical to the existing surface.
+    ///
+    /// If the original surface has alternate images, the new surface will have a reference to them as well.
+    ///
+    /// This method is equivalent to [`VideoSubsystem::duplicate_surface`].
+    pub fn duplicate(&self) -> Result<Surface<'static>, Error> {
+        self.video.duplicate_surface(self)
     }
 
     /// SAFETY: ptr must be valid
     pub(crate) unsafe fn from_mut_ptr(video: &VideoSubsystem, ptr: *mut sys::SDL_Surface) -> Self {
         Self {
-            _video: video.clone(),
+            video: video.clone(),
             ptr,
             _marker: PhantomData,
         }

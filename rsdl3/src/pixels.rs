@@ -4,6 +4,11 @@ use alloc::string::String;
 
 use crate::{init::VideoSubsystem, sys, Error};
 
+/// A structure that represents a color as RGBA components.
+///
+/// The bits of this structure can be directly reinterpreted as an integer-packed color
+/// which uses the [`PixelFormat::Abgr8888`] format (on little-endian systems) or the
+/// [`PixelFormat::Rgba8888`] format (on big-endian systems).
 #[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
 pub struct Color(sys::SDL_Color);
@@ -58,6 +63,10 @@ impl Color {
     }
 }
 
+/// A structure that represents a color as `f32` RGBA components.
+///
+/// The bits of this structure can be directly reinterpreted as a float-packed color which uses the
+/// [`PixelFormat::Rgba128Float`] format.
 #[derive(Copy, Clone, Debug)]
 #[repr(transparent)]
 pub struct ColorF32(sys::SDL_FColor);
@@ -278,6 +287,20 @@ impl PixelFormatDetails {
         self as *const PixelFormatDetails as *const _
     }
 
+    /// Map an RGB triple to an opaque pixel value for a given pixel format.
+    ///
+    /// This function maps the RGB color value to the specified pixel format and returns the
+    /// pixel value best approximating the given RGB color value for\n the given pixel format.
+    ///
+    /// If the format has a palette (8-bit) the index of the closest matching color in the palette
+    /// will be returned.
+    ///
+    /// If the specified pixel format has an alpha component it will be returned as all 1 bits
+    /// (fully opaque).
+    ///
+    /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits of
+    /// the return value can safely be ignored (e.g., with a 16-bpp format the return value can
+    /// be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).
     pub fn map_rgb(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8) -> u32 {
         let palette = palette
             .map(|p| p.ptr as *const _)
@@ -285,6 +308,20 @@ impl PixelFormatDetails {
         unsafe { sys::SDL_MapRGB(self.as_ptr(), palette, r, g, b) }
     }
 
+    /// Map an RGBA quadruple to a pixel value for a given pixel format.
+    ///
+    /// This function maps the RGBA color value to the specified pixel format and returns the
+    /// pixel value best approximating the given RGBA color value for the given pixel format.
+    ///
+    /// If the specified pixel format has no alpha component the alpha value will be ignored
+    /// (as it will be in formats with a palette).
+    ///
+    /// If the format has a palette (8-bit) the index of the closest matching color in the
+    /// palette will be returned.
+    ///
+    /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits
+    /// of the return value can safely be ignored (e.g., with a 16-bpp format the return value
+    /// can be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).
     pub fn map_rgba(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8, a: u8) -> u32 {
         let palette = palette
             .map(|p| p.ptr as *const _)
@@ -415,6 +452,9 @@ impl PixelFormatDetails {
     }
 }
 
+// TODO: once we start supporting Surface color palettes there's a chance we'll
+// have to add a lifetime parameter to this so we can ACTUALLY have exclusive access to the palette.
+/// A set of indexed colors representing a palette.
 pub struct ColorPalette {
     _video: VideoSubsystem,
     ptr: *mut sys::SDL_Palette,
@@ -432,6 +472,7 @@ impl ColorPalette {
         })
     }
 
+    /// Set a range of colors in a palette.
     pub fn set_colors(&mut self, colors: &[Color], at_index: usize) -> Result<(), Error> {
         let colors_ptr = colors.as_ptr() as *const sys::SDL_Color;
         let result = unsafe {
@@ -450,6 +491,7 @@ impl ColorPalette {
         Ok(())
     }
 
+    /// Returns a slice with this palette's colors.
     pub fn colors(&self) -> &[Color] {
         unsafe {
             let len = (*self.ptr).ncolors as usize;
@@ -465,6 +507,9 @@ impl Drop for ColorPalette {
     }
 }
 
+/// A bits-per-pixel value and RGBA masks.
+///
+/// This is used as a return value for [`PixelFormat::masks`].
 #[derive(Copy, Clone, Debug)]
 pub struct PixelFormatRgbaMask {
     pub bpp: i32,

@@ -304,7 +304,9 @@ impl Renderer {
 ///
 /// This struct wraps [`sys::SDL_Texture`].
 pub struct Texture {
-    /// Tells us whether or not the backing Renderer is alive via Weak::strong_count.
+    /// This renderer owns this surface.
+    /// If this renderer is not alive (we can tell by calling `Weak::strong_count`),
+    /// then this texture is stale.
     /// This must *never* be upgraded to an Rc.
     renderer: Weak<*mut sys::SDL_Renderer>,
     ptr: *mut sys::SDL_Texture,
@@ -363,6 +365,7 @@ impl Texture {
 
 impl Drop for Texture {
     fn drop(&mut self) {
+        // We only drop the texture if the parent renderer is alive.
         if self.renderer.strong_count() > 0 {
             unsafe { sys::SDL_DestroyTexture(self.ptr) };
         }
