@@ -2,7 +2,7 @@ use core::{ffi::CStr, marker::PhantomData};
 
 use alloc::string::String;
 
-use crate::{init::VideoSubsystem, sys, Error};
+use crate::{sys, Error};
 
 /// A structure that represents a color as RGBA components.
 ///
@@ -330,7 +330,7 @@ impl PixelFormatDetails {
     /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits of
     /// the return value can safely be ignored (e.g., with a 16-bpp format the return value can
     /// be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).
-    pub fn map_rgb(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8) -> u32 {
+    pub fn map_rgb(&self, palette: Option<&Palette>, r: u8, g: u8, b: u8) -> u32 {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
@@ -351,7 +351,7 @@ impl PixelFormatDetails {
     /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits
     /// of the return value can safely be ignored (e.g., with a 16-bpp format the return value
     /// can be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).
-    pub fn map_rgba(&self, palette: Option<&ColorPalette>, r: u8, g: u8, b: u8, a: u8) -> u32 {
+    pub fn map_rgba(&self, palette: Option<&Palette>, r: u8, g: u8, b: u8, a: u8) -> u32 {
         let palette = palette
             .map(|p| p.ptr as *const _)
             .unwrap_or(core::ptr::null());
@@ -363,7 +363,7 @@ impl PixelFormatDetails {
     /// This function uses the entire 8-bit [0..255] range when converting color components
     /// from pixel formats with less than 8-bits per RGB component (e.g., a completely white
     /// pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).
-    pub fn rgb(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8) {
+    pub fn rgb(&self, pixel: u32, palette: Option<&Palette>) -> (u8, u8, u8) {
         let mut r = 0;
         let mut g = 0;
         let mut b = 0;
@@ -390,7 +390,7 @@ impl PixelFormatDetails {
     /// pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).
     ///
     /// If the surface has no alpha component, the alpha will be returned as 0xff (100% opaque).
-    pub fn rgba(&self, pixel: u32, palette: Option<&ColorPalette>) -> (u8, u8, u8, u8) {
+    pub fn rgba(&self, pixel: u32, palette: Option<&Palette>) -> (u8, u8, u8, u8) {
         let mut r = 0;
         let mut g = 0;
         let mut b = 0;
@@ -496,21 +496,26 @@ impl PixelFormatDetails {
 // TODO: once we start supporting Surface color palettes there's a chance we'll
 // have to add a lifetime parameter to this so we can ACTUALLY have exclusive access to the palette.
 /// A set of indexed colors representing a palette.
-pub struct ColorPalette {
-    _video: VideoSubsystem,
+///
+/// The ownership of the underlying palette is not necessarily unique. SDL uses refcounting internally.
+///
+/// This means that two different Palette objects can point to the same underlying SDL_Palette. It
+/// also means that dropping the palette will not necessarily destroy the underlying SDL_Palette.
+pub struct Palette {
     ptr: *mut sys::SDL_Palette,
 }
 
-impl ColorPalette {
-    pub fn new(video: &VideoSubsystem, ncolors: usize) -> Result<Self, Error> {
-        let result = unsafe { sys::SDL_CreatePalette(ncolors as i32) };
+impl Palette {
+    pub fn new(num_colors: usize) -> Result<Self, Error> {
+        let result = unsafe { sys::SDL_CreatePalette(num_colors as i32) };
         if result.is_null() {
             return Err(Error::from_sdl());
         }
-        Ok(Self {
-            _video: video.clone(),
-            ptr: result,
-        })
+        Ok(Self { ptr: result })
+    }
+
+    pub(crate) unsafe fn from_mut_ptr(ptr: *mut sys::SDL_Palette) -> Self {
+        Self { ptr }
     }
 
     /// Set a range of colors in a palette.
@@ -540,9 +545,13 @@ impl ColorPalette {
             core::slice::from_raw_parts(colors as *const Color, len)
         }
     }
+
+    pub fn raw(&self) -> *mut sys::SDL_Palette {
+        self.ptr
+    }
 }
 
-impl Drop for ColorPalette {
+impl Drop for Palette {
     fn drop(&mut self) {
         unsafe { sys::SDL_DestroyPalette(self.ptr) };
     }

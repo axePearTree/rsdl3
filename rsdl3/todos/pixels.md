@@ -4,24 +4,24 @@
 
 - [x] SDL_Color
 - [x] SDL_FColor
-- [ ] SDL_Palette - This one is somewhat tricky
-- [ ] SDL_PixelFormatDetails
+- [x] SDL_Palette
+- [x] SDL_PixelFormatDetails
 
 ## Functions
 
-- [ ] SDL_CreatePalette
-- [ ] SDL_DestroyPalette
-- [ ] SDL_GetMasksForPixelFormat
-- [ ] SDL_GetPixelFormatDetails
-- [ ] SDL_GetPixelFormatForMasks
-- [ ] SDL_GetPixelFormatName
-- [ ] SDL_GetRGB
-- [ ] SDL_GetRGBA
-- [ ] SDL_MapRGB
-- [ ] SDL_MapRGBA
+- [x] SDL_CreatePalette
+- [x] SDL_DestroyPalette
+- [x] SDL_GetMasksForPixelFormat
+- [x] SDL_GetPixelFormatDetails
+- [x] SDL_GetPixelFormatForMasks
+- [x] SDL_GetPixelFormatName
+- [x] SDL_GetRGB
+- [x] SDL_GetRGBA
+- [x] SDL_MapRGB
+- [x] SDL_MapRGBA
+- [x] SDL_SetPaletteColors
 - [ ] SDL_MapSurfaceRGB
 - [ ] SDL_MapSurfaceRGBA
-- [ ] SDL_SetPaletteColors
 
 ## Enums
 
@@ -30,12 +30,12 @@
 - [ ] SDL_ChromaLocation
 - [ ] SDL_ColorPrimaries
 - [ ] SDL_ColorRange
-- [ ] SDL_Colorspace
+- [x] SDL_Colorspace
 - [ ] SDL_ColorType
 - [ ] SDL_MatrixCoefficients
 - [ ] SDL_PackedLayout
 - [ ] SDL_PackedOrder
-- [ ] SDL_PixelFormat
+- [x] SDL_PixelFormat
 - [ ] SDL_PixelType
 - [ ] SDL_TransferCharacteristics
 

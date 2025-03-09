@@ -1,5 +1,5 @@
 use crate::init::VideoSubsystem;
-use crate::pixels::{ColorPalette, PixelFormat, PixelFormatRgbaMask};
+use crate::pixels::{PixelFormat, PixelFormatRgbaMask};
 use crate::rect::{Point, Rect};
 use crate::render::Renderer;
 use crate::surface::{Surface, SurfaceRef};
@@ -29,12 +29,6 @@ impl VideoSubsystem {
     /// This method is equivalent to [`Surface::new`].
     pub fn create_surface(&self, w: u32, h: u32, format: PixelFormat) -> Result<Surface, Error> {
         Surface::new(self, w, h, format)
-    }
-
-    /// Creates a `ColorPalette`.
-    /// This method is equivalent to [`ColorPalette::new`].
-    pub fn create_palette(&self, count: usize) -> Result<ColorPalette, Error> {
-        ColorPalette::new(self, count)
     }
 
     /// Converts an RGBA mask into a `PixelFormat`.
