@@ -63,6 +63,24 @@ impl Color {
     }
 }
 
+impl From<Color> for (u8, u8, u8) {
+    fn from(value: Color) -> Self {
+        (value.0.r, value.0.g, value.0.b)
+    }
+}
+
+impl From<Color> for (u8, u8, u8, u8) {
+    fn from(value: Color) -> Self {
+        (value.0.r, value.0.g, value.0.b, value.0.a)
+    }
+}
+
+impl From<(u8, u8, u8, u8)> for Color {
+    fn from((r, g, b, a): (u8, u8, u8, u8)) -> Self {
+        Self::new(r, g, b, a)
+    }
+}
+
 /// A structure that represents a color as `f32` RGBA components.
 ///
 /// The bits of this structure can be directly reinterpreted as a float-packed color which uses the
@@ -131,6 +149,23 @@ impl From<Color> for ColorF32 {
     }
 }
 
+impl From<ColorF32> for (f32, f32, f32) {
+    fn from(value: ColorF32) -> Self {
+        (value.0.r, value.0.g, value.0.b)
+    }
+}
+
+impl From<ColorF32> for (f32, f32, f32, f32) {
+    fn from(value: ColorF32) -> Self {
+        (value.0.r, value.0.g, value.0.b, value.0.a)
+    }
+}
+
+impl From<(f32, f32, f32, f32)> for ColorF32 {
+    fn from((r, g, b, a): (f32, f32, f32, f32)) -> Self {
+        Self::new(r, g, b, a)
+    }
+}
 /// Pixel format.
 ///
 /// SDL's pixel formats have the following naming convention:
