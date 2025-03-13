@@ -13,7 +13,7 @@ impl EventsSubsystem {
     pub fn event_pump(&self) -> Result<RefMut<EventPump>, Error> {
         self.1
             .try_borrow_mut()
-            .map_err(|_| Error::EventPumpAlreadyBorrowed)
+            .map_err(|_| Error::register(c"Event pump already borrowed."))
     }
 
     /// Returns an [`EventQueue`] that can be used to push events to SDL.

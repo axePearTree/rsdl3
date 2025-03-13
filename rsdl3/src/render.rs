@@ -42,7 +42,7 @@ impl Renderer {
             let driver = driver.map(|s| s.as_ptr()).unwrap_or(core::ptr::null());
             let ptr = sys::SDL_CreateRenderer(window.as_mut_ptr(), driver);
             if ptr.is_null() {
-                return Err(Error::from_sdl());
+                return Err(Error);
             }
             Ok(Self {
                 context: RendererContext::Window(window),
@@ -59,7 +59,7 @@ impl Renderer {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
             if ptr.is_null() {
-                return Err(Error::from_sdl());
+                return Err(Error);
             }
             Ok(Self {
                 context: RendererContext::Software(surface),
@@ -164,7 +164,7 @@ impl Renderer {
             unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
 
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
 
         Ok(())
@@ -186,7 +186,7 @@ impl Renderer {
             )
         };
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(Color::new(r, g, b, a))
     }
@@ -199,7 +199,7 @@ impl Renderer {
             sys::SDL_SetRenderDrawColor(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(())
     }
@@ -218,14 +218,14 @@ impl Renderer {
                 self.validate_texture(&texture)?;
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
                 if !result {
-                    return Err(Error::from_sdl());
+                    return Err(Error);
                 }
                 Ok(self.target.replace(texture))
             }
             _ => {
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
                 if !result {
-                    return Err(Error::from_sdl());
+                    return Err(Error);
                 }
                 Ok(self.target.take())
             }
@@ -253,7 +253,7 @@ impl Renderer {
     pub fn present(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderPresent(self.raw()) };
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(())
     }
@@ -266,7 +266,7 @@ impl Renderer {
     pub fn clear(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderClear(self.raw()) };
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(())
     }
@@ -280,7 +280,7 @@ impl Renderer {
         let res =
             unsafe { sys::SDL_GetRenderOutputSize(self.raw() as *mut _, &raw mut w, &raw mut h) };
         if !res {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
@@ -294,7 +294,7 @@ impl Renderer {
         // We could check whether or not this texture belongs to this renderer, but SDL does it for us.
         // So we only check whether or not texture's renderer is still alive.
         if texture.renderer.strong_count() == 0 {
-            return Err(Error::RendererAlreadyDestroyed);
+            return Err(Error::register(c"Renderer already destroyed."));
         }
         Ok(())
     }
@@ -335,7 +335,7 @@ impl Texture {
             )
         };
         if ptr.is_null() {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(Self {
             renderer: Rc::downgrade(&renderer.ptr),
@@ -354,7 +354,7 @@ impl Texture {
         let ptr =
             unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
         if ptr.is_null() {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(Texture {
             renderer: Rc::downgrade(&renderer.ptr),

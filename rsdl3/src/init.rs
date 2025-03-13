@@ -151,7 +151,7 @@ impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
         // So it doesn't matter if a system has already been initialized by Sdl.
         let result = unsafe { sys::SDL_InitSubSystem(INIT_FLAG) };
         if !result {
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(Self {
             _drop: Rc::clone(&drop),
@@ -178,7 +178,7 @@ impl SdlDrop {
             Ordering::Relaxed,
         );
         if res.is_err() {
-            return Err(Error::SdlAlreadyInitialized);
+            return Err(Error);
         }
 
         let result = unsafe { sys::SDL_Init(0) };
@@ -189,7 +189,7 @@ impl SdlDrop {
                 Ordering::Relaxed,
                 Ordering::Relaxed,
             );
-            return Err(Error::from_sdl());
+            return Err(Error);
         }
         Ok(Self)
     }

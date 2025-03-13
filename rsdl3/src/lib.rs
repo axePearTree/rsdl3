@@ -14,58 +14,51 @@ pub mod video;
 
 mod init;
 
-use alloc::borrow::ToOwned;
-use alloc::string::String;
 use core::ffi::CStr;
 
 pub use init::*;
 pub use rsdl3_sys as sys;
 
-/// Error type for any operations involving SDL.
-/// This type also includes variants for conversion errors that happen outside of SDL.
+/// Zero-sized error type for any operations involving SDL.
+///
+/// The actual error message is stored inside SDL and retrieved when `Display::display` gets called.
 #[allow(unused)]
 #[derive(Clone, Debug)]
-pub enum Error {
-    SdlError(String),
-    SdlAlreadyInitialized,
-    EventPumpAlreadyBorrowed,
-    RendererAlreadyDestroyed,
-    TextureFromDifferentRenderer,
-    UnknownBlendMode(sys::SDL_BlendMode),
-    UnknownScaleMode(sys::SDL_ScaleMode),
-    UnknownDisplayOrientation(sys::SDL_DisplayOrientation),
-    UnknownSurfaceVsyncType(i32),
-    InvalidSystemTheme,
-    InvalidSurfacePixelParameters,
-    NulError(alloc::ffi::NulError),
-    TryFromIntError,
-}
+pub struct Error;
 
 impl Error {
-    pub(crate) fn from_sdl() -> Self {
-        unsafe {
-            let err = sys::SDL_GetError();
-            Error::SdlError(CStr::from_ptr(err as *const _).to_str().unwrap().to_owned())
-        }
+    /// This methods sets SDL's internal error message .
+    pub(crate) fn register(err: &CStr) -> Self {
+        unsafe { sys::SDL_SetError(err.as_ptr()) };
+        Self
     }
 }
 
 impl core::error::Error for Error {}
 
+impl core::fmt::Display for Error {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        unsafe {
+            let err = sys::SDL_GetError();
+            if err.is_null() {
+                return write!(f, "NULL");
+            }
+            let str = CStr::from_ptr(err as *const _);
+            write!(f, "{:?}", str)
+        }
+    }
+}
+
 impl From<alloc::ffi::NulError> for Error {
-    fn from(value: alloc::ffi::NulError) -> Self {
-        Self::NulError(value)
+    fn from(_: alloc::ffi::NulError) -> Self {
+        static ERROR_MESSAGE: &CStr = c"alloc::ffi::NulError";
+        Error::register(ERROR_MESSAGE)
     }
 }
 
 impl From<core::num::TryFromIntError> for Error {
     fn from(_value: core::num::TryFromIntError) -> Self {
-        Self::TryFromIntError
-    }
-}
-
-impl core::fmt::Display for Error {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
+        static ERROR_MESSAGE: &CStr = c"alloc::ffi::NulError";
+        Error::register(ERROR_MESSAGE)
     }
 }
