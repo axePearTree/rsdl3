@@ -50,6 +50,11 @@ impl<'a> IOStream<'a> {
             _m: PhantomData,
         })
     }
+
+    #[inline]
+    pub fn raw(&self) -> *mut sys::SDL_IOStream {
+        self.ptr
+    }
 }
 
 impl<'a> Drop for IOStream<'a> {

@@ -1,5 +1,6 @@
 use crate::blendmode::BlendMode;
 use crate::init::VideoSubsystem;
+use crate::iostream::IOStream;
 use crate::pixels::{Color, ColorF32, Colorspace, Palette, PixelFormat};
 use crate::rect::Rect;
 use crate::render::Renderer;
@@ -59,6 +60,19 @@ impl Surface<'static> {
         }
     }
 
+    /// Load a BMP image from a file.
+    pub fn load_bmp(video: &VideoSubsystem, path: &str) -> Result<Self, Error> {
+        use alloc::ffi::CString;
+        let path = CString::new(path)?;
+        unsafe {
+            let surface = sys::SDL_LoadBMP(path.as_ptr());
+            if surface.is_null() {
+                return Err(Error::from_sdl());
+            }
+            Ok(Self::from_mut_ptr(video, surface))
+        }
+    }
+
     /// Creates a software `Renderer` from an existing `Surface`.
     ///
     /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
@@ -70,6 +84,18 @@ impl Surface<'static> {
 }
 
 impl<'a> Surface<'a> {
+    /// Load a BMP image from a seekable SDL data stream.
+    pub fn load_bmp_from_io<'b>(video: &VideoSubsystem, src: IOStream<'b>) -> Result<Self, Error> {
+        let ptr = unsafe { sys::SDL_LoadBMP_IO(src.raw(), false) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { Self::from_mut_ptr(video, ptr) })
+    }
+
+    /// Allocate a new surface with a specific pixel format and existing pixel data.
+    ///
+    /// Mutably borrows `pixels` for the lifetime of the returned `Surface`.
     pub fn from_pixels(
         video: &VideoSubsystem,
         format: PixelFormat,
@@ -79,11 +105,11 @@ impl<'a> Surface<'a> {
     ) -> Result<Surface<'a>, Error> {
         // we need to make sure we won't overflow the byte buffer...
         let details = format.details()?;
-        let bytes_per_pixel = details.bytes_per_pixel(); // cast ok because we're going from u8 to i32
+        let bytes_per_pixel = details.bytes_per_pixel();
         let total_bytes = usize::try_from(
             width
                 .saturating_mul(height)
-                .saturating_mul(bytes_per_pixel as u32),
+                .saturating_mul(bytes_per_pixel as u32), // cast ok because we're going from u8 to i32
         )?;
         if total_bytes > pixels.len() {
             return Err(Error::InvalidSurfacePixelParameters);
@@ -138,7 +164,7 @@ impl<'a> Surface<'a> {
     ///
     /// This method is equivalent to [`VideoSubsystem::duplicate_surface`].
     pub fn duplicate(&self) -> Result<Surface<'static>, Error> {
-        self.video.duplicate_surface(self)
+        self.deref().duplicate(&self.video)
     }
 
     /// SAFETY: ptr must be valid
@@ -187,6 +213,71 @@ impl SurfaceRef {
 
     pub(crate) unsafe fn from_mut_ptr<'a>(ptr: *mut sys::SDL_Surface) -> &'a mut Self {
         &mut *(ptr as *mut Self)
+    }
+
+    /// Save surface to a file.
+    ///
+    /// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the BMP directly.
+    /// Other RGB formats with 8-bit or higher get converted to a 24-bit surface or, if they
+    /// have an alpha mask or a colorkey, to a 32-bit surface before they are saved. YUV and
+    /// paletted 1-bit and 4-bit formats are not supported.
+    pub fn save_bmp(&self, path: &str) -> Result<(), Error> {
+        use alloc::ffi::CString;
+        let path = CString::new(path)?;
+        let result = unsafe { sys::SDL_SaveBMP(self.raw(), path.as_ptr()) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    /// Save a surface to a seekable SDL data stream in BMP format.
+    ///
+    /// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the BMP directly.
+    /// Other RGB formats with 8-bit or higher get converted to a 24-bit surface or, if they
+    /// have an alpha mask or a colorkey, to a 32-bit surface before they are saved. YUV and
+    /// paletted 1-bit and 4-bit formats are not supported.
+    pub fn save_bmp_into_iostream(&self, stream: &mut IOStream) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SaveBMP_IO(self.raw(), stream.raw(), false) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    /// Creates a new surface identical to the existing surface.
+    /// If the original surface has alternate images, the new surface will have a reference to them as well.
+    ///
+    /// This function takes a `VideoSubsystem` parameter due to lifetime requirements: the
+    /// returned surface cannot outlive the subsystem and `SurfaceRef` can't access it on
+    /// its' own.
+    pub fn duplicate(&self, video: &VideoSubsystem) -> Result<Surface<'static>, Error> {
+        let ptr = unsafe { sys::SDL_DuplicateSurface(self.raw()) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
+    }
+
+    /// Creates a new surface identical to the existing surface, scaled to the desired size.
+    ///
+    /// This function takes a `VideoSubsystem` parameter due to lifetime requirements: the
+    /// returned surface cannot outlive the subsystem and `SurfaceRef` can't access it on
+    /// its' own.
+    pub fn scale(
+        &self,
+        video: &VideoSubsystem,
+        width: u32,
+        height: u32,
+        scale_mode: ScaleMode,
+    ) -> Result<Surface<'static>, Error> {
+        let width = i32::try_from(width)?;
+        let height = i32::try_from(height)?;
+        let ptr = unsafe { sys::SDL_ScaleSurface(self.raw(), width, height, scale_mode.to_ll()) };
+        if ptr.is_null() {
+            return Err(Error::from_sdl());
+        }
+        Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
     }
 
     /// Returns the additional alpha value used in blit operations.
@@ -732,6 +823,70 @@ impl SurfaceRef {
     /// Returns whether the surface has a color key.
     pub fn has_color_key(&self) -> bool {
         unsafe { sys::SDL_SurfaceHasColorKey(self.raw()) }
+    }
+
+    /// Returns whether the surface is RLE enabled.
+    pub fn has_rle(&self) -> bool {
+        unsafe { sys::SDL_SurfaceHasRLE(self.raw()) }
+    }
+
+    /// Returns whether the surface is RLE enabled.
+    pub fn set_rle(&self, has_rle: bool) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetSurfaceRLE(self.raw(), has_rle) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
+    }
+
+    /// Map an RGB triple to an opaque pixel value for a surface.
+    ///
+    /// This function maps the RGB color value to the specified pixel format and returns the
+    /// pixel value best approximating the given RGB color value for\n the given pixel format.
+    ///
+    /// If the surface has a palette, the index of the closest matching color in the palette
+    /// will be returned.
+    ///
+    /// If the surface pixel format has an alpha component it will be returned as all 1 bits
+    /// (fully opaque).
+    ///
+    /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits
+    /// of the return value can safely be ignored (e.g., with a 16-bpp format the return
+    /// value can be assigned to a Uint16, and similarly a Uint8\n for an 8-bpp format).
+    pub fn map_rgb(&self, rgb: (u8, u8, u8)) -> u32 {
+        let (r, g, b) = rgb;
+        unsafe { sys::SDL_MapSurfaceRGB(self.raw(), r, g, b) }
+    }
+
+    /// Map an RGBA quadruple to a pixel value for a surface.
+    ///
+    /// This function maps the RGBA color value to the specified pixel format and returns
+    /// the pixel value best approximating the given RGBA color value for the given pixel
+    /// format
+    ///
+    /// If the surface pixel format has no alpha component the alpha value will be ignored
+    /// (as it will be in formats with a palette).
+    ///
+    /// If the surface has a palette, the index of the closest matching color in the palette
+    /// will be returned.
+    ///
+    /// If the pixel format bpp (color depth) is less than 32-bpp then the unused upper
+    /// bits of the return value can safely be ignored (e.g., with a 16-bpp format the
+    /// return value can be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).
+    pub fn map_rgba(&self, rgba: (u8, u8, u8, u8)) -> u32 {
+        let (r, g, b, a) = rgba;
+        unsafe { sys::SDL_MapSurfaceRGBA(self.raw(), r, g, b, a) }
+    }
+
+    /// Premultiply the alpha in a surface.
+    ///
+    /// This is safe to use with src == dst, but not for other overlapping areas.
+    pub fn premultiply_alpha(&mut self, linear: bool) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_PremultiplySurfaceAlpha(self.raw(), linear) };
+        if !result {
+            return Err(Error::from_sdl());
+        }
+        Ok(())
     }
 
     /// Creates a `SurfaceLock`, which can be used to directly access a surface's pixels.

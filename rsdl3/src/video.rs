@@ -1,4 +1,5 @@
 use crate::init::VideoSubsystem;
+use crate::iostream::IOStream;
 use crate::pixels::{PixelFormat, PixelFormatRgbaMask};
 use crate::rect::{Point, Rect};
 use crate::render::Renderer;
@@ -49,11 +50,21 @@ impl VideoSubsystem {
     /// Creates a new surface identical to the existing surface.
     /// If the original surface has alternate images, the new surface will have a reference to them as well.
     pub fn duplicate_surface(&self, surface: &SurfaceRef) -> Result<Surface<'static>, Error> {
-        let ptr = unsafe { sys::SDL_DuplicateSurface(surface.raw()) };
-        if ptr.is_null() {
-            return Err(Error::from_sdl());
-        }
-        Ok(unsafe { Surface::from_mut_ptr(self, ptr) })
+        surface.duplicate(self)
+    }
+
+    /// Load a BMP image from a file.
+    ///
+    /// This method is equivalent to [`Surface::load_bmp`].
+    pub fn load_bmp(&self, path: &str) -> Result<Surface<'static>, Error> {
+        Surface::load_bmp(self, path)
+    }
+
+    /// Load a BMP image from a seekable SDL data stream.
+    ///
+    /// This method is equivalent to [`Surface::load_bmp_from_io`].
+    pub fn load_bmp_from_io(&self, iostream: IOStream) -> Result<Surface<'static>, Error> {
+        Surface::load_bmp_from_io(self, iostream)
     }
 
     /// Returns the number of video drivers compiled into SDL.

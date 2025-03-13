@@ -1,11 +1,5 @@
 # Surface
 
-Not gonna happen:
-
-- [ ] SDL_AddSurfaceAlternateImage
-- [ ] SDL_BlitSurfaceUnchecked
-- [ ] SDL_BlitSurfaceUncheckedScaled
-
 ## Functions
 
 - [x] SDL_BlitSurface
@@ -43,23 +37,37 @@ Not gonna happen:
 - [x] SDL_GetSurfacePalette
 - [x] SDL_ReadSurfacePixel
 - [x] SDL_ReadSurfacePixelFloat
+- [x] SDL_MapSurfaceRGB
+- [x] SDL_MapSurfaceRGBA
+- [x] SDL_PremultiplySurfaceAlpha
+- [x] SDL_ScaleSurface
+- [x] SDL_LoadBMP
+- [x] SDL_SaveBMP
+- [x] SDL_LoadBMP_IO
+- [x] SDL_SaveBMP_IO
+- [x] SDL_SetSurfaceRLE
+- [x] SDL_SurfaceHasRLE
 
+## Extra annoying:
+
+- [ ] SDL_CreateSurfacePalette -- ?
+
+No safety limitations on these functions. Just too many params. Have to settle on an API.
+
+- [ ] SDL_PremultiplyAlpha
+- [ ] SDL_ConvertSurfaceAndColorspace
 - [ ] SDL_ConvertPixels
 - [ ] SDL_ConvertPixelsAndColorspace
-- [ ] SDL_ConvertSurfaceAndColorspace
-- [ ] SDL_CreateSurfacePalette
-- [ ] SDL_GetSurfaceImages
-- [ ] SDL_GetSurfaceProperties
-- [ ] SDL_LoadBMP
-- [ ] SDL_LoadBMP_IO
-- [ ] SDL_MapSurfaceRGB
-- [ ] SDL_MapSurfaceRGBA
-- [ ] SDL_PremultiplyAlpha
-- [ ] SDL_PremultiplySurfaceAlpha
-- [ ] SDL_RemoveSurfaceAlternateImages
-- [ ] SDL_SaveBMP
-- [ ] SDL_SaveBMP_IO
-- [ ] SDL_ScaleSurface
-- [ ] SDL_SetSurfaceRLE
+
+- [ ] SDL_GetSurfaceProperties -- not doing SDL properties for now.
+- [ ] SDL_GetSurfaceImages -- nope
+
+## Probably not gonna happen:
+
+- [ ] SDL_BlitSurfaceUnchecked
+- [ ] SDL_BlitSurfaceUncheckedScaled
+
+Need to check whether or not Surfaces are RC'd
+- [ ] SDL_AddSurfaceAlternateImage
 - [ ] SDL_SurfaceHasAlternateImages
-- [ ] SDL_SurfaceHasRLE
+- [ ] SDL_RemoveSurfaceAlternateImages
