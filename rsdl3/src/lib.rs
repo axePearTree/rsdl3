@@ -23,7 +23,7 @@ pub use rsdl3_sys as sys;
 ///
 /// The actual error message is stored inside SDL and retrieved when `Display::display` gets called.
 #[allow(unused)]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct Error;
 
 impl Error {
@@ -36,7 +36,7 @@ impl Error {
 
 impl core::error::Error for Error {}
 
-impl core::fmt::Display for Error {
+impl core::fmt::Debug for Error {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         unsafe {
             let err = sys::SDL_GetError();
@@ -46,6 +46,12 @@ impl core::fmt::Display for Error {
             let str = CStr::from_ptr(err as *const _);
             write!(f, "{:?}", str)
         }
+    }
+}
+
+impl core::fmt::Display for Error {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        core::fmt::Debug::fmt(self, f)
     }
 }
 

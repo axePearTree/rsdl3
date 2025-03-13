@@ -5,6 +5,7 @@ edition = "2024"
 
 [features]
 image = []
+main = []
 
 [lib]
 doctest = false

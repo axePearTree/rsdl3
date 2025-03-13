@@ -6,6 +6,9 @@ mod core;
 #[cfg(feature = "image")]
 pub mod image;
 
+#[cfg(feature = "main")]
+pub mod sdl_main;
+
 mod defines {
     pub const SDL_WINDOW_FULLSCREEN: u64 = 0x0000000000000001;
     pub const SDL_WINDOW_OPENGL: u64 = 0x0000000000000002;
