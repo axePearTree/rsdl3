@@ -1,5 +1,8 @@
-use crate::pixels::{Color, PixelFormat};
-use crate::rect::RectF32;
+use core::mem::MaybeUninit;
+
+use crate::blendmode::BlendMode;
+use crate::pixels::{Color, ColorF32, PixelFormat};
+use crate::rect::{Rect, RectF32};
 use crate::surface::{Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
@@ -171,7 +174,7 @@ impl Renderer {
     }
 
     /// Returns the color used for drawing operations.
-    pub fn render_draw_color(&self) -> Result<Color, Error> {
+    pub fn draw_color(&self) -> Result<Color, Error> {
         let mut r = 0;
         let mut g = 0;
         let mut b = 0;
@@ -197,6 +200,40 @@ impl Renderer {
     pub fn set_draw_color(&mut self, color: Color) -> Result<(), Error> {
         let result = unsafe {
             sys::SDL_SetRenderDrawColor(self.raw(), color.r(), color.g(), color.b(), color.a())
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the color used for drawing operations.
+    pub fn draw_color_float(&self) -> Result<ColorF32, Error> {
+        let mut r = 0.0;
+        let mut g = 0.0;
+        let mut b = 0.0;
+        let mut a = 0.0;
+        let result = unsafe {
+            sys::SDL_GetRenderDrawColorFloat(
+                self.raw() as *mut _,
+                &raw mut r,
+                &raw mut g,
+                &raw mut b,
+                &raw mut a,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(ColorF32::new(r, g, b, a))
+    }
+
+    /// Set the color used for drawing operations.
+    ///
+    /// Set the color for drawing or filling rectangles, lines, and points, and for [`Renderer::clear`].
+    pub fn set_draw_color_float(&mut self, color: ColorF32) -> Result<(), Error> {
+        let result = unsafe {
+            sys::SDL_SetRenderDrawColorFloat(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
             return Err(Error);
@@ -274,15 +311,75 @@ impl Renderer {
     /// Get the output size in pixels of a rendering context.
     ///
     /// This returns the true output size in pixels, ignoring any render targets or logical size and presentation.
-    pub fn output_size(&self) -> Result<(u32, u32), Error> {
+    /// Get the current output size in pixels of a rendering context.
+    ///
+    /// If a rendering target is active, this will return the size of the rendering target in pixels, otherwise if
+    /// a logical size is set, it will return the logical size, otherwise it will return the value of
+    /// [`Renderer::output_size`].
+    pub fn current_output_size(&self) -> Result<(u32, u32), Error> {
         let mut w = 0;
         let mut h = 0;
-        let res =
-            unsafe { sys::SDL_GetRenderOutputSize(self.raw() as *mut _, &raw mut w, &raw mut h) };
+        let res = unsafe {
+            sys::SDL_GetCurrentRenderOutputSize(self.raw() as *mut _, &raw mut w, &raw mut h)
+        };
         if !res {
             return Err(Error);
         }
         Ok((u32::try_from(w)?, u32::try_from(h)?))
+    }
+
+    /// Get the output size in pixels of a rendering context.
+    ///
+    /// This returns the true output size in pixels, ignoring any render targets or logical size and presentation.
+    pub fn output_size(&self) -> Result<(u32, u32), Error> {
+        let mut w = 0;
+        let mut h = 0;
+        let res = unsafe { sys::SDL_GetRenderOutputSize(self.raw(), &raw mut w, &raw mut h) };
+        if !res {
+            return Err(Error);
+        }
+        Ok((u32::try_from(w)?, u32::try_from(h)?))
+    }
+
+    /// Get the clip rectangle for the current target.
+    pub fn clip_rect(&self) -> Result<Rect, Error> {
+        let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
+        let res = unsafe { sys::SDL_GetRenderClipRect(self.raw(), rect.as_mut_ptr()) };
+        if !res {
+            return Err(Error);
+        }
+        let rect = unsafe { rect.assume_init() };
+        Ok(Rect::from_ll(rect))
+    }
+
+    /// Get the color scale used for render operations.
+    pub fn color_scale(&self) -> Result<f32, Error> {
+        let mut scale = 0.0;
+        let res = unsafe { sys::SDL_GetRenderColorScale(self.raw(), &raw mut scale) };
+        if !res {
+            return Err(Error);
+        }
+        Ok(scale)
+    }
+
+    /// Get the blend mode used for drawing operations.
+    pub fn draw_blend_mode(&self) -> Result<Option<BlendMode>, Error> {
+        let mut blend_mode: MaybeUninit<sys::SDL_BlendMode> = MaybeUninit::uninit();
+        let res = unsafe { sys::SDL_GetRenderDrawBlendMode(self.raw(), blend_mode.as_mut_ptr()) };
+        if !res {
+            return Err(Error);
+        }
+        BlendMode::try_from_ll(unsafe { blend_mode.assume_init() })
+    }
+
+    /// Set the blend mode used for drawing operations.
+    /// If the blend mode is not supported, the closest supported mode is chosen.
+    pub fn set_draw_blend_mode(&mut self, blend_mode: BlendMode) -> Result<(), Error> {
+        let res = unsafe { sys::SDL_SetRenderDrawBlendMode(self.raw(), blend_mode.to_ll()) };
+        if !res {
+            return Err(Error);
+        }
+        Ok(())
     }
 
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.

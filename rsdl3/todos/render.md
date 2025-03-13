@@ -1,25 +1,31 @@
 Functions
 
+- [x] SDL_CreateRenderer
+- [x] SDL_CreateSoftwareRenderer
+- [x] SDL_CreateTexture
+- [x] SDL_CreateTextureFromSurface
+- [x] SDL_DestroyRenderer
+- [x] SDL_DestroyTexture
+- [x] SDL_GetCurrentRenderOutputSize
+- [x] SDL_GetRenderOutputSize
+- [x] SDL_GetNumRenderDrivers
+- [x] SDL_GetRenderClipRect
+- [x] SDL_GetRenderColorScale
+- [x] SDL_GetRenderDrawBlendMode
+- [x] SDL_GetRenderDrawColor
+- [x] SDL_GetRenderDrawColorFloat
+- [x] SDL_SetRenderDrawColor
+- [x] SDL_SetRenderDrawColorFloat
+- [x] SDL_SetRenderDrawBlendMode
+
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_ConvertEventToRenderCoordinates
-- [ ] SDL_CreateRenderer
 - [ ] SDL_CreateRendererWithProperties
-- [ ] SDL_CreateSoftwareRenderer
-- [ ] SDL_CreateTexture
-- [ ] SDL_CreateTextureFromSurface
 - [ ] SDL_CreateTextureWithProperties
 - [ ] SDL_CreateWindowAndRenderer
-- [ ] SDL_DestroyRenderer
-- [ ] SDL_DestroyTexture
 - [ ] SDL_FlushRenderer
-- [ ] SDL_GetCurrentRenderOutputSize
 - [ ] SDL_GetDefaultTextureScaleMode
-- [ ] SDL_GetNumRenderDrivers
-- [ ] SDL_GetRenderClipRect
-- [ ] SDL_GetRenderColorScale
-- [ ] SDL_GetRenderDrawBlendMode
-- [ ] SDL_GetRenderDrawColor
-- [ ] SDL_GetRenderDrawColorFloat
+
 - [ ] SDL_GetRenderDriver
 - [ ] SDL_GetRenderer
 - [ ] SDL_GetRendererFromTexture
@@ -29,7 +35,6 @@ Functions
 - [ ] SDL_GetRenderLogicalPresentationRect
 - [ ] SDL_GetRenderMetalCommandEncoder
 - [ ] SDL_GetRenderMetalLayer
-- [ ] SDL_GetRenderOutputSize
 - [ ] SDL_GetRenderSafeArea
 - [ ] SDL_GetRenderScale
 - [ ] SDL_GetRenderTarget
@@ -74,9 +79,6 @@ Functions
 - [ ] SDL_SetDefaultTextureScaleMode
 - [ ] SDL_SetRenderClipRect
 - [ ] SDL_SetRenderColorScale
-- [ ] SDL_SetRenderDrawBlendMode
-- [ ] SDL_SetRenderDrawColor
-- [ ] SDL_SetRenderDrawColorFloat
 - [ ] SDL_SetRenderLogicalPresentation
 - [ ] SDL_SetRenderScale
 - [ ] SDL_SetRenderTarget
