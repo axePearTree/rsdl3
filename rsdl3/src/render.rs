@@ -393,6 +393,23 @@ impl<T: RendererContext> Renderer<T> {
         Ok(())
     }
 
+    pub fn vsync(&self) -> Result<RendererVSync, Error> {
+        let mut vsync = 0;
+        let result = unsafe { sys::SDL_GetRenderVSync(self.raw(), &raw mut vsync) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(unsafe { RendererVSync::from_ll_unchecked(vsync) })
+    }
+
+    pub fn set_vsync(&mut self, value: RendererVSync) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetRenderVSync(self.raw(), value.to_raw()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     pub fn raw(&self) -> *mut sys::SDL_Renderer {
         *self.ptr
@@ -414,17 +431,36 @@ impl<T: RendererContext> Drop for Renderer<T> {
     }
 }
 
-#[doc(hidden)]
-pub trait RendererContext {
-    type Inner;
+/// Toggle VSync of the given renderer.
+///
+/// When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.
+///
+/// The `vsync` parameter can be
+/// 1 to synchronize present with every vertical refresh,
+/// 2 to synchronize present with every second vertical refresh,
+/// SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync),
+/// SDL_RENDERER_VSYNC_DISABLED to disable.
+///
+///
+/// Not every value is supported by\n every driver, so you should check the return value to see whether the\n requested setting is supported.\n\n \\param renderer the renderer to toggle.\n \\param vsync the vertical refresh sync interval.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderVSync"]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub enum RendererVSync {
+    EveryVerticalRefresh = 1,
+    EverySecondVerticalRefresh = 2,
+    Adaptive = sys::SDL_RENDERER_VSYNC_ADAPTIVE,
+    Disabled = sys::SDL_RENDERER_VSYNC_DISABLED as i32,
 }
 
-impl<'a> RendererContext for &'a mut SurfaceRef {
-    type Inner = Self;
-}
+impl RendererVSync {
+    /// SAFETY: `value` must be a valid variant of the enum.
+    unsafe fn from_ll_unchecked(value: i32) -> Self {
+        unsafe { core::mem::transmute(value) }
+    }
 
-impl RendererContext for Window {
-    type Inner = ();
+    pub fn to_raw(&self) -> i32 {
+        *self as i32
+    }
 }
 
 /// Driver-specific representation of pixel data.
@@ -525,4 +561,17 @@ impl TextureAccess {
     pub fn to_ll(self) -> sys::SDL_TextureAccess {
         self as sys::SDL_TextureAccess
     }
+}
+
+#[doc(hidden)]
+pub trait RendererContext {
+    type Inner;
+}
+
+impl<'a> RendererContext for &'a mut SurfaceRef {
+    type Inner = Self;
+}
+
+impl RendererContext for Window {
+    type Inner = ();
 }

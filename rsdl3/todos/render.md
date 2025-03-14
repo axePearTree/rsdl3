@@ -19,6 +19,9 @@ Functions
 - [x] SDL_SetRenderDrawBlendMode
 - [x] SDL_GetRendererName
 - [x] SDL_GetRenderDriver
+- [x] SDL_GetRenderWindow
+- [x] SDL_GetRenderVSync
+- [x] SDL_SetRenderVSync
 
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_ConvertEventToRenderCoordinates
@@ -39,8 +42,6 @@ Functions
 - [ ] SDL_GetRenderScale
 - [ ] SDL_GetRenderTarget
 - [ ] SDL_GetRenderViewport
-- [ ] SDL_GetRenderVSync
-- [ ] SDL_GetRenderWindow
 - [ ] SDL_GetTextureAlphaMod
 - [ ] SDL_GetTextureAlphaModFloat
 - [ ] SDL_GetTextureBlendMode
@@ -83,7 +84,6 @@ Functions
 - [ ] SDL_SetRenderScale
 - [ ] SDL_SetRenderTarget
 - [ ] SDL_SetRenderViewport
-- [ ] SDL_SetRenderVSync
 - [ ] SDL_SetTextureAlphaMod
 - [ ] SDL_SetTextureAlphaModFloat
 - [ ] SDL_SetTextureBlendMode
