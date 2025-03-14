@@ -1,3 +1,4 @@
+use core::ffi::CStr;
 use core::mem::MaybeUninit;
 
 use crate::blendmode::BlendMode;
@@ -8,6 +9,7 @@ use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
+use alloc::string::String;
 
 /// A structure representing rendering state.
 pub struct Renderer {
@@ -110,6 +112,18 @@ impl Renderer {
             RendererContext::Software(surface) => Some(&mut *surface),
             RendererContext::Window(_) => None,
         }
+    }
+
+    /// Returns the name of a renderer.
+    pub fn name(&self) -> Result<String, Error> {
+        let name = unsafe {
+            let ptr = sys::SDL_GetRendererName(self.raw());
+            if ptr.is_null() {
+                return Err(Error);
+            }
+            CStr::from_ptr(ptr)
+        };
+        Ok(name.to_string_lossy().into_owned())
     }
 
     /// Creates a texture for a rendering context.

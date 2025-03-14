@@ -17,6 +17,8 @@ Functions
 - [x] SDL_SetRenderDrawColor
 - [x] SDL_SetRenderDrawColorFloat
 - [x] SDL_SetRenderDrawBlendMode
+- [x] SDL_GetRendererName
+- [x] SDL_GetRenderDriver
 
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_ConvertEventToRenderCoordinates
@@ -26,10 +28,8 @@ Functions
 - [ ] SDL_FlushRenderer
 - [ ] SDL_GetDefaultTextureScaleMode
 
-- [ ] SDL_GetRenderDriver
 - [ ] SDL_GetRenderer
 - [ ] SDL_GetRendererFromTexture
-- [ ] SDL_GetRendererName
 - [ ] SDL_GetRendererProperties
 - [ ] SDL_GetRenderLogicalPresentation
 - [ ] SDL_GetRenderLogicalPresentationRect
