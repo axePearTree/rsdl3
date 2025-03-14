@@ -74,15 +74,6 @@ impl Surface<'static> {
             Ok(Self::from_mut_ptr(video, surface))
         }
     }
-
-    /// Creates a software `Renderer` from an existing `Surface`.
-    ///
-    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
-    ///
-    /// This is equivalent to [`Renderer::from_surface`].
-    pub fn create_renderer(self) -> Result<Renderer, Error> {
-        Renderer::from_surface(self)
-    }
 }
 
 impl<'a> Surface<'a> {
@@ -215,6 +206,15 @@ impl SurfaceRef {
 
     pub(crate) unsafe fn from_mut_ptr<'a>(ptr: *mut sys::SDL_Surface) -> &'a mut Self {
         &mut *(ptr as *mut Self)
+    }
+
+    /// Creates a software `Renderer` from an existing `Surface`.
+    ///
+    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
+    ///
+    /// This is equivalent to [`Renderer::from_surface`].
+    pub fn into_renderer(&mut self) -> Result<Renderer<&mut Self>, Error> {
+        Renderer::from_surface(self)
     }
 
     /// Save surface to a file.

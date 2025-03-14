@@ -381,7 +381,7 @@ impl Window {
 
     /// Creates a [`Renderer`]. Consumes the [`Window`].
     /// Once the renderer is instantiated, the window can be accessed again via [`Renderer::as_window_mut`] or [`Renderer::as_window_ref`].
-    pub fn into_renderer(self, driver: Option<&str>) -> Result<Renderer, Error> {
+    pub fn into_renderer(self, driver: Option<&str>) -> Result<Renderer<Window>, Error> {
         Renderer::from_window(self, driver)
     }
 }

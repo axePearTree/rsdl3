@@ -4,33 +4,25 @@ use core::mem::MaybeUninit;
 use crate::blendmode::BlendMode;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::{Rect, RectF32};
-use crate::surface::{Surface, SurfaceRef};
+use crate::surface::SurfaceRef;
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
 use alloc::string::String;
 
+pub type WindowRenderer = Renderer<Window>;
+
+pub type SoftwareRenderer<'a> = Renderer<&'a mut SurfaceRef>;
+
 /// A structure representing rendering state.
-pub struct Renderer {
-    context: RendererContext,
-    target: Option<Texture>,
-    /// This ptr is used with the sole purpose of handing out Weak references.
+pub struct Renderer<T: RendererContext> {
+    /// This ptr is ref-counted so we can hand out Weak references.
     ptr: Rc<*mut sys::SDL_Renderer>,
+    inner: T::Inner,
 }
 
-enum RendererContext {
-    Window(Window),
-    Software(Surface<'static>),
-}
-
-impl Drop for Renderer {
-    fn drop(&mut self) {
-        unsafe { sys::SDL_DestroyRenderer(*self.ptr) };
-    }
-}
-
-impl Renderer {
+impl Renderer<Window> {
     /// Creates a `Renderer` from an existing `Window` using the specified `driver`.
     ///
     /// The `driver` name can be obtained by calling [`crate::VideoSubsystem::render_driver`] using the driver's index.
@@ -50,26 +42,8 @@ impl Renderer {
                 return Err(Error);
             }
             Ok(Self {
-                context: RendererContext::Window(window),
+                inner: (),
                 ptr: Rc::new(ptr),
-                target: None,
-            })
-        }
-    }
-
-    /// Creates a software `Renderer` from an existing `Surface`.
-    ///
-    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
-    pub fn from_surface(surface: Surface<'static>) -> Result<Self, Error> {
-        unsafe {
-            let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
-            if ptr.is_null() {
-                return Err(Error);
-            }
-            Ok(Self {
-                context: RendererContext::Software(surface),
-                ptr: Rc::new(ptr),
-                target: None,
             })
         }
     }
@@ -77,43 +51,57 @@ impl Renderer {
     /// Returns a reference to the renderer's window, if it has one.
     ///
     /// This will return `None` if this is a software renderer.
-    pub fn as_window_ref(&self) -> Option<&WindowRef> {
-        match &self.context {
-            RendererContext::Window(window) => Some(window),
-            RendererContext::Software(_) => None,
+    pub fn as_window_ref(&self) -> &WindowRef {
+        unsafe {
+            let ptr = sys::SDL_GetRenderWindow(self.raw());
+            WindowRef::from_ptr(ptr)
         }
     }
 
     /// Returns a mutable reference to the renderer's window, if it has one.
     ///
     /// This will return `None` if this is a software renderer.
-    pub fn as_window_mut(&mut self) -> Option<&mut WindowRef> {
-        match &mut self.context {
-            RendererContext::Window(window) => Some(window),
-            RendererContext::Software(_) => None,
+    pub fn as_window_mut(&mut self) -> &mut WindowRef {
+        unsafe {
+            let ptr = sys::SDL_GetRenderWindow(self.raw());
+            WindowRef::from_mut_ptr(ptr)
+        }
+    }
+}
+
+impl<'a> Renderer<&'a mut SurfaceRef> {
+    /// Creates a software `Renderer` from an existing `Surface`.
+    ///
+    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
+    pub fn from_surface(surface: &'a mut SurfaceRef) -> Result<Self, Error> {
+        unsafe {
+            let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
+            if ptr.is_null() {
+                return Err(Error);
+            }
+            Ok(Self {
+                inner: surface,
+                ptr: Rc::new(ptr),
+            })
         }
     }
 
     /// Returns a reference to the renderer's underlying surface, if it has one.
     ///
     /// This will return `None` if this is a window renderer.
-    pub fn as_surface_ref(&self) -> Option<&SurfaceRef> {
-        match &self.context {
-            RendererContext::Software(surface) => Some(&*surface),
-            RendererContext::Window(_) => None,
-        }
+    pub fn as_surface_ref(&self) -> &SurfaceRef {
+        self.inner
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
     ///
     /// This will return `None` if this is a window renderer.
-    pub fn as_surface_mut(&mut self) -> Option<&mut SurfaceRef> {
-        match &mut self.context {
-            RendererContext::Software(surface) => Some(&mut *surface),
-            RendererContext::Window(_) => None,
-        }
+    pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
+        self.inner
     }
+}
 
+impl<T: RendererContext> Renderer<T> {
     /// Returns the name of a renderer.
     pub fn name(&self) -> Result<String, Error> {
         let name = unsafe {
@@ -255,15 +243,24 @@ impl Renderer {
         Ok(())
     }
 
-    /// Sets a texture as the current rendering target. Returns the previously used texture if there was one.
+    /// Replaces the current rendering target with the given texture. Returns the previously used texture if there was one.
     ///
     /// The default render target is the window (or surface) for which the renderer was created.
     ///
     /// To stop rendering to a texture and render to the window (or surface), use `None` as the `texture` parameter.
-    pub fn set_render_target(
+    pub fn replace_render_target(
         &mut self,
         texture: Option<Texture>,
     ) -> Result<Option<Texture>, Error> {
+        let previous_target = unsafe {
+            let ptr = sys::SDL_GetRenderTarget(self.raw());
+            if !ptr.is_null() {
+                Some(Texture::from_mut_ptr(self, ptr))
+            } else {
+                None
+            }
+        };
+
         match texture {
             Some(texture) => {
                 self.validate_texture(&texture)?;
@@ -271,16 +268,16 @@ impl Renderer {
                 if !result {
                     return Err(Error);
                 }
-                Ok(self.target.replace(texture))
             }
             _ => {
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
                 if !result {
                     return Err(Error);
                 }
-                Ok(self.target.take())
             }
         }
+
+        Ok(previous_target)
     }
 
     /// Update the screen with any rendering performed since the previous call.
@@ -411,6 +408,25 @@ impl Renderer {
     }
 }
 
+impl<T: RendererContext> Drop for Renderer<T> {
+    fn drop(&mut self) {
+        unsafe { sys::SDL_DestroyRenderer(*self.ptr) };
+    }
+}
+
+#[doc(hidden)]
+pub trait RendererContext {
+    type Inner;
+}
+
+impl<'a> RendererContext for &'a mut SurfaceRef {
+    type Inner = Self;
+}
+
+impl RendererContext for Window {
+    type Inner = ();
+}
+
 /// Driver-specific representation of pixel data.
 ///
 /// This struct wraps [`sys::SDL_Texture`].
@@ -427,8 +443,8 @@ impl Texture {
     /// Creates a texture for a rendering context.
     ///
     /// The contents of a texture when first created are not defined.
-    pub fn new(
-        renderer: &mut Renderer,
+    pub fn new<T: RendererContext>(
+        renderer: &mut Renderer<T>,
         format: PixelFormat,
         access: TextureAccess,
         width: u32,
@@ -461,7 +477,10 @@ impl Texture {
     /// The [`TextureAccess`] hint for the created texture is [`TextureAccess::Static`].
     ///
     /// The pixel format of the created texture may be different from the pixel format of the surface.
-    pub fn from_surface(renderer: &mut Renderer, surface: &SurfaceRef) -> Result<Self, Error> {
+    pub fn from_surface<T: RendererContext>(
+        renderer: &mut Renderer<T>,
+        surface: &SurfaceRef,
+    ) -> Result<Self, Error> {
         let ptr =
             unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
         if ptr.is_null() {
@@ -471,6 +490,16 @@ impl Texture {
             renderer: Rc::downgrade(&renderer.ptr),
             ptr,
         })
+    }
+
+    unsafe fn from_mut_ptr<T: RendererContext>(
+        renderer: &mut Renderer<T>,
+        ptr: *mut sys::SDL_Texture,
+    ) -> Self {
+        Self {
+            renderer: Rc::downgrade(&renderer.ptr),
+            ptr,
+        }
     }
 }
 
