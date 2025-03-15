@@ -159,6 +159,23 @@ impl<T: Backbuffer> Renderer<T> {
         Texture::from_surface(self, surface)
     }
 
+    /// Returns the safe area for rendering within the current viewport.
+    ///
+    /// Some devices have portions of the screen which are partially obscured or not interactive,
+    /// possibly due to on-screen controls, curved edges, camera notches, TV overscan, etc. This
+    /// function provides the area of the current viewport which is safe to have interactible content.
+    /// You should continue rendering into the rest of the render target, but it should not contain
+    /// visually important or interactible content.
+    pub fn safe_area(&self) -> Result<Rect, Error> {
+        let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
+        let result = unsafe { sys::SDL_GetRenderSafeArea(self.raw(), rect.as_mut_ptr()) };
+        if !result {
+            return Err(Error);
+        }
+        let rect = Rect::from_ll(unsafe { rect.assume_init() });
+        Ok(rect)
+    }
+
     /// Returns the color used for drawing operations.
     pub fn draw_color(&self) -> Result<Color, Error> {
         let mut r = 0;
@@ -344,6 +361,19 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(())
     }
 
+    /// Draw debug text to a `Renderer`.
+    ///
+    /// This function will render a string of text to a `Renderer`. Note that this is a convenience function for
+    /// debugging, with severe limitations, and not intended to be used for production apps and games.
+    ///
+    /// Among these limitations:
+    /// - It accepts UTF-8 strings, but will only renders ASCII characters.
+    /// - It has a single, tiny size (8x8 pixels). One can use logical presentation or scaling to adjust it, but
+    /// it will be blurry.
+    /// - It uses a simple, hardcoded bitmap font. It does not allow different font selections and it does not
+    /// support truetype, for proper scaling.
+    /// - It does no word-wrapping and does not treat newline characters as a line break. If the text goes out of
+    /// the window, it's gone.
     pub fn render_debug_text(&mut self, x: f32, y: f32, text: &str) -> Result<(), Error> {
         let string = CString::new(text).map_err(|_| {
             Error::register(c"Invalid debug text. Interior null byte found (NulError)")
@@ -464,6 +494,34 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(())
     }
 
+    /// Force the rendering context to flush any pending commands and state.
+    ///
+    /// You do not need to (and in fact, shouldn't) call this function unless you are planning
+    /// to call into OpenGL/Direct3D/Metal/whatever directly, in addition to using a `Renderer`.
+    ///
+    /// This is for a very-specific case: if you are using SDL's render API, and you plan to make
+    /// OpenGL/D3D/whatever calls in addition to SDL render API calls. If this applies, you
+    /// should call this function between calls to SDL's render API and the low-level API you're
+    /// using in cooperation.
+    ///
+    /// In all other cases, you can ignore this function.
+    ///
+    /// This call makes SDL flush any pending rendering work it was queueing up to do later in a
+    /// single batch, and marks any internal cached state as invalid, so it'll prepare all its
+    /// state again later, from scratch.
+    ///
+    /// This means you do not need to save state in your rendering code to protect the `Renderer`.
+    /// However, there lots of arbitrary pieces of Direct3D and OpenGL state that can confuse
+    /// things; you should use your best judgment and be prepared to make changes if specific state
+    /// needs to be protected.
+    pub fn flush(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_FlushRenderer(self.raw()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     #[inline]
     pub fn raw(&self) -> *mut sys::SDL_Renderer {
@@ -489,18 +547,9 @@ impl<T: Backbuffer> Drop for Renderer<T> {
     }
 }
 
-/// Toggle VSync of the given renderer.
+/// VSync behavior of a renderer.
 ///
-/// When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.
-///
-/// The `vsync` parameter can be
-/// 1 to synchronize present with every vertical refresh,
-/// 2 to synchronize present with every second vertical refresh,
-/// SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync),
-/// SDL_RENDERER_VSYNC_DISABLED to disable.
-///
-///
-/// Not every value is supported by\n every driver, so you should check the return value to see whether the\n requested setting is supported.\n\n \\param renderer the renderer to toggle.\n \\param vsync the vertical refresh sync interval.\n \\returns true on success or false on failure; call SDL_GetError() for more\n          information.\n\n \\threadsafety This function should only be called on the main thread.\n\n \\since This function is available since SDL 3.2.0.\n\n \\sa SDL_GetRenderVSync"]
+/// When a renderer is created, vsync defaults to `RendererVSync::Disabled`.
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum RendererVSync {

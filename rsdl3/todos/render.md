@@ -26,13 +26,15 @@ Functions
 - [x] SDL_RenderTexture
 - [x] SDL_RenderFillRect
 - [x] SDL_RenderFillRects
+- [x] SDL_RenderDebugText
+- [x] SDL_FlushRenderer
+- [x] SDL_GetRenderSafeArea
 
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_ConvertEventToRenderCoordinates
 - [ ] SDL_CreateRendererWithProperties
 - [ ] SDL_CreateTextureWithProperties
 - [ ] SDL_CreateWindowAndRenderer
-- [ ] SDL_FlushRenderer
 - [ ] SDL_GetDefaultTextureScaleMode
 
 - [ ] SDL_GetRenderer
@@ -42,7 +44,6 @@ Functions
 - [ ] SDL_GetRenderLogicalPresentationRect
 - [ ] SDL_GetRenderMetalCommandEncoder
 - [ ] SDL_GetRenderMetalLayer
-- [ ] SDL_GetRenderSafeArea
 - [ ] SDL_GetRenderScale
 - [ ] SDL_GetRenderTarget
 - [ ] SDL_GetRenderViewport
@@ -59,8 +60,7 @@ Functions
 - [ ] SDL_RenderClipEnabled
 - [ ] SDL_RenderCoordinatesFromWindow
 - [ ] SDL_RenderCoordinatesToWindow
-- [ ] SDL_RenderDebugText
-- [ ] SDL_RenderDebugTextFormat
+
 - [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
 - [ ] SDL_RenderLine
@@ -110,3 +110,7 @@ Enums
 
 - [ ] SDL_RendererLogicalPresentation
 - [ ] SDL_TextureAccess
+
+Not anytime soon
+
+- [ ] SDL_RenderDebugTextFormat
