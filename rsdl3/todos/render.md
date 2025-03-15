@@ -22,6 +22,10 @@ Functions
 - [x] SDL_GetRenderWindow
 - [x] SDL_GetRenderVSync
 - [x] SDL_SetRenderVSync
+- [x] SDL_RenderClear
+- [x] SDL_RenderTexture
+- [x] SDL_RenderFillRect
+- [x] SDL_RenderFillRects
 
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_ConvertEventToRenderCoordinates
@@ -52,14 +56,11 @@ Functions
 - [ ] SDL_GetTextureSize
 - [ ] SDL_LockTexture
 - [ ] SDL_LockTextureToSurface
-- [ ] SDL_RenderClear
 - [ ] SDL_RenderClipEnabled
 - [ ] SDL_RenderCoordinatesFromWindow
 - [ ] SDL_RenderCoordinatesToWindow
 - [ ] SDL_RenderDebugText
 - [ ] SDL_RenderDebugTextFormat
-- [ ] SDL_RenderFillRect
-- [ ] SDL_RenderFillRects
 - [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
 - [ ] SDL_RenderLine
@@ -70,7 +71,6 @@ Functions
 - [ ] SDL_RenderReadPixels
 - [ ] SDL_RenderRect
 - [ ] SDL_RenderRects
-- [ ] SDL_RenderTexture
 - [ ] SDL_RenderTexture9Grid
 - [ ] SDL_RenderTexture9GridTiled
 - [ ] SDL_RenderTextureAffine
@@ -84,12 +84,14 @@ Functions
 - [ ] SDL_SetRenderScale
 - [ ] SDL_SetRenderTarget
 - [ ] SDL_SetRenderViewport
+
 - [ ] SDL_SetTextureAlphaMod
 - [ ] SDL_SetTextureAlphaModFloat
 - [ ] SDL_SetTextureBlendMode
 - [ ] SDL_SetTextureColorMod
 - [ ] SDL_SetTextureColorModFloat
 - [ ] SDL_SetTextureScaleMode
+
 - [ ] SDL_UnlockTexture
 - [ ] SDL_UpdateNVTexture
 - [ ] SDL_UpdateTexture

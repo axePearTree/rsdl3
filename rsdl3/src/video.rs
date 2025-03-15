@@ -21,7 +21,7 @@ impl VideoSubsystem {
         name: &str,
         width: u32,
         height: u32,
-        flags: WindowFlags,
+        flags: Option<WindowFlags>,
     ) -> Result<Window, Error> {
         Window::new(self, name, width, height, flags)
     }
@@ -363,13 +363,14 @@ impl Window {
         name: &str,
         width: u32,
         height: u32,
-        flags: WindowFlags,
+        flags: Option<WindowFlags>,
     ) -> Result<Window, Error> {
         let c_string = CString::new(name)?;
         let c_str = c_string.as_c_str();
         let width = c_int::try_from(width)?;
         let height = c_int::try_from(height)?;
-        let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags.0) };
+        let flags = flags.map(|f| f.0).unwrap_or_default();
+        let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags) };
         if ptr.is_null() {
             return Err(Error);
         }

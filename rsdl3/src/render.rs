@@ -1,22 +1,17 @@
-use core::ffi::CStr;
-use core::mem::MaybeUninit;
-
 use crate::blendmode::BlendMode;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::{Rect, RectF32};
-use crate::surface::SurfaceRef;
+use crate::surface::{Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
 use alloc::string::String;
-
-pub type WindowRenderer = Renderer<Window>;
-
-pub type SoftwareRenderer<'a> = Renderer<&'a mut SurfaceRef>;
+use core::ffi::CStr;
+use core::mem::{ManuallyDrop, MaybeUninit};
 
 /// A structure representing rendering state.
-pub struct Renderer<T: RendererContext> {
+pub struct Renderer<T: Backbuffer> {
     /// This ptr is ref-counted so we can hand out Weak references.
     ptr: Rc<*mut sys::SDL_Renderer>,
     inner: T::Inner,
@@ -41,6 +36,8 @@ impl Renderer<Window> {
             if ptr.is_null() {
                 return Err(Error);
             }
+            // The window will be dropped when RendererContext::drop_inner gets called.
+            let _ = ManuallyDrop::new(window);
             Ok(Self {
                 inner: (),
                 ptr: Rc::new(ptr),
@@ -49,8 +46,6 @@ impl Renderer<Window> {
     }
 
     /// Returns a reference to the renderer's window, if it has one.
-    ///
-    /// This will return `None` if this is a software renderer.
     pub fn as_window_ref(&self) -> &WindowRef {
         unsafe {
             let ptr = sys::SDL_GetRenderWindow(self.raw());
@@ -59,13 +54,39 @@ impl Renderer<Window> {
     }
 
     /// Returns a mutable reference to the renderer's window, if it has one.
-    ///
-    /// This will return `None` if this is a software renderer.
     pub fn as_window_mut(&mut self) -> &mut WindowRef {
         unsafe {
             let ptr = sys::SDL_GetRenderWindow(self.raw());
             WindowRef::from_mut_ptr(ptr)
         }
+    }
+}
+
+impl<'a> Renderer<Surface<'a>> {
+    /// Creates a software `Renderer` from an existing `Surface`.
+    ///
+    /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
+    pub fn from_owned_surface(surface: Surface<'a>) -> Result<Self, Error> {
+        unsafe {
+            let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
+            if ptr.is_null() {
+                return Err(Error);
+            }
+            Ok(Self {
+                inner: surface,
+                ptr: Rc::new(ptr),
+            })
+        }
+    }
+
+    /// Returns a reference to the renderer's underlying surface, if it has one.
+    pub fn as_surface_ref(&self) -> &SurfaceRef {
+        &self.inner
+    }
+
+    /// Returns a mutable reference to the renderer's underlying surface, if it has one.
+    pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
+        &mut self.inner
     }
 }
 
@@ -87,22 +108,18 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
     }
 
     /// Returns a reference to the renderer's underlying surface, if it has one.
-    ///
-    /// This will return `None` if this is a window renderer.
     pub fn as_surface_ref(&self) -> &SurfaceRef {
         self.inner
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
-    ///
-    /// This will return `None` if this is a window renderer.
     pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
         self.inner
     }
 }
 
-impl<T: RendererContext> Renderer<T> {
-    /// Returns the name of a renderer.
+impl<T: Backbuffer> Renderer<T> {
+    /// Returns the name of the renderer.
     pub fn name(&self) -> Result<String, Error> {
         let name = unsafe {
             let ptr = sys::SDL_GetRendererName(self.raw());
@@ -140,39 +157,6 @@ impl<T: RendererContext> Renderer<T> {
     /// This method is equivalent to [`Texture::from_surface`].
     pub fn create_texture_from_surface(&mut self, surface: &SurfaceRef) -> Result<Texture, Error> {
         Texture::from_surface(self, surface)
-    }
-
-    /// Copy a portion of the texture to the current rendering target at subpixel precision.
-    ///
-    /// * `texture` - the source texture
-    /// * `src_rect` - the source rectangle or `None` for the entire texture.
-    /// * `dest_rect` - the destination rectangle or `None` for the entire rendering target.
-    pub fn render_texture(
-        &mut self,
-        texture: &Texture,
-        src_rect: Option<RectF32>,
-        dest_rect: Option<RectF32>,
-    ) -> Result<(), Error> {
-        self.validate_texture(texture)?;
-
-        let src_rect = src_rect.map(RectF32::to_ll);
-        let src_rect_ptr = src_rect
-            .as_ref()
-            .map_or(core::ptr::null(), core::ptr::from_ref);
-
-        let dest_rect = dest_rect.map(RectF32::to_ll);
-        let dest_rect_ptr = dest_rect
-            .as_ref()
-            .map_or(core::ptr::null(), core::ptr::from_ref);
-
-        let result =
-            unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
-
-        if !result {
-            return Err(Error);
-        }
-
-        Ok(())
     }
 
     /// Returns the color used for drawing operations.
@@ -237,82 +221,6 @@ impl<T: RendererContext> Renderer<T> {
         let result = unsafe {
             sys::SDL_SetRenderDrawColorFloat(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
-        if !result {
-            return Err(Error);
-        }
-        Ok(())
-    }
-
-    /// Replaces the current rendering target with the given texture. Returns the previously used texture if there was one.
-    ///
-    /// The default render target is the window (or surface) for which the renderer was created.
-    ///
-    /// To stop rendering to a texture and render to the window (or surface), use `None` as the `texture` parameter.
-    pub fn replace_render_target(
-        &mut self,
-        texture: Option<Texture>,
-    ) -> Result<Option<Texture>, Error> {
-        let previous_target = unsafe {
-            let ptr = sys::SDL_GetRenderTarget(self.raw());
-            if !ptr.is_null() {
-                Some(Texture::from_mut_ptr(self, ptr))
-            } else {
-                None
-            }
-        };
-
-        match texture {
-            Some(texture) => {
-                self.validate_texture(&texture)?;
-                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
-                if !result {
-                    return Err(Error);
-                }
-            }
-            _ => {
-                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
-                if !result {
-                    return Err(Error);
-                }
-            }
-        }
-
-        Ok(previous_target)
-    }
-
-    /// Update the screen with any rendering performed since the previous call.
-    ///
-    /// SDL's rendering functions operate on a backbuffer; that is, calling a rendering function such as [`Renderer::render_line`]
-    /// does not directly put a line on the screen, but rather updates the backbuffer. As such, you compose your entire scene and
-    /// *present* the composed backbuffer to the screen as a complete picture.
-    ///
-    /// Therefore, when using SDL's rendering API, one does all drawing intended for the frame, and then calls this function once
-    /// per frame to present the final drawing to the user.
-    ///
-    /// The backbuffer should be considered invalidated after each present; do not assume that previous contents will exist between
-    /// frames. You are strongly encouraged to call [`Renderer::clear`] to initialize the backbuffer before starting each new frame's
-    /// drawing, even if you plan to overwrite every pixel.
-    ///
-    /// Please note, that in case of rendering to a texture - there is **no need** to call [`Renderer::present`] after drawing needed
-    /// objects to a texture, and should not be done; you are only required to change back the rendering target to default via
-    /// [`Renderer::set_render_target`] afterwards, as textures by themselves do not have a concept of backbuffers.
-    /// Calling [`Renderer::present`] while rendering to a texture will still update the screen with any current drawing that
-    /// has been done _to the window itself_.
-    pub fn present(&mut self) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_RenderPresent(self.raw()) };
-        if !result {
-            return Err(Error);
-        }
-        Ok(())
-    }
-
-    /// Clear the current rendering target with the drawing color.
-    ///
-    /// This function clears the entire rendering target, ignoring the viewport and the clip rectangle. Note, that clearing will also
-    /// set/fill all pixels of the rendering target to current renderer draw color, so make sure to invoke [`Renderer::set_draw_color`]
-    /// when needed.
-    pub fn clear(&mut self) -> Result<(), Error> {
-        let result = unsafe { sys::SDL_RenderClear(self.raw()) };
         if !result {
             return Err(Error);
         }
@@ -393,6 +301,7 @@ impl<T: RendererContext> Renderer<T> {
         Ok(())
     }
 
+    /// Returns the VSync of the given renderer.
     pub fn vsync(&self) -> Result<RendererVSync, Error> {
         let mut vsync = 0;
         let result = unsafe { sys::SDL_GetRenderVSync(self.raw(), &raw mut vsync) };
@@ -402,6 +311,9 @@ impl<T: RendererContext> Renderer<T> {
         Ok(unsafe { RendererVSync::from_ll_unchecked(vsync) })
     }
 
+    /// Toggle VSync of the given renderer.
+    ///
+    /// When a renderer is created, vsync defaults to `RendererVSync::Disabled`.
     pub fn set_vsync(&mut self, value: RendererVSync) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetRenderVSync(self.raw(), value.to_raw()) };
         if !result {
@@ -410,7 +322,150 @@ impl<T: RendererContext> Renderer<T> {
         Ok(())
     }
 
+    /// Fill a rectangle on the current rendering target with the drawing color at subpixel precision.
+    pub fn fill_rect(&mut self, rect: RectF32) -> Result<(), Error> {
+        let rect = rect.to_ll();
+        let result = unsafe { sys::SDL_RenderFillRect(self.raw(), &raw const rect) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Fill some number of rectangles on the current rendering target with the drawing color at subpixel precision.
+    pub fn fill_rects(&mut self, rects: &[RectF32]) -> Result<(), Error> {
+        let count = i32::try_from(rects.len())
+            .map_err(|_| Error::register(c"Invalid rects length (TryFromIntError)."))?;
+        let rects = rects.as_ptr() as *const sys::SDL_FRect;
+        let result = unsafe { sys::SDL_RenderFillRects(self.raw(), rects, count) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    pub fn render_debug_text(&mut self, x: f32, y: f32, text: &str) -> Result<(), Error> {
+        let string = CString::new(text).map_err(|_| {
+            Error::register(c"Invalid debug text. Interior null byte found (NulError)")
+        })?;
+        let result = unsafe { sys::SDL_RenderDebugText(self.raw(), x, y, string.as_ptr()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Copy a portion of the texture to the current rendering target at subpixel precision.
+    ///
+    /// * `texture` - the source texture
+    /// * `src_rect` - the source rectangle or `None` for the entire texture.
+    /// * `dest_rect` - the destination rectangle or `None` for the entire rendering target.
+    pub fn render_texture(
+        &mut self,
+        texture: &Texture,
+        src_rect: Option<RectF32>,
+        dest_rect: Option<RectF32>,
+    ) -> Result<(), Error> {
+        self.validate_texture(texture)?;
+
+        let src_rect = src_rect.map(RectF32::to_ll);
+        let src_rect_ptr = src_rect
+            .as_ref()
+            .map_or(core::ptr::null(), core::ptr::from_ref);
+
+        let dest_rect = dest_rect.map(RectF32::to_ll);
+        let dest_rect_ptr = dest_rect
+            .as_ref()
+            .map_or(core::ptr::null(), core::ptr::from_ref);
+
+        let result =
+            unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
+
+        if !result {
+            return Err(Error);
+        }
+
+        Ok(())
+    }
+
+    /// Replaces the current rendering target with the given texture. Returns the previously used texture if there was one.
+    ///
+    /// The default render target is the window (or surface) for which the renderer was created.
+    ///
+    /// To stop rendering to a texture and render to the window (or surface), use `None` as the `texture` parameter.
+    pub fn replace_render_target(
+        &mut self,
+        texture: Option<Texture>,
+    ) -> Result<Option<Texture>, Error> {
+        let previous_target = unsafe {
+            let ptr = sys::SDL_GetRenderTarget(self.raw());
+            if !ptr.is_null() {
+                Some(Texture::from_mut_ptr(self, ptr))
+            } else {
+                None
+            }
+        };
+
+        match texture {
+            Some(texture) => {
+                self.validate_texture(&texture)?;
+                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
+                if !result {
+                    return Err(Error);
+                }
+            }
+            _ => {
+                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
+                if !result {
+                    return Err(Error);
+                }
+            }
+        }
+
+        Ok(previous_target)
+    }
+
+    /// Update the screen with any rendering performed since the previous call.
+    ///
+    /// SDL's rendering functions operate on a backbuffer; that is, calling a rendering function such as [`Renderer::render_line`]
+    /// does not directly put a line on the screen, but rather updates the backbuffer. As such, you compose your entire scene and
+    /// *present* the composed backbuffer to the screen as a complete picture.
+    ///
+    /// Therefore, when using SDL's rendering API, one does all drawing intended for the frame, and then calls this function once
+    /// per frame to present the final drawing to the user.
+    ///
+    /// The backbuffer should be considered invalidated after each present; do not assume that previous contents will exist between
+    /// frames. You are strongly encouraged to call [`Renderer::clear`] to initialize the backbuffer before starting each new frame's
+    /// drawing, even if you plan to overwrite every pixel.
+    ///
+    /// Please note, that in case of rendering to a texture - there is **no need** to call [`Renderer::present`] after drawing needed
+    /// objects to a texture, and should not be done; you are only required to change back the rendering target to default via
+    /// [`Renderer::set_render_target`] afterwards, as textures by themselves do not have a concept of backbuffers.
+    /// Calling [`Renderer::present`] while rendering to a texture will still update the screen with any current drawing that
+    /// has been done _to the window itself_.
+    pub fn present(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_RenderPresent(self.raw()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Clear the current rendering target with the drawing color.
+    ///
+    /// This function clears the entire rendering target, ignoring the viewport and the clip rectangle. Note, that clearing will also
+    /// set/fill all pixels of the rendering target to current renderer draw color, so make sure to invoke [`Renderer::set_draw_color`]
+    /// when needed.
+    pub fn clear(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_RenderClear(self.raw()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
+    #[inline]
     pub fn raw(&self) -> *mut sys::SDL_Renderer {
         *self.ptr
     }
@@ -425,9 +480,12 @@ impl<T: RendererContext> Renderer<T> {
     }
 }
 
-impl<T: RendererContext> Drop for Renderer<T> {
+impl<T: Backbuffer> Drop for Renderer<T> {
     fn drop(&mut self) {
-        unsafe { sys::SDL_DestroyRenderer(*self.ptr) };
+        unsafe {
+            sys::SDL_DestroyRenderer(*self.ptr);
+            T::drop_inner(self.raw());
+        }
     }
 }
 
@@ -479,7 +537,7 @@ impl Texture {
     /// Creates a texture for a rendering context.
     ///
     /// The contents of a texture when first created are not defined.
-    pub fn new<T: RendererContext>(
+    pub fn new<T: Backbuffer>(
         renderer: &mut Renderer<T>,
         format: PixelFormat,
         access: TextureAccess,
@@ -513,7 +571,7 @@ impl Texture {
     /// The [`TextureAccess`] hint for the created texture is [`TextureAccess::Static`].
     ///
     /// The pixel format of the created texture may be different from the pixel format of the surface.
-    pub fn from_surface<T: RendererContext>(
+    pub fn from_surface<T: Backbuffer>(
         renderer: &mut Renderer<T>,
         surface: &SurfaceRef,
     ) -> Result<Self, Error> {
@@ -528,7 +586,7 @@ impl Texture {
         })
     }
 
-    unsafe fn from_mut_ptr<T: RendererContext>(
+    unsafe fn from_mut_ptr<T: Backbuffer>(
         renderer: &mut Renderer<T>,
         ptr: *mut sys::SDL_Texture,
     ) -> Self {
@@ -564,14 +622,31 @@ impl TextureAccess {
 }
 
 #[doc(hidden)]
-pub trait RendererContext {
+pub trait Backbuffer {
     type Inner;
+
+    unsafe fn drop_inner(_renderer: *mut sys::SDL_Renderer) {}
 }
 
-impl<'a> RendererContext for &'a mut SurfaceRef {
+impl Backbuffer for Window {
+    /// With a Window as backbuffer we can just call SDL_GetRenderWindow and get a pointer
+    /// to the underlying window, so we don't have to actually store the surface inside
+    /// the Renderer struct.
+    type Inner = ();
+
+    unsafe fn drop_inner(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        let window = sys::SDL_GetRenderWindow(renderer);
+        if window.is_null() {
+            return;
+        }
+        sys::SDL_DestroyWindow(window);
+    }
+}
+
+impl<'a> Backbuffer for Surface<'a> {
     type Inner = Self;
 }
 
-impl RendererContext for Window {
-    type Inner = ();
+impl<'a> Backbuffer for &'a mut SurfaceRef {
+    type Inner = Self;
 }
