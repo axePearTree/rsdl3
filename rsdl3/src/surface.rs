@@ -5,7 +5,7 @@ use crate::iostream::IOStream;
 use crate::pixels::PixelFormatDetails;
 use crate::pixels::{Color, ColorF32, Colorspace, Palette, PixelFormat};
 use crate::rect::Rect;
-use crate::render::Renderer;
+use crate::render::{Backbuffer, Renderer, Texture};
 use crate::{sys, Error};
 use core::marker::PhantomData;
 use core::mem::MaybeUninit;
@@ -158,6 +158,13 @@ impl<'a> Surface<'a> {
     /// This method is equivalent to [`VideoSubsystem::duplicate_surface`].
     pub fn duplicate(&self) -> Result<Surface<'static>, Error> {
         self.deref().duplicate(&self.video)
+    }
+
+    pub fn into_texture<T: Backbuffer>(
+        &self,
+        renderer: &mut Renderer<T>,
+    ) -> Result<Texture, Error> {
+        Texture::from_surface(renderer, self)
     }
 
     /// SAFETY: ptr must be valid
@@ -928,10 +935,10 @@ impl<'a> SurfaceLock<'a> {
     /// Returns a slice with the surface's underlying bytes.
     pub fn as_bytes(&self) -> &[u8] {
         unsafe {
-            let height = (*self.raw()).h;
-            let pitch = (*self.raw()).pitch;
+            let height = (*self.0.raw()).h;
+            let pitch = (*self.0.raw()).pitch;
             let length = (height * pitch) as usize;
-            let pixels = (*self.raw()).pixels;
+            let pixels = (*self.0.raw()).pixels;
             if pixels.is_null() {
                 return &[];
             }
@@ -942,10 +949,10 @@ impl<'a> SurfaceLock<'a> {
     /// Returns a mutable slice with the surface's underlying bytes.
     pub fn as_bytes_mut(&mut self) -> &mut [u8] {
         unsafe {
-            let height = (*self.raw()).h;
-            let pitch = (*self.raw()).pitch;
+            let height = (*self.0.raw()).h;
+            let pitch = (*self.0.raw()).pitch;
             let length = (height * pitch) as usize;
-            let pixels = (*self.raw()).pixels;
+            let pixels = (*self.0.raw()).pixels;
             if pixels.is_null() {
                 return &mut [];
             }
@@ -954,23 +961,9 @@ impl<'a> SurfaceLock<'a> {
     }
 }
 
-impl Deref for SurfaceLock<'_> {
-    type Target = SurfaceRef;
-
-    fn deref(&self) -> &Self::Target {
-        self.0
-    }
-}
-
-impl DerefMut for SurfaceLock<'_> {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        self.0
-    }
-}
-
 impl<'a> Drop for SurfaceLock<'a> {
     fn drop(&mut self) {
-        unsafe { sys::SDL_UnlockSurface(self.raw()) };
+        unsafe { sys::SDL_UnlockSurface(self.0.raw()) };
     }
 }
 
