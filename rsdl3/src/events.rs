@@ -63,19 +63,35 @@ impl Iterator for EventPollIter<'_> {
             }
             event.assume_init()
         };
-        Some(Event::from_ll(event))
+        Some(Event(event))
     }
 }
 
-/// Equivalent to [`sys::SDL_Event`].
-#[derive(Clone, Debug)]
-pub enum Event {
+/// A wrapper on top of [`sys::SDL_Event`].
+///
+/// To read the contents of the event, convert this type into an [`EventPayload`] by calling
+/// [`Event::into_payload`].
+#[repr(transparent)]
+#[derive(Copy, Clone)]
+pub struct Event(pub(crate) sys::SDL_Event);
+
+impl Event {
+    pub fn into_payload(self) -> EventPayload {
+        EventPayload::from_ll(self.0)
+    }
+}
+
+/// Payload of an SDL event.
+///
+/// The contents of a raw [`sys::SDL_Event`] get parsed and transformed into this value.
+#[derive(Copy, Clone, Debug)]
+pub enum EventPayload {
     Window(WindowEvent),
     Quit,
     Unknown,
 }
 
-impl Event {
+impl EventPayload {
     /// Converts a [`sys::SDL_Event`] to an [`Event`].
     /// Returns [`Event::Unknown`] if `event` is not a valid [`sys::SDL_Event`].
     fn from_ll(event: sys::SDL_Event) -> Self {
@@ -236,7 +252,7 @@ impl Event {
 }
 
 /// An event tied to a [`crate::video::Window`].
-#[derive(Clone, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct WindowEvent {
     pub payload: WindowEventPayload,
     pub timestamp: u64,
@@ -244,7 +260,7 @@ pub struct WindowEvent {
 }
 
 /// Payload of an event tied to a [`crate::video::Window`].
-#[derive(Clone, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum WindowEventPayload {
     Moved { x: i32, y: i32 },
     Shown,

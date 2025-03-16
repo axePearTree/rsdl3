@@ -29,9 +29,14 @@ Functions
 - [x] SDL_RenderDebugText
 - [x] SDL_FlushRenderer
 - [x] SDL_GetRenderSafeArea
+- [x] SDL_GetRenderLogicalPresentation
+- [x] SDL_SetRenderLogicalPresentation
+- [x] SDL_ConvertEventToRenderCoordinates
+- [x] SDL_RenderCoordinatesFromWindow
+- [x] SDL_RenderCoordinatesToWindow
+
 
 - [ ] SDL_AddVulkanRenderSemaphores
-- [ ] SDL_ConvertEventToRenderCoordinates
 - [ ] SDL_CreateRendererWithProperties
 - [ ] SDL_CreateTextureWithProperties
 - [ ] SDL_CreateWindowAndRenderer
@@ -40,7 +45,6 @@ Functions
 - [ ] SDL_GetRenderer
 - [ ] SDL_GetRendererFromTexture
 - [ ] SDL_GetRendererProperties
-- [ ] SDL_GetRenderLogicalPresentation
 - [ ] SDL_GetRenderLogicalPresentationRect
 - [ ] SDL_GetRenderMetalCommandEncoder
 - [ ] SDL_GetRenderMetalLayer
@@ -58,9 +62,6 @@ Functions
 - [ ] SDL_LockTexture
 - [ ] SDL_LockTextureToSurface
 - [ ] SDL_RenderClipEnabled
-- [ ] SDL_RenderCoordinatesFromWindow
-- [ ] SDL_RenderCoordinatesToWindow
-
 - [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
 - [ ] SDL_RenderLine
@@ -80,7 +81,6 @@ Functions
 - [ ] SDL_SetDefaultTextureScaleMode
 - [ ] SDL_SetRenderClipRect
 - [ ] SDL_SetRenderColorScale
-- [ ] SDL_SetRenderLogicalPresentation
 - [ ] SDL_SetRenderScale
 - [ ] SDL_SetRenderTarget
 - [ ] SDL_SetRenderViewport

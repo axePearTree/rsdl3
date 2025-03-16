@@ -1,4 +1,5 @@
 use crate::blendmode::BlendMode;
+use crate::events::Event;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::{Rect, RectF32};
 use crate::surface::{Surface, SurfaceRef};
@@ -15,6 +16,45 @@ pub struct Renderer<T: Backbuffer> {
     /// This ptr is ref-counted so we can hand out Weak references.
     ptr: Rc<*mut sys::SDL_Renderer>,
     inner: T::Inner,
+}
+
+#[doc(hidden)]
+pub trait Backbuffer {
+    type Inner;
+
+    unsafe fn drop_backbuffer(_renderer: *mut sys::SDL_Renderer);
+}
+
+impl Backbuffer for Window {
+    /// With a Window as backbuffer we can just call SDL_GetRenderWindow and get a pointer
+    /// to the underlying window, so we don't have to actually store the surface inside
+    /// the Renderer struct.
+    type Inner = ();
+
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        let window = sys::SDL_GetRenderWindow(renderer);
+        if window.is_null() {
+            return;
+        }
+        sys::SDL_DestroyRenderer(renderer);
+        sys::SDL_DestroyWindow(window);
+    }
+}
+
+impl<'a> Backbuffer for Surface<'a> {
+    type Inner = Self;
+
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        sys::SDL_DestroyRenderer(renderer);
+    }
+}
+
+impl<'a> Backbuffer for &'a mut SurfaceRef {
+    type Inner = Self;
+
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        sys::SDL_DestroyRenderer(renderer);
+    }
 }
 
 impl Renderer<Window> {
@@ -343,6 +383,146 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(())
     }
 
+    /// Get device independent resolution and presentation mode for rendering.
+    ///
+    /// `RendererLogicalPresentationMode` contains the width and height of the logical rendering output,
+    /// or the output size in pixels if a logical resolution is not enabled.
+    pub fn logical_presentation(&self) -> Result<RenderLogicalPresentation, Error> {
+        let mut w = 0;
+        let mut h = 0;
+        let mut mode: MaybeUninit<sys::SDL_RendererLogicalPresentation> = MaybeUninit::uninit();
+        unsafe {
+            let result = sys::SDL_GetRenderLogicalPresentation(
+                self.raw(),
+                &raw mut w,
+                &raw mut h,
+                mode.as_mut_ptr(),
+            );
+            if !result {
+                return Err(Error);
+            }
+            let mode = mode.assume_init();
+            let mode = RenderLogicalPresentationMode::from_ll_unchecked(mode);
+            Ok(RenderLogicalPresentation { w, h, mode })
+        }
+    }
+
+    /// Set a device independent resolution and presentation mode for rendering.
+    ///
+    /// This function sets the width and height of the logical rendering output. The renderer will act as if the window
+    /// is always the requested dimensions, scaling to the actual window resolution as necessary.
+    ///
+    /// This can be useful for games that expect a fixed size, but would like to scale the output to whatever is available,
+    /// regardless of how a user resizes a window, or if the display is high DPI.
+    ///
+    /// You can disable logical coordinates by setting the mode to [`RendererLogicalPresentationMode::Disabled`], and in
+    /// that case you get the full pixel resolution of the output window; it is safe to toggle logical presentation during
+    /// the rendering of a frame: perhaps most of the rendering is done to specific dimensions but to make fonts look sharp,
+    /// the app turns off logical presentation while drawing text.
+    ///
+    /// Letterboxing will only happen if logical presentation is enabled during [`Renderer::present`]; be sure to reenable
+    /// it first if you were using it.
+    ///
+    /// You can convert coordinates in an event into rendering coordinates using SDL_ConvertEventToRenderCoordinates().
+    pub fn set_logical_presentation_mode(
+        &mut self,
+        w: u32,
+        h: u32,
+        mode: RenderLogicalPresentationMode,
+    ) -> Result<(), Error> {
+        let w: i32 = i32::try_from(w)?;
+        let h: i32 = i32::try_from(h)?;
+        let mode = mode.to_ll();
+        let result = unsafe { sys::SDL_SetRenderLogicalPresentation(self.raw(), w, h, mode) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Convert the coordinates in an event to render coordinates.
+    ///
+    /// This takes into account several states:
+    ///
+    /// - The window dimensions.
+    /// - The logical presentation settings [`RenderLogicalPresentationMode`]
+    /// - The scale ([`Renderer::set_scale`])
+    /// - The viewport ([`Renderer::set_viewport`])
+    ///
+    /// Various event types are converted with this function: mouse, touch, pen, etc.
+    ///
+    /// Touch coordinates are converted from normalized coordinates in the window to non-normalized rendering coordinates.
+    ///
+    /// Relative mouse coordinates (xrel and yrel event fields) are _also_ converted. Applications that do not want these
+    /// fields converted should use [`Renderer::coordinates_from_window`] on the specific event fields instead of converting
+    /// the entire event structure.
+    ///
+    /// Once converted, coordinates may be outside the rendering area.
+    pub fn convert_event_to_render_coordinates(&mut self, event: &mut Event) -> Result<(), Error> {
+        let event = &raw mut event.0;
+        let result = unsafe { sys::SDL_ConvertEventToRenderCoordinates(self.raw(), event) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns a point in render coordinates when given a point in window coordinates.
+    ///
+    /// This takes into account several states:
+    ///
+    /// - The window dimensions.
+    /// - The logical presentation settings [`Renderer::set_logical_presentation_mode`].
+    /// - The scale [`Renderer::set_scale`].
+    /// - The viewport [`Renderer::set_viewport`].
+    pub fn coordinates_from_window(
+        &self,
+        window_x: f32,
+        window_y: f32,
+    ) -> Result<(f32, f32), Error> {
+        let mut x = 0.0;
+        let mut y = 0.0;
+        let result = unsafe {
+            sys::SDL_RenderCoordinatesFromWindow(
+                self.raw(),
+                window_x,
+                window_y,
+                &raw mut x,
+                &raw mut y,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok((x, y))
+    }
+
+    /// Returns a point in window coordinates when given a point in render coordinates.
+    ///
+    /// This takes into account several states:
+    ///
+    /// - The window dimensions.
+    /// - The logical presentation settings [`Renderer::set_logical_presentation_mode`].
+    /// - The scale [`Renderer::set_scale`].
+    /// - The viewport [`Renderer::set_viewport`].
+    pub fn coordinates_to_window(&self, x: f32, y: f32) -> Result<(f32, f32), Error> {
+        let mut window_x = 0.0;
+        let mut window_y = 0.0;
+        let result = unsafe {
+            sys::SDL_RenderCoordinatesToWindow(
+                self.raw(),
+                x,
+                y,
+                &raw mut window_x,
+                &raw mut window_y,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok((window_x, window_y))
+    }
+
     /// Fill a rectangle on the current rendering target with the drawing color at subpixel precision.
     pub fn fill_rect(&mut self, rect: RectF32) -> Result<(), Error> {
         let rect = rect.to_ll();
@@ -474,7 +654,7 @@ impl<T: Backbuffer> Renderer<T> {
     ///
     /// Please note, that in case of rendering to a texture - there is **no need** to call [`Renderer::present`] after drawing needed
     /// objects to a texture, and should not be done; you are only required to change back the rendering target to default via
-    /// [`Renderer::set_render_target`] afterwards, as textures by themselves do not have a concept of backbuffers.
+    /// [`Renderer::replace_render_target`] afterwards, as textures by themselves do not have a concept of backbuffers.
     /// Calling [`Renderer::present`] while rendering to a texture will still update the screen with any current drawing that
     /// has been done _to the window itself_.
     pub fn present(&mut self) -> Result<(), Error> {
@@ -573,10 +753,18 @@ impl RendererVSync {
     }
 }
 
+// Describes how a renderer's logical size is mapped to its' output.
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct RenderLogicalPresentation {
+    pub w: i32,
+    pub h: i32,
+    pub mode: RenderLogicalPresentationMode,
+}
+
 /// How the logical size is mapped to the output.
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
-pub enum RendererLogicalPresentation {
+pub enum RenderLogicalPresentationMode {
     /// The rendered content is stretched to the output resolution.
     Disabled = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_DISABLED,
     /// The rendered content is stretched to the output resolution.
@@ -589,13 +777,13 @@ pub enum RendererLogicalPresentation {
     IntegerScale = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_INTEGER_SCALE,
 }
 
-impl RendererLogicalPresentation {
+impl RenderLogicalPresentationMode {
     /// SAFETY: `value` must be a valid variant of the enum.
     unsafe fn from_ll_unchecked(value: u32) -> Self {
         unsafe { core::mem::transmute(value) }
     }
 
-    pub fn to_raw(&self) -> u32 {
+    pub fn to_ll(&self) -> u32 {
         *self as u32
     }
 }
@@ -697,44 +885,5 @@ pub enum TextureAccess {
 impl TextureAccess {
     pub fn to_ll(self) -> sys::SDL_TextureAccess {
         self as sys::SDL_TextureAccess
-    }
-}
-
-#[doc(hidden)]
-pub trait Backbuffer {
-    type Inner;
-
-    unsafe fn drop_backbuffer(_renderer: *mut sys::SDL_Renderer);
-}
-
-impl Backbuffer for Window {
-    /// With a Window as backbuffer we can just call SDL_GetRenderWindow and get a pointer
-    /// to the underlying window, so we don't have to actually store the surface inside
-    /// the Renderer struct.
-    type Inner = ();
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        let window = sys::SDL_GetRenderWindow(renderer);
-        if window.is_null() {
-            return;
-        }
-        sys::SDL_DestroyRenderer(renderer);
-        sys::SDL_DestroyWindow(window);
-    }
-}
-
-impl<'a> Backbuffer for Surface<'a> {
-    type Inner = Self;
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        sys::SDL_DestroyRenderer(renderer);
-    }
-}
-
-impl<'a> Backbuffer for &'a mut SurfaceRef {
-    type Inner = Self;
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        sys::SDL_DestroyRenderer(renderer);
     }
 }
