@@ -79,6 +79,10 @@ impl<'a> Renderer<Surface<'a>> {
         }
     }
 
+    pub fn as_surface(&self) -> &Surface {
+        &self.inner
+    }
+
     /// Returns a reference to the renderer's underlying surface, if it has one.
     pub fn as_surface_ref(&self) -> &SurfaceRef {
         &self.inner
@@ -541,8 +545,7 @@ impl<T: Backbuffer> Renderer<T> {
 impl<T: Backbuffer> Drop for Renderer<T> {
     fn drop(&mut self) {
         unsafe {
-            sys::SDL_DestroyRenderer(*self.ptr);
-            T::drop_inner(self.raw());
+            T::drop_backbuffer(self.raw());
         }
     }
 }
@@ -701,7 +704,7 @@ impl TextureAccess {
 pub trait Backbuffer {
     type Inner;
 
-    unsafe fn drop_inner(_renderer: *mut sys::SDL_Renderer) {}
+    unsafe fn drop_backbuffer(_renderer: *mut sys::SDL_Renderer);
 }
 
 impl Backbuffer for Window {
@@ -710,19 +713,28 @@ impl Backbuffer for Window {
     /// the Renderer struct.
     type Inner = ();
 
-    unsafe fn drop_inner(renderer: *mut rsdl3_sys::SDL_Renderer) {
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
         let window = sys::SDL_GetRenderWindow(renderer);
         if window.is_null() {
             return;
         }
+        sys::SDL_DestroyRenderer(renderer);
         sys::SDL_DestroyWindow(window);
     }
 }
 
 impl<'a> Backbuffer for Surface<'a> {
     type Inner = Self;
+
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        sys::SDL_DestroyRenderer(renderer);
+    }
 }
 
 impl<'a> Backbuffer for &'a mut SurfaceRef {
     type Inner = Self;
+
+    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
+        sys::SDL_DestroyRenderer(renderer);
+    }
 }
