@@ -570,6 +570,33 @@ impl RendererVSync {
     }
 }
 
+/// How the logical size is mapped to the output.
+#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub enum RendererLogicalPresentation {
+    /// The rendered content is stretched to the output resolution.
+    Disabled = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_DISABLED,
+    /// The rendered content is stretched to the output resolution.
+    Stretch = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_STRETCH,
+    /// The rendered content is fit to the largest dimension and the other dimension is letterboxed with black bars.
+    Letterbox = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_LETTERBOX,
+    /// The rendered content is fit to the smallest dimension and the other dimension extends beyond the output bounds.
+    Overscan = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_OVERSCAN,
+    /// The rendered content is scaled up by integer multiples to fit the output resolution.
+    IntegerScale = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_INTEGER_SCALE,
+}
+
+impl RendererLogicalPresentation {
+    /// SAFETY: `value` must be a valid variant of the enum.
+    unsafe fn from_ll_unchecked(value: u32) -> Self {
+        unsafe { core::mem::transmute(value) }
+    }
+
+    pub fn to_raw(&self) -> u32 {
+        *self as u32
+    }
+}
+
 /// Driver-specific representation of pixel data.
 ///
 /// This struct wraps [`sys::SDL_Texture`].
