@@ -9,6 +9,7 @@ use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
 use alloc::string::String;
 use core::ffi::CStr;
+use core::marker::PhantomData;
 use core::mem::{ManuallyDrop, MaybeUninit};
 
 /// A structure representing rendering state.
@@ -86,6 +87,7 @@ impl Renderer<Window> {
     }
 
     /// Returns a reference to the renderer's window, if it has one.
+    #[inline]
     pub fn as_window_ref(&self) -> &WindowRef {
         unsafe {
             let ptr = sys::SDL_GetRenderWindow(self.raw());
@@ -94,6 +96,7 @@ impl Renderer<Window> {
     }
 
     /// Returns a mutable reference to the renderer's window, if it has one.
+    #[inline]
     pub fn as_window_mut(&mut self) -> &mut WindowRef {
         unsafe {
             let ptr = sys::SDL_GetRenderWindow(self.raw());
@@ -119,16 +122,14 @@ impl<'a> Renderer<Surface<'a>> {
         }
     }
 
-    pub fn as_surface(&self) -> &Surface {
-        &self.inner
-    }
-
     /// Returns a reference to the renderer's underlying surface, if it has one.
+    #[inline]
     pub fn as_surface_ref(&self) -> &SurfaceRef {
         &self.inner
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
+    #[inline]
     pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
         &mut self.inner
     }
@@ -438,6 +439,18 @@ impl<T: Backbuffer> Renderer<T> {
             return Err(Error);
         }
         Ok(())
+    }
+
+    /// Returns the drawing scale for the current target.
+    pub fn scale(&self) -> Result<(f32, f32), Error> {
+        let mut scale_x = 0.0;
+        let mut scale_y = 0.0;
+        let result =
+            unsafe { sys::SDL_GetRenderScale(self.raw(), &raw mut scale_x, &raw mut scale_y) };
+        if !result {
+            return Err(Error);
+        }
+        Ok((scale_x, scale_y))
     }
 
     /// Convert the coordinates in an event to render coordinates.
@@ -853,6 +866,84 @@ impl Texture {
         })
     }
 
+    /// Returns the additional alpha value multiplied into render copy operations.
+    pub fn alpha_mod(&self) -> Result<u8, Error> {
+        let mut alpha = 0;
+        let result = unsafe { sys::SDL_GetTextureAlphaMod(self.raw(), &raw mut alpha) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(alpha)
+    }
+
+    /// Set an additional alpha value multiplied into render copy operations.
+    ///
+    /// When this texture is rendered, during the copy operation the source alpha value is modulated by
+    /// this alpha value according to the following formula:
+    ///
+    /// `srcA = srcA * (alpha / 255)`
+    ///
+    /// Alpha modulation is not always supported by the renderer; it will return an `Error` if alpha
+    /// modulation is not supported.
+    pub fn set_alpha_mod(&mut self, alpha_mod: u8) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetTextureAlphaMod(self.raw(), alpha_mod) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the additional alpha value multiplied into render copy operations.
+    pub fn alpha_mod_f32(&self) -> Result<f32, Error> {
+        let mut alpha = 0.0;
+        let result = unsafe { sys::SDL_GetTextureAlphaModFloat(self.raw(), &raw mut alpha) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(alpha)
+    }
+
+    /// Set an additional alpha value multiplied into render copy operations.
+    ///
+    /// When this texture is rendered, during the copy operation the source alpha value is modulated by
+    /// this alpha value according to the following formula:
+    ///
+    /// `srcA = srcA * alpha`
+    ///
+    /// Alpha modulation is not always supported by the renderer; it will return an `Error` if alpha
+    /// modulation is not supported.
+    pub fn set_alpha_mod_f32(&mut self, alpha_mod: f32) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetTextureAlphaModFloat(self.raw(), alpha_mod) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the blend mode used for texture copy operations.
+    pub fn blend_mode(&self) -> Result<Option<BlendMode>, Error> {
+        let mut blend_mode: sys::SDL_BlendMode = 0;
+        let result: bool = unsafe { sys::SDL_GetTextureBlendMode(self.raw(), &raw mut blend_mode) };
+        if !result {
+            return Err(Error);
+        }
+        // ...
+        BlendMode::try_from_ll(blend_mode)
+    }
+
+    /// Returns the additional color value multiplied into render copy operations.
+    pub fn color_mod(&self) -> Result<(u8, u8, u8), Error> {
+        let mut r = 0;
+        let mut g = 0;
+        let mut b = 0;
+        let result =
+            unsafe { sys::SDL_GetTextureColorMod(self.raw(), &raw mut r, &raw mut g, &raw mut b) };
+        if !result {
+            return Err(Error);
+        }
+        Ok((r, g, b))
+    }
+
     unsafe fn from_mut_ptr<T: Backbuffer>(
         renderer: &mut Renderer<T>,
         ptr: *mut sys::SDL_Texture,
@@ -861,6 +952,11 @@ impl Texture {
             renderer: Rc::downgrade(&renderer.ptr),
             ptr,
         }
+    }
+
+    #[inline]
+    fn raw(&self) -> *mut sys::SDL_Texture {
+        self.ptr
     }
 }
 
