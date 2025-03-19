@@ -38,11 +38,27 @@ Functions
 - [x] SDL_GetTextureAlphaModFloat
 - [x] SDL_GetRenderScale
 - [x] SDL_GetRenderTarget -- part of "replace_render_target" -- maybe we should expose a zst TextureRef??? is it useful to get a reference to the render target?
+- [x] SDL_SetRenderTarget -- same as SDL_GetRenderTarget
 - [x] SDL_GetTextureBlendMode
 - [x] SDL_GetTextureColorMod
 - [x] SDL_GetTextureColorModFloat
 - [x] SDL_SetTextureAlphaMod
 - [x] SDL_SetTextureAlphaModFloat
+- [x] SDL_GetRenderViewport
+- [x] SDL_SetRenderViewport
+- [x] SDL_SetTextureBlendMode
+- [x] SDL_SetTextureColorMod
+- [x] SDL_SetTextureColorModFloat
+- [x] SDL_GetTextureScaleMode
+- [x] SDL_SetTextureScaleMode
+- [x] SDL_SetRenderScale
+- [x] SDL_RenderPresent
+- [x] SDL_RenderLine
+- [x] SDL_RenderLines
+- [x] SDL_RenderPoint
+- [x] SDL_RenderPoints
+- [x] SDL_RenderRect
+- [ ] SDL_RenderRects
 
 - [ ] SDL_AddVulkanRenderSemaphores
 - [ ] SDL_CreateRendererWithProperties
@@ -53,23 +69,14 @@ Functions
 - [ ] SDL_GetRenderLogicalPresentationRect
 - [ ] SDL_GetRenderMetalCommandEncoder
 - [ ] SDL_GetRenderMetalLayer
-- [ ] SDL_GetRenderViewport
 - [ ] SDL_GetTextureProperties
-- [ ] SDL_GetTextureScaleMode
 - [ ] SDL_GetTextureSize
 - [ ] SDL_LockTexture
 - [ ] SDL_LockTextureToSurface
 - [ ] SDL_RenderClipEnabled
 - [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
-- [ ] SDL_RenderLine
-- [ ] SDL_RenderLines
-- [ ] SDL_RenderPoint
-- [ ] SDL_RenderPoints
-- [ ] SDL_RenderPresent
 - [ ] SDL_RenderReadPixels
-- [ ] SDL_RenderRect
-- [ ] SDL_RenderRects
 - [ ] SDL_RenderTexture9Grid
 - [ ] SDL_RenderTexture9GridTiled
 - [ ] SDL_RenderTextureAffine
@@ -79,15 +86,6 @@ Functions
 - [ ] SDL_SetDefaultTextureScaleMode
 - [ ] SDL_SetRenderClipRect
 - [ ] SDL_SetRenderColorScale
-- [ ] SDL_SetRenderScale
-- [ ] SDL_SetRenderTarget
-- [ ] SDL_SetRenderViewport
-
-
-- [ ] SDL_SetTextureBlendMode
-- [ ] SDL_SetTextureColorMod
-- [ ] SDL_SetTextureColorModFloat
-- [ ] SDL_SetTextureScaleMode
 
 - [ ] SDL_UnlockTexture
 - [ ] SDL_UpdateNVTexture

@@ -1,25 +1,28 @@
 use crate::blendmode::BlendMode;
 use crate::events::Event;
 use crate::pixels::{Color, ColorF32, PixelFormat};
-use crate::rect::{Rect, RectF32};
-use crate::surface::{Surface, SurfaceRef};
+use crate::rect::{Point, PointF32, Rect, RectF32};
+use crate::surface::{ScaleMode, Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
 use alloc::rc::{Rc, Weak};
 use alloc::string::String;
 use core::ffi::CStr;
-use core::marker::PhantomData;
 use core::mem::{ManuallyDrop, MaybeUninit};
 
 /// A structure representing rendering state.
 pub struct Renderer<T: Backbuffer> {
     /// This ptr is ref-counted so we can hand out Weak references.
+    /// We never have more than a single strong reference to it.
     ptr: Rc<*mut sys::SDL_Renderer>,
     inner: T::Inner,
 }
 
 #[doc(hidden)]
+/// We need a way to provide the `Renderer` with a type (`Inner`) for its' backbuffer.
+/// In the case of a `Window` backbuffer, we'd like `Inner` to be zero-sized since we
+/// can retrieve the `Window` by calling `sys::SDL_GetRenderWindow`.
 pub trait Backbuffer {
     type Inner;
 
@@ -453,6 +456,51 @@ impl<T: Backbuffer> Renderer<T> {
         Ok((scale_x, scale_y))
     }
 
+    /// Set the drawing scale for rendering on the current target.
+    ///
+    /// The drawing coordinates are scaled by the x/y scaling factors before they are used
+    /// by the renderer. This allows resolution independent drawing with a single coordinate
+    /// system.
+    ///
+    /// If this results in scaling or subpixel drawing by the rendering backend, it will be
+    /// handled using the appropriate quality hints. For best results use integer scaling factors.
+    pub fn set_scale(&mut self, x: f32, y: f32) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetRenderScale(self.raw(), x, y) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the drawing area for the current target.
+    pub fn viewport(&self) -> Result<Rect, Error> {
+        let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
+        unsafe {
+            let result = sys::SDL_GetRenderViewport(self.raw(), rect.as_mut_ptr());
+            if !result {
+                return Err(Error);
+            }
+            let rect = rect.assume_init();
+            Ok(Rect::from_ll(rect))
+        }
+    }
+
+    /// Set the drawing area for rendering on the current target.
+    ///
+    /// Drawing will clip to this area (separately from any clipping done with [`Renderer::set_clip_rect`],
+    /// and the top left of the area will become coordinate (0, 0) for future drawing commands.
+    ///
+    /// The area's width and height must be >= 0.
+    pub fn set_viewport(&mut self, rect: Rect) -> Result<(), Error> {
+        let result = unsafe {
+            sys::SDL_SetRenderViewport(self.raw(), &raw const rect as *const sys::SDL_Rect)
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Convert the coordinates in an event to render coordinates.
     ///
     /// This takes into account several states:
@@ -534,6 +582,70 @@ impl<T: Backbuffer> Renderer<T> {
             return Err(Error);
         }
         Ok((window_x, window_y))
+    }
+
+    /// Draw a line on the current rendering target at subpixel precision.
+    pub fn render_line(&mut self, start: PointF32, end: PointF32) -> Result<(), Error> {
+        let result =
+            unsafe { sys::SDL_RenderLine(self.raw(), start.x(), start.y(), end.x(), end.y()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Draw a series of connected lines on the current rendering target at subpixel precision.
+    pub fn render_lines(&mut self, points: &[Point]) -> Result<(), Error> {
+        let count = i32::try_from(points.len())
+            .map_err(|_| Error::register(c"Unable to convert usize to i32."))?;
+        let points = points.as_ptr() as *const sys::SDL_FPoint;
+        let result = unsafe { sys::SDL_RenderLines(self.raw(), points, count) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Draw a point on the current rendering target at subpixel precision.
+    pub fn render_point(&mut self, point: PointF32) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_RenderPoint(self.raw(), point.x(), point.y()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Draw multiple points on the current rendering target at subpixel precision.
+    pub fn render_points(&mut self, points: &[PointF32]) -> Result<(), Error> {
+        let count = i32::try_from(points.len())
+            .map_err(|_| Error::register(c"Unable to convert usize to i32."))?;
+        let points = points.as_ptr() as *const sys::SDL_FPoint;
+        let result = unsafe { sys::SDL_RenderPoints(self.raw(), points, count) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Draw a rectangle on the current rendering target at subpixel precision.
+    pub fn render_rect(&mut self, rect: RectF32) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_RenderRect(self.raw(), rect.as_raw()) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Draw some number of rectangles on the current rendering target at subpixel precision.
+    pub fn render_rects(&mut self, rects: &[RectF32]) -> Result<(), Error> {
+        let count = i32::try_from(rects.len())
+            .map_err(|_| Error::register(c"Unable to convert usize to i32."))?;
+        let rects = rects.as_ptr() as *const sys::SDL_FRect;
+        let result = unsafe { sys::SDL_RenderRects(self.raw(), rects, count) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
     }
 
     /// Fill a rectangle on the current rendering target with the drawing color at subpixel precision.
@@ -931,6 +1043,19 @@ impl Texture {
         BlendMode::try_from_ll(blend_mode)
     }
 
+    /// Set the blend mode for a texture, used by [`Renderer::render_texture`].
+    ///
+    /// If the blend mode is not supported, the closest supported mode is chosen and this function
+    /// returns an `Error`.
+    pub fn set_blend_mode(&mut self, mode: BlendMode) -> Result<(), Error> {
+        let mode = mode.to_ll();
+        let result = unsafe { sys::SDL_SetTextureBlendMode(self.raw(), mode) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Returns the additional color value multiplied into render copy operations.
     pub fn color_mod(&self) -> Result<(u8, u8, u8), Error> {
         let mut r = 0;
@@ -944,6 +1069,68 @@ impl Texture {
         Ok((r, g, b))
     }
 
+    /// Set an additional color value multiplied into render copy operations.
+    ///
+    /// When this texture is rendered, during the copy operation each source color channel is modulated
+    /// by the appropriate color value according to the following formula:
+    ///
+    /// `srcC = srcC * (color / 255)`
+    ///
+    /// Color modulation is not always supported by the renderer; it will return an `Error` if color
+    /// modulation is not supported.
+    pub fn set_color_mod(&mut self, color_mod: (u8, u8, u8)) -> Result<(), Error> {
+        let (r, g, b) = color_mod;
+        let result = unsafe { sys::SDL_SetTextureColorMod(self.raw(), r, g, b) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Set an additional color value multiplied into render copy operations.
+    ///
+    /// When this texture is rendered, during the copy operation each source color channel is modulated
+    /// by the appropriate color value according to the following formula:
+    ///
+    /// `srcC = srcC * color`
+    ///
+    /// Color modulation is not always supported by the renderer; it will return an `Error` if color
+    /// modulation is not supported.
+    pub fn set_color_mod_f32(&mut self, color_mod: (f32, f32, f32)) -> Result<(), Error> {
+        let (r, g, b) = color_mod;
+        let result = unsafe { sys::SDL_SetTextureColorModFloat(self.raw(), r, g, b) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the scale mode used for texture scale operations.
+    pub fn scale_mode(&self) -> Result<ScaleMode, Error> {
+        let mut scale_mode: MaybeUninit<sys::SDL_ScaleMode> = MaybeUninit::uninit();
+        unsafe {
+            let result = sys::SDL_GetTextureScaleMode(self.raw(), scale_mode.as_mut_ptr());
+            if !result {
+                return Err(Error);
+            }
+            Ok(ScaleMode::from_ll_unchecked(scale_mode.assume_init()))
+        }
+    }
+    /// Set the scale mode used for texture scale operations.
+    ///
+    /// The default texture scale mode is [`ScaleMode::Linear`].
+    ///
+    /// If the scale mode is not supported, the closest supported mode is chosen.
+    pub fn set_scale_mode(&mut self, scale_mode: ScaleMode) -> Result<(), Error> {
+        let scale_mode = scale_mode.to_ll();
+        let result = unsafe { sys::SDL_SetTextureScaleMode(self.raw(), scale_mode) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// SAFETY: texture must come directly from SDL and it *must* be owned by the caller.
     unsafe fn from_mut_ptr<T: Backbuffer>(
         renderer: &mut Renderer<T>,
         ptr: *mut sys::SDL_Texture,

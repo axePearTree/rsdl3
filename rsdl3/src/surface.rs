@@ -985,6 +985,10 @@ impl ScaleMode {
         })
     }
 
+    pub(crate) unsafe fn from_ll_unchecked(value: sys::SDL_ScaleMode) -> Self {
+        core::mem::transmute(value)
+    }
+
     /// Converts a raw `ScaleMode` into a raw `sys::SDL_ScaleMode`.
     pub fn to_ll(&self) -> sys::SDL_ScaleMode {
         *self as u32

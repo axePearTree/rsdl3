@@ -16,6 +16,10 @@ fn clamp_size_i32(val: i32) -> i32 {
     val.max(1).min(MAX_INT as i32)
 }
 
+fn clamp_position_f32(val: f32) -> f32 {
+    val.clamp(MIN_INT as f32, MAX_INT as f32)
+}
+
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
 pub struct Rect(sys::SDL_Rect);
@@ -178,6 +182,10 @@ impl RectF32 {
     pub fn to_ll(self) -> sys::SDL_FRect {
         self.0
     }
+
+    pub(crate) fn as_raw(&self) -> *const sys::SDL_FRect {
+        self as *const Self as *const sys::SDL_FRect
+    }
 }
 
 impl From<Rect> for RectF32 {
@@ -225,6 +233,44 @@ impl Point {
 
     #[inline]
     pub fn to_ll(&self) -> sys::SDL_Point {
+        self.0
+    }
+}
+
+#[repr(transparent)]
+#[derive(Copy, Clone, Debug)]
+pub struct PointF32(sys::SDL_FPoint);
+
+impl PointF32 {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self(sys::SDL_FPoint {
+            x: clamp_position_f32(x),
+            y: clamp_position_f32(y),
+        })
+    }
+
+    #[inline]
+    pub fn x(&self) -> f32 {
+        self.0.x
+    }
+
+    #[inline]
+    pub fn set_x(&mut self, x: f32) {
+        self.0.x = clamp_position_f32(x);
+    }
+
+    #[inline]
+    pub fn y(&self) -> f32 {
+        self.0.y
+    }
+
+    #[inline]
+    pub fn set_y(&mut self, y: f32) {
+        self.0.y = clamp_position_f32(y);
+    }
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::SDL_FPoint {
         self.0
     }
 }
