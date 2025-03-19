@@ -207,6 +207,28 @@ impl<T: Backbuffer> Renderer<T> {
         Texture::from_surface(self, surface)
     }
 
+    /// Returns a pointer to the `CAMetalLayer` associated with the given Metal renderer.
+    ///
+    /// This function returns `*mut core::ffi::c_void`, so SDL doesn't have to include Metal's headers, but it can be
+    /// safely cast to a `*mut CAMetalLayer`.
+    ///
+    /// Returns `core::ptr::null()` if the renderer isn't a metal renderer.
+    pub fn metal_layer(&self) -> *mut core::ffi::c_void {
+        unsafe { sys::SDL_GetRenderMetalLayer(self.raw()) }
+    }
+
+    /// Returns the Metal command encoder for the current frame.
+    ///
+    /// This function returns `*mut core::ffi::c_void`, so SDL doesn't have to include Metal's headers, but it can be
+    /// safely cast to an `id<MTLRenderCommandEncoder>`.
+    ///
+    /// This will return `core::ptr::null()` if Metal refuses to give SDL a drawable to render to, which might happen
+    /// if the window is hidden/minimized/offscreen. This doesn't apply to command encoders for render targets, just
+    /// the window's backbuffer. Check your return values!
+    pub fn metal_encoder(&self) -> *mut core::ffi::c_void {
+        unsafe { sys::SDL_GetRenderMetalCommandEncoder(self.raw()) }
+    }
+
     /// Returns the safe area for rendering within the current viewport.
     ///
     /// Some devices have portions of the screen which are partially obscured or not interactive,
@@ -292,7 +314,7 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(())
     }
 
-    /// Get the output size in pixels of a rendering context.
+    /// Returns the output size in pixels of a rendering context.
     ///
     /// This returns the true output size in pixels, ignoring any render targets or logical size and presentation.
     /// Get the current output size in pixels of a rendering context.
@@ -312,7 +334,7 @@ impl<T: Backbuffer> Renderer<T> {
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
 
-    /// Get the output size in pixels of a rendering context.
+    /// Returns the output size in pixels of a rendering context.
     ///
     /// This returns the true output size in pixels, ignoring any render targets or logical size and presentation.
     pub fn output_size(&self) -> Result<(u32, u32), Error> {
@@ -325,7 +347,7 @@ impl<T: Backbuffer> Renderer<T> {
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
 
-    /// Get the clip rectangle for the current target.
+    /// Returns the clip rectangle for the current target.
     pub fn clip_rect(&self) -> Result<Rect, Error> {
         let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
         let res = unsafe { sys::SDL_GetRenderClipRect(self.raw(), rect.as_mut_ptr()) };
@@ -336,7 +358,21 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(Rect::from_ll(rect))
     }
 
-    /// Get the color scale used for render operations.
+    /// Set the clip rectangle for rendering on the specified target.
+    pub fn set_clip_rect(&mut self, rect: Rect) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_SetRenderClipRect(self.raw(), &raw const rect.0) };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns whether clipping is enabled on the renderer.
+    pub fn is_clip_enabled(&self) -> bool {
+        unsafe { sys::SDL_RenderClipEnabled(self.raw()) }
+    }
+
+    /// Returns the color scale used for render operations.
     pub fn color_scale(&self) -> Result<f32, Error> {
         let mut scale = 0.0;
         let res = unsafe { sys::SDL_GetRenderColorScale(self.raw(), &raw mut scale) };
@@ -346,7 +382,22 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(scale)
     }
 
-    /// Get the blend mode used for drawing operations.
+    /// Set the color scale used for render operations.
+    ///
+    /// The color scale is an additional scale multiplied into the pixel color value while rendering.
+    /// This can be used to adjust the brightness of colors during HDR rendering, or changing HDR
+    /// video brightness when playing on an SDR display.
+    ///
+    /// The color scale does not affect the alpha channel, only the color brightness.
+    pub fn set_color_scale(&mut self, color_scale: f32) -> Result<(), Error> {
+        let res = unsafe { sys::SDL_SetRenderColorScale(self.raw(), color_scale) };
+        if !res {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Returns the blend mode used for drawing operations.
     pub fn draw_blend_mode(&self) -> Result<Option<BlendMode>, Error> {
         let mut blend_mode: MaybeUninit<sys::SDL_BlendMode> = MaybeUninit::uninit();
         let res = unsafe { sys::SDL_GetRenderDrawBlendMode(self.raw(), blend_mode.as_mut_ptr()) };
@@ -706,24 +757,98 @@ impl<T: Backbuffer> Renderer<T> {
         dest_rect: Option<RectF32>,
     ) -> Result<(), Error> {
         self.validate_texture(texture)?;
-
-        let src_rect = src_rect.map(RectF32::to_ll);
         let src_rect_ptr = src_rect
             .as_ref()
-            .map_or(core::ptr::null(), core::ptr::from_ref);
-
-        let dest_rect = dest_rect.map(RectF32::to_ll);
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
         let dest_rect_ptr = dest_rect
             .as_ref()
-            .map_or(core::ptr::null(), core::ptr::from_ref);
-
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
         let result =
             unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
-
         if !result {
             return Err(Error);
         }
+        Ok(())
+    }
 
+    /// Perform a scaled copy using the 9-grid algorithm to the current rendering target at subpixel precision.
+    ///
+    /// The pixels in the texture are split into a 3x3 grid, using the different corner sizes for each corner,
+    /// and the sides and center making up the remaining pixels. The corners are then scaled using `scale` and
+    /// fit into the corners of the destination rectangle. The sides and center are then stretched into place
+    /// to cover the remaining destination rectangle.
+    pub fn render_texture_9_grid(
+        &mut self,
+        texture: &Texture,
+        src_rect: Option<RectF32>,
+        left_width: f32,
+        right_width: f32,
+        top_height: f32,
+        bottom_height: f32,
+        scale: f32,
+        dest_rect: Option<RectF32>,
+    ) -> Result<(), Error> {
+        self.validate_texture(texture)?;
+        let src_rect_ptr = src_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let dest_rect_ptr = dest_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let result = unsafe {
+            sys::SDL_RenderTexture9Grid(
+                self.raw(),
+                texture.raw(),
+                src_rect_ptr,
+                left_width,
+                right_width,
+                top_height,
+                bottom_height,
+                scale,
+                dest_rect_ptr,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Tile a portion of the texture to the current rendering target at subpixel precision.
+    ///
+    /// The pixels in `srcrect` will be repeated as many times as needed to completely fill `dest_rect`.
+    pub fn render_texture_tiled(
+        &mut self,
+        texture: &Texture,
+        src_rect: Option<RectF32>,
+        scale: f32,
+        dest_rect: Option<RectF32>,
+    ) -> Result<(), Error> {
+        self.validate_texture(texture)?;
+        let src_rect_ptr = src_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let dest_rect_ptr = dest_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let result = unsafe {
+            sys::SDL_RenderTextureTiled(
+                self.raw(),
+                texture.raw(),
+                src_rect_ptr,
+                scale,
+                dest_rect_ptr,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
         Ok(())
     }
 
@@ -839,7 +964,7 @@ impl<T: Backbuffer> Renderer<T> {
 
     fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
         // We could check whether or not this texture belongs to this renderer, but SDL does it for us.
-        // So we only check whether or not texture's renderer is still alive.
+        // So we only check whether or not texture's renderer is still alive so.
         if texture.renderer.strong_count() == 0 {
             return Err(Error::register(c"Renderer already destroyed."));
         }
@@ -954,6 +1079,17 @@ impl Texture {
             renderer: Rc::downgrade(&renderer.ptr),
             ptr,
         })
+    }
+
+    /// Returns the size of a texture, as floating point values.
+    pub fn size(&self) -> Result<(f32, f32), Error> {
+        let mut w = 0.0;
+        let mut h = 0.0;
+        let result = unsafe { sys::SDL_GetTextureSize(self.raw(), &raw mut w, &raw mut h) };
+        if !result {
+            return Err(Error);
+        }
+        Ok((w, h))
     }
 
     /// Create a texture from an existing surface.
@@ -1116,6 +1252,7 @@ impl Texture {
             Ok(ScaleMode::from_ll_unchecked(scale_mode.assume_init()))
         }
     }
+
     /// Set the scale mode used for texture scale operations.
     ///
     /// The default texture scale mode is [`ScaleMode::Linear`].

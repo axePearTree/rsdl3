@@ -1,0 +1,2 @@
+- [ ] Revisit conversion checks for rectangles. We need to check for rects with calculated corners that might overflow.
+- [ ] Revisit `Renderer::render_texture_*` methods and maybe add struct parameters to mimic named parameters. This will differ from SDL.

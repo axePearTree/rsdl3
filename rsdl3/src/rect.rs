@@ -20,9 +20,10 @@ fn clamp_position_f32(val: f32) -> f32 {
     val.clamp(MIN_INT as f32, MAX_INT as f32)
 }
 
+// SAFETY: must be transparent
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
-pub struct Rect(sys::SDL_Rect);
+pub struct Rect(pub(crate) sys::SDL_Rect);
 
 impl Rect {
     /// Creates a new `Rect` with the given dimensions.
@@ -99,6 +100,7 @@ impl Rect {
     }
 }
 
+// SAFETY: must be transparent
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
 pub struct RectF32(sys::SDL_FRect);
@@ -199,6 +201,7 @@ impl From<Rect> for RectF32 {
     }
 }
 
+// SAFETY: must be transparent
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
 pub struct Point(sys::SDL_Point);
@@ -237,6 +240,7 @@ impl Point {
     }
 }
 
+// SAFETY: must be transparent
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
 pub struct PointF32(sys::SDL_FPoint);
