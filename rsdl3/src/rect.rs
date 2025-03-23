@@ -277,4 +277,8 @@ impl PointF32 {
     pub fn to_ll(&self) -> sys::SDL_FPoint {
         self.0
     }
+
+    pub(crate) fn as_raw(&self) -> *const sys::SDL_FPoint {
+        self as *const Self as *const sys::SDL_FPoint
+    }
 }

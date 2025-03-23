@@ -67,9 +67,9 @@ Functions
 - [x] SDL_SetRenderColorScale
 - [x] SDL_RenderTexture9Grid
 - [x] SDL_RenderTextureAffine
+- [x] SDL_RenderTextureRotated
+- [x] SDL_RenderTextureTiled
 
-- [ ] SDL_RenderTextureRotated
-- [ ] SDL_RenderTextureTiled
 - [ ] SDL_GetRenderLogicalPresentationRect
 - [ ] SDL_LockTexture
 - [ ] SDL_LockTextureToSurface

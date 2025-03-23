@@ -2,7 +2,7 @@ use crate::blendmode::BlendMode;
 use crate::events::Event;
 use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::{Point, PointF32, Rect, RectF32};
-use crate::surface::{ScaleMode, Surface, SurfaceRef};
+use crate::surface::{FlipMode, ScaleMode, Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
@@ -844,6 +844,98 @@ impl<T: Backbuffer> Renderer<T> {
                 src_rect_ptr,
                 scale,
                 dest_rect_ptr,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Copy a portion of the source texture to the current rendering target, with rotation and flipping,
+    /// at subpixel precision.
+    pub fn render_texture_rotated(
+        &mut self,
+        texture: &Texture,
+        src_rect: Option<RectF32>,
+        dest_rect: Option<RectF32>,
+        angle: f64,
+        center: Option<PointF32>,
+        flip: Option<FlipMode>,
+    ) -> Result<(), Error> {
+        self.validate_texture(texture)?;
+        let src_rect_ptr = src_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let dest_rect_ptr = dest_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let center_ptr = center
+            .as_ref()
+            .map(PointF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let flip_mode = flip
+            .map(|f| f.to_ll())
+            .unwrap_or(sys::SDL_FlipMode_SDL_FLIP_NONE);
+        let result = unsafe {
+            sys::SDL_RenderTextureRotated(
+                self.raw(),
+                texture.raw(),
+                src_rect_ptr,
+                dest_rect_ptr,
+                angle,
+                center_ptr,
+                flip_mode,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
+    /// Copy a portion of the source texture to the current rendering target, with affine transform, at subpixel precision.
+    ///
+    /// - `origin`: indicates where the top-left corner of `src_rect` should be mapped to, or `None` for the rendering
+    /// target's origin.
+    /// - `right`: indicates where the top-right corner of `src_rect` should be mapped to, or `None` for the rendering
+    /// target's top-right corner.
+    /// - `left`: indicates where the bottom-left corner of `src_rect` should be mapped to, or `None` for the rendering
+    /// target's bottom-left corner.
+    pub fn render_texture_affine(
+        &mut self,
+        texture: &Texture,
+        src_rect: Option<RectF32>,
+        origin: Option<PointF32>,
+        right: Option<PointF32>,
+        down: Option<PointF32>,
+    ) -> Result<(), Error> {
+        let src_rect_ptr = src_rect
+            .as_ref()
+            .map(RectF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let origin_ptr = origin
+            .as_ref()
+            .map(PointF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let right_ptr = right
+            .as_ref()
+            .map(PointF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let down_ptr = down
+            .as_ref()
+            .map(PointF32::as_raw)
+            .unwrap_or(core::ptr::null());
+        let result = unsafe {
+            sys::SDL_RenderTextureAffine(
+                self.raw(),
+                texture.raw(),
+                src_rect_ptr,
+                origin_ptr,
+                right_ptr,
+                down_ptr,
             )
         };
         if !result {
