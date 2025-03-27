@@ -246,6 +246,22 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(rect)
     }
 
+    /// Get the final presentation rectangle for rendering.
+    ///
+    /// This function returns the calculated rectangle used for logical presentation, based on the
+    /// presentation mode and output size. If logical presentation is disabled, it will fill the
+    /// rectangle with the output size, in pixels.
+    pub fn logical_presentation_rect(&self) -> Result<RectF32, Error> {
+        let mut rect: MaybeUninit<sys::SDL_FRect> = MaybeUninit::uninit();
+        let result =
+            unsafe { sys::SDL_GetRenderLogicalPresentationRect(self.raw(), rect.as_mut_ptr()) };
+        if !result {
+            return Err(Error);
+        }
+        let rect = RectF32::from_ll(unsafe { rect.assume_init() });
+        Ok(rect)
+    }
+
     /// Returns the color used for drawing operations.
     pub fn draw_color(&self) -> Result<Color, Error> {
         let mut r = 0;
@@ -550,6 +566,15 @@ impl<T: Backbuffer> Renderer<T> {
             return Err(Error);
         }
         Ok(())
+    }
+
+    /// Return whether an explicit rectangle was set as the viewport.
+    ///
+    /// This is useful if you're saving and restoring the viewport and want to know whether you should
+    /// restore a specific rectangle or NULL. Note that the viewport is always reset when changing rendering
+    /// targets.
+    pub fn is_viewport_set(&mut self) -> bool {
+        unsafe { sys::SDL_RenderViewportSet(self.raw()) }
     }
 
     /// Convert the coordinates in an event to render coordinates.
@@ -1397,5 +1422,48 @@ pub enum TextureAccess {
 impl TextureAccess {
     pub fn to_ll(self) -> sys::SDL_TextureAccess {
         self as sys::SDL_TextureAccess
+    }
+}
+
+#[repr(transparent)]
+pub struct Vertex(sys::SDL_Vertex);
+
+impl Vertex {
+    pub fn new(position: PointF32, color: ColorF32, tex_coord: PointF32) -> Self {
+        Self(sys::SDL_Vertex {
+            position: position.to_ll(),
+            color: color.to_ll(),
+            tex_coord: tex_coord.to_ll(),
+        })
+    }
+
+    #[inline]
+    pub fn position(&self) -> PointF32 {
+        PointF32::new(self.0.position.x, self.0.position.y)
+    }
+
+    #[inline]
+    pub fn color(&self) -> ColorF32 {
+        ColorF32::new(
+            self.0.color.r,
+            self.0.color.g,
+            self.0.color.b,
+            self.0.color.a,
+        )
+    }
+
+    #[inline]
+    pub fn tex_coord(&self) -> PointF32 {
+        PointF32::new(self.0.tex_coord.x, self.0.tex_coord.y)
+    }
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::SDL_Vertex {
+        self.0
+    }
+
+    #[inline]
+    pub fn raw(&self) -> *const sys::SDL_Vertex {
+        &raw const self.0
     }
 }

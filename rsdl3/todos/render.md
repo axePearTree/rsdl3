@@ -69,15 +69,13 @@ Functions
 - [x] SDL_RenderTextureAffine
 - [x] SDL_RenderTextureRotated
 - [x] SDL_RenderTextureTiled
+- [x] SDL_GetRenderLogicalPresentationRect
+- [x] SDL_RenderViewportSet
 
-- [ ] SDL_GetRenderLogicalPresentationRect
-- [ ] SDL_LockTexture
 - [ ] SDL_LockTextureToSurface
 - [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
 - [ ] SDL_RenderReadPixels
-- [ ] SDL_RenderViewportSet
-- [ ] SDL_UnlockTexture
 - [ ] SDL_UpdateNVTexture
 - [ ] SDL_UpdateTexture
 - [ ] SDL_UpdateYUVTexture
@@ -89,7 +87,7 @@ Datatypes
 Structs
 
 - [x] SDL_Texture
-- [ ] SDL_Vertex
+- [x] SDL_Vertex
 
 Enums
 
@@ -109,6 +107,9 @@ Eventually
 - [ ] SDL_CreateRendererWithProperties -- properties
 - [ ] SDL_CreateTextureWithProperties -- properties
 - [ ] SDL_GetRendererProperties -- properties
+
+- [ ] SDL_LockTexture -- lock/unlock is somewhat tricky cause we need a way to mutably iterate over pixels and also skip pixels that aren't locked. so we need an iterator and an accessor for pixels in specific coordinates of the locked rectangle. otherwise it's unsafe. nice!
+- [ ] SDL_UnlockTexture
 
 Not anytime soon
 
