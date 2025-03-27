@@ -14,6 +14,7 @@ use crate::{sys, Error};
 pub struct Color(sys::SDL_Color);
 
 impl Color {
+    #[inline]
     pub fn new(r: u8, g: u8, b: u8, a: u8) -> Self {
         Self(sys::SDL_Color { r, g, b, a })
     }
