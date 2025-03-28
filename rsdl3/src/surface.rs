@@ -96,6 +96,8 @@ impl<'a> Surface<'a> {
         width: u32,
         height: u32,
     ) -> Result<Surface<'a>, Error> {
+        // SDL_Surface's pixels are arranged in memory in rows.
+
         // we need to make sure we won't overflow the byte buffer...
         let details = format.details()?;
         let bytes_per_pixel = details.bytes_per_pixel();

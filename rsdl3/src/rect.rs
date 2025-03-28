@@ -98,6 +98,10 @@ impl Rect {
     pub fn to_ll(self) -> sys::SDL_Rect {
         self.0
     }
+
+    pub(crate) fn as_raw(&self) -> *const sys::SDL_Rect {
+        self as *const Self as *const sys::SDL_Rect
+    }
 }
 
 // SAFETY: must be transparent
