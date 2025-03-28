@@ -969,6 +969,30 @@ impl<T: Backbuffer> Renderer<T> {
         Ok(())
     }
 
+    /// Render a list of triangles, optionally using a texture and indices into the vertex array.
+    /// Color and alpha modulation is done per vertex ([`Renderer::color_mod`] and [`Texture::alpha_mod`] are ignored).
+    pub fn render_geometry(
+        &mut self,
+        texture: &Texture,
+        vertices: &[Vertex],
+        indices: &[i32],
+    ) -> Result<(), Error> {
+        let result = unsafe {
+            sys::SDL_RenderGeometry(
+                self.raw(),
+                texture.raw(),
+                vertices.as_ptr() as *const sys::SDL_Vertex, // safe because the representation in-memory is the same
+                i32::try_from(vertices.len())?,
+                indices.as_ptr(),
+                i32::try_from(indices.len())?,
+            )
+        };
+        if !result {
+            return Err(Error);
+        }
+        Ok(())
+    }
+
     /// Replaces the current rendering target with the given texture. Returns the previously used texture if there was one.
     ///
     /// The default render target is the window (or surface) for which the renderer was created.
