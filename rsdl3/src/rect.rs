@@ -85,8 +85,8 @@ impl Rect {
     }
 
     #[inline]
-    pub fn h(&self) -> i32 {
-        self.0.h
+    pub fn h(&self) -> u32 {
+        self.0.h as u32
     }
 
     #[inline]

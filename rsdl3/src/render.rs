@@ -1453,39 +1453,54 @@ impl Texture {
 
 /// A texture that's locked for writing.
 pub struct TextureLock<'a> {
+    /// A pointer to the pixels array, owned by SDL
+    pixels: &'a mut [u8],
     texture: &'a Texture, // we need to store this to drop the lock
     pitch: i32,
-    rect: Rect, // we need to store the rect so we can safely iterate over the locked pixels.
-    /// A pointer to the pixels array, internally kept by SDL
-    pixels: *mut *mut core::ffi::c_void,
 }
 
 impl<'a> TextureLock<'a> {
     fn new(texture: &'a mut Texture, rect: Option<Rect>) -> Result<Self, Error> {
-        let mut pitch = 0;
-        let pixels = core::ptr::null_mut();
-        let rect = rect.unwrap_or({
-            let w = u32::try_from(texture.w())?;
-            let h = u32::try_from(texture.h())?;
-            Rect::new(0, 0, w, h)
-        });
-        let result =
-            unsafe { sys::SDL_LockTexture(texture.raw(), rect.as_raw(), pixels, &raw mut pitch) };
-        if !result {
-            return Err(Error);
+        unsafe {
+            let mut pitch = 0;
+            let mut pixels = core::ptr::null_mut();
+            let rect = rect.unwrap_or({
+                let w = u32::try_from(texture.w())?;
+                let h = u32::try_from(texture.h())?;
+                Rect::new(0, 0, w, h)
+            });
+            let result = sys::SDL_LockTexture(
+                texture.raw(),
+                rect.as_raw(),
+                &raw mut pixels,
+                &raw mut pitch,
+            );
+            if !result {
+                return Err(Error);
+            }
+            // SDL gives us a contiguous buffer to write the pixels into.
+            let size = texture
+                .format()
+                .details()?
+                .byte_size_from_pitch_and_height(pitch as usize, rect.h());
+            let pixels = core::slice::from_raw_parts_mut(pixels as *mut u8, size);
+            Ok(Self {
+                pixels,
+                texture,
+                pitch,
+            })
         }
-        Ok(Self {
-            pitch,
-            rect,
-            pixels,
-            texture,
-        })
     }
 }
 
 impl TextureLock<'_> {
-    pub fn write_byte(&mut self, index: usize, value: u8) -> Result<(), Error> {
-        todo!()
+    pub fn pitch(&self) -> usize {
+        self.pitch as usize
+    }
+
+    pub fn pixels_mut(&mut self) -> &mut [u8] {
+        // use the pitch to calculate the thing
+        self.pixels
     }
 }
 
@@ -1494,6 +1509,7 @@ impl Drop for TextureLock<'_> {
         unsafe { sys::SDL_UnlockTexture(self.texture.raw()) };
     }
 }
+
 impl Drop for Texture {
     fn drop(&mut self) {
         // We only drop the texture if the parent renderer is alive.

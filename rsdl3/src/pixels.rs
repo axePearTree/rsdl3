@@ -464,6 +464,21 @@ impl PixelFormatDetails {
     }
 
     #[inline]
+    pub fn byte_size_from_pitch_and_height(&self, pitch: usize, height: u32) -> usize {
+        let height = height as usize;
+        match self.format() {
+            PixelFormat::Yv12 | PixelFormat::Iyuv => {
+                // YUV is 4:2:0.
+                // `pitch` is the width of the Y component, and
+                // `height` is the height of the Y component.
+                // U and V have half the width and height of Y.
+                pitch * height + 2 * (pitch / 2 * height / 2)
+            }
+            _ => pitch * height,
+        }
+    }
+
+    #[inline]
     pub fn padding(&self) -> [u8; 2] {
         unsafe { (*self.raw()).padding }
     }
