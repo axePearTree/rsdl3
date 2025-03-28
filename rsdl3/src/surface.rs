@@ -5,7 +5,7 @@ use crate::iostream::IOStream;
 use crate::pixels::PixelFormatDetails;
 use crate::pixels::{Color, ColorF32, Colorspace, Palette, PixelFormat};
 use crate::rect::Rect;
-use crate::render::{Backbuffer, Renderer, Texture};
+use crate::render::{Renderer, Texture};
 use crate::{sys, Error};
 use core::marker::PhantomData;
 use core::mem::MaybeUninit;
@@ -27,7 +27,7 @@ use core::ops::{Deref, DerefMut};
 /// between them, e.g. a 32x32 surface in NV12 format with a pitch of 32 would consist of 32x32
 /// bytes of Y plane followed by 32x16 bytes of UV plane.
 pub struct Surface<'a> {
-    video: VideoSubsystem,
+    pub(crate) video: VideoSubsystem,
     ptr: *mut sys::SDL_Surface,
     _marker: PhantomData<&'a ()>,
 }
@@ -162,10 +162,7 @@ impl<'a> Surface<'a> {
         self.deref().duplicate(&self.video)
     }
 
-    pub fn into_texture<T: Backbuffer>(
-        &self,
-        renderer: &mut Renderer<T>,
-    ) -> Result<Texture, Error> {
+    pub fn into_texture<T>(&self, renderer: &mut Renderer<T>) -> Result<Texture<T>, Error> {
         Texture::from_surface(renderer, self)
     }
 

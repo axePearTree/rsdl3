@@ -6,59 +6,17 @@ use crate::surface::{FlipMode, ScaleMode, Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
 use crate::{sys, Error};
 use alloc::ffi::CString;
-use alloc::rc::{Rc, Weak};
+use alloc::rc::Rc;
 use alloc::string::String;
+use core::cell::RefCell;
 use core::ffi::CStr;
-use core::mem::{ManuallyDrop, MaybeUninit};
+use core::hint::unreachable_unchecked;
+use core::mem::MaybeUninit;
 
 /// A structure representing rendering state.
-pub struct Renderer<T: Backbuffer> {
-    /// This ptr is ref-counted so we can hand out Weak references.
-    /// We never have more than a single strong reference to it.
-    ptr: Rc<*mut sys::SDL_Renderer>,
-    inner: T::Inner,
-}
-
-#[doc(hidden)]
-/// We need a way to provide the `Renderer` with a type (`Inner`) for its' backbuffer.
-/// In the case of a `Window` backbuffer, we'd like `Inner` to be zero-sized since we
-/// can retrieve the `Window` by calling `sys::SDL_GetRenderWindow`.
-pub trait Backbuffer {
-    type Inner;
-
-    unsafe fn drop_backbuffer(_renderer: *mut sys::SDL_Renderer);
-}
-
-impl Backbuffer for Window {
-    /// With a Window as backbuffer we can just call SDL_GetRenderWindow and get a pointer
-    /// to the underlying window, so we don't have to actually store the surface inside
-    /// the Renderer struct.
-    type Inner = ();
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        let window = sys::SDL_GetRenderWindow(renderer);
-        if window.is_null() {
-            return;
-        }
-        sys::SDL_DestroyRenderer(renderer);
-        sys::SDL_DestroyWindow(window);
-    }
-}
-
-impl<'a> Backbuffer for Surface<'a> {
-    type Inner = Self;
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        sys::SDL_DestroyRenderer(renderer);
-    }
-}
-
-impl<'a> Backbuffer for &'a mut SurfaceRef {
-    type Inner = Self;
-
-    unsafe fn drop_backbuffer(renderer: *mut rsdl3_sys::SDL_Renderer) {
-        sys::SDL_DestroyRenderer(renderer);
-    }
+pub struct Renderer<T = Window> {
+    internal: Rc<RendererInternal<T>>,
+    owner: Option<T>,
 }
 
 impl Renderer<Window> {
@@ -80,11 +38,12 @@ impl Renderer<Window> {
             if ptr.is_null() {
                 return Err(Error);
             }
-            // The window will be dropped when RendererContext::drop_inner gets called.
-            let _ = ManuallyDrop::new(window);
             Ok(Self {
-                inner: (),
-                ptr: Rc::new(ptr),
+                internal: Rc::new(RendererInternal {
+                    ptr,
+                    owner: RefCell::new(None),
+                }),
+                owner: Some(window),
             })
         }
     }
@@ -119,8 +78,11 @@ impl<'a> Renderer<Surface<'a>> {
                 return Err(Error);
             }
             Ok(Self {
-                inner: surface,
-                ptr: Rc::new(ptr),
+                internal: Rc::new(RendererInternal {
+                    ptr,
+                    owner: RefCell::new(None),
+                }),
+                owner: Some(surface),
             })
         }
     }
@@ -128,13 +90,25 @@ impl<'a> Renderer<Surface<'a>> {
     /// Returns a reference to the renderer's underlying surface, if it has one.
     #[inline]
     pub fn as_surface_ref(&self) -> &SurfaceRef {
-        &self.inner
+        match &self.owner {
+            Some(surface) => surface,
+            None => unsafe {
+                // The owner is always alive while the Renderer is alive.
+                unreachable_unchecked()
+            },
+        }
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
     #[inline]
     pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
-        &mut self.inner
+        match &mut self.owner {
+            Some(surface) => surface,
+            None => unsafe {
+                // The owner is always alive while the Renderer is alive.
+                unreachable_unchecked()
+            },
+        }
     }
 }
 
@@ -149,24 +123,41 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
                 return Err(Error);
             }
             Ok(Self {
-                inner: surface,
-                ptr: Rc::new(ptr),
+                internal: Rc::new(RendererInternal {
+                    ptr,
+                    owner: RefCell::new(None),
+                }),
+                owner: Some(surface),
             })
         }
     }
 
     /// Returns a reference to the renderer's underlying surface, if it has one.
+    #[inline]
     pub fn as_surface_ref(&self) -> &SurfaceRef {
-        self.inner
+        match &self.owner {
+            Some(surface) => surface,
+            None => unsafe {
+                // The owner is always alive while the Renderer is alive.
+                unreachable_unchecked()
+            },
+        }
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
+    #[inline]
     pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
-        self.inner
+        match &mut self.owner {
+            Some(surface) => surface,
+            None => unsafe {
+                // The owner is always alive while the Renderer is alive.
+                unreachable_unchecked()
+            },
+        }
     }
 }
 
-impl<T: Backbuffer> Renderer<T> {
+impl<T> Renderer<T> {
     /// Returns the name of the renderer.
     pub fn name(&self) -> Result<String, Error> {
         let name = unsafe {
@@ -190,7 +181,7 @@ impl<T: Backbuffer> Renderer<T> {
         access: TextureAccess,
         width: u32,
         height: u32,
-    ) -> Result<Texture, Error> {
+    ) -> Result<Texture<T>, Error> {
         Texture::new(self, format, access, width, height)
     }
 
@@ -203,7 +194,10 @@ impl<T: Backbuffer> Renderer<T> {
     /// The pixel format of the created texture may be different from the pixel format of the surface.
     ///
     /// This method is equivalent to [`Texture::from_surface`].
-    pub fn create_texture_from_surface(&mut self, surface: &SurfaceRef) -> Result<Texture, Error> {
+    pub fn create_texture_from_surface(
+        &mut self,
+        surface: &SurfaceRef,
+    ) -> Result<Texture<T>, Error> {
         Texture::from_surface(self, surface)
     }
 
@@ -777,11 +771,10 @@ impl<T: Backbuffer> Renderer<T> {
     /// * `dest_rect` - the destination rectangle or `None` for the entire rendering target.
     pub fn render_texture(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         src_rect: Option<RectF32>,
         dest_rect: Option<RectF32>,
     ) -> Result<(), Error> {
-        self.validate_texture(texture)?;
         let src_rect_ptr = src_rect
             .as_ref()
             .map(RectF32::as_raw)
@@ -806,7 +799,7 @@ impl<T: Backbuffer> Renderer<T> {
     /// to cover the remaining destination rectangle.
     pub fn render_texture_9_grid(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         src_rect: Option<RectF32>,
         left_width: f32,
         right_width: f32,
@@ -815,7 +808,6 @@ impl<T: Backbuffer> Renderer<T> {
         scale: f32,
         dest_rect: Option<RectF32>,
     ) -> Result<(), Error> {
-        self.validate_texture(texture)?;
         let src_rect_ptr = src_rect
             .as_ref()
             .map(RectF32::as_raw)
@@ -848,12 +840,11 @@ impl<T: Backbuffer> Renderer<T> {
     /// The pixels in `srcrect` will be repeated as many times as needed to completely fill `dest_rect`.
     pub fn render_texture_tiled(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         src_rect: Option<RectF32>,
         scale: f32,
         dest_rect: Option<RectF32>,
     ) -> Result<(), Error> {
-        self.validate_texture(texture)?;
         let src_rect_ptr = src_rect
             .as_ref()
             .map(RectF32::as_raw)
@@ -881,14 +872,13 @@ impl<T: Backbuffer> Renderer<T> {
     /// at subpixel precision.
     pub fn render_texture_rotated(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         src_rect: Option<RectF32>,
         dest_rect: Option<RectF32>,
         angle: f64,
         center: Option<PointF32>,
         flip: Option<FlipMode>,
     ) -> Result<(), Error> {
-        self.validate_texture(texture)?;
         let src_rect_ptr = src_rect
             .as_ref()
             .map(RectF32::as_raw)
@@ -931,7 +921,7 @@ impl<T: Backbuffer> Renderer<T> {
     /// target's bottom-left corner.
     pub fn render_texture_affine(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         src_rect: Option<RectF32>,
         origin: Option<PointF32>,
         right: Option<PointF32>,
@@ -973,7 +963,7 @@ impl<T: Backbuffer> Renderer<T> {
     /// Color and alpha modulation is done per vertex ([`Renderer::color_mod`] and [`Texture::alpha_mod`] are ignored).
     pub fn render_geometry(
         &mut self,
-        texture: &Texture,
+        texture: &Texture<T>,
         vertices: &[Vertex],
         indices: &[i32],
     ) -> Result<(), Error> {
@@ -1000,8 +990,8 @@ impl<T: Backbuffer> Renderer<T> {
     /// To stop rendering to a texture and render to the window (or surface), use `None` as the `texture` parameter.
     pub fn replace_render_target(
         &mut self,
-        texture: Option<Texture>,
-    ) -> Result<Option<Texture>, Error> {
+        texture: Option<Texture<T>>,
+    ) -> Result<Option<Texture<T>>, Error> {
         let previous_target = unsafe {
             let ptr = sys::SDL_GetRenderTarget(self.raw());
             if !ptr.is_null() {
@@ -1013,7 +1003,6 @@ impl<T: Backbuffer> Renderer<T> {
 
         match texture {
             Some(texture) => {
-                self.validate_texture(&texture)?;
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
                 if !result {
                     return Err(Error);
@@ -1100,23 +1089,23 @@ impl<T: Backbuffer> Renderer<T> {
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     #[inline]
     pub fn raw(&self) -> *mut sys::SDL_Renderer {
-        *self.ptr
-    }
-
-    fn validate_texture(&self, texture: &Texture) -> Result<(), Error> {
-        // We could check whether or not this texture belongs to this renderer, but SDL does it for us.
-        // So we only check whether or not texture's renderer is still alive so.
-        if texture.renderer.strong_count() == 0 {
-            return Err(Error::register(c"Renderer already destroyed."));
-        }
-        Ok(())
+        self.internal.ptr
     }
 }
 
-impl<T: Backbuffer> Drop for Renderer<T> {
+impl<T> Drop for Renderer<T> {
     fn drop(&mut self) {
-        unsafe {
-            T::drop_backbuffer(self.raw());
+        // If there's still a reference to the internal renderer,
+        // we move the owner to the internal renderer so destroying it
+        // becomes the internal renderer's responsibility.
+        if Rc::strong_count(&self.internal) > 1 {
+            let Some(owner) = self.owner.take() else {
+                return;
+            };
+            let Ok(mut drop_owner) = self.internal.owner.try_borrow_mut() else {
+                return;
+            };
+            let _ = drop_owner.insert(owner);
         }
     }
 }
@@ -1182,20 +1171,16 @@ impl RenderLogicalPresentationMode {
 /// Driver-specific representation of pixel data.
 ///
 /// This struct wraps [`sys::SDL_Texture`].
-pub struct Texture {
-    /// This renderer owns this surface.
-    /// If this renderer is not alive (we can tell by calling `Weak::strong_count`),
-    /// then this texture is stale.
-    /// This must *never* be upgraded to an Rc.
-    renderer: Weak<*mut sys::SDL_Renderer>,
+pub struct Texture<T = Window> {
+    _renderer: Rc<RendererInternal<T>>,
     ptr: *mut sys::SDL_Texture,
 }
 
-impl Texture {
+impl<T> Texture<T> {
     /// Creates a texture for a rendering context.
     ///
     /// The contents of a texture when first created are not defined.
-    pub fn new<T: Backbuffer>(
+    pub fn new(
         renderer: &mut Renderer<T>,
         format: PixelFormat,
         access: TextureAccess,
@@ -1217,7 +1202,7 @@ impl Texture {
             return Err(Error);
         }
         Ok(Self {
-            renderer: Rc::downgrade(&renderer.ptr),
+            _renderer: Rc::clone(&renderer.internal),
             ptr,
         })
     }
@@ -1255,17 +1240,14 @@ impl Texture {
     /// The [`TextureAccess`] hint for the created texture is [`TextureAccess::Static`].
     ///
     /// The pixel format of the created texture may be different from the pixel format of the surface.
-    pub fn from_surface<T: Backbuffer>(
-        renderer: &mut Renderer<T>,
-        surface: &SurfaceRef,
-    ) -> Result<Self, Error> {
+    pub fn from_surface(renderer: &mut Renderer<T>, surface: &SurfaceRef) -> Result<Self, Error> {
         let ptr =
             unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
         if ptr.is_null() {
             return Err(Error);
         }
         Ok(Texture {
-            renderer: Rc::downgrade(&renderer.ptr),
+            _renderer: Rc::clone(&renderer.internal),
             ptr,
         })
     }
@@ -1430,17 +1412,14 @@ impl Texture {
     /// the application level.
     ///
     /// You must drop the lock to unlock the pixels and apply any changes.
-    pub fn lock(&mut self, rect: Option<Rect>) -> Result<TextureLock, Error> {
+    pub fn lock(&mut self, rect: Option<Rect>) -> Result<TextureLock<T>, Error> {
         TextureLock::new(self, rect)
     }
 
     /// SAFETY: texture must come directly from SDL and it *must* be owned by the caller.
-    unsafe fn from_mut_ptr<T: Backbuffer>(
-        renderer: &mut Renderer<T>,
-        ptr: *mut sys::SDL_Texture,
-    ) -> Self {
+    unsafe fn from_mut_ptr(renderer: &mut Renderer<T>, ptr: *mut sys::SDL_Texture) -> Self {
         Self {
-            renderer: Rc::downgrade(&renderer.ptr),
+            _renderer: Rc::clone(&renderer.internal),
             ptr,
         }
     }
@@ -1451,16 +1430,22 @@ impl Texture {
     }
 }
 
+impl<T> Drop for Texture<T> {
+    fn drop(&mut self) {
+        unsafe { sys::SDL_DestroyTexture(self.ptr) };
+    }
+}
+
 /// A texture that's locked for writing.
-pub struct TextureLock<'a> {
+pub struct TextureLock<'a, T> {
     /// A pointer to the pixels array, owned by SDL
     pixels: &'a mut [u8],
-    texture: &'a Texture, // we need to store this to drop the lock
+    texture: &'a Texture<T>, // we need to store this to drop the lock
     pitch: i32,
 }
 
-impl<'a> TextureLock<'a> {
-    fn new(texture: &'a mut Texture, rect: Option<Rect>) -> Result<Self, Error> {
+impl<'a, T> TextureLock<'a, T> {
+    fn new(texture: &'a mut Texture<T>, rect: Option<Rect>) -> Result<Self, Error> {
         unsafe {
             let mut pitch = 0;
             let mut pixels = core::ptr::null_mut();
@@ -1493,7 +1478,7 @@ impl<'a> TextureLock<'a> {
     }
 }
 
-impl TextureLock<'_> {
+impl<T> TextureLock<'_, T> {
     pub fn pitch(&self) -> usize {
         self.pitch as usize
     }
@@ -1504,18 +1489,9 @@ impl TextureLock<'_> {
     }
 }
 
-impl Drop for TextureLock<'_> {
+impl<T> Drop for TextureLock<'_, T> {
     fn drop(&mut self) {
         unsafe { sys::SDL_UnlockTexture(self.texture.raw()) };
-    }
-}
-
-impl Drop for Texture {
-    fn drop(&mut self) {
-        // We only drop the texture if the parent renderer is alive.
-        if self.renderer.strong_count() > 0 {
-            unsafe { sys::SDL_DestroyTexture(self.ptr) };
-        }
     }
 }
 
@@ -1574,5 +1550,17 @@ impl Vertex {
     #[inline]
     pub fn raw(&self) -> *const sys::SDL_Vertex {
         &raw const self.0
+    }
+}
+
+struct RendererInternal<T> {
+    ptr: *mut sys::SDL_Renderer,
+    owner: RefCell<Option<T>>,
+}
+
+impl<T> Drop for RendererInternal<T> {
+    fn drop(&mut self) {
+        unsafe { sys::SDL_DestroyRenderer(self.ptr) };
+        // if the owner is Some it will get destroyed automatically :)
     }
 }
