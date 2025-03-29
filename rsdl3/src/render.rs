@@ -14,8 +14,21 @@ use core::hint::unreachable_unchecked;
 use core::mem::MaybeUninit;
 
 /// A structure representing rendering state.
+///
+/// Dropping the renderer does not necessarily mean the raw SDL renderer
+/// will be destroyed; same for its' backbuffer. Internally, the raw
+/// SDL renderer is shared by any [`Texture`]s created by this struct.
 pub struct Renderer<T = Window> {
+    /// An internal renderer that takes care of destroying the raw renderer
+    /// once it goes out of scope.
+    /// Textures created by this renderer will also hold references to the
+    /// internal renderer.
     internal: Rc<RendererInternal<T>>,
+    /// The owner of the renderer can be a window, an owned surface or a
+    /// borrowed surface. We need mutable access to the owner while this
+    /// struct is alive. If this struct gets dropped and it's not the sole
+    /// owner of `internal` ([`Rc::strong_count`]), then we move the owner
+    /// to the internal renderer so it can be dropped later.
     owner: Option<T>,
 }
 
@@ -1176,7 +1189,10 @@ impl RenderLogicalPresentationMode {
 
 /// Driver-specific representation of pixel data.
 ///
-/// This struct wraps [`sys::SDL_Texture`].
+/// This struct holds a shared reference to its' parent (a raw [`sys::SDL_Renderer`])
+/// via ref-count. A consequence of this is, if you want to truly destroy the parent
+/// renderer (equivalent to `SDL_DestroyRenderer`) and its' backbuffer, all
+/// `Texture`s created by that renderer must be dropped.
 pub struct Texture<T = Window> {
     _renderer: Rc<RendererInternal<T>>,
     ptr: *mut sys::SDL_Texture,
@@ -1561,6 +1577,10 @@ impl Vertex {
 
 struct RendererInternal<T> {
     ptr: *mut sys::SDL_Renderer,
+    /// The owner of this renderer (a window or a surface).
+    /// It *may or may not* be present in this struct.
+    /// If the parent [`Renderer`] gets dropped before its' [`Texture`]s, then
+    /// we move the owner to this struct. That's why we have a [`RefCell`].
     owner: RefCell<Option<T>>,
 }
 
