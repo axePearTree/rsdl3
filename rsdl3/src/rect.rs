@@ -244,6 +244,12 @@ impl Point {
     }
 }
 
+impl Default for Point {
+    fn default() -> Self {
+        Self::new(0, 0)
+    }
+}
+
 // SAFETY: must be transparent
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
@@ -284,5 +290,11 @@ impl PointF32 {
 
     pub(crate) fn as_raw(&self) -> *const sys::SDL_FPoint {
         self as *const Self as *const sys::SDL_FPoint
+    }
+}
+
+impl Default for PointF32 {
+    fn default() -> Self {
+        Self::new(0.0, 0.0)
     }
 }

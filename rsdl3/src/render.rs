@@ -963,17 +963,23 @@ impl<T> Renderer<T> {
     /// Color and alpha modulation is done per vertex ([`Renderer::color_mod`] and [`Texture::alpha_mod`] are ignored).
     pub fn render_geometry(
         &mut self,
-        texture: &Texture<T>,
+        texture: Option<&Texture<T>>,
         vertices: &[Vertex],
         indices: &[i32],
     ) -> Result<(), Error> {
+        let texture_ptr = texture.map(Texture::raw).unwrap_or(core::ptr::null_mut());
+        let indices_ptr = if indices.is_empty() {
+            core::ptr::null()
+        } else {
+            indices.as_ptr()
+        };
         let result = unsafe {
             sys::SDL_RenderGeometry(
                 self.raw(),
-                texture.raw(),
+                texture_ptr,
                 vertices.as_ptr() as *const sys::SDL_Vertex, // safe because the representation in-memory is the same
                 i32::try_from(vertices.len())?,
-                indices.as_ptr(),
+                indices_ptr,
                 i32::try_from(indices.len())?,
             )
         };
