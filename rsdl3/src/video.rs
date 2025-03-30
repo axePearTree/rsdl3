@@ -351,7 +351,7 @@ impl VideoSubsystem {
 
 /// Type used to identify a window.
 pub struct Window {
-    _video: VideoSubsystem,
+    pub(crate) video: VideoSubsystem,
     /// This pointer should be safe to dereference as long as the window is still alive.
     ptr: *mut sys::SDL_Window,
 }
@@ -375,7 +375,7 @@ impl Window {
             return Err(Error);
         }
         Ok(Window {
-            _video: video.clone(),
+            video: video.clone(),
             ptr,
         })
     }

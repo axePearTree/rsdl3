@@ -4,7 +4,7 @@ use crate::pixels::{Color, ColorF32, PixelFormat};
 use crate::rect::{Point, PointF32, Rect, RectF32};
 use crate::surface::{FlipMode, ScaleMode, Surface, SurfaceRef};
 use crate::video::{Window, WindowRef};
-use crate::{sys, Error};
+use crate::{sys, Error, VideoSubsystem};
 use alloc::ffi::CString;
 use alloc::rc::Rc;
 use alloc::string::String;
@@ -29,6 +29,8 @@ pub struct Renderer<T = Window> {
     /// struct is alive. If this struct gets dropped and it's not the sole
     /// owner of `internal` ([`Rc::strong_count`]), then we move the owner
     /// to the internal renderer so it can be dropped later.
+    ///
+    /// SAFETY: `owner` must be `Some` until this value gets dropped.
     owner: Option<T>,
 }
 
@@ -61,22 +63,35 @@ impl Renderer<Window> {
         }
     }
 
+    /// Read pixels from the current rendering target.
+    ///
+    /// **WARNING**: This is a very slow operation, and should not be used frequently.
+    /// If you're using this on the main rendering target, it should be called after
+    /// rendering and before [`Renderer::present`].
+    pub fn read_pixels(&self, rect: Option<Rect>) -> Result<Surface<'static>, Error> {
+        let rect = rect.as_ref().map(Rect::as_raw).unwrap_or(core::ptr::null());
+        unsafe {
+            let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
+            if surface.is_null() {
+                return Err(Error);
+            }
+            let video = &self.owner.as_ref().unwrap_unchecked().video;
+            Ok(Surface::from_mut_ptr(video, surface))
+        }
+    }
+
     /// Returns a reference to the renderer's window, if it has one.
     #[inline]
     pub fn as_window_ref(&self) -> &WindowRef {
-        unsafe {
-            let ptr = sys::SDL_GetRenderWindow(self.raw());
-            WindowRef::from_ptr(ptr)
-        }
+        // owner only becomes `None` once this struct gets dropped.
+        unsafe { self.owner.as_ref().unwrap_unchecked() }
     }
 
     /// Returns a mutable reference to the renderer's window, if it has one.
     #[inline]
     pub fn as_window_mut(&mut self) -> &mut WindowRef {
-        unsafe {
-            let ptr = sys::SDL_GetRenderWindow(self.raw());
-            WindowRef::from_mut_ptr(ptr)
-        }
+        // owner only becomes `None` once this struct gets dropped.
+        unsafe { self.owner.as_mut().unwrap_unchecked() }
     }
 }
 
@@ -100,28 +115,35 @@ impl<'a> Renderer<Surface<'a>> {
         }
     }
 
+    /// Read pixels from the current rendering target.
+    ///
+    /// **WARNING**: This is a very slow operation, and should not be used frequently.
+    /// If you're using this on the main rendering target, it should be called after
+    /// rendering and before [`Renderer::present`].
+    pub fn read_pixels(&self, rect: Option<Rect>) -> Result<Surface<'static>, Error> {
+        let rect = rect.as_ref().map(Rect::as_raw).unwrap_or(core::ptr::null());
+        unsafe {
+            let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
+            if surface.is_null() {
+                return Err(Error);
+            }
+            let video = &self.owner.as_ref().unwrap_unchecked().video;
+            Ok(Surface::from_mut_ptr(video, surface))
+        }
+    }
+
     /// Returns a reference to the renderer's underlying surface, if it has one.
     #[inline]
     pub fn as_surface_ref(&self) -> &SurfaceRef {
-        match &self.owner {
-            Some(surface) => surface,
-            None => unsafe {
-                // The owner is always alive while the Renderer is alive.
-                unreachable_unchecked()
-            },
-        }
+        // owner only becomes `None` once this struct gets dropped.
+        unsafe { self.owner.as_ref().unwrap_unchecked() }
     }
 
     /// Returns a mutable reference to the renderer's underlying surface, if it has one.
     #[inline]
     pub fn as_surface_mut(&mut self) -> &mut SurfaceRef {
-        match &mut self.owner {
-            Some(surface) => surface,
-            None => unsafe {
-                // The owner is always alive while the Renderer is alive.
-                unreachable_unchecked()
-            },
-        }
+        // owner only becomes `None` once this struct gets dropped.
+        unsafe { self.owner.as_mut().unwrap_unchecked() }
     }
 }
 
@@ -142,6 +164,26 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
                 }),
                 owner: Some(surface),
             })
+        }
+    }
+
+    /// Read pixels from the current rendering target.
+    ///
+    /// **WARNING**: This is a very slow operation, and should not be used frequently.
+    /// If you're using this on the main rendering target, it should be called after
+    /// rendering and before [`Renderer::present`].
+    pub fn read_pixels(
+        &self,
+        video: &VideoSubsystem,
+        rect: Option<Rect>,
+    ) -> Result<Surface<'static>, Error> {
+        let rect = rect.as_ref().map(Rect::as_raw).unwrap_or(core::ptr::null());
+        unsafe {
+            let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
+            if surface.is_null() {
+                return Err(Error);
+            }
+            Ok(Surface::from_mut_ptr(video, surface))
         }
     }
 
@@ -1190,9 +1232,9 @@ impl RenderLogicalPresentationMode {
 /// Driver-specific representation of pixel data.
 ///
 /// This struct holds a shared reference to its' parent (a raw [`sys::SDL_Renderer`])
-/// via ref-count. A consequence of this is, if you want to truly destroy the parent
-/// renderer (equivalent to `SDL_DestroyRenderer`) and its' backbuffer, all
-/// `Texture`s created by that renderer must be dropped.
+/// via ref-count. A consequence of this is, to truly destroy the parent renderer
+/// (equivalent to `SDL_DestroyRenderer`) and its' backbuffer, all `Texture`s created
+/// by that renderer must be dropped.
 pub struct Texture<T = Window> {
     _renderer: Rc<RendererInternal<T>>,
     ptr: *mut sys::SDL_Texture,
@@ -1578,9 +1620,8 @@ impl Vertex {
 struct RendererInternal<T> {
     ptr: *mut sys::SDL_Renderer,
     /// The owner of this renderer (a window or a surface).
-    /// It *may or may not* be present in this struct.
     /// If the parent [`Renderer`] gets dropped before its' [`Texture`]s, then
-    /// we move the owner to this struct. That's why we have a [`RefCell`].
+    /// we move the owner to this struct. That's why we need the [`RefCell`].
     owner: RefCell<Option<T>>,
 }
 

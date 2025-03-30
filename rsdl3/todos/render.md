@@ -71,11 +71,11 @@ Functions
 - [x] SDL_RenderTextureTiled
 - [x] SDL_GetRenderLogicalPresentationRect
 - [x] SDL_RenderViewportSet
+- [x] SDL_RenderGeometry
+- [x] SDL_RenderReadPixels
 
 - [ ] SDL_LockTextureToSurface
-- [ ] SDL_RenderGeometry
 - [ ] SDL_RenderGeometryRaw
-- [ ] SDL_RenderReadPixels
 - [ ] SDL_UpdateNVTexture
 - [ ] SDL_UpdateTexture
 - [ ] SDL_UpdateYUVTexture
