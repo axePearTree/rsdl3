@@ -32,10 +32,10 @@ pub struct AudioSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_AUDIO }>>);
 pub struct CameraSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_CAMERA }>>);
 
 #[derive(Clone)]
-pub struct EventsSubsystem(
-    pub(crate) Rc<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
-    pub(crate) Rc<RefCell<EventPump>>,
-);
+pub struct EventsSubsystem {
+    pub(crate) subsystem: Rc<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
+    pub(crate) event_pump: Rc<RefCell<EventPump>>,
+}
 
 #[derive(Clone)]
 pub struct GamepadSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_GAMEPAD }>>);
@@ -86,6 +86,9 @@ impl Sdl {
 
     /// Returns a unique instance of the `EventsSubsystem`.
     /// The subsystem will be initialized if it hasn't been yet.
+    ///
+    /// No custom events will be registered. You can register custom events by calling
+    /// [`Sdl::events_custom`].
     pub fn events(&mut self) -> Result<EventsSubsystem, Error> {
         let subsystem = Self::get_or_init(&mut self.events, &self.drop)?;
         let event_pump = match self.event_pump.upgrade() {
@@ -96,7 +99,10 @@ impl Sdl {
                 event_pump
             }
         };
-        Ok(EventsSubsystem(subsystem, event_pump))
+        Ok(EventsSubsystem {
+            subsystem,
+            event_pump,
+        })
     }
 
     /// Returns a unique instance of the `HapticSubsystem`.
