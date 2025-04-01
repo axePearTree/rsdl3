@@ -1,6 +1,8 @@
 #![allow(unused)]
 
 use crate::events::EventPump;
+use crate::logs::InternalLogger;
+use crate::logs::Logger;
 use crate::sys;
 use crate::Error;
 use alloc::rc::{Rc, Weak};
@@ -14,6 +16,7 @@ const UNINITIALIZED: bool = false;
 
 pub struct Sdl {
     pub(crate) drop: Rc<SdlDrop>,
+    logger: Weak<InternalLogger>,
     audio: Weak<Subsystem<{ sys::SDL_INIT_AUDIO }>>,
     camera: Weak<Subsystem<{ sys::SDL_INIT_CAMERA }>>,
     events: Weak<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
@@ -59,6 +62,7 @@ impl Sdl {
     /// Must be called from the main thread.
     pub unsafe fn init() -> Result<Self, Error> {
         Ok(Self {
+            logger: Weak::new(),
             audio: Weak::new(),
             camera: Weak::new(),
             gamepad: Weak::new(),
@@ -70,6 +74,20 @@ impl Sdl {
             drop: Rc::new(SdlDrop::init()?),
             event_pump: Weak::new(),
         })
+    }
+
+    /// Returns SDL's logger.
+    pub fn logger(&mut self) -> Logger {
+        Logger {
+            internal: match self.logger.upgrade() {
+                Some(logger) => logger,
+                None => {
+                    let logger = Rc::new(InternalLogger::new(&self.drop));
+                    self.logger = Rc::downgrade(&logger);
+                    logger
+                }
+            },
+        }
     }
 
     /// Returns a unique instance of the `AudioSubsystem`.

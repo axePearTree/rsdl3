@@ -6,6 +6,7 @@ extern crate alloc;
 pub mod blendmode;
 pub mod events;
 pub mod iostream;
+pub mod logs;
 pub mod pixels;
 pub mod rect;
 pub mod render;
