@@ -1,12 +1,7 @@
-#![allow(unused)]
-
 use crate::events::EventPump;
-use crate::logs::InternalLogger;
-use crate::logs::Logger;
 use crate::sys;
 use crate::Error;
 use alloc::rc::{Rc, Weak};
-use alloc::string::String;
 use core::cell::RefCell;
 use core::sync::atomic::{AtomicBool, Ordering};
 
@@ -16,7 +11,6 @@ const UNINITIALIZED: bool = false;
 
 pub struct Sdl {
     pub(crate) drop: Rc<SdlDrop>,
-    logger: Weak<InternalLogger>,
     audio: Weak<Subsystem<{ sys::SDL_INIT_AUDIO }>>,
     camera: Weak<Subsystem<{ sys::SDL_INIT_CAMERA }>>,
     events: Weak<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
@@ -28,30 +22,38 @@ pub struct Sdl {
     event_pump: Weak<RefCell<EventPump>>,
 }
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct AudioSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_AUDIO }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct CameraSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_CAMERA }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct EventsSubsystem {
     pub(crate) subsystem: Rc<Subsystem<{ sys::SDL_INIT_EVENTS }>>,
     pub(crate) event_pump: Rc<RefCell<EventPump>>,
 }
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct GamepadSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_GAMEPAD }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct HapticSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_HAPTIC }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct JoystickSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_JOYSTICK }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct VideoSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_VIDEO }>>);
 
+#[allow(unused)]
 #[derive(Clone)]
 pub struct SensorSubsystem(pub(crate) Rc<Subsystem<{ sys::SDL_INIT_SENSOR }>>);
 
@@ -62,7 +64,6 @@ impl Sdl {
     /// Must be called from the main thread.
     pub unsafe fn init() -> Result<Self, Error> {
         Ok(Self {
-            logger: Weak::new(),
             audio: Weak::new(),
             camera: Weak::new(),
             gamepad: Weak::new(),
@@ -74,20 +75,6 @@ impl Sdl {
             drop: Rc::new(SdlDrop::init()?),
             event_pump: Weak::new(),
         })
-    }
-
-    /// Returns SDL's logger.
-    pub fn logger(&mut self) -> Logger {
-        Logger {
-            internal: match self.logger.upgrade() {
-                Some(logger) => logger,
-                None => {
-                    let logger = Rc::new(InternalLogger::new(&self.drop));
-                    self.logger = Rc::downgrade(&logger);
-                    logger
-                }
-            },
-        }
     }
 
     /// Returns a unique instance of the `AudioSubsystem`.
@@ -121,6 +108,13 @@ impl Sdl {
             subsystem,
             event_pump,
         })
+    }
+
+    ///
+    /// Returns a unique instance of the `GamepadSubsystem`.
+    /// The subsystem will be initialized if it hasn't been yet.
+    pub fn gamepad(&mut self) -> Result<GamepadSubsystem, Error> {
+        Self::get_or_init(&mut self.gamepad, &self.drop).map(GamepadSubsystem)
     }
 
     /// Returns a unique instance of the `HapticSubsystem`.
