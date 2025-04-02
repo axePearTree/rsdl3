@@ -72,6 +72,11 @@ pub fn log(args: Arguments) {
     }
 }
 
+/// Reset all priorities to default.
+pub fn reset_log_priorities() {
+    unsafe { sys::SDL_ResetLogPriorities() };
+}
+
 /// Set the priority of a particular log category.
 pub fn set_log_priority(category: LogCategory, priority: LogPriority) {
     unsafe {
