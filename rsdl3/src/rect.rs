@@ -94,6 +94,37 @@ impl Rect {
         self.0.h = clamp_size(h);
     }
 
+    /// Calculate the intersection of a rectangle and line segment. Returns true if there is an
+    /// intersection, false otherwise.
+    ///
+    /// This function is used to clip a line segment to a rectangle. A line segment contained entirely
+    /// within the rectangle or that does not intersect will remain unchanged. A line segment that
+    /// crosses the rectangle at either or both ends will be clipped to the boundary of the rectangle
+    /// and the new coordinates saved in `x1`, `y1`, `x2`, and/or `y2` as necessary.
+    ///
+    /// * `x1` a referece to the starting X-coordinate of the line.
+    /// * `y1` a reference to the starting Y-coordinate of the line.
+    /// * `x2` a pointer to the ending X-coordinate of the line.
+    /// * `y2` a pointer to the ending Y-coordinate of the line.
+    #[inline]
+    pub fn line_intersection(
+        &self,
+        x1: &mut i32,
+        y1: &mut i32,
+        x2: &mut i32,
+        y2: &mut i32,
+    ) -> bool {
+        unsafe {
+            sys::SDL_GetRectAndLineIntersection(
+                self.as_raw(),
+                x1 as *mut i32,
+                y1 as *mut i32,
+                x2 as *mut i32,
+                y2 as *mut i32,
+            )
+        }
+    }
+
     #[inline]
     pub fn to_ll(self) -> sys::SDL_Rect {
         self.0
@@ -182,6 +213,37 @@ impl RectF32 {
     #[inline]
     pub fn set_h(&mut self, h: f32) {
         self.0.h = clamp_size(h.max(0.0) as u32) as f32;
+    }
+
+    /// Calculate the intersection of a rectangle and line segment. Returns true if there is an
+    /// intersection, false otherwise.
+    ///
+    /// This function is used to clip a line segment to a rectangle. A line segment contained entirely
+    /// within the rectangle or that does not intersect will remain unchanged. A line segment that
+    /// crosses the rectangle at either or both ends will be clipped to the boundary of the rectangle
+    /// and the new coordinates saved in `x1`, `y1`, `x2`, and/or `y2` as necessary.
+    ///
+    /// * `x1` a referece to the starting X-coordinate of the line.
+    /// * `y1` a reference to the starting Y-coordinate of the line.
+    /// * `x2` a pointer to the ending X-coordinate of the line.
+    /// * `y2` a pointer to the ending Y-coordinate of the line.
+    #[inline]
+    pub fn line_intersection(
+        &self,
+        x1: &mut f32,
+        y1: &mut f32,
+        x2: &mut f32,
+        y2: &mut f32,
+    ) -> bool {
+        unsafe {
+            sys::SDL_GetRectAndLineIntersectionFloat(
+                self.as_raw(),
+                x1 as *mut f32,
+                y1 as *mut f32,
+                x2 as *mut f32,
+                y2 as *mut f32,
+            )
+        }
     }
 
     #[inline]
