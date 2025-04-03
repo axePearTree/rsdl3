@@ -142,23 +142,12 @@ pub struct RectF32(sys::SDL_FRect);
 
 impl RectF32 {
     /// Creates a new `Rect` with the given dimensions.
-    /// The position and dimensions of the Rect need to be clamped to avoid overflowing the corners
-    /// of the rectangle.
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
     pub fn new(x: f32, y: f32, w: f32, h: f32) -> Self {
-        let rect = sys::SDL_Rect {
-            x: clamp_position(x as i32),
-            y: clamp_position(y as i32),
-            w: clamp_size(w.max(0.0) as u32),
-            h: clamp_size(h.max(0.0) as u32),
-        };
-        Self(sys::SDL_FRect {
-            x: rect.x as f32,
-            y: rect.y as f32,
-            w: rect.w as f32,
-            h: rect.h as f32,
-        })
+        let w = if w > 0.0 { w } else { 1.0 };
+        let h = if h > 0.0 { h } else { 1.0 };
+        Self(sys::SDL_FRect { x, y, w, h })
     }
 
     /// Creates a new `Rect` with the given dimensions from an existing [`sys::SDL_Rect`].
@@ -167,12 +156,7 @@ impl RectF32 {
     /// The width and height must be greater than 0, otherwise they'll be set to 1.
     #[inline]
     pub fn from_ll(rect: sys::SDL_FRect) -> Self {
-        Self(sys::SDL_FRect {
-            x: clamp_position(rect.x as i32) as f32,
-            y: clamp_position(rect.y as i32) as f32,
-            w: clamp_size_i32(rect.w as i32) as f32,
-            h: clamp_size_i32(rect.h as i32) as f32,
-        })
+        Self(rect)
     }
 
     #[inline]
@@ -373,6 +357,7 @@ mod tests {
         let h = MAX_INT + 1;
         assert!(x.overflowing_add(w as i32).1);
         assert!(y.overflowing_add(h as i32).1);
+
         let rect = Rect::new(x, y, w, h);
         assert_eq!(rect.x(), MAX_INT as i32);
         assert_eq!(rect.y(), MAX_INT as i32);
