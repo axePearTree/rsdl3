@@ -1,6 +1,6 @@
 use crate::sys;
 
-const MAX_INT: u32 = i32::MAX as u32 / 2;
+const MAX_INT: u32 = (i32::MAX / 2) as u32;
 
 const MIN_INT: i32 = i32::MIN / 2;
 
@@ -358,5 +358,34 @@ impl PointF32 {
 impl Default for PointF32 {
     fn default() -> Self {
         Self::new(0.0, 0.0)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn rect_bounds_dont_overflow() {
+        let x = (MAX_INT + 1) as i32;
+        let y = (MAX_INT + 1) as i32;
+        let w = MAX_INT + 1;
+        let h = MAX_INT + 1;
+        assert!(x.overflowing_add(w as i32).1);
+        assert!(y.overflowing_add(h as i32).1);
+        let rect = Rect::new(x, y, w, h);
+        assert_eq!(rect.x(), MAX_INT as i32);
+        assert_eq!(rect.y(), MAX_INT as i32);
+        assert_eq!(rect.w(), MAX_INT);
+        assert_eq!(rect.h(), MAX_INT);
+        assert!(!rect.x().overflowing_add(rect.w() as i32).1);
+        assert!(!rect.y().overflowing_add(rect.h() as i32).1);
+
+        let rect = Rect::new(MIN_INT - 1, MIN_INT - 1, MAX_INT, MAX_INT);
+        assert_eq!(rect.x(), MIN_INT);
+        assert_eq!(rect.y(), MIN_INT);
+        assert_eq!(rect.w(), MAX_INT);
+        assert_eq!(rect.h(), MAX_INT);
+        assert!(!rect.x().overflowing_add(rect.w() as i32).1);
     }
 }
