@@ -50,7 +50,7 @@ impl Surface<'static> {
     #[cfg(feature = "image")]
     #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
     /// Creates a new `Surface` by loading an image from the specified file path.
-    pub fn from_image(video: &VideoSubsystem, path: &str) -> Result<Self, Error> {
+    pub fn load_image(video: &VideoSubsystem, path: &str) -> Result<Self, Error> {
         use alloc::ffi::CString;
         let path = CString::new(path)?;
         unsafe {
@@ -74,11 +74,9 @@ impl Surface<'static> {
             Ok(Self::from_mut_ptr(video, surface))
         }
     }
-}
 
-impl<'a> Surface<'a> {
     /// Load a BMP image from a seekable SDL data stream.
-    pub fn load_bmp_from_io<'b>(video: &VideoSubsystem, src: IOStream<'b>) -> Result<Self, Error> {
+    pub fn load_bmp_from_io(video: &VideoSubsystem, src: IOStream) -> Result<Self, Error> {
         let ptr = unsafe { sys::SDL_LoadBMP_IO(src.raw(), false) };
         if ptr.is_null() {
             return Err(Error);
@@ -86,6 +84,18 @@ impl<'a> Surface<'a> {
         Ok(unsafe { Self::from_mut_ptr(video, ptr) })
     }
 
+    #[cfg(feature = "image")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
+    pub fn load_image_from_io(video: &VideoSubsystem, io: IOStream) -> Result<Self, Error> {
+        let ptr = unsafe { sys::image::IMG_Load_IO(io.raw(), false) };
+        if ptr.is_null() {
+            return Err(Error);
+        }
+        Ok(unsafe { Self::from_mut_ptr(video, ptr) })
+    }
+}
+
+impl<'a> Surface<'a> {
     /// Allocate a new surface with a specific pixel format and existing pixel data.
     ///
     /// Mutably borrows `pixels` for the lifetime of the returned `Surface`.

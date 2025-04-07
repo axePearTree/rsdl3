@@ -345,7 +345,16 @@ impl VideoSubsystem {
     ///
     /// This method is equivalent to [`Surface::from_image`].
     pub fn load_image(&self, path: &str) -> Result<Surface, Error> {
-        Surface::from_image(self, path)
+        Surface::load_image(self, path)
+    }
+
+    #[cfg_attr(docsrs, doc(cfg(feature = "image")))]
+    #[cfg(feature = "image")]
+    /// Loads an image from the specified file path into a [`Surface`].
+    ///
+    /// This method is equivalent to [`Surface::from_image`].
+    pub fn load_image_from_io(&self, io: IOStream) -> Result<Surface, Error> {
+        Surface::load_image_from_io(self, io)
     }
 }
 

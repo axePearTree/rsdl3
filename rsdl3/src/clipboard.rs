@@ -7,6 +7,7 @@ use alloc::vec::Vec;
 use core::ffi::c_void;
 use core::ffi::CStr;
 
+/// Methods from SDL's clipboard API.
 impl VideoSubsystem {
     /// Query whether the clipboard exists and contains a non-empty text string.
     pub fn has_clipboard_text(&self) -> bool {

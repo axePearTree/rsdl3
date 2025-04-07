@@ -3,6 +3,8 @@
 
 extern crate alloc;
 
+pub mod video;
+
 pub mod blendmode;
 pub mod clipboard;
 pub mod events;
@@ -13,7 +15,6 @@ pub mod pixels;
 pub mod rect;
 pub mod render;
 pub mod surface;
-pub mod video;
 
 use core::ffi::CStr;
 
