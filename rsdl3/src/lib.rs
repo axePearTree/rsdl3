@@ -4,6 +4,7 @@
 extern crate alloc;
 
 pub mod blendmode;
+pub mod clipboard;
 pub mod events;
 mod init;
 pub mod iostream;
