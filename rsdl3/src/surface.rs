@@ -444,7 +444,7 @@ impl SurfaceRef {
 
     pub fn colorspace(&self) -> Colorspace {
         let result = unsafe { sys::SDL_GetSurfaceColorspace(self.raw()) };
-        Colorspace(result)
+        Colorspace::from_ll(result)
     }
 
     /// Performs a fast blit from the source surface to the destination surface with clipping.

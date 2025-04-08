@@ -626,7 +626,7 @@ pub struct PixelFormatRgbaMask {
 /// an exhaustive list, but rather a representative sample of the kinds of colorspaces supported in SDL.
 #[repr(transparent)]
 #[derive(Copy, Clone, Debug)]
-pub struct Colorspace(pub(crate) sys::SDL_Colorspace);
+pub struct Colorspace(sys::SDL_Colorspace);
 
 impl Colorspace {
     pub const UNKNOWN: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_UNKNOWN);
@@ -640,4 +640,14 @@ impl Colorspace {
     pub const BT2020_FULL: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_BT2020_FULL);
     pub const RGB_DEFAULT: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_RGB_DEFAULT);
     pub const YUV_DEFAULT: Self = Self(sys::SDL_Colorspace_SDL_COLORSPACE_YUV_DEFAULT);
+
+    #[inline]
+    pub(crate) fn from_ll(ll: sys::SDL_Colorspace) -> Self {
+        Self(ll)
+    }
+
+    #[inline]
+    pub fn to_ll(&self) -> sys::SDL_Colorspace {
+        self.0
+    }
 }
