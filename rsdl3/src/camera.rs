@@ -2,24 +2,27 @@ use crate::pixels::Colorspace;
 use crate::pixels::PixelFormat;
 use crate::surface::SurfaceRef;
 use crate::sys;
+use crate::CameraSubsystem;
 use crate::Error;
-use crate::VideoSubsystem;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::ffi::CStr;
 use core::mem::MaybeUninit;
 
-/// Methods from SDL's camera API.
-impl VideoSubsystem {
+impl CameraSubsystem {
     /// Returns a list of currently connected camera devices.
     pub fn cameras(&self) -> Result<Vec<CameraId>, Error> {
-        let mut count = 0;
-        let ptr = unsafe { sys::SDL_GetCameras(&raw mut count) };
-        if ptr.is_null() {
-            return Err(Error);
+        unsafe {
+            let mut count = 0;
+            let ptr = sys::SDL_GetCameras(&raw mut count);
+            if ptr.is_null() {
+                return Err(Error);
+            }
+            let count = usize::try_from(count)?;
+            let vec = core::slice::from_raw_parts(ptr, count).to_vec();
+            sys::SDL_free(ptr as _);
+            Ok(vec)
         }
-        let count = usize::try_from(count)?;
-        Ok(unsafe { core::slice::from_raw_parts(ptr, count) }.to_vec())
     }
 
     /// Equivalent to [`Camera::open`].
@@ -54,7 +57,7 @@ impl VideoSubsystem {
     /// useful if your app can accept a variety of image formats and sizes and so want to find the
     /// optimal spec that doesn't require conversion.
     ///
-    /// This function isn't strictly required; if you call [`VideoSubsystem::open_camera`] with a
+    /// This function isn't strictly required; if you call [`CameraSubsystem::open_camera`] with a
     /// `None` spec, SDL will choose a native format for you, and if you instead specify a desired
     /// format, it will transparently convert to the requested format on your behalf.
     ///
@@ -98,7 +101,7 @@ pub type CameraId = sys::SDL_CameraID;
 
 /// The structure used to identify an opened SDL camera.
 pub struct Camera {
-    video: VideoSubsystem,
+    subsystem: CameraSubsystem,
     ptr: *mut sys::SDL_Camera,
 }
 
@@ -134,7 +137,7 @@ impl Camera {
     /// [`EventPayload`]: crate::events::EventPayload
     /// [`CameraEvent`]: crate::events::CameraEvent
     pub fn open(
-        video: &VideoSubsystem,
+        subsystem: &CameraSubsystem,
         id: CameraId,
         spec: Option<CameraSpec>,
     ) -> Result<Self, Error> {
@@ -148,7 +151,7 @@ impl Camera {
             return Err(Error);
         }
         Ok(Self {
-            video: video.clone(),
+            subsystem: subsystem.clone(),
             ptr,
         })
     }
@@ -164,7 +167,7 @@ impl Camera {
 
     /// Returns the human-readable device name for a camera.
     pub fn name(&self) -> Result<String, Error> {
-        self.video.camera_name(self.id()?)
+        self.subsystem.camera_name(self.id()?)
     }
 
     /// Returns the position of the camera in relation to the system.
@@ -174,7 +177,7 @@ impl Camera {
     /// user, for taking "selfies") and cameras on the back (for filming in the direction the user
     /// is facing).
     pub fn position(&self) -> Result<CameraPosition, Error> {
-        Ok(self.video.camera_position(self.id()?))
+        Ok(self.subsystem.camera_position(self.id()?))
     }
 
     /// Query if camera access has been approved by the user.
@@ -228,7 +231,7 @@ impl Camera {
     /// useful if your app can accept a variety of image formats and sizes and so want to find the
     /// optimal spec that doesn't require conversion.
     ///
-    /// This function isn't strictly required; if you call [`VideoSubsystem::open_camera`] with a
+    /// This function isn't strictly required; if you call [`CameraSubsystem::open_camera`] with a
     /// `None` spec, SDL will choose a native format for you, and if you instead specify a desired
     /// format, it will transparently convert to the requested format on your behalf.
     ///
@@ -237,7 +240,7 @@ impl Camera {
     /// you've opened one, and won't even tell if there _is_ a camera until the user has given you
     /// permission to check through a scary warning popup.
     pub fn supported_formats(&self) -> Result<Vec<CameraSpec>, Error> {
-        self.video.camera_supported_formats(self.id()?)
+        self.subsystem.camera_supported_formats(self.id()?)
     }
 
     /// Acquire a frame.
@@ -344,6 +347,21 @@ impl CameraSpec {
             framerate_numerator,
             framerate_denominator,
         }))
+    }
+
+    #[inline]
+    pub fn format(&self) -> PixelFormat {
+        unsafe { PixelFormat::from_ll_unchecked(self.0.format) }
+    }
+
+    #[inline]
+    pub fn width(&self) -> u32 {
+        self.0.width.max(0) as u32
+    }
+
+    #[inline]
+    pub fn height(&self) -> u32 {
+        self.0.height.max(0) as u32
     }
 
     #[inline]
