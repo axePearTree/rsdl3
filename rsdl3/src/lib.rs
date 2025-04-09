@@ -6,6 +6,7 @@ extern crate alloc;
 pub mod video;
 
 pub mod blendmode;
+pub mod camera;
 pub mod clipboard;
 pub mod events;
 mod init;

@@ -128,6 +128,7 @@ impl Event {
 #[derive(Copy, Clone, Debug)]
 pub enum EventPayload {
     Window(WindowEvent),
+    Camera(CameraEvent),
     Quit,
     Unknown,
 }
@@ -329,4 +330,11 @@ pub enum WindowEventPayload {
     MetalViewResized,
     PixelSizeChanged { w: u32, h: u32 },
     DisplayScaleChanged,
+}
+
+/// Payload of an event tied to a [`crate::camera::Camera`].
+#[derive(Copy, Clone, Debug)]
+pub enum CameraEvent {
+    DeviceApproved,
+    DeviceDenied,
 }
