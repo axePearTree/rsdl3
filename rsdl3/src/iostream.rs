@@ -20,7 +20,7 @@ impl IOStream<'static> {
         let mode = CString::new(mode)?;
         let ptr = unsafe { sys::SDL_IOFromFile(file.as_ptr(), mode.as_ptr()) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(IOStream {
             _sdl: Rc::clone(&sdl.drop),

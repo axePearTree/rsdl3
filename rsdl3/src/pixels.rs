@@ -292,7 +292,7 @@ impl PixelFormat {
     pub fn details(&self) -> Result<&PixelFormatDetails, Error> {
         let details = unsafe { sys::SDL_GetPixelFormatDetails(self.to_ll()) };
         if details.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { PixelFormatDetails::from_ptr(details) })
     }
@@ -314,7 +314,7 @@ impl PixelFormat {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(PixelFormatRgbaMask {
             bpp,
@@ -560,7 +560,7 @@ impl Palette {
     pub fn new(num_colors: usize) -> Result<Self, Error> {
         let result = unsafe { sys::SDL_CreatePalette(num_colors as i32) };
         if result.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self { ptr: result })
     }
@@ -583,7 +583,7 @@ impl Palette {
         // SDL will return an error if the array doesn't have enough room for the color OR if the
         // at_index is invalid. That being said... it's an empty error.
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }

@@ -38,7 +38,7 @@ impl Surface<'static> {
         let h = h.clamp(0, i32::MAX as u32) as i32;
         let ptr = unsafe { sys::SDL_CreateSurface(w, h, format.to_ll()) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self {
             video: video.clone(),
@@ -56,7 +56,7 @@ impl Surface<'static> {
         unsafe {
             let surface = sys::image::IMG_Load(path.as_ptr());
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Self::from_mut_ptr(video, surface))
         }
@@ -69,7 +69,7 @@ impl Surface<'static> {
         unsafe {
             let surface = sys::SDL_LoadBMP(path.as_ptr());
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Self::from_mut_ptr(video, surface))
         }
@@ -79,7 +79,7 @@ impl Surface<'static> {
     pub fn load_bmp_from_io(video: &VideoSubsystem, src: IOStream) -> Result<Self, Error> {
         let ptr = unsafe { sys::SDL_LoadBMP_IO(src.raw(), false) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Self::from_mut_ptr(video, ptr) })
     }
@@ -89,7 +89,7 @@ impl Surface<'static> {
     pub fn load_image_from_io(video: &VideoSubsystem, io: IOStream) -> Result<Self, Error> {
         let ptr = unsafe { sys::image::IMG_Load_IO(io.raw(), false) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Self::from_mut_ptr(video, ptr) })
     }
@@ -132,7 +132,7 @@ impl<'a> Surface<'a> {
             )
         };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
     }
@@ -148,7 +148,7 @@ impl<'a> Surface<'a> {
     pub fn convert(&self, format: PixelFormat) -> Result<Surface<'a>, Error> {
         let ptr = unsafe { sys::SDL_ConvertSurface(self.ptr, format.to_ll()) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Surface::from_mut_ptr(&self.video, ptr) })
     }
@@ -244,7 +244,7 @@ impl SurfaceRef {
         let path = CString::new(path)?;
         let result = unsafe { sys::SDL_SaveBMP(self.raw(), path.as_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -258,7 +258,7 @@ impl SurfaceRef {
     pub fn save_bmp_into_iostream(&self, stream: &mut IOStream) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SaveBMP_IO(self.raw(), stream.raw(), false) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -272,7 +272,7 @@ impl SurfaceRef {
     pub fn duplicate(&self, video: &VideoSubsystem) -> Result<Surface<'static>, Error> {
         let ptr = unsafe { sys::SDL_DuplicateSurface(self.raw()) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
     }
@@ -293,7 +293,7 @@ impl SurfaceRef {
         let height = i32::try_from(height)?;
         let ptr = unsafe { sys::SDL_ScaleSurface(self.raw(), width, height, scale_mode.to_ll()) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { Surface::from_mut_ptr(video, ptr) })
     }
@@ -304,7 +304,7 @@ impl SurfaceRef {
         let result =
             unsafe { sys::SDL_GetSurfaceAlphaMod(self.raw() as *mut _, &raw mut alpha_mod) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(alpha_mod)
     }
@@ -318,7 +318,7 @@ impl SurfaceRef {
     pub fn set_alpha_mod(&mut self, alpha_mod: u8) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetSurfaceAlphaMod(self.raw(), alpha_mod) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -329,7 +329,7 @@ impl SurfaceRef {
         let result =
             unsafe { sys::SDL_GetSurfaceBlendMode(self.raw() as *mut _, &raw mut blend_mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         BlendMode::try_from_ll(blend_mode)
     }
@@ -342,7 +342,7 @@ impl SurfaceRef {
         let blend_mode = BlendMode::option_to_ll(blend_mode);
         let result = unsafe { sys::SDL_SetSurfaceBlendMode(self.raw(), blend_mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -355,7 +355,7 @@ impl SurfaceRef {
         let rect = unsafe {
             let result = sys::SDL_GetSurfaceClipRect(self.raw() as *mut _, rect.as_mut_ptr());
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             rect.assume_init()
         };
@@ -374,7 +374,7 @@ impl SurfaceRef {
             .map_or(core::ptr::null(), core::ptr::from_ref);
         let result = unsafe { sys::SDL_SetSurfaceClipRect(self.raw(), clip_rect_ptr) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -390,7 +390,7 @@ impl SurfaceRef {
         let result =
             unsafe { sys::SDL_GetSurfaceColorKey(self.raw() as *mut _, &raw mut color_key) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(color_key)
     }
@@ -409,7 +409,7 @@ impl SurfaceRef {
             None => unsafe { sys::SDL_SetSurfaceColorKey(self.raw(), false, 0) },
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -423,7 +423,7 @@ impl SurfaceRef {
             sys::SDL_GetSurfaceColorMod(self.raw() as *mut _, &raw mut r, &raw mut g, &raw mut b)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((r, g, b))
     }
@@ -437,7 +437,7 @@ impl SurfaceRef {
     pub fn set_color_mod(&mut self, r: u8, g: u8, b: u8) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetSurfaceColorMod(self.raw(), r, g, b) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -456,7 +456,7 @@ impl SurfaceRef {
     ///
     /// Check [`sys::SDL_BlitSurface`] for more details on blit semantics.
     pub fn blit(
-        &mut self,
+        &self,
         src_rect: Option<Rect>,
         dest: &mut SurfaceRef,
         dest_rect: Option<Rect>,
@@ -481,14 +481,14 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
 
     /// Perform a scaled blit to a destination surface, which may be of a different format.
     pub fn blit_scaled(
-        &mut self,
+        &self,
         src_rect: Option<Rect>,
         dest: &mut SurfaceRef,
         dest_rect: Option<Rect>,
@@ -515,7 +515,7 @@ impl SurfaceRef {
         };
 
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
 
         Ok(())
@@ -529,7 +529,7 @@ impl SurfaceRef {
     /// are then scaled using `scale` and fit into the corners of the destination rectangle. The
     /// sides and center are then stretched into place to cover the remaining destination rectangle.
     pub fn blit_9_grid(
-        &mut self,
+        &self,
         src_rect: Option<Rect>,
         left_width: u32,
         right_width: u32,
@@ -566,7 +566,7 @@ impl SurfaceRef {
         };
 
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
 
         Ok(())
@@ -595,7 +595,7 @@ impl SurfaceRef {
             sys::SDL_BlitSurfaceTiled(self.raw(), src_rect_ptr, dest.raw(), dest_rect_ptr)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -633,7 +633,7 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -653,7 +653,7 @@ impl SurfaceRef {
         let rect_ptr = rect.as_ref().map_or(core::ptr::null(), core::ptr::from_ref);
         let result = unsafe { sys::SDL_FillSurfaceRect(self.raw(), rect_ptr, color) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -674,7 +674,7 @@ impl SurfaceRef {
             sys::SDL_FillSurfaceRects(self.raw(), rects.as_ptr() as *const _, count, color)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -689,7 +689,7 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -706,7 +706,7 @@ impl SurfaceRef {
             sys::SDL_ClearSurface(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -725,7 +725,7 @@ impl SurfaceRef {
             sys::SDL_WriteSurfacePixel(self.raw(), x, y, color.r(), color.g(), color.b(), color.a())
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -749,7 +749,7 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -781,7 +781,7 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Color::new(r, g, b, a))
     }
@@ -813,7 +813,7 @@ impl SurfaceRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(ColorF32::new(r, g, b, a))
     }
@@ -824,7 +824,7 @@ impl SurfaceRef {
     pub fn set_palette(&mut self, palette: &Palette) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetSurfacePalette(self.raw(), palette.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -852,7 +852,7 @@ impl SurfaceRef {
     pub fn set_rle(&self, has_rle: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetSurfaceRLE(self.raw(), has_rle) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -902,7 +902,7 @@ impl SurfaceRef {
     pub fn premultiply_alpha(&mut self, linear: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_PremultiplySurfaceAlpha(self.raw(), linear) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -936,7 +936,7 @@ impl<'a> SurfaceLock<'a> {
     fn new(surface: &'a mut SurfaceRef) -> Result<Self, Error> {
         let result = unsafe { sys::SDL_LockSurface(surface.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self(surface))
     }

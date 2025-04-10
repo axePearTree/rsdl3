@@ -51,7 +51,7 @@ impl Renderer<Window> {
             let driver = driver.map(|s| s.as_ptr()).unwrap_or(core::ptr::null());
             let ptr = sys::SDL_CreateRenderer(window.as_mut_ptr(), driver);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Self {
                 internal: Rc::new(RendererInternal {
@@ -73,7 +73,7 @@ impl Renderer<Window> {
         unsafe {
             let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let video = &self.owner.as_ref().unwrap_unchecked().video;
             Ok(Surface::from_mut_ptr(video, surface))
@@ -103,7 +103,7 @@ impl<'a> Renderer<Surface<'a>> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Self {
                 internal: Rc::new(RendererInternal {
@@ -125,7 +125,7 @@ impl<'a> Renderer<Surface<'a>> {
         unsafe {
             let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let video = &self.owner.as_ref().unwrap_unchecked().video;
             Ok(Surface::from_mut_ptr(video, surface))
@@ -155,7 +155,7 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Self {
                 internal: Rc::new(RendererInternal {
@@ -181,7 +181,7 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
         unsafe {
             let surface = sys::SDL_RenderReadPixels(self.raw(), rect);
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Surface::from_mut_ptr(video, surface))
         }
@@ -218,7 +218,7 @@ impl<T> Renderer<T> {
         let name = unsafe {
             let ptr = sys::SDL_GetRendererName(self.raw());
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             CStr::from_ptr(ptr)
         };
@@ -289,7 +289,7 @@ impl<T> Renderer<T> {
         let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
         let result = unsafe { sys::SDL_GetRenderSafeArea(self.raw(), rect.as_mut_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         let rect = Rect::from_ll(unsafe { rect.assume_init() });
         Ok(rect)
@@ -305,7 +305,7 @@ impl<T> Renderer<T> {
         let result =
             unsafe { sys::SDL_GetRenderLogicalPresentationRect(self.raw(), rect.as_mut_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         let rect = RectF32::from_ll(unsafe { rect.assume_init() });
         Ok(rect)
@@ -327,7 +327,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Color::new(r, g, b, a))
     }
@@ -340,7 +340,7 @@ impl<T> Renderer<T> {
             sys::SDL_SetRenderDrawColor(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -361,7 +361,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(ColorF32::new(r, g, b, a))
     }
@@ -374,7 +374,7 @@ impl<T> Renderer<T> {
             sys::SDL_SetRenderDrawColorFloat(self.raw(), color.r(), color.g(), color.b(), color.a())
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -394,7 +394,7 @@ impl<T> Renderer<T> {
             sys::SDL_GetCurrentRenderOutputSize(self.raw() as *mut _, &raw mut w, &raw mut h)
         };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
@@ -407,7 +407,7 @@ impl<T> Renderer<T> {
         let mut h = 0;
         let res = unsafe { sys::SDL_GetRenderOutputSize(self.raw(), &raw mut w, &raw mut h) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((u32::try_from(w)?, u32::try_from(h)?))
     }
@@ -417,7 +417,7 @@ impl<T> Renderer<T> {
         let mut rect: MaybeUninit<sys::SDL_Rect> = MaybeUninit::uninit();
         let res = unsafe { sys::SDL_GetRenderClipRect(self.raw(), rect.as_mut_ptr()) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         let rect = unsafe { rect.assume_init() };
         Ok(Rect::from_ll(rect))
@@ -427,7 +427,7 @@ impl<T> Renderer<T> {
     pub fn set_clip_rect(&mut self, rect: Rect) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetRenderClipRect(self.raw(), &raw const rect.0) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -442,7 +442,7 @@ impl<T> Renderer<T> {
         let mut scale = 0.0;
         let res = unsafe { sys::SDL_GetRenderColorScale(self.raw(), &raw mut scale) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(scale)
     }
@@ -457,7 +457,7 @@ impl<T> Renderer<T> {
     pub fn set_color_scale(&mut self, color_scale: f32) -> Result<(), Error> {
         let res = unsafe { sys::SDL_SetRenderColorScale(self.raw(), color_scale) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -467,7 +467,7 @@ impl<T> Renderer<T> {
         let mut blend_mode: MaybeUninit<sys::SDL_BlendMode> = MaybeUninit::uninit();
         let res = unsafe { sys::SDL_GetRenderDrawBlendMode(self.raw(), blend_mode.as_mut_ptr()) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         BlendMode::try_from_ll(unsafe { blend_mode.assume_init() })
     }
@@ -477,7 +477,7 @@ impl<T> Renderer<T> {
     pub fn set_draw_blend_mode(&mut self, blend_mode: BlendMode) -> Result<(), Error> {
         let res = unsafe { sys::SDL_SetRenderDrawBlendMode(self.raw(), blend_mode.to_ll()) };
         if !res {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -487,7 +487,7 @@ impl<T> Renderer<T> {
         let mut vsync = 0;
         let result = unsafe { sys::SDL_GetRenderVSync(self.raw(), &raw mut vsync) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { RendererVSync::from_ll_unchecked(vsync) })
     }
@@ -498,7 +498,7 @@ impl<T> Renderer<T> {
     pub fn set_vsync(&mut self, value: RendererVSync) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetRenderVSync(self.raw(), value.to_raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -519,7 +519,7 @@ impl<T> Renderer<T> {
                 mode.as_mut_ptr(),
             );
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             let mode = mode.assume_init();
             let mode = RenderLogicalPresentationMode::from_ll_unchecked(mode);
@@ -555,7 +555,7 @@ impl<T> Renderer<T> {
         let mode = mode.to_ll();
         let result = unsafe { sys::SDL_SetRenderLogicalPresentation(self.raw(), w, h, mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -567,7 +567,7 @@ impl<T> Renderer<T> {
         let result =
             unsafe { sys::SDL_GetRenderScale(self.raw(), &raw mut scale_x, &raw mut scale_y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((scale_x, scale_y))
     }
@@ -583,7 +583,7 @@ impl<T> Renderer<T> {
     pub fn set_scale(&mut self, x: f32, y: f32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetRenderScale(self.raw(), x, y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -594,7 +594,7 @@ impl<T> Renderer<T> {
         unsafe {
             let result = sys::SDL_GetRenderViewport(self.raw(), rect.as_mut_ptr());
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             let rect = rect.assume_init();
             Ok(Rect::from_ll(rect))
@@ -612,7 +612,7 @@ impl<T> Renderer<T> {
             sys::SDL_SetRenderViewport(self.raw(), &raw const rect as *const sys::SDL_Rect)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -648,7 +648,7 @@ impl<T> Renderer<T> {
         let event = &raw mut event.0;
         let result = unsafe { sys::SDL_ConvertEventToRenderCoordinates(self.raw(), event) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -678,7 +678,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((x, y))
     }
@@ -704,7 +704,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((window_x, window_y))
     }
@@ -714,7 +714,7 @@ impl<T> Renderer<T> {
         let result =
             unsafe { sys::SDL_RenderLine(self.raw(), start.x(), start.y(), end.x(), end.y()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -726,7 +726,7 @@ impl<T> Renderer<T> {
         let points = points.as_ptr() as *const sys::SDL_FPoint;
         let result = unsafe { sys::SDL_RenderLines(self.raw(), points, count) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -735,7 +735,7 @@ impl<T> Renderer<T> {
     pub fn render_point(&mut self, point: PointF32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderPoint(self.raw(), point.x(), point.y()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -747,7 +747,7 @@ impl<T> Renderer<T> {
         let points = points.as_ptr() as *const sys::SDL_FPoint;
         let result = unsafe { sys::SDL_RenderPoints(self.raw(), points, count) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -756,7 +756,7 @@ impl<T> Renderer<T> {
     pub fn render_rect(&mut self, rect: RectF32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderRect(self.raw(), rect.as_raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -768,7 +768,7 @@ impl<T> Renderer<T> {
         let rects = rects.as_ptr() as *const sys::SDL_FRect;
         let result = unsafe { sys::SDL_RenderRects(self.raw(), rects, count) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -778,7 +778,7 @@ impl<T> Renderer<T> {
         let rect = rect.to_ll();
         let result = unsafe { sys::SDL_RenderFillRect(self.raw(), &raw const rect) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -790,7 +790,7 @@ impl<T> Renderer<T> {
         let rects = rects.as_ptr() as *const sys::SDL_FRect;
         let result = unsafe { sys::SDL_RenderFillRects(self.raw(), rects, count) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -814,7 +814,7 @@ impl<T> Renderer<T> {
         })?;
         let result = unsafe { sys::SDL_RenderDebugText(self.raw(), x, y, string.as_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -841,7 +841,7 @@ impl<T> Renderer<T> {
         let result =
             unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -885,7 +885,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -918,7 +918,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -961,7 +961,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1009,7 +1009,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1039,7 +1039,7 @@ impl<T> Renderer<T> {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1066,13 +1066,13 @@ impl<T> Renderer<T> {
             Some(texture) => {
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
                 if !result {
-                    return Err(Error);
+                    return Err(Error::new());
                 }
             }
             _ => {
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), core::ptr::null_mut()) };
                 if !result {
-                    return Err(Error);
+                    return Err(Error::new());
                 }
             }
         }
@@ -1101,7 +1101,7 @@ impl<T> Renderer<T> {
     pub fn present(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderPresent(self.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1114,7 +1114,7 @@ impl<T> Renderer<T> {
     pub fn clear(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RenderClear(self.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1142,7 +1142,7 @@ impl<T> Renderer<T> {
     pub fn flush(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_FlushRenderer(self.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1206,7 +1206,7 @@ pub struct RenderLogicalPresentation {
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum RenderLogicalPresentationMode {
-    /// The rendered content is stretched to the output resolution.
+    /// There is no logical size in effect
     Disabled = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_DISABLED,
     /// The rendered content is stretched to the output resolution.
     Stretch = sys::SDL_RendererLogicalPresentation_SDL_LOGICAL_PRESENTATION_STRETCH,
@@ -1263,7 +1263,7 @@ impl<T> Texture<T> {
             )
         };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self {
             _renderer: Rc::clone(&renderer.internal),
@@ -1292,7 +1292,7 @@ impl<T> Texture<T> {
         let mut h = 0.0;
         let result = unsafe { sys::SDL_GetTextureSize(self.raw(), &raw mut w, &raw mut h) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((w, h))
     }
@@ -1308,7 +1308,7 @@ impl<T> Texture<T> {
         let ptr =
             unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Texture {
             _renderer: Rc::clone(&renderer.internal),
@@ -1321,7 +1321,7 @@ impl<T> Texture<T> {
         let mut alpha = 0;
         let result = unsafe { sys::SDL_GetTextureAlphaMod(self.raw(), &raw mut alpha) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(alpha)
     }
@@ -1338,7 +1338,7 @@ impl<T> Texture<T> {
     pub fn set_alpha_mod(&mut self, alpha_mod: u8) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetTextureAlphaMod(self.raw(), alpha_mod) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1348,7 +1348,7 @@ impl<T> Texture<T> {
         let mut alpha = 0.0;
         let result = unsafe { sys::SDL_GetTextureAlphaModFloat(self.raw(), &raw mut alpha) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(alpha)
     }
@@ -1365,7 +1365,7 @@ impl<T> Texture<T> {
     pub fn set_alpha_mod_f32(&mut self, alpha_mod: f32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetTextureAlphaModFloat(self.raw(), alpha_mod) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1375,7 +1375,7 @@ impl<T> Texture<T> {
         let mut blend_mode: sys::SDL_BlendMode = 0;
         let result: bool = unsafe { sys::SDL_GetTextureBlendMode(self.raw(), &raw mut blend_mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         // ...
         BlendMode::try_from_ll(blend_mode)
@@ -1389,7 +1389,7 @@ impl<T> Texture<T> {
         let mode = mode.to_ll();
         let result = unsafe { sys::SDL_SetTextureBlendMode(self.raw(), mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1402,7 +1402,7 @@ impl<T> Texture<T> {
         let result =
             unsafe { sys::SDL_GetTextureColorMod(self.raw(), &raw mut r, &raw mut g, &raw mut b) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((r, g, b))
     }
@@ -1420,7 +1420,7 @@ impl<T> Texture<T> {
         let (r, g, b) = color_mod;
         let result = unsafe { sys::SDL_SetTextureColorMod(self.raw(), r, g, b) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1438,7 +1438,7 @@ impl<T> Texture<T> {
         let (r, g, b) = color_mod;
         let result = unsafe { sys::SDL_SetTextureColorModFloat(self.raw(), r, g, b) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1449,7 +1449,7 @@ impl<T> Texture<T> {
         unsafe {
             let result = sys::SDL_GetTextureScaleMode(self.raw(), scale_mode.as_mut_ptr());
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(ScaleMode::from_ll_unchecked(scale_mode.assume_init()))
         }
@@ -1464,7 +1464,7 @@ impl<T> Texture<T> {
         let scale_mode = scale_mode.to_ll();
         let result = unsafe { sys::SDL_SetTextureScaleMode(self.raw(), scale_mode) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1525,7 +1525,7 @@ impl<'a, T> TextureLock<'a, T> {
                 &raw mut pitch,
             );
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             // SDL gives us a contiguous buffer to write the pixels into.
             let size = texture

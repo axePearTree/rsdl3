@@ -16,7 +16,7 @@ impl CameraSubsystem {
             let mut count = 0;
             let ptr = sys::SDL_GetCameras(&raw mut count);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let count = usize::try_from(count)?;
             let vec = core::slice::from_raw_parts(ptr, count).to_vec();
@@ -34,7 +34,7 @@ impl CameraSubsystem {
     pub fn camera_name(&self, id: CameraId) -> Result<String, Error> {
         let ptr = unsafe { sys::SDL_GetCameraName(id) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { CStr::from_ptr(ptr) }
             .to_string_lossy()
@@ -70,7 +70,7 @@ impl CameraSubsystem {
             let mut count = 0;
             let ptr = sys::SDL_GetCameraSupportedFormats(id, &raw mut count);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let len = usize::try_from(count)?;
             let slice = core::slice::from_raw_parts(ptr, len);
@@ -89,7 +89,7 @@ impl CameraSubsystem {
     pub fn current_camera_driver(&self) -> Result<String, Error> {
         let ptr = unsafe { sys::SDL_GetCurrentCameraDriver() };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(unsafe { CStr::from_ptr(ptr) }
             .to_string_lossy()
@@ -148,7 +148,7 @@ impl Camera {
             .unwrap_or(core::ptr::null());
         let ptr = unsafe { sys::SDL_OpenCamera(id, spec) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self {
             subsystem: subsystem.clone(),
@@ -160,7 +160,7 @@ impl Camera {
     pub fn id(&self) -> Result<CameraId, Error> {
         let result = unsafe { sys::SDL_GetCameraID(self.ptr) };
         if result == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(result)
     }
@@ -269,8 +269,11 @@ impl Camera {
         let mut timestamp = 0;
         unsafe {
             let surface = sys::SDL_AcquireCameraFrame(self.ptr, &raw mut timestamp);
+            if surface.is_null() {
+                return Ok(None);
+            }
             if timestamp == 0 {
-                return Err(Error);
+                return Err(Error::new());
             }
             if surface.is_null() {
                 return Ok(None);
@@ -362,6 +365,21 @@ impl CameraSpec {
     #[inline]
     pub fn height(&self) -> u32 {
         self.0.height.max(0) as u32
+    }
+
+    #[inline]
+    pub fn framerate_numerator(&self) -> u32 {
+        self.0.framerate_numerator as u32
+    }
+
+    #[inline]
+    pub fn framerate_denominator(&self) -> u32 {
+        self.0.framerate_denominator as u32
+    }
+
+    #[inline]
+    pub fn colorspace(&self) -> Colorspace {
+        Colorspace::from_ll(self.0.colorspace)
     }
 
     #[inline]

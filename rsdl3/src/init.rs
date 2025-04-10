@@ -1,8 +1,10 @@
 use crate::events::EventPump;
 use crate::sys;
 use crate::Error;
+use alloc::borrow::ToOwned;
 use alloc::rc::{Rc, Weak};
 use core::cell::RefCell;
+use core::ffi::CStr;
 use core::sync::atomic::{AtomicBool, Ordering};
 
 static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);
@@ -169,7 +171,7 @@ impl<const INIT_FLAG: u32> Subsystem<INIT_FLAG> {
         // So it doesn't matter if a system has already been initialized by Sdl.
         let result = unsafe { sys::SDL_InitSubSystem(INIT_FLAG) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self {
             _drop: Rc::clone(&drop),
@@ -196,7 +198,7 @@ impl SdlDrop {
             Ordering::Relaxed,
         );
         if res.is_err() {
-            return Err(Error);
+            return Err(Error::new());
         }
 
         let result = unsafe { sys::SDL_Init(0) };
@@ -207,7 +209,7 @@ impl SdlDrop {
                 Ordering::Relaxed,
                 Ordering::Relaxed,
             );
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Self)
     }

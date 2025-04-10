@@ -55,7 +55,7 @@ impl VideoSubsystem {
             let mut size = 0;
             let ptr = sys::SDL_GetClipboardData(mime_type.as_ptr(), &raw mut size);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(core::slice::from_raw_parts(ptr as *mut u8, size).to_vec())
         }
@@ -66,7 +66,7 @@ impl VideoSubsystem {
         let c_str = CString::new(text).map_err(|_| Error::register(c"Invalid string format."))?;
         let result = unsafe { sys::SDL_SetClipboardText(c_str.as_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -76,7 +76,7 @@ impl VideoSubsystem {
         let c_str = CString::new(text).map_err(|_| Error::register(c"Invalid string format."))?;
         let result = unsafe { sys::SDL_SetPrimarySelectionText(c_str.as_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -85,7 +85,7 @@ impl VideoSubsystem {
     pub fn clear_clipboard_data(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_ClearClipboardData() };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -117,7 +117,7 @@ impl VideoSubsystem {
         unsafe {
             let mime_types = sys::SDL_GetClipboardMimeTypes(&raw mut len);
             if mime_types.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let array = core::slice::from_raw_parts(mime_types, len).iter();
             let mut vec = Vec::with_capacity(len);

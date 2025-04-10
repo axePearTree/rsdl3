@@ -79,7 +79,7 @@ impl VideoSubsystem {
             let driver_index = i32::try_from(driver_index)?;
             let ptr = sys::SDL_GetVideoDriver(driver_index);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
         }
@@ -96,7 +96,7 @@ impl VideoSubsystem {
         unsafe {
             let ptr = sys::SDL_GetRenderDriver(i32::try_from(index)?);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
         }
@@ -107,7 +107,7 @@ impl VideoSubsystem {
         unsafe {
             let ptr = sys::SDL_GetCurrentVideoDriver();
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned())
         }
@@ -119,7 +119,7 @@ impl VideoSubsystem {
         unsafe {
             let displays = sys::SDL_GetDisplays(&raw mut num_displays);
             if displays.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let vec = core::slice::from_raw_parts(displays, num_displays as usize).to_vec();
             sys::SDL_free(displays as *mut c_void);
@@ -131,7 +131,7 @@ impl VideoSubsystem {
     pub fn primary_display(&self) -> Result<u32, Error> {
         let result = unsafe { sys::SDL_GetPrimaryDisplay() };
         if result == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(result)
     }
@@ -151,7 +151,7 @@ impl VideoSubsystem {
         let mut rect = Rect::new(0, 0, 0, 0).to_ll();
         let result = unsafe { sys::SDL_GetDisplayBounds(display_id, &raw mut rect) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Rect::new(rect.x, rect.y, rect.w as u32, rect.h as u32))
     }
@@ -163,7 +163,7 @@ impl VideoSubsystem {
         unsafe {
             let result = sys::SDL_GetDisplayUsableBounds(display_id, out.as_mut_ptr());
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             let out = out.assume_init();
             Ok(Rect::from_ll(out))
@@ -175,7 +175,7 @@ impl VideoSubsystem {
         let rect = rect.to_ll();
         let display_id = unsafe { sys::SDL_GetDisplayForRect(&raw const rect) };
         if display_id == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(display_id)
     }
@@ -185,7 +185,7 @@ impl VideoSubsystem {
         let point = point.to_ll();
         let display_id = unsafe { sys::SDL_GetDisplayForPoint(&raw const point) };
         if display_id == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(display_id)
     }
@@ -201,7 +201,7 @@ impl VideoSubsystem {
     pub fn display_content_scale(&self, display_id: u32) -> Result<f32, Error> {
         let scale = unsafe { sys::SDL_GetDisplayContentScale(display_id) };
         if scale == 0.0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(scale)
     }
@@ -215,7 +215,7 @@ impl VideoSubsystem {
         unsafe {
             let ptr = sys::SDL_GetDesktopDisplayMode(display_id);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(DisplayMode::from_ptr(ptr))
         }
@@ -234,7 +234,7 @@ impl VideoSubsystem {
             let mut count = 0;
             let ptr = sys::SDL_GetFullscreenDisplayModes(display_id, &raw mut count);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let mut display_modes = Vec::new();
             for i in 0..count {
@@ -253,7 +253,7 @@ impl VideoSubsystem {
         unsafe {
             let ptr = sys::SDL_GetCurrentDisplayMode(display_id);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(DisplayMode::from_ptr(ptr))
         }
@@ -303,7 +303,7 @@ impl VideoSubsystem {
                 out.as_mut_ptr(),
             );
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             let out = out.assume_init();
             let display_mode = DisplayMode::from_ptr(&raw const out);
@@ -320,7 +320,7 @@ impl VideoSubsystem {
     pub fn enable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_EnableScreenSaver() };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -329,7 +329,7 @@ impl VideoSubsystem {
     pub fn disable_screensaver(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_DisableScreenSaver() };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -381,7 +381,7 @@ impl Window {
         let flags = flags.map(|f| f.0).unwrap_or_default();
         let ptr = unsafe { sys::SDL_CreateWindow(c_str.as_ptr(), width, height, flags) };
         if ptr.is_null() {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(Window {
             video: video.clone(),
@@ -432,7 +432,7 @@ impl WindowRef {
     pub fn id(&self) -> Result<u32, Error> {
         let id = unsafe { sys::SDL_GetWindowID(self.as_ptr() as *mut _) };
         if id == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(id)
     }
@@ -441,7 +441,7 @@ impl WindowRef {
     pub fn display(&self) -> Result<u32, Error> {
         let id = unsafe { sys::SDL_GetDisplayForWindow(self.as_ptr() as *mut _) };
         if id == 0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(id)
     }
@@ -461,7 +461,7 @@ impl WindowRef {
     pub fn display_scale(&self) -> Result<f32, Error> {
         let scale = unsafe { sys::SDL_GetWindowDisplayScale(self.as_ptr() as *mut _) };
         if scale == 0.0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(scale)
     }
@@ -477,7 +477,7 @@ impl WindowRef {
         unsafe {
             let surface = sys::SDL_GetWindowSurface(self.as_ptr() as *mut _);
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(SurfaceRef::from_mut_ptr(surface))
         }
@@ -489,7 +489,7 @@ impl WindowRef {
         unsafe {
             let surface = sys::SDL_GetWindowSurface(self.as_ptr() as *mut _);
             if surface.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(SurfaceRef::from_mut_ptr(surface))
         }
@@ -500,7 +500,7 @@ impl WindowRef {
         unsafe {
             let result = sys::SDL_GetWindowMouseRect(self.as_ptr() as *mut _);
             if result.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(Rect::from_ll(*result))
         }
@@ -514,7 +514,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_SetWindowMouseRect(self.as_ptr() as *mut _, &raw const rect) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -527,7 +527,7 @@ impl WindowRef {
             sys::SDL_GetWindowAspectRatio(self.as_ptr() as *mut _, &raw mut min, &raw mut max)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((min, max))
     }
@@ -555,7 +555,7 @@ impl WindowRef {
             sys::SDL_SetWindowAspectRatio(self.as_ptr() as *mut _, min_aspect, max_aspect)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -564,7 +564,7 @@ impl WindowRef {
     pub fn show(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_ShowWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -573,7 +573,7 @@ impl WindowRef {
     pub fn hide(&self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_HideWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -599,7 +599,7 @@ impl WindowRef {
     pub fn set_fullscreen(&mut self, fullscreen: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowFullscreen(self.as_ptr() as *mut _, fullscreen) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -609,7 +609,7 @@ impl WindowRef {
         unsafe {
             let ptr = sys::SDL_GetWindowFullscreenMode(self.as_ptr() as *mut _);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             Ok(DisplayMode::from_ptr(ptr))
         }
@@ -634,7 +634,7 @@ impl WindowRef {
             let mut count = 0;
             let ptr = sys::SDL_GetFullscreenDisplayModes(display_id, &raw mut count);
             if ptr.is_null() {
-                return Err(Error);
+                return Err(Error::new());
             }
             let count: usize = count.try_into()?;
             for i in 0..count {
@@ -644,7 +644,7 @@ impl WindowRef {
                     let result =
                         sys::SDL_SetWindowFullscreenMode(self.as_ptr() as *mut _, display_mode_ptr);
                     if !result {
-                        return Err(Error);
+                        return Err(Error::new());
                     }
                     return Ok(());
                 }
@@ -657,7 +657,7 @@ impl WindowRef {
     pub fn opacity(&self) -> Result<f32, Error> {
         let result = unsafe { sys::SDL_GetWindowOpacity(self.as_ptr() as *mut _) };
         if result == -1.0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(result)
     }
@@ -670,7 +670,7 @@ impl WindowRef {
     pub fn set_opacity(&mut self, opacity: f32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowOpacity(self.as_ptr() as *mut _, opacity) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -684,7 +684,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_GetWindowPosition(self.as_ptr() as *mut _, &raw mut x, &raw mut y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((x, y))
     }
@@ -708,7 +708,7 @@ impl WindowRef {
     pub fn set_position(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowPosition(self.as_ptr() as *mut _, x, y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -724,7 +724,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_GetWindowSize(self.as_ptr() as *mut _, &raw mut x, &raw mut y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((x, y))
     }
@@ -745,7 +745,7 @@ impl WindowRef {
     pub fn set_size(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowSize(self.as_ptr() as *mut _, x, y) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -766,7 +766,7 @@ impl WindowRef {
         let c_str = c_string.as_c_str();
         let result = unsafe { sys::SDL_SetWindowTitle(self.as_ptr() as *mut _, c_str.as_ptr()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -780,7 +780,7 @@ impl WindowRef {
     pub fn set_resizable(&mut self, resizable: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowResizable(self.as_ptr() as *mut _, resizable) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -791,7 +791,7 @@ impl WindowRef {
             let result = sys::SDL_GetWindowPixelFormat(self.as_ptr() as *mut _);
             // Even though the unknown PixelFormat is valid SDL tells us to handle it as an error.
             if result == sys::SDL_PixelFormat_SDL_PIXELFORMAT_UNKNOWN {
-                return Err(Error);
+                return Err(Error::new());
             }
             return Ok(PixelFormat::from_ll_unchecked(result));
         }
@@ -809,7 +809,7 @@ impl WindowRef {
         unsafe {
             let result = sys::SDL_GetWindowSafeArea(self.as_ptr() as *mut _, out.as_mut_ptr());
             if !result {
-                return Err(Error);
+                return Err(Error::new());
             }
             let out = out.assume_init();
             Ok(Rect::from_ll(out))
@@ -824,7 +824,7 @@ impl WindowRef {
             sys::SDL_GetWindowMaximumSize(self.as_ptr() as *mut _, &raw mut x, &raw mut y)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((x, y))
     }
@@ -835,7 +835,7 @@ impl WindowRef {
         let h = h.min(i32::MAX as u32) as i32;
         let result = unsafe { sys::SDL_SetWindowMaximumSize(self.as_ptr() as *mut _, w, h) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -848,7 +848,7 @@ impl WindowRef {
             sys::SDL_GetWindowMinimumSize(self.as_ptr() as *mut _, &raw mut x, &raw mut y)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((x, y))
     }
@@ -859,7 +859,7 @@ impl WindowRef {
         let h = h.min(i32::MAX as u32) as i32;
         let result = unsafe { sys::SDL_SetWindowMinimumSize(self.as_ptr() as *mut _, w, h) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -885,7 +885,7 @@ impl WindowRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((top, left, bottom, right))
     }
@@ -900,7 +900,7 @@ impl WindowRef {
     pub fn set_bordered(&mut self, bordered: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowBordered(self.as_ptr() as *mut _, bordered) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -913,7 +913,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_SetWindowAlwaysOnTop(self.as_ptr() as *mut _, always_on_top) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -922,7 +922,7 @@ impl WindowRef {
     pub fn set_focusable(&mut self, focusable: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowFocusable(self.as_ptr() as *mut _, focusable) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -939,7 +939,7 @@ impl WindowRef {
     pub fn set_icon(&mut self, icon: &SurfaceRef) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowIcon(self.as_ptr() as *mut _, icon.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -950,7 +950,7 @@ impl WindowRef {
     pub fn set_mouse_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowMouseGrab(self.as_ptr() as *mut _, grabbed) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -977,7 +977,7 @@ impl WindowRef {
     pub fn set_keyboard_grabbed(&mut self, grabbed: bool) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowKeyboardGrab(self.as_ptr() as *mut _, grabbed) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -993,7 +993,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_GetWindowSurfaceVSync(self.as_ptr() as *mut _, &raw mut vsync) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         WindowSurfaceVSync::try_from_ll(vsync)
     }
@@ -1015,7 +1015,7 @@ impl WindowRef {
         let result =
             unsafe { sys::SDL_SetWindowSurfaceVSync(self.as_ptr() as *mut _, vsync.to_ll()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1033,7 +1033,7 @@ impl WindowRef {
     pub fn set_window_shape(&mut self, surface: &mut SurfaceRef) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SetWindowShape(self.as_ptr() as *mut _, surface.raw()) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1045,7 +1045,7 @@ impl WindowRef {
     pub fn pixel_density(&self) -> Result<f32, Error> {
         let pixel_density = unsafe { sys::SDL_GetWindowPixelDensity(self.as_ptr() as *mut _) };
         if pixel_density == 0.0 {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(pixel_density)
     }
@@ -1058,7 +1058,7 @@ impl WindowRef {
             sys::SDL_GetWindowSizeInPixels(self.as_ptr() as *mut _, &raw mut w, &raw mut h)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok((w, h))
     }
@@ -1067,7 +1067,7 @@ impl WindowRef {
     pub fn flash(&mut self, operation: WindowFlashOperation) -> Result<(), Error> {
         let result = unsafe { sys::SDL_FlashWindow(self.as_ptr() as *mut _, operation.0) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1087,7 +1087,7 @@ impl WindowRef {
     pub fn maximize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MaximizeWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1107,7 +1107,7 @@ impl WindowRef {
     pub fn minimize(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_MinimizeWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1123,7 +1123,7 @@ impl WindowRef {
     pub fn raise(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RaiseWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1143,7 +1143,7 @@ impl WindowRef {
     pub fn restore(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_RestoreWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1154,7 +1154,7 @@ impl WindowRef {
     pub fn update_surface(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_UpdateWindowSurface(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1175,7 +1175,7 @@ impl WindowRef {
             )
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1192,7 +1192,7 @@ impl WindowRef {
             sys::SDL_ShowWindowSystemMenu(self.as_ptr() as *mut _, x.try_into()?, y.try_into()?)
         };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }
@@ -1208,7 +1208,7 @@ impl WindowRef {
     pub fn sync(&mut self) -> Result<(), Error> {
         let result = unsafe { sys::SDL_SyncWindow(self.as_ptr() as *mut _) };
         if !result {
-            return Err(Error);
+            return Err(Error::new());
         }
         Ok(())
     }

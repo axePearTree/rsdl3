@@ -18,6 +18,7 @@ pub mod render;
 pub mod surface;
 
 use core::ffi::CStr;
+use core::marker::PhantomData;
 
 use alloc::string::String;
 use alloc::string::ToString;
@@ -26,16 +27,23 @@ pub use rsdl3_sys as sys;
 
 /// Zero-sized error type for any operations involving SDL.
 ///
-/// The actual error message is stored inside SDL and retrieved when `Display::display` gets called.
+/// The actual error message is stored by SDL and can be retrieved by calling
+/// [`get_error`].
 #[allow(unused)]
 #[derive(Clone)]
-pub struct Error;
+pub struct Error {
+    _m: PhantomData<*const ()>, // !Send + !Sync
+}
 
 impl Error {
+    pub fn new() -> Self {
+        Self { _m: PhantomData }
+    }
+
     /// This methods sets SDL's internal error message .
     pub(crate) fn register(err: &CStr) -> Self {
         unsafe { sys::SDL_SetError(err.as_ptr()) };
-        Self
+        Self { _m: PhantomData }
     }
 }
 
@@ -43,20 +51,13 @@ impl core::error::Error for Error {}
 
 impl core::fmt::Debug for Error {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        unsafe {
-            let err = sys::SDL_GetError();
-            if err.is_null() {
-                return write!(f, "NULL");
-            }
-            let str = CStr::from_ptr(err as *const _);
-            write!(f, "{:?}", str)
-        }
+        write!(f, "SDL Error")
     }
 }
 
 impl core::fmt::Display for Error {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        core::fmt::Debug::fmt(self, f)
+        write!(f, "SDL Error")
     }
 }
 
@@ -71,6 +72,22 @@ impl From<core::num::TryFromIntError> for Error {
     fn from(_value: core::num::TryFromIntError) -> Self {
         static ERROR_MESSAGE: &CStr = c"alloc::ffi::NulError";
         Error::register(ERROR_MESSAGE)
+    }
+}
+
+impl From<Error> for String {
+    fn from(_: Error) -> Self {
+        get_error().unwrap_or(String::from("No error reported in SDL."))
+    }
+}
+
+pub fn get_error() -> Option<String> {
+    unsafe {
+        let msg = sys::SDL_GetError();
+        if msg.is_null() {
+            return None;
+        }
+        Some(CStr::from_ptr(msg).to_string_lossy().into_owned())
     }
 }
 
