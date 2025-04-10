@@ -1,10 +1,8 @@
 use crate::events::EventPump;
 use crate::sys;
 use crate::Error;
-use alloc::borrow::ToOwned;
 use alloc::rc::{Rc, Weak};
 use core::cell::RefCell;
-use core::ffi::CStr;
 use core::sync::atomic::{AtomicBool, Ordering};
 
 static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);

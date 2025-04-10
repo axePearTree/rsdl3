@@ -8,6 +8,7 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use core::ffi::CStr;
 use core::mem::MaybeUninit;
+use core::ptr::NonNull;
 
 impl CameraSubsystem {
     /// Returns a list of currently connected camera devices.
@@ -102,7 +103,7 @@ pub type CameraId = sys::SDL_CameraID;
 /// The structure used to identify an opened SDL camera.
 pub struct Camera {
     subsystem: CameraSubsystem,
-    ptr: *mut sys::SDL_Camera,
+    ptr: NonNull<sys::SDL_Camera>,
 }
 
 impl Camera {
@@ -146,10 +147,7 @@ impl Camera {
             .as_ref()
             .map(CameraSpec::raw)
             .unwrap_or(core::ptr::null());
-        let ptr = unsafe { sys::SDL_OpenCamera(id, spec) };
-        if ptr.is_null() {
-            return Err(Error::new());
-        }
+        let ptr = NonNull::new(unsafe { sys::SDL_OpenCamera(id, spec) }).ok_or(Error::new())?;
         Ok(Self {
             subsystem: subsystem.clone(),
             ptr,
@@ -158,7 +156,7 @@ impl Camera {
 
     /// Returns the instance ID of an opened camera.
     pub fn id(&self) -> Result<CameraId, Error> {
-        let result = unsafe { sys::SDL_GetCameraID(self.ptr) };
+        let result = unsafe { sys::SDL_GetCameraID(self.ptr.as_ptr()) };
         if result == 0 {
             return Err(Error::new());
         }
@@ -198,7 +196,7 @@ impl Camera {
     ///
     /// If a camera is declined, there's nothing to be done but drop the `Camera` to dispose of it.
     pub fn permission_state(&self) -> Option<CameraPermissionState> {
-        let result = unsafe { sys::SDL_GetCameraPermissionState(self.ptr) };
+        let result = unsafe { sys::SDL_GetCameraPermissionState(self.ptr.as_ptr()) };
         CameraPermissionState::from_ll(result)
     }
 
@@ -218,7 +216,7 @@ impl Camera {
     /// [`CameraEvent`]: crate::events::CameraEvent
     pub fn format(&self) -> Option<CameraSpec> {
         let mut spec: MaybeUninit<sys::SDL_CameraSpec> = MaybeUninit::uninit();
-        let result = unsafe { sys::SDL_GetCameraFormat(self.ptr, spec.as_mut_ptr()) };
+        let result = unsafe { sys::SDL_GetCameraFormat(self.ptr.as_ptr(), spec.as_mut_ptr()) };
         if !result {
             return None;
         }
@@ -268,7 +266,7 @@ impl Camera {
     pub fn acquire_frame(&mut self) -> Result<Option<CameraFrame>, Error> {
         let mut timestamp = 0;
         unsafe {
-            let surface = sys::SDL_AcquireCameraFrame(self.ptr, &raw mut timestamp);
+            let surface = sys::SDL_AcquireCameraFrame(self.ptr.as_ptr(), &raw mut timestamp);
             if surface.is_null() {
                 return Ok(None);
             }
@@ -290,7 +288,7 @@ impl Camera {
 impl Drop for Camera {
     fn drop(&mut self) {
         unsafe {
-            sys::SDL_CloseCamera(self.ptr);
+            sys::SDL_CloseCamera(self.ptr.as_ptr());
         }
     }
 }
@@ -316,7 +314,7 @@ impl CameraFrame<'_> {
 impl Drop for CameraFrame<'_> {
     fn drop(&mut self) {
         unsafe {
-            sys::SDL_ReleaseCameraFrame(self.camera.ptr, self.surface.raw());
+            sys::SDL_ReleaseCameraFrame(self.camera.ptr.as_ptr(), self.surface.raw());
         }
     }
 }

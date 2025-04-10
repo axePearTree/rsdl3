@@ -10,6 +10,7 @@ use crate::{sys, Error};
 use core::marker::PhantomData;
 use core::mem::MaybeUninit;
 use core::ops::{Deref, DerefMut};
+use core::ptr::NonNull;
 
 /// An owned collection of pixels used in software blitting.
 ///
@@ -28,7 +29,7 @@ use core::ops::{Deref, DerefMut};
 /// bytes of Y plane followed by 32x16 bytes of UV plane.
 pub struct Surface<'a> {
     pub(crate) video: VideoSubsystem,
-    ptr: *mut sys::SDL_Surface,
+    ptr: NonNull<sys::SDL_Surface>,
     _marker: PhantomData<&'a ()>,
 }
 
@@ -37,9 +38,7 @@ impl Surface<'static> {
         let w = w.clamp(0, i32::MAX as u32) as i32;
         let h = h.clamp(0, i32::MAX as u32) as i32;
         let ptr = unsafe { sys::SDL_CreateSurface(w, h, format.to_ll()) };
-        if ptr.is_null() {
-            return Err(Error::new());
-        }
+        let ptr = NonNull::new(ptr).ok_or(Error::new())?;
         Ok(Self {
             video: video.clone(),
             ptr,
@@ -146,7 +145,7 @@ impl<'a> Surface<'a> {
     /// If you are converting to an indexed surface and want to map colors to a palette, you can use
     /// [`Surface::convert_surface_and_colorspace`] instead.
     pub fn convert(&self, format: PixelFormat) -> Result<Surface<'a>, Error> {
-        let ptr = unsafe { sys::SDL_ConvertSurface(self.ptr, format.to_ll()) };
+        let ptr = unsafe { sys::SDL_ConvertSurface(self.ptr.as_ptr(), format.to_ll()) };
         if ptr.is_null() {
             return Err(Error::new());
         }
@@ -178,6 +177,7 @@ impl<'a> Surface<'a> {
 
     /// SAFETY: ptr must be valid
     pub(crate) unsafe fn from_mut_ptr(video: &VideoSubsystem, ptr: *mut sys::SDL_Surface) -> Self {
+        let ptr = NonNull::new_unchecked(ptr);
         Self {
             video: video.clone(),
             ptr,
@@ -188,7 +188,7 @@ impl<'a> Surface<'a> {
 
 impl<'a> Drop for Surface<'a> {
     fn drop(&mut self) {
-        unsafe { sys::SDL_DestroySurface(self.ptr) };
+        unsafe { sys::SDL_DestroySurface(self.ptr.as_ptr()) };
     }
 }
 
@@ -196,13 +196,13 @@ impl<'a> Deref for Surface<'a> {
     type Target = SurfaceRef;
 
     fn deref(&self) -> &Self::Target {
-        unsafe { SurfaceRef::from_ptr(self.ptr) }
+        unsafe { SurfaceRef::from_ptr(self.ptr.as_ptr()) }
     }
 }
 
 impl<'a> DerefMut for Surface<'a> {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { SurfaceRef::from_mut_ptr(self.ptr) }
+        unsafe { SurfaceRef::from_mut_ptr(self.ptr.as_ptr()) }
     }
 }
 

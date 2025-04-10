@@ -12,6 +12,7 @@ use core::cell::RefCell;
 use core::ffi::CStr;
 use core::hint::unreachable_unchecked;
 use core::mem::MaybeUninit;
+use core::ptr::NonNull;
 
 /// A structure representing rendering state.
 ///
@@ -50,9 +51,7 @@ impl Renderer<Window> {
             };
             let driver = driver.map(|s| s.as_ptr()).unwrap_or(core::ptr::null());
             let ptr = sys::SDL_CreateRenderer(window.as_mut_ptr(), driver);
-            if ptr.is_null() {
-                return Err(Error::new());
-            }
+            let ptr = NonNull::new(ptr).ok_or(Error::new())?;
             Ok(Self {
                 internal: Rc::new(RendererInternal {
                     ptr,
@@ -102,9 +101,7 @@ impl<'a> Renderer<Surface<'a>> {
     pub fn from_owned_surface(surface: Surface<'a>) -> Result<Self, Error> {
         unsafe {
             let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
-            if ptr.is_null() {
-                return Err(Error::new());
-            }
+            let ptr = NonNull::new(ptr).ok_or(Error::new())?;
             Ok(Self {
                 internal: Rc::new(RendererInternal {
                     ptr,
@@ -152,19 +149,15 @@ impl<'a> Renderer<&'a mut SurfaceRef> {
     ///
     /// The surface can later be borrowed by calling `Renderer::as_surface_ref` or `Renderer::as_surface_mut`.
     pub fn from_surface(surface: &'a mut SurfaceRef) -> Result<Self, Error> {
-        unsafe {
-            let ptr = sys::SDL_CreateSoftwareRenderer(surface.raw());
-            if ptr.is_null() {
-                return Err(Error::new());
-            }
-            Ok(Self {
-                internal: Rc::new(RendererInternal {
-                    ptr,
-                    owner: RefCell::new(None),
-                }),
-                owner: Some(surface),
-            })
-        }
+        let ptr = unsafe { sys::SDL_CreateSoftwareRenderer(surface.raw()) };
+        let ptr = NonNull::new(ptr).ok_or(Error::new())?;
+        Ok(Self {
+            internal: Rc::new(RendererInternal {
+                ptr,
+                owner: RefCell::new(None),
+            }),
+            owner: Some(surface),
+        })
     }
 
     /// Read pixels from the current rendering target.
@@ -838,8 +831,14 @@ impl<T> Renderer<T> {
             .as_ref()
             .map(RectF32::as_raw)
             .unwrap_or(core::ptr::null());
-        let result =
-            unsafe { sys::SDL_RenderTexture(self.raw(), texture.ptr, src_rect_ptr, dest_rect_ptr) };
+        let result = unsafe {
+            sys::SDL_RenderTexture(
+                self.raw(),
+                texture.ptr.as_ptr(),
+                src_rect_ptr,
+                dest_rect_ptr,
+            )
+        };
         if !result {
             return Err(Error::new());
         }
@@ -1064,7 +1063,7 @@ impl<T> Renderer<T> {
 
         match texture {
             Some(texture) => {
-                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr) };
+                let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr.as_ptr()) };
                 if !result {
                     return Err(Error::new());
                 }
@@ -1150,7 +1149,7 @@ impl<T> Renderer<T> {
     /// Returns a mutable pointer to the underlying raw `SDL_Renderer` used by this `Renderer`.
     #[inline]
     pub fn raw(&self) -> *mut sys::SDL_Renderer {
-        self.internal.ptr
+        self.internal.ptr.as_ptr()
     }
 }
 
@@ -1237,7 +1236,7 @@ impl RenderLogicalPresentationMode {
 /// by that renderer must be dropped.
 pub struct Texture<T = Window> {
     _renderer: Rc<RendererInternal<T>>,
-    ptr: *mut sys::SDL_Texture,
+    ptr: NonNull<sys::SDL_Texture>,
 }
 
 impl<T> Texture<T> {
@@ -1253,7 +1252,7 @@ impl<T> Texture<T> {
     ) -> Result<Self, Error> {
         let format = format.to_ll();
         let access = access.to_ll();
-        let ptr = unsafe {
+        let ptr = NonNull::new(unsafe {
             sys::SDL_CreateTexture(
                 renderer.raw(),
                 format,
@@ -1261,10 +1260,8 @@ impl<T> Texture<T> {
                 width.try_into()?,
                 height.try_into()?,
             )
-        };
-        if ptr.is_null() {
-            return Err(Error::new());
-        }
+        })
+        .ok_or(Error::new())?;
         Ok(Self {
             _renderer: Rc::clone(&renderer.internal),
             ptr,
@@ -1305,11 +1302,10 @@ impl<T> Texture<T> {
     ///
     /// The pixel format of the created texture may be different from the pixel format of the surface.
     pub fn from_surface(renderer: &mut Renderer<T>, surface: &SurfaceRef) -> Result<Self, Error> {
-        let ptr =
-            unsafe { sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _) };
-        if ptr.is_null() {
-            return Err(Error::new());
-        }
+        let ptr = NonNull::new(unsafe {
+            sys::SDL_CreateTextureFromSurface(renderer.raw(), surface.raw() as *mut _)
+        })
+        .ok_or(Error::new())?;
         Ok(Texture {
             _renderer: Rc::clone(&renderer.internal),
             ptr,
@@ -1484,19 +1480,19 @@ impl<T> Texture<T> {
     unsafe fn from_mut_ptr(renderer: &mut Renderer<T>, ptr: *mut sys::SDL_Texture) -> Self {
         Self {
             _renderer: Rc::clone(&renderer.internal),
-            ptr,
+            ptr: NonNull::new_unchecked(ptr),
         }
     }
 
     #[inline]
     fn raw(&self) -> *mut sys::SDL_Texture {
-        self.ptr
+        self.ptr.as_ptr()
     }
 }
 
 impl<T> Drop for Texture<T> {
     fn drop(&mut self) {
-        unsafe { sys::SDL_DestroyTexture(self.ptr) };
+        unsafe { sys::SDL_DestroyTexture(self.ptr.as_ptr()) };
     }
 }
 
@@ -1618,7 +1614,7 @@ impl Vertex {
 }
 
 struct RendererInternal<T> {
-    ptr: *mut sys::SDL_Renderer,
+    ptr: NonNull<sys::SDL_Renderer>,
     /// The owner of this renderer (a window or a surface).
     /// If the parent [`Renderer`] gets dropped before its' [`Texture`]s, then
     /// we move the owner to this struct. That's why we need the [`RefCell`].
@@ -1627,7 +1623,7 @@ struct RendererInternal<T> {
 
 impl<T> Drop for RendererInternal<T> {
     fn drop(&mut self) {
-        unsafe { sys::SDL_DestroyRenderer(self.ptr) };
+        unsafe { sys::SDL_DestroyRenderer(self.ptr.as_ptr()) };
         // if the owner is Some it will get destroyed automatically :)
     }
 }
