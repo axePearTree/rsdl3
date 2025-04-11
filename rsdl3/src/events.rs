@@ -1,5 +1,3 @@
-use alloc::boxed::Box;
-
 use crate::init::EventsSubsystem;
 use crate::sys;
 use crate::Error;
@@ -19,16 +17,108 @@ impl EventsSubsystem {
             .map_err(|_| Error::register(c"Event pump already borrowed."))
     }
 
-    /// Query the state of processing events by type.
-    pub fn event_enabled(&self, type_: u32) -> bool {
-        unsafe { sys::SDL_EventEnabled(type_) }
-    }
-
     /// Returns an [`EventQueue`] that can be used to push events to SDL.
     ///
     /// These events can be consumed by an [`EventPump`].
     pub fn event_queue(&self) -> EventQueue {
         EventQueue(PhantomData)
+    }
+}
+
+/// A zero-sized type used for pumping and handling events.
+///
+/// Only a single instance of this struct can ever be obtained from the [`EventsSubsystem`].
+pub struct EventPump;
+
+impl EventPump {
+    pub fn pump(&mut self) {
+        unsafe { sys::SDL_PumpEvents() }
+    }
+
+    /// Returns an [`Iterator`] that yields [`Event`]s.
+    pub fn poll_iter<'a>(&'a mut self) -> EventPollIter<'a> {
+        EventPollIter(PhantomData)
+    }
+}
+
+/// An [`Iterator`] that yields [`Event`]s.
+pub struct EventPollIter<'a>(PhantomData<&'a ()>);
+
+impl Iterator for EventPollIter<'_> {
+    type Item = Event;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let mut event = MaybeUninit::uninit();
+        // SAFETY:
+        // To call SDL_PollEvent the event subsystem must be alive.
+        // The lifetime of this struct is tied to the EventSubsystem, therefore the subsystem is
+        // alive.
+        let event = unsafe {
+            let result = sys::SDL_PollEvent(event.as_mut_ptr());
+            if !result {
+                return None;
+            }
+            event.assume_init()
+        };
+        Some(Event(event))
+    }
+}
+
+/// Can be used to push [`Event`]s to SDL.
+///
+/// [`Event`]s pushed to this queue can be consumed by an [`EventPump`].
+// This can be shared between threads safely since SDL supports pushing events to the event queue
+// from multiple threads. That being said, its' use is still limited to scoped threads, since its'
+// lifetime is tied to the EventsSubsystem.
+pub struct EventQueue<'a>(PhantomData<&'a ()>);
+
+impl EventQueue<'_> {
+    /// Check for the existence of a certain event type in the event queue.
+    ///
+    /// If you need to check for a range of event types, use [`EventQueue::has_events`] instead.
+    pub fn has_event(&self, type_: u32) -> bool {
+        unsafe { sys::SDL_HasEvent(type_) }
+    }
+
+    /// Check for the existence of a certain event type in the event queue.
+    ///
+    /// If you need to check for a range of event types, use [`EventQueue::has_events`] instead.
+    pub fn has_events(&self, min_type: u32, max_type: u32) -> bool {
+        unsafe { sys::SDL_HasEvents(min_type, max_type) }
+    }
+
+    /// Query the state of processing events by type.
+    pub fn event_enabled(&self, type_: u32) -> bool {
+        unsafe { sys::SDL_EventEnabled(type_) }
+    }
+
+    /// Clear events of a specific type from the event queue.
+    ///
+    /// This will unconditionally remove any events from the queue that match `type`. If you need to remove a range
+    /// of event types, use [`EventQueue::flush_events`] instead.
+    ///
+    /// It's also normal to just ignore events you don't care about in your event loop without calling this function.
+    ///
+    /// This function only affects currently queued events. If you want to make sure that all pending OS events are
+    /// flushed, you can call [`EventPump::pump_events`] on the main thread immediately before the flush call.
+    ///
+    /// If you have user events with custom data that needs to be freed, you should use [`EventPump::peep_events`]
+    /// to remove and clean up those events before calling this function.
+    pub fn flush_event(&self, type_: u32) {
+        unsafe { sys::SDL_FlushEvent(type_) }
+    }
+
+    /// Clear events of a range of types from the event queue.
+    ///
+    /// This will unconditionally remove any events from the queue that are in the range of `minType`
+    /// to `maxType`, inclusive. If you need to remove a single event type, use [`EventQueue::flush_event`] instead.
+    ///
+    /// It's also normal to just ignore events you don't care about in your event loop without calling this function.
+    ///
+    /// This function only affects currently queued events. If you want to make sure that all pending OS events are
+    /// flushed, you can call [`EventPump::pump_events`] on the main thread immediately before the flush call.
+    pub fn flush_events(&self, min_type: u32, max_type: u32) {
+        unsafe { sys::SDL_FlushEvents(min_type, max_type) }
     }
 
     /// Add a callback to be triggered when an event is added to the event queue.
@@ -87,84 +177,6 @@ impl EventsSubsystem {
     pub fn filter_events<T: EventFilterCallback>(&self, filter: &T) {
         let callback: sys::SDL_EventFilter = Some(event_filter_marshall::<T>);
         unsafe { sys::SDL_FilterEvents(callback, filter as *const T as *mut _) };
-    }
-}
-
-/// A zero-sized type used for pumping and handling events.
-///
-/// Only a single instance of this struct can ever be obtained from the [`EventsSubsystem`].
-pub struct EventPump;
-
-impl EventPump {
-    pub fn pump(&mut self) {
-        unsafe { sys::SDL_PumpEvents() }
-    }
-
-    /// Returns an [`Iterator`] that yields [`Event`]s.
-    pub fn poll_iter<'a>(&'a mut self) -> EventPollIter<'a> {
-        EventPollIter(PhantomData)
-    }
-}
-
-/// An [`Iterator`] that yields [`Event`]s.
-pub struct EventPollIter<'a>(PhantomData<&'a ()>);
-
-impl Iterator for EventPollIter<'_> {
-    type Item = Event;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let mut event = MaybeUninit::uninit();
-        // SAFETY:
-        // To call SDL_PollEvent the event subsystem must be alive.
-        // The lifetime of this struct is tied to the EventSubsystem, therefore the subsystem is
-        // alive.
-        let event = unsafe {
-            let result = sys::SDL_PollEvent(event.as_mut_ptr());
-            if !result {
-                return None;
-            }
-            event.assume_init()
-        };
-        Some(Event(event))
-    }
-}
-
-/// Can be used to push [`Event`]s to SDL.
-///
-/// [`Event`]s pushed to this queue can be consumed by an [`EventPump`].
-// This can be shared between threads safely since SDL supports pushing events to the event queue
-// from multiple threads. That being said, its' use is still limited to scoped threads, since its'
-// lifetime is tied to the EventsSubsystem.
-pub struct EventQueue<'a>(PhantomData<&'a ()>);
-
-impl EventQueue<'_> {
-    /// Clear events of a specific type from the event queue.
-    ///
-    /// This will unconditionally remove any events from the queue that match `type`. If you need to remove a range
-    /// of event types, use [`EventQueue::flush_events`] instead.
-    ///
-    /// It's also normal to just ignore events you don't care about in your event loop without calling this function.
-    ///
-    /// This function only affects currently queued events. If you want to make sure that all pending OS events are
-    /// flushed, you can call [`EventPump::pump_events`] on the main thread immediately before the flush call.
-    ///
-    /// If you have user events with custom data that needs to be freed, you should use [`EventPump::peep_events`]
-    /// to remove and clean up those events before calling this function.
-    pub fn flush_event(&self, type_: u32) {
-        unsafe { sys::SDL_FlushEvent(type_) }
-    }
-
-    /// Clear events of a range of types from the event queue.
-    ///
-    /// This will unconditionally remove any events from the queue that are in the range of `minType`
-    /// to `maxType`, inclusive. If you need to remove a single event type, use [`EventQueue::flush_event`] instead.
-    ///
-    /// It's also normal to just ignore events you don't care about in your event loop without calling this function.
-    ///
-    /// This function only affects currently queued events. If you want to make sure that all pending OS events are
-    /// flushed, you can call [`EventPump::pump_events`] on the main thread immediately before the flush call.
-    pub fn flush_events(&self, min_type: u32, max_type: u32) {
-        unsafe { sys::SDL_FlushEvents(min_type, max_type) }
     }
 }
 
