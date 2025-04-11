@@ -35,6 +35,30 @@ impl EventPump {
         unsafe { sys::SDL_PumpEvents() }
     }
 
+    /// Wait indefinitely for the next available event.
+    ///
+    /// Returns the event if `remove_from_queue` is true.
+    pub fn wait_event(&mut self, remove_from_queue: bool) -> Result<Option<Event>, Error> {
+        if remove_from_queue {
+            unsafe {
+                let mut event: MaybeUninit<sys::SDL_Event> = MaybeUninit::uninit();
+                let result = sys::SDL_WaitEvent(event.as_mut_ptr());
+                if !result {
+                    return Err(Error::new());
+                }
+                Ok(Some(Event(event.assume_init())))
+            }
+        } else {
+            unsafe {
+                let result = sys::SDL_WaitEvent(core::ptr::null_mut());
+                if !result {
+                    return Err(Error::new());
+                }
+                Ok(None)
+            }
+        }
+    }
+
     /// Returns an [`Iterator`] that yields [`Event`]s.
     pub fn poll_iter<'a>(&'a mut self) -> EventPollIter<'a> {
         EventPollIter(PhantomData)
@@ -42,7 +66,7 @@ impl EventPump {
 }
 
 /// An [`Iterator`] that yields [`Event`]s.
-pub struct EventPollIter<'a>(PhantomData<&'a ()>);
+pub struct EventPollIter<'a>(PhantomData<&'a *const ()>);
 
 impl Iterator for EventPollIter<'_> {
     type Item = Event;
@@ -67,9 +91,12 @@ impl Iterator for EventPollIter<'_> {
 /// Can be used to push [`Event`]s to SDL.
 ///
 /// [`Event`]s pushed to this queue can be consumed by an [`EventPump`].
+///
 // This can be shared between threads safely since SDL supports pushing events to the event queue
-// from multiple threads. That being said, its' use is still limited to scoped threads, since its'
-// lifetime is tied to the EventsSubsystem.
+// from multiple threads; SDL will synchronize things internally.
+//
+// That being said, its' use is still limited to scoped threads, since its'
+// lifetime is tied to the [`EventsSubsystem`]'s lifetime.
 pub struct EventQueue<'a>(PhantomData<&'a ()>);
 
 impl EventQueue<'_> {
@@ -90,6 +117,11 @@ impl EventQueue<'_> {
     /// Query the state of processing events by type.
     pub fn event_enabled(&self, type_: u32) -> bool {
         unsafe { sys::SDL_EventEnabled(type_) }
+    }
+
+    /// Set the state of processing events by type.
+    pub fn set_event_enabled(&self, type_: u32, enabled: bool) {
+        unsafe { sys::SDL_SetEventEnabled(type_, enabled) };
     }
 
     /// Clear events of a specific type from the event queue.
@@ -222,14 +254,16 @@ impl Event {
         unsafe { self.0.type_ }
     }
 
-    pub fn into_payload(self) -> EventPayload {
+    /// Parses the raw SDL event and converts it into an `EventPayload` that can be safely
+    /// accessed.
+    pub fn payload(&self) -> EventPayload {
         EventPayload::from_ll(self.0)
     }
 }
 
 /// Payload of an SDL event.
 ///
-/// The contents of a raw [`sys::SDL_Event`] get parsed and transformed into this value.
+/// The contents of a raw [`sys::SDL_Event`] are transformed into this value.
 #[derive(Copy, Clone, Debug)]
 pub enum EventPayload {
     Window(WindowEvent),
