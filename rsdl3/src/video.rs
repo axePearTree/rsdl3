@@ -1213,6 +1213,15 @@ impl WindowRef {
         Ok(())
     }
 
+    /// Dismiss the composition window/IME without disabling the subsystem.
+    pub fn clear_composition(&mut self) -> Result<(), Error> {
+        let result = unsafe { sys::SDL_ClearComposition(self.as_ptr() as *mut _) };
+        if !result {
+            return Err(Error::new());
+        }
+        Ok(())
+    }
+
     #[inline]
     pub fn as_ptr(&self) -> *const sys::SDL_Window {
         self as *const Self as *const sys::SDL_Window

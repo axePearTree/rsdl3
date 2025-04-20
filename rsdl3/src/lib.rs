@@ -11,6 +11,7 @@ pub mod clipboard;
 pub mod events;
 mod init;
 pub mod iostream;
+pub mod keyboard;
 pub mod logs;
 pub mod pixels;
 pub mod rect;
