@@ -31,7 +31,7 @@ impl EventsSubsystem {
 pub struct EventPump;
 
 impl EventPump {
-    pub fn pump(&mut self) {
+    pub fn pump_events(&mut self) {
         unsafe { sys::SDL_PumpEvents() }
     }
 
@@ -237,6 +237,23 @@ unsafe extern "C" fn event_filter_marshall<T: EventFilterCallback>(
     let f: &T = unsafe { &*(user_data as *const _) };
     let event = Event(unsafe { *event });
     f.callback(event)
+}
+
+#[repr(u32)]
+#[derive(Copy, Clone, Debug)]
+pub enum EventAction {
+    /// Add events to the back of the queue.
+    Add = sys::SDL_EventAction_SDL_ADDEVENT,
+    /// Retrieve/remove events from the front of the queue.
+    Get = sys::SDL_EventAction_SDL_GETEVENT,
+    /// Check but don't remove events from the queue front.
+    Peek = sys::SDL_EventAction_SDL_PEEKEVENT,
+}
+
+impl EventAction {
+    pub fn to_ll(&self) -> sys::SDL_EventAction {
+        *self as u32
+    }
 }
 
 /// A wrapper on top of [`sys::SDL_Event`].
