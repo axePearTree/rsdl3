@@ -81,12 +81,15 @@ impl KeyboardState {
     }
 }
 
+/// Holds the current set of available keyboards.
+///
+/// The keyboards can be iterated over by calling [`Keyboards::iter`].
 pub struct Keyboards {
     ptr: NonNull<sys::SDL_KeyboardID>,
 }
 
 impl Keyboards {
-    pub fn iter(&self) -> KeyboardsIter {
+    pub fn iter(&self) -> impl Iterator<Item = KeyboardId> {
         KeyboardsIter {
             ptr: self.ptr,
             _m: PhantomData,
@@ -102,6 +105,7 @@ impl Drop for Keyboards {
     }
 }
 
+/// An iterator over keyboard IDs.
 pub struct KeyboardsIter<'a> {
     ptr: NonNull<sys::SDL_KeyboardID>,
     _m: PhantomData<&'a ()>,
