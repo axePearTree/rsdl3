@@ -140,6 +140,9 @@ impl VideoSubsystem {
     pub fn display_name(&self, display_id: u32) -> Result<String, Error> {
         unsafe {
             let name = sys::SDL_GetDisplayName(display_id);
+            if name.is_null() {
+                return Err(Error::new());
+            }
             let c_str = CStr::from_ptr(name);
             Ok(c_str.to_string_lossy().into_owned())
         }

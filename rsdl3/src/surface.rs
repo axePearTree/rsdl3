@@ -3,7 +3,7 @@ use crate::init::VideoSubsystem;
 use crate::iostream::IOStream;
 #[allow(unused)]
 use crate::pixels::PixelFormatDetails;
-use crate::pixels::{Color, ColorF32, Colorspace, Palette, PixelFormat};
+use crate::pixels::{Color, ColorF32, Colorspace, Palette, PaletteRef, PixelFormat};
 use crate::rect::Rect;
 use crate::render::{Renderer, Texture};
 use crate::{sys, Error};
@@ -830,12 +830,12 @@ impl SurfaceRef {
     }
 
     /// Returns the palette used by the surface.
-    pub fn palette(&self) -> Option<Palette> {
+    pub fn palette(&self) -> Option<&PaletteRef> {
         let result = unsafe { sys::SDL_GetSurfacePalette(self.raw()) };
         if result.is_null() {
             return None;
         }
-        Some(unsafe { Palette::from_mut_ptr(result) })
+        Some(unsafe { PaletteRef::from_ptr(result) })
     }
 
     /// Returns whether the surface has a color key.

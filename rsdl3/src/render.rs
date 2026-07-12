@@ -11,7 +11,7 @@ use alloc::string::String;
 use core::cell::RefCell;
 use core::ffi::CStr;
 use core::hint::unreachable_unchecked;
-use core::mem::MaybeUninit;
+use core::mem::{ManuallyDrop, MaybeUninit};
 use core::ptr::NonNull;
 
 /// A structure representing rendering state.
@@ -1055,7 +1055,7 @@ impl<T> Renderer<T> {
         let previous_target = unsafe {
             let ptr = sys::SDL_GetRenderTarget(self.raw());
             if !ptr.is_null() {
-                Some(Texture::from_mut_ptr(self, ptr))
+                Some(ptr)
             } else {
                 None
             }
@@ -1063,9 +1063,19 @@ impl<T> Renderer<T> {
 
         match texture {
             Some(texture) => {
+                // We're basically moving ownership of the texture to *the internal SDL Renderer*.
+                // This means the destructor cannot run safely otherwise it will destroy the texture.
+                // Still we need to drop the Rc from the texture.
+                let mut texture = ManuallyDrop::new(texture);
                 let result = unsafe { sys::SDL_SetRenderTarget(self.raw(), texture.ptr.as_ptr()) };
                 if !result {
+                    unsafe {
+                        ManuallyDrop::drop(&mut texture);
+                    }
                     return Err(Error::new());
+                }
+                unsafe {
+                    core::ptr::drop_in_place(&mut texture._renderer);
                 }
             }
             _ => {
@@ -1076,7 +1086,8 @@ impl<T> Renderer<T> {
             }
         }
 
-        Ok(previous_target)
+        // SAFETY: Ownership of the current render target can only ever be obtained from this function.
+        Ok(previous_target.map(|ptr| unsafe { Texture::from_mut_ptr(self, ptr) }))
     }
 
     /// Update the screen with any rendering performed since the previous call.
