@@ -11,7 +11,7 @@ impl EventsSubsystem {
     /// `EventPump` can ever be active.
     ///
     /// This will return an error if the `EventPump` is already borrowed.
-    pub fn event_pump(&self) -> Result<RefMut<EventPump>, Error> {
+    pub fn event_pump<'a>(&'a self) -> Result<RefMut<'a, EventPump>, Error> {
         self.event_pump
             .try_borrow_mut()
             .map_err(|_| Error::register(c"Event pump already borrowed."))
@@ -20,7 +20,7 @@ impl EventsSubsystem {
     /// Returns an [`EventQueue`] that can be used to push events to SDL.
     ///
     /// These events can be consumed by an [`EventPump`].
-    pub fn event_queue(&self) -> EventQueue {
+    pub fn event_queue<'a>(&'a self) -> EventQueue<'a> {
         EventQueue(PhantomData)
     }
 }

@@ -1483,7 +1483,7 @@ impl<T> Texture<T> {
     /// the application level.
     ///
     /// You must drop the lock to unlock the pixels and apply any changes.
-    pub fn lock(&mut self, rect: Option<Rect>) -> Result<TextureLock<T>, Error> {
+    pub fn lock<'a>(&'a mut self, rect: Option<Rect>) -> Result<TextureLock<'a, T>, Error> {
         TextureLock::new(self, rect)
     }
 

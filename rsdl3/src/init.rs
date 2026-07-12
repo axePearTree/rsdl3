@@ -216,6 +216,6 @@ impl SdlDrop {
 impl Drop for SdlDrop {
     fn drop(&mut self) {
         unsafe { sys::SDL_Quit() };
-        IS_SDL_INITIALIZED.store(true, Ordering::Relaxed);
+        IS_SDL_INITIALIZED.store(UNINITIALIZED, Ordering::Relaxed);
     }
 }

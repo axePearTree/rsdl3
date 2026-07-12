@@ -28,7 +28,12 @@ impl VideoSubsystem {
 
     /// Creates a `Window`.
     /// This method is equivalent to [`Surface::new`].
-    pub fn create_surface(&self, w: u32, h: u32, format: PixelFormat) -> Result<Surface, Error> {
+    pub fn create_surface<'a>(
+        &'a self,
+        w: u32,
+        h: u32,
+        format: PixelFormat,
+    ) -> Result<Surface<'a>, Error> {
         Surface::new(self, w, h, format)
     }
 

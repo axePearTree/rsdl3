@@ -6,6 +6,7 @@ use crate::CameraSubsystem;
 use crate::Error;
 use alloc::string::String;
 use alloc::vec::Vec;
+use core::ffi::c_void;
 use core::ffi::CStr;
 use core::mem::MaybeUninit;
 use core::ptr::NonNull;
@@ -73,12 +74,19 @@ impl CameraSubsystem {
             if ptr.is_null() {
                 return Err(Error::new());
             }
-            let len = usize::try_from(count)?;
+            let len = match usize::try_from(count) {
+                Ok(len) => len,
+                Err(err) => {
+                    sys::SDL_free(ptr as *mut c_void);
+                    return Err(err.into());
+                }
+            };
             let slice = core::slice::from_raw_parts(ptr, len);
             let mut vec = Vec::with_capacity(len);
             for &ptr in slice {
                 vec.push(CameraSpec::from_ll(*ptr));
             }
+            sys::SDL_free(ptr as *mut c_void);
             Ok(vec)
         }
     }
@@ -263,7 +271,7 @@ impl Camera {
     ///
     /// [`EventPayload`]: crate::events::EventPayload
     /// [`CameraEvent`]: crate::events::CameraEvent
-    pub fn acquire_frame(&mut self) -> Result<Option<CameraFrame>, Error> {
+    pub fn acquire_frame<'a>(&'a mut self) -> Result<Option<CameraFrame<'a>>, Error> {
         let mut timestamp = 0;
         unsafe {
             let surface = sys::SDL_AcquireCameraFrame(self.ptr.as_ptr(), &raw mut timestamp);

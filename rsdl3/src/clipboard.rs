@@ -34,17 +34,7 @@ impl VideoSubsystem {
     pub fn clipboard_text(&self) -> Option<String> {
         unsafe {
             let ptr = sys::SDL_GetClipboardText();
-            if ptr.is_null() {
-                return None;
-            }
-            let c_str = CStr::from_ptr(ptr);
-            if c_str.to_bytes().len() == 0 {
-                return None;
-            }
-            // We're choosing to allocate here instead of converting to a &str because we're not
-            // sure whether or not SDL will preserve the contents of the string for the lifetime
-            // of &self.
-            Some(c_str.to_string_lossy().into_owned())
+            convert_sdl_heap_allocated_str_to_string(ptr)
         }
     }
 
@@ -57,7 +47,9 @@ impl VideoSubsystem {
             if ptr.is_null() {
                 return Err(Error::new());
             }
-            Ok(core::slice::from_raw_parts(ptr as *mut u8, size).to_vec())
+            let vec = core::slice::from_raw_parts(ptr as *mut u8, size).to_vec();
+            sys::SDL_free(ptr as *mut c_void);
+            Ok(vec)
         }
     }
 
@@ -97,17 +89,7 @@ impl VideoSubsystem {
     pub fn primary_selection_text(&self) -> Option<String> {
         unsafe {
             let ptr = sys::SDL_GetPrimarySelectionText();
-            if ptr.is_null() {
-                return None;
-            }
-            let c_str = CStr::from_ptr(ptr);
-            if c_str.to_bytes().len() == 0 {
-                return None;
-            }
-            // We're choosing to allocate here instead of converting to a &str because we're not
-            // sure whether or not SDL will preserve the contents of the string for the lifetime
-            // of &self.
-            Some(c_str.to_string_lossy().into_owned())
+            convert_sdl_heap_allocated_str_to_string(ptr)
         }
     }
 
@@ -129,4 +111,22 @@ impl VideoSubsystem {
             Ok(vec)
         }
     }
+}
+
+unsafe fn convert_sdl_heap_allocated_str_to_string(ptr: *mut i8) -> Option<String> {
+    if ptr.is_null() {
+        return None;
+    }
+    let c_str = CStr::from_ptr(ptr);
+    if c_str.to_bytes().len() == 0 {
+        // An empty string must still be deallocated.
+        sys::SDL_free(ptr as *mut c_void);
+        return None;
+    }
+    // We're choosing to allocate here instead of converting to a &str because we're not
+    // sure whether or not SDL will preserve the contents of the string for the lifetime
+    // of &self.
+    let text = c_str.to_string_lossy().into_owned();
+    sys::SDL_free(ptr as *mut c_void);
+    Some(text)
 }
