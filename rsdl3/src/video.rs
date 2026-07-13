@@ -352,7 +352,7 @@ impl VideoSubsystem {
     /// Loads an image from the specified file path into a [`Surface`].
     ///
     /// This method is equivalent to [`Surface::from_image`].
-    pub fn load_image(&self, path: &str) -> Result<Surface, Error> {
+    pub fn load_image<'a>(&'a self, path: &str) -> Result<Surface<'a>, Error> {
         Surface::load_image(self, path)
     }
 
@@ -361,7 +361,7 @@ impl VideoSubsystem {
     /// Loads an image from the specified file path into a [`Surface`].
     ///
     /// This method is equivalent to [`Surface::from_image`].
-    pub fn load_image_from_io(&self, io: IOStream) -> Result<Surface, Error> {
+    pub fn load_image_from_io<'a>(&'a self, io: IOStream) -> Result<Surface<'a>, Error> {
         Surface::load_image_from_io(self, io)
     }
 }
