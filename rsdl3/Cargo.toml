@@ -6,9 +6,14 @@ edition = "2021"
 [features]
 image = ["rsdl3-sys/image"]
 main = ["rsdl3-sys/main"]
+runtime = ["main", "dep:rsdl3-macros"]
 
 [dependencies]
 rsdl3-sys = { path = "../rsdl3-sys" }
+rsdl3-macros = { path = "../rsdl3-macros", optional = true }
+
+[build-dependencies]
+cc = "1"
 
 [package.metadata.docs.rs]
 all-features = true

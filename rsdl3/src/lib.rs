@@ -16,6 +16,8 @@ pub mod logs;
 pub mod pixels;
 pub mod rect;
 pub mod render;
+#[cfg(feature = "runtime")]
+pub mod runtime;
 pub mod surface;
 
 use core::ffi::CStr;
@@ -25,6 +27,8 @@ use alloc::string::String;
 use alloc::string::ToString;
 pub use init::*;
 pub use rsdl3_sys as sys;
+#[cfg(feature = "runtime")]
+pub use runtime::main;
 
 /// Zero-sized error type for any operations involving SDL.
 ///
@@ -117,5 +121,15 @@ pub fn revision() -> String {
         CStr::from_ptr(sys::SDL_GetRevision())
             .to_string_lossy()
             .to_string()
+    }
+}
+
+/// Wait a specified number of milliseconds before returning.
+///
+/// This function waits a specified number of milliseconds before returning. It waits at least the
+/// specified time, but possibly longer due to OS scheduling.
+pub fn sleep(millis: u32) {
+    unsafe {
+        crate::sys::SDL_Delay(millis);
     }
 }
