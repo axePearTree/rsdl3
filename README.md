@@ -13,6 +13,7 @@ SDL3 bindings for Rust.
 - `image`: enables SDL_image bindings through `rsdl3-sys/image`.
 - `runtime`: enables the SDL-provided entrypoint runtime for `#![no_std]` / `#![no_main]` apps, including `#[rsdl3::main]`, `rsdl3::runtime::Args`, allocator glue, panic glue, and the SDL main shim.
 - `no_panic_handler`: disables `rsdl3::runtime`'s default panic handler so the final application can provide its own `#[panic_handler]`.
+- `no_runtime_shim`: disables `rsdl3`'s bundled SDL main C shim build. Use this with `runtime` when the final project must compile/link the shim with a custom platform toolchain.
 
 ## Adding to an existing project
 
@@ -84,6 +85,20 @@ fn main(_args: rsdl3::runtime::Args) -> Result<(), rsdl3::Error> {
 ```
 
 `#[rsdl3::main]` exports `SDL_main`; the runtime shim includes SDL's `SDL_main.h` support so SDL owns the real platform startup path.
+
+If you want to use a specific C compiler or SDK toolchain, disable the bundled shim and provide it from your final project instead:
+
+```toml
+[dependencies]
+rsdl3 = { path = "../rsdl3/rsdl3", features = ["runtime", "no_runtime_shim"] }
+```
+
+Your application build system must then compile an equivalent C source with the platform toolchain:
+
+```c
+#define SDL_MAIN_AVAILABLE 1
+#include <SDL3/SDL_main.h>
+```
 
 ## Panic Handling
 

@@ -1,7 +1,9 @@
 fn main() {
     println!("cargo:rerun-if-changed=src/runtime/sdl_main_shim.c");
 
-    if std::env::var_os("CARGO_FEATURE_RUNTIME").is_some() {
+    if std::env::var_os("CARGO_FEATURE_RUNTIME").is_some()
+        && std::env::var_os("CARGO_FEATURE_NO_RUNTIME_SHIM").is_none()
+    {
         cc::Build::new()
             .file("src/runtime/sdl_main_shim.c")
             .compile("rsdl3_main_shim");
