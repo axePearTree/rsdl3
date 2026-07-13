@@ -5,14 +5,15 @@ edition = "2021"
 
 [features]
 image = ["rsdl3-sys/image"]
-runtime = ["dep:rsdl3-macros"]
-no_panic_handler = []
-no_runtime_shim = []
+main = ["dep:rsdl3-macros"]
+panic_handler = ["main", "dep:libc"]
+runtime = ["main", "panic_handler", "runtime_shim"]
+runtime_shim = ["main"]
 
 [dependencies]
 rsdl3-sys = { path = "../rsdl3-sys" }
 rsdl3-macros = { path = "../rsdl3-macros", optional = true }
-libc = { version = "0.2", default-features = false }
+libc = { version = "0.2", default-features = false, optional = true }
 
 [build-dependencies]
 cc = "1"

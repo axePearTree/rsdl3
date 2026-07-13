@@ -11,9 +11,10 @@ SDL3 bindings for Rust.
 ## Features
 
 - `image`: enables SDL_image bindings through `rsdl3-sys/image`.
-- `runtime`: enables the SDL-provided entrypoint runtime for `#![no_std]` / `#![no_main]` apps, including `#[rsdl3::main]`, `rsdl3::runtime::Args`, allocator glue, panic glue, and the SDL main shim.
-- `no_panic_handler`: disables `rsdl3::runtime`'s default panic handler so the final application can provide its own `#[panic_handler]`.
-- `no_runtime_shim`: disables `rsdl3`'s bundled SDL main C shim build. Use this with `runtime` when the final project must compile/link the shim with a custom platform toolchain.
+- `main`: enables SDL entrypoint support, including `#[rsdl3::main]` and `rsdl3::runtime::Args`.
+- `runtime_shim`: compiles and links the bundled SDL main C shim. Use this unless your final project must compile the shim with a custom platform toolchain.
+- `panic_handler`: enables `rsdl3::runtime`'s default panic handler.
+- `runtime`: convenience feature for managed `#![no_std]` / `#![no_main]` apps; enables `main`, `runtime_shim`, allocator glue, and `panic_handler`.
 
 ## Adding to an existing project
 
@@ -90,7 +91,7 @@ If you want to use a specific C compiler or SDK toolchain, disable the bundled s
 
 ```toml
 [dependencies]
-rsdl3 = { path = "../rsdl3/rsdl3", features = ["runtime", "no_runtime_shim"] }
+rsdl3 = { path = "../rsdl3/rsdl3", features = ["main", "panic_handler"] }
 ```
 
 Your application build system must then compile an equivalent C source with the platform toolchain:
@@ -102,13 +103,13 @@ Your application build system must then compile an equivalent C source with the 
 
 ## Panic Handling
 
-With `runtime`, `rsdl3` provides a default panic handler unless `no_panic_handler` is enabled. The default handler logs the panic message through SDL logging and exits with status `1`.
+With `runtime`, `rsdl3` provides a default panic handler. The default handler logs the panic message through SDL logging and exits with status `1`.
 
-If your platform needs different panic behavior, enable `no_panic_handler` and define your own handler in the final application:
+If your platform needs different panic behavior, use `main` instead of `runtime` and define your own handler in the final application:
 
 ```toml
 [dependencies]
-rsdl3 = { path = "../rsdl3/rsdl3", features = ["runtime", "no_panic_handler"] }
+rsdl3 = { path = "../rsdl3/rsdl3", features = ["main", "runtime_shim"] }
 ```
 
 ```rust

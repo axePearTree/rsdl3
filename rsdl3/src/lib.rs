@@ -16,7 +16,7 @@ pub mod logs;
 pub mod pixels;
 pub mod rect;
 pub mod render;
-#[cfg(feature = "runtime")]
+#[cfg(feature = "main")]
 pub mod runtime;
 pub mod surface;
 
@@ -27,7 +27,7 @@ use alloc::string::String;
 use alloc::string::ToString;
 pub use init::*;
 pub use rsdl3_sys as sys;
-#[cfg(feature = "runtime")]
+#[cfg(feature = "main")]
 pub use runtime::main;
 
 /// Zero-sized error type for any operations involving SDL.
