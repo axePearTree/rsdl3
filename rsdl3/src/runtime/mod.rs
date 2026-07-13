@@ -29,9 +29,13 @@ unsafe extern "C" {}
 #[unsafe(no_mangle)]
 extern "C" fn rust_eh_personality() {}
 
+#[cfg(not(feature = "no_panic_handler"))]
 #[panic_handler]
-fn panic(_info: &PanicInfo<'_>) -> ! {
-    loop {}
+fn panic(info: &PanicInfo<'_>) -> ! {
+    use crate::logs::LogCategory;
+    let message = info.message();
+    crate::log_error!(LogCategory::Error, "{}", message);
+    unsafe { libc::exit(1) }
 }
 
 #[derive(Copy, Clone)]
