@@ -27,7 +27,9 @@ use alloc::string::String;
 use alloc::string::ToString;
 pub use init::*;
 pub use rsdl3_sys as sys;
-#[cfg(feature = "main")]
+#[cfg(feature = "use_callbacks")]
+pub use runtime::application;
+#[cfg(all(feature = "main", not(feature = "use_callbacks")))]
 pub use runtime::main;
 
 /// Zero-sized error type for any operations involving SDL.

@@ -1,7 +1,8 @@
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{
-    parse_macro_input, Error, FnArg, GenericArgument, ItemFn, PathArguments, ReturnType, Type,
+    parse_macro_input, Error, FnArg, GenericArgument, ItemFn, ItemStruct, PathArguments,
+    ReturnType, Type,
 };
 
 #[proc_macro_attribute]
@@ -36,6 +37,54 @@ pub fn main(_attr: TokenStream, item: TokenStream) -> TokenStream {
                 ::core::result::Result::Ok(()) => 0,
                 ::core::result::Result::Err(_) => 1,
             }
+        }
+    }
+    .into()
+}
+
+#[proc_macro_attribute]
+pub fn application(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    let application = parse_macro_input!(item as ItemStruct);
+
+    if let Err(err) = validate_application(&application) {
+        return err.to_compile_error().into();
+    }
+
+    let application_name = &application.ident;
+
+    quote! {
+        #application
+
+        #[unsafe(no_mangle)]
+        pub unsafe extern "C" fn SDL_AppInit(
+            appstate: *mut *mut ::core::ffi::c_void,
+            argc: ::core::ffi::c_int,
+            argv: *mut *mut ::core::ffi::c_char,
+        ) -> ::rsdl3::sys::SDL_AppResult {
+            ::rsdl3::runtime::callbacks::init_callbacks::<#application_name>(appstate, argc, argv)
+        }
+
+        #[unsafe(no_mangle)]
+        pub unsafe extern "C" fn SDL_AppIterate(
+            appstate: *mut ::core::ffi::c_void,
+        ) -> ::rsdl3::sys::SDL_AppResult {
+            unsafe { ::rsdl3::runtime::callbacks::iterate_callbacks::<#application_name>(appstate) }
+        }
+
+        #[unsafe(no_mangle)]
+        pub unsafe extern "C" fn SDL_AppEvent(
+            appstate: *mut ::core::ffi::c_void,
+            event: *mut ::rsdl3::sys::SDL_Event,
+        ) -> ::rsdl3::sys::SDL_AppResult {
+            unsafe { ::rsdl3::runtime::callbacks::event_callbacks::<#application_name>(appstate, event) }
+        }
+
+        #[unsafe(no_mangle)]
+        pub unsafe extern "C" fn SDL_AppQuit(
+            appstate: *mut ::core::ffi::c_void,
+            result: ::rsdl3::sys::SDL_AppResult,
+        ) {
+            unsafe { ::rsdl3::runtime::callbacks::quit_callbacks::<#application_name>(appstate, result) }
         }
     }
     .into()
@@ -97,6 +146,17 @@ fn validate_function(function: &ItemFn) -> Result<(), Error> {
             "rsdl3::main function must return Result<(), E>",
         )),
     }
+}
+
+fn validate_application(application: &ItemStruct) -> Result<(), Error> {
+    if !application.generics.params.is_empty() {
+        return Err(Error::new_spanned(
+            &application.generics,
+            "rsdl3::application does not support generic application types",
+        ));
+    }
+
+    Ok(())
 }
 
 fn is_result_unit(ty: &Type) -> bool {

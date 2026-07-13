@@ -1,19 +1,23 @@
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
 use core::alloc::{GlobalAlloc, Layout};
 use core::ffi::{c_char, c_int};
+
 #[cfg(feature = "panic_handler")]
 use core::panic::PanicInfo;
 
+#[cfg(feature = "use_callbacks")]
+pub mod callbacks;
+
+#[cfg(feature = "use_callbacks")]
+pub use rsdl3_macros::application;
+
+#[cfg(not(feature = "use_callbacks"))]
 pub use rsdl3_macros::main;
 
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
 #[global_allocator]
 static ALLOCATOR: SDLAllocator = SDLAllocator;
 
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
 struct SDLAllocator;
 
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
 unsafe impl GlobalAlloc for SDLAllocator {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         unsafe { crate::sys::SDL_malloc(layout.size()).cast() }
@@ -24,18 +28,14 @@ unsafe impl GlobalAlloc for SDLAllocator {
     }
 }
 
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
 #[link(name = "c")]
 unsafe extern "C" {}
 
-#[cfg(all(
-    any(feature = "runtime", feature = "panic_handler"),
-    target_env = "gnu"
-))]
+#[cfg(target_env = "gnu")]
 #[link(name = "gcc_s")]
 unsafe extern "C" {}
 
-#[cfg(any(feature = "runtime", feature = "panic_handler"))]
+#[cfg(feature = "panic_handler")]
 #[unsafe(no_mangle)]
 extern "C" fn rust_eh_personality() {}
 
