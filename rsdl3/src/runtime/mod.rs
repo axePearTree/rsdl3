@@ -1,32 +1,16 @@
-use core::alloc::{GlobalAlloc, Layout};
+#[cfg(feature = "app")]
+mod app;
+
 use core::ffi::{c_char, c_int};
 
-#[cfg(feature = "panic_handler")]
-use core::panic::PanicInfo;
-
-#[cfg(feature = "use_callbacks")]
+#[cfg(feature = "callbacks")]
 pub mod callbacks;
 
-#[cfg(feature = "use_callbacks")]
+#[cfg(feature = "callbacks")]
 pub use rsdl3_macros::application;
 
-#[cfg(not(feature = "use_callbacks"))]
+#[cfg(not(feature = "callbacks"))]
 pub use rsdl3_macros::main;
-
-#[global_allocator]
-static ALLOCATOR: SDLAllocator = SDLAllocator;
-
-struct SDLAllocator;
-
-unsafe impl GlobalAlloc for SDLAllocator {
-    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
-        unsafe { crate::sys::SDL_malloc(layout.size()).cast() }
-    }
-
-    unsafe fn dealloc(&self, ptr: *mut u8, _layout: Layout) {
-        unsafe { crate::sys::SDL_free(ptr.cast()) }
-    }
-}
 
 #[link(name = "c")]
 unsafe extern "C" {}
@@ -34,19 +18,6 @@ unsafe extern "C" {}
 #[cfg(target_env = "gnu")]
 #[link(name = "gcc_s")]
 unsafe extern "C" {}
-
-#[cfg(feature = "panic_handler")]
-#[unsafe(no_mangle)]
-extern "C" fn rust_eh_personality() {}
-
-#[cfg(feature = "panic_handler")]
-#[panic_handler]
-fn panic(info: &PanicInfo<'_>) -> ! {
-    use crate::logs::LogCategory;
-    let message = info.message();
-    crate::log_error!(LogCategory::Error, "{}", message);
-    unsafe { libc::exit(1) }
-}
 
 #[derive(Copy, Clone)]
 pub struct Args {

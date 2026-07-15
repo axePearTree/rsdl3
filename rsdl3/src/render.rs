@@ -922,8 +922,7 @@ impl<T> Renderer<T> {
         Ok(())
     }
 
-    /// Copy a portion of the source texture to the current rendering target, with rotation and flipping,
-    /// at subpixel precision.
+    /// Copy a portion of the source texture to the current rendering target, with rotation and flipping, at subpixel precision.
     pub fn render_texture_rotated(
         &mut self,
         texture: &Texture<T>,

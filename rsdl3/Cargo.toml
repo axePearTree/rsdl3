@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [features]
+default = []
 image = ["rsdl3-sys/image"]
 main = ["dep:rsdl3-macros"]
-panic_handler = ["main", "dep:libc"]
-runtime_shim = ["main"]
-use_callbacks = ["main"]
+callbacks = ["main"]
+app = ["callbacks", "dep:libc"]
 
 [dependencies]
 rsdl3-sys = { path = "../rsdl3-sys" }

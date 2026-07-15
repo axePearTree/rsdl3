@@ -3,8 +3,7 @@
 
 extern crate alloc;
 
-pub mod video;
-
+pub mod allocator;
 pub mod blendmode;
 pub mod camera;
 pub mod clipboard;
@@ -19,6 +18,7 @@ pub mod render;
 #[cfg(feature = "main")]
 pub mod runtime;
 pub mod surface;
+pub mod video;
 
 use core::ffi::CStr;
 use core::marker::PhantomData;
@@ -27,9 +27,9 @@ use alloc::string::String;
 use alloc::string::ToString;
 pub use init::*;
 pub use rsdl3_sys as sys;
-#[cfg(feature = "use_callbacks")]
+#[cfg(feature = "callbacks")]
 pub use runtime::application;
-#[cfg(all(feature = "main", not(feature = "use_callbacks")))]
+#[cfg(all(feature = "main", not(feature = "callbacks")))]
 pub use runtime::main;
 
 /// Zero-sized error type for any operations involving SDL.

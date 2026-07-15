@@ -2,24 +2,27 @@
 
 Simple Rust bindings for SDL3.
 
-`rsdl3` is a safe, `no_std`-friendly wrapper over SDL3. You can use it like a
-normal Rust library, or let SDL own the platform entrypoint for portable
+`rsdl3` is a safe, `no_std`-friendly wrapper over SDL3. It can be used as a
+regular Rust library, or as a complete SDL-managed runtime for `#![no_std]` /
 `#![no_main]` applications.
 
-## Crates
+## Workspace
 
 - `rsdl3`: safe SDL3 wrapper.
 - `rsdl3-sys`: raw SDL3 bindings.
-- `rsdl3-macros`: internal proc-macro crate used by `rsdl3` entrypoint support.
+- `rsdl3-macros`: proc macros used by SDL entrypoint support.
 
-## Quick Start
+## Features
 
-```toml
-[dependencies]
-rsdl3 = { path = "../rsdl3/rsdl3" }
-```
+- `image`: enables SDL_image bindings through `rsdl3-sys/image`.
+- `main`: enables SDL entrypoint support, `#[rsdl3::main]`, and `rsdl3::runtime::Args`.
+- `callbacks`: enables SDL callback mode and `#[rsdl3::application]`; also enables `main`.
+- `app`: complete final-app runtime; enables `callbacks`, the bundled SDL main shim, SDL-backed global allocation, and the default panic handler.
 
-### Native SDL3
+The `allocator` module is always available. The `app` feature installs
+`rsdl3::allocator::SDLAllocator` as the global allocator for the final binary.
+
+## Native SDL3
 
 The target system must provide SDL3 headers and libraries. If SDL3 is not in the
 default linker search path, add it from your application build script.
@@ -27,10 +30,14 @@ default linker search path, add it from your application build script.
 ```rust
 // build.rs
 fn main() {
+    // Add the path to the SDL3 lib.
+    // This is not needed if you have a system-wide installation of SDL3.
     println!("cargo:rustc-link-search=native=/path/to/sdl3/lib");
+
+    // Link SDL3
     println!("cargo:rustc-link-lib=SDL3");
 
-    // If rsdl3's `image` feature is enabled, link SDL3_image too.
+    // Link SDL3_image - required when rsdl3's `image` feature is enabled.
     println!("cargo:rustc-link-lib=SDL3_image");
 }
 ```
@@ -38,10 +45,19 @@ fn main() {
 Cargo expects the library name without the `lib` prefix or extension:
 `libSDL3.so`, `libSDL3.a`, or `SDL3.lib` are linked as `SDL3`.
 
-### Example
+## Regular Rust App
+
+If you want a normal Rust `main`, use the default features or choose the exact
+library features you need.
+
+```toml
+[dependencies]
+rsdl3 = { path = "../rsdl3/rsdl3" }
+```
 
 ```rust
 fn main() -> Result<(), rsdl3::Error> {
+    // SAFETY: Sdl must be initialized in the main thread.
     let mut sdl = unsafe { rsdl3::Sdl::init() }?;
     let video = sdl.video()?;
 
@@ -51,59 +67,14 @@ fn main() -> Result<(), rsdl3::Error> {
 }
 ```
 
-## SDL Entrypoints
+## SDL App Runtime
 
-SDL can provide the real platform entrypoint. This is useful for portable
-desktop/mobile startup and for `#![no_std]` / `#![no_main]` applications.
-
-### Classic `SDL_main`
-
-Use `#[rsdl3::main]` when your app has one main function.
+Use `app` for final `#![no_std]` SDL apps. SDL owns startup and calls your
+application through callbacks.
 
 ```toml
 [dependencies]
-rsdl3 = { path = "../rsdl3/rsdl3", features = [
-    "main",
-    "runtime_shim",
-    "panic_handler",
-] }
-
-[profile.dev]
-panic = "abort"
-
-[profile.release]
-panic = "abort"
-```
-
-```rust
-#![no_std]
-#![no_main]
-
-#[rsdl3::main]
-fn main(_args: rsdl3::runtime::Args) -> Result<(), rsdl3::Error> {
-    let mut sdl = unsafe { rsdl3::Sdl::init() }?;
-    let video = sdl.video()?;
-
-    let _window = video.create_window("rsdl3 app", 800, 600, None)?;
-
-    Ok(())
-}
-```
-
-`#[rsdl3::main]` exports `SDL_main`. With `runtime_shim`, `rsdl3` compiles a
-tiny C shim that includes SDL's `SDL_main.h`, so SDL handles platform startup.
-
-### SDL Callback Mode
-
-Use `#[rsdl3::application]` when SDL should drive your app through callbacks.
-
-```toml
-[dependencies]
-rsdl3 = { path = "../rsdl3/rsdl3", features = [
-    "use_callbacks",
-    "runtime_shim",
-    "panic_handler",
-] }
+rsdl3 = { path = "../rsdl3/rsdl3", features = ["app"] }
 
 [profile.dev]
 panic = "abort"
@@ -143,38 +114,46 @@ Callback return values are ordinary Rust results:
 - `Ok(ControlFlow::Success)`: stop successfully.
 - `Err(rsdl3::Error)`: stop with failure.
 
-When `runtime_shim` and `use_callbacks` are enabled together, `rsdl3` compiles
-the shim with `SDL_MAIN_USE_CALLBACKS=1`. Do not use `#[rsdl3::main]` in
-callback mode.
+With `app` and `callbacks`, `rsdl3` compiles a tiny C shim that includes
+SDL's `SDL_main.h` with `SDL_MAIN_USE_CALLBACKS=1`, so SDL handles platform startup.
+Do not use `#[rsdl3::main]` in callback mode.
 
-## Features
+## Classic `SDL_main`
 
-- `image`: enables SDL_image bindings through `rsdl3-sys/image`.
-- `main`: enables SDL entrypoint support and `rsdl3::runtime::Args`.
-- `runtime_shim`: compiles and links the bundled SDL main C shim.
-- `panic_handler`: provides a default panic handler for final `no_std` apps.
-- `use_callbacks`: enables `#[rsdl3::application]` and SDL callback mode.
+Use `#[rsdl3::main]` when you want SDL's classic `SDL_main` entrypoint instead
+of callback mode.
 
-There are no default features. Choose classic mode with `main`, or callback mode
-with `use_callbacks`. Callback mode intentionally hides `#[rsdl3::main]`.
+```toml
+[dependencies]
+rsdl3 = { path = "../rsdl3/rsdl3", default-features = false, features = ["main"] }
+```
 
-## Custom Shim
+```rust
+#![no_std]
+#![no_main]
 
-Most applications should use `runtime_shim`. If your final project must compile
-the SDL main shim with a custom C compiler or SDK, disable `runtime_shim` and
-provide the shim yourself.
+use rsdl3::allocator::SDLAllocator;
+use rsdl3::runtime::Args;
 
-Classic mode shim:
+#[global_allocator]
+static ALLOCATOR: SDLAllocator = SDLAllocator;
+
+#[rsdl3::main]
+fn main(_args: Args) -> Result<(), rsdl3::Error> {
+    let mut sdl = unsafe { rsdl3::Sdl::init() }?;
+    let video = sdl.video()?;
+
+    let _window = video.create_window("rsdl3 app", 800, 600, None)?;
+
+    Ok(())
+}
+```
+
+For classic mode, provide your own panic handler and SDL main shim from the
+final application or platform build system.
 
 ```c
 #define SDL_MAIN_AVAILABLE 1
-#include <SDL3/SDL_main.h>
-```
-
-Callback mode shim:
-
-```c
-#define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL_main.h>
 ```
 
@@ -190,11 +169,11 @@ panic = "abort"
 panic = "abort"
 ```
 
-The `panic_handler` feature logs the panic through SDL logging and exits with
+The `app` feature installs a panic handler that logs through SDL and exits with
 status `1`.
 
-If your platform needs different behavior, omit `panic_handler` and define your
-own handler in the final application.
+If your platform needs different behavior, disable `app` and define your own
+handler in the final application.
 
 ```rust
 use core::panic::PanicInfo;

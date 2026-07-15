@@ -9,6 +9,7 @@ static IS_SDL_INITIALIZED: AtomicBool = AtomicBool::new(false);
 const INITIALIZED: bool = true;
 const UNINITIALIZED: bool = false;
 
+#[derive(Clone)]
 pub struct Sdl {
     pub(crate) drop: Rc<SdlDrop>,
     audio: Weak<Subsystem<{ sys::SDL_INIT_AUDIO }>>,

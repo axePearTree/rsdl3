@@ -1,11 +1,11 @@
 fn main() {
     println!("cargo:rerun-if-changed=src/runtime/sdl_main_shim.c");
 
-    if std::env::var_os("CARGO_FEATURE_RUNTIME_SHIM").is_some() {
+    if std::env::var_os("CARGO_FEATURE_APP").is_some() {
         let mut build = cc::Build::new();
         build.file("src/runtime/sdl_main_shim.c");
 
-        if std::env::var_os("CARGO_FEATURE_USE_CALLBACKS").is_some() {
+        if std::env::var_os("CARGO_FEATURE_CALLBACKS").is_some() {
             // SDL callback mode requires this before including SDL_main.h.
             // SDL then provides SDL_main, which calls SDL_EnterAppMainCallbacks.
             build.define("SDL_MAIN_USE_CALLBACKS", "1");

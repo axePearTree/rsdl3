@@ -259,7 +259,7 @@ impl EventAction {
 /// A wrapper on top of [`sys::SDL_Event`].
 ///
 /// To read the contents of the event, convert this type into an [`EventPayload`] by calling
-/// [`Event::into_payload`].
+/// [`Event::payload`].
 #[repr(transparent)]
 #[derive(Copy, Clone)]
 pub struct Event(pub(crate) sys::SDL_Event);
